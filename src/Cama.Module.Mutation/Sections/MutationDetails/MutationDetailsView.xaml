@@ -2,8 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
-             prism:ViewModelLocator.AutoWireViewModel="True"
-             Background="Aquamarine">
-    <Grid>
-    </Grid>
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <StackPanel>
+        <Button Command="{Binding StartCommand}" Content="CLICK ME" Width="200" Height="400"/>
+    </StackPanel>
 </UserControl>

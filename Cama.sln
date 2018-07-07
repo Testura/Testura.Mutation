@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{6490
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Module.Mutation", "src\Cama.Module.Mutation\Cama.Module.Mutation.csproj", "{492649C1-125A-457E-8F14-9E785DCFFD49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.TestRunner", "src\Cama.TestRunner\Cama.TestRunner.csproj", "{2B3F0D89-1860-4B9F-8E3A-D046EB5C01A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{492649C1-125A-457E-8F14-9E785DCFFD49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{492649C1-125A-457E-8F14-9E785DCFFD49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{492649C1-125A-457E-8F14-9E785DCFFD49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B3F0D89-1860-4B9F-8E3A-D046EB5C01A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B3F0D89-1860-4B9F-8E3A-D046EB5C01A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B3F0D89-1860-4B9F-8E3A-D046EB5C01A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B3F0D89-1860-4B9F-8E3A-D046EB5C01A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
