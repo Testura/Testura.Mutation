@@ -1,4 +1,4 @@
-﻿using Cama.Infrastructure;
+﻿using Cama.Common;
 using Cama.Module.Mutation.Sections.MutationDetails;
 using Cama.Module.Mutation.Sections.MutationOverview;
 using Cama.Module.Mutation.Sections.Shell;

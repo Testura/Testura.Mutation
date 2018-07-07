@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
-using Cama.Business.Mutation;
-using Testura.Module.TestRunner.Result;
+using Cama.Core.Mutation;
+using Cama.Core.TestRunner.Result;
 
 namespace Cama.Module.Mutation.Models
 {

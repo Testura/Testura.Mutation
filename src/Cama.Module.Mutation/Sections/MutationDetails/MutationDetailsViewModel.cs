@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Cama.Business.Services;
+using Cama.Core.Services;
 using Cama.Module.Mutation.Models;
 using Prism.Commands;
 using Prism.Mvvm;

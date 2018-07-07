@@ -64,17 +64,13 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cama.Business\Cama.Business.csproj">
-      <Project>{43eb1e4e-4f79-4554-b358-4a6d711ce39a}</Project>
-      <Name>Cama.Business</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cama.Infrastructure\Cama.Infrastructure.csproj">
+    <ProjectReference Include="..\Cama.Common\Cama.Common.csproj">
       <Project>{4e413455-59c5-4da5-870a-a3481d2c6b8a}</Project>
-      <Name>Cama.Infrastructure</Name>
+      <Name>Cama.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cama.TestRunner\Cama.TestRunner.csproj">
-      <Project>{2b3f0d89-1860-4b9f-8e3a-d046eb5c01a4}</Project>
-      <Name>Cama.TestRunner</Name>
+    <ProjectReference Include="..\Cama.Core\Cama.Core.csproj">
+      <Project>{43eb1e4e-4f79-4554-b358-4a6d711ce39a}</Project>
+      <Name>Cama.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +88,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes">
+      <Version>2.4.0.1044</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Build.Locator">
       <Version>1.0.18</Version>
     </PackageReference>

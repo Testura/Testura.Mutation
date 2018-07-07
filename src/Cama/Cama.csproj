@@ -36,6 +36,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.4.0.1044, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\Mille\.nuget\packages\materialdesignthemes\2.4.0.1044\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -56,6 +60,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Sections\Menu\MenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Sections\Shell\ShellWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -65,6 +73,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Sections\Menu\MenuView.xaml.cs">
+      <DependentUpon>MenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\Menu\MenuViewModel.cs" />
     <Compile Include="Sections\Shell\ShellWindowViewModel.cs" />
     <Compile Include="Sections\Shell\ShellWindow.xaml.cs">
       <DependentUpon>ShellWindow.xaml</DependentUpon>
@@ -95,15 +107,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes">
+      <Version>2.4.0.1044</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Build.Locator">
       <Version>1.0.18</Version>
     </PackageReference>
     <PackageReference Include="Prism.Unity" Version="6.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cama.Infrastructure\Cama.Infrastructure.csproj">
+    <ProjectReference Include="..\Cama.Common\Cama.Common.csproj">
       <Project>{4e413455-59c5-4da5-870a-a3481d2c6b8a}</Project>
-      <Name>Cama.Infrastructure</Name>
+      <Name>Cama.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cama.Module.Mutation\Cama.Module.Mutation.csproj">
       <Project>{492649c1-125a-457e-8f14-9e785dcffd49}</Project>

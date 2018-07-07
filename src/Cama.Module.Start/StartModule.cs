@@ -1,4 +1,4 @@
-﻿using Cama.Infrastructure;
+﻿using Cama.Common;
 using Cama.Module.Start.Sections.Welcome;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;

@@ -5,15 +5,13 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama", "src\Cama\Cama.csproj", "{5566D42B-8E32-473A-AD1B-1717B00FB092}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Infrastructure", "src\Cama.Infrastructure\Cama.Infrastructure.csproj", "{4E413455-59C5-4DA5-870A-A3481D2C6B8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Common", "src\Cama.Common\Cama.Common.csproj", "{4E413455-59C5-4DA5-870A-A3481D2C6B8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Business", "src\Cama.Business\Cama.Business.csproj", "{43EB1E4E-4F79-4554-B358-4A6D711CE39A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Core", "src\Cama.Core\Cama.Core.csproj", "{43EB1E4E-4F79-4554-B358-4A6D711CE39A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{6490D4F2-E591-4013-A80A-6BB0B50F2C21}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Module.Mutation", "src\Cama.Module.Mutation\Cama.Module.Mutation.csproj", "{492649C1-125A-457E-8F14-9E785DCFFD49}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.TestRunner", "src\Cama.TestRunner\Cama.TestRunner.csproj", "{2B3F0D89-1860-4B9F-8E3A-D046EB5C01A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Module.Start", "src\Cama.Module.Start\Cama.Module.Start.csproj", "{31FAF894-3343-4FD3-9116-A27A19AFD45B}"
 EndProject
@@ -39,10 +37,6 @@ Global
 		{492649C1-125A-457E-8F14-9E785DCFFD49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{492649C1-125A-457E-8F14-9E785DCFFD49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{492649C1-125A-457E-8F14-9E785DCFFD49}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B3F0D89-1860-4B9F-8E3A-D046EB5C01A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B3F0D89-1860-4B9F-8E3A-D046EB5C01A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B3F0D89-1860-4B9F-8E3A-D046EB5C01A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B3F0D89-1860-4B9F-8E3A-D046EB5C01A4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{31FAF894-3343-4FD3-9116-A27A19AFD45B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{31FAF894-3343-4FD3-9116-A27A19AFD45B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31FAF894-3343-4FD3-9116-A27A19AFD45B}.Release|Any CPU.ActiveCfg = Release|Any CPU
