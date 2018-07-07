@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Windows;
 using Cama.Module.Mutation;
+using Cama.Module.Start;
 using Cama.Sections.Shell;
 using Prism.Modularity;
 using Microsoft.Practices.Unity;
@@ -49,12 +50,21 @@ namespace Cama
 
         protected override void ConfigureModuleCatalog()
         {
+            var startModule = typeof(StartModule);
             var mutationModule = typeof(MutationModule);
+
+            ModuleCatalog.AddModule(new ModuleInfo
+            {
+                ModuleName = startModule.Name,
+                ModuleType = startModule.AssemblyQualifiedName,
+                InitializationMode = InitializationMode.WhenAvailable
+            });
+
             ModuleCatalog.AddModule(new ModuleInfo
             {
                 ModuleName = mutationModule.Name,
                 ModuleType = mutationModule.AssemblyQualifiedName,
-                InitializationMode = InitializationMode.WhenAvailable
+                InitializationMode = InitializationMode.OnDemand
             });
         }
     }

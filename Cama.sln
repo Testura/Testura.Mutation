@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Module.Mutation", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.TestRunner", "src\Cama.TestRunner\Cama.TestRunner.csproj", "{2B3F0D89-1860-4B9F-8E3A-D046EB5C01A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Module.Start", "src\Cama.Module.Start\Cama.Module.Start.csproj", "{31FAF894-3343-4FD3-9116-A27A19AFD45B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,12 +43,17 @@ Global
 		{2B3F0D89-1860-4B9F-8E3A-D046EB5C01A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B3F0D89-1860-4B9F-8E3A-D046EB5C01A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B3F0D89-1860-4B9F-8E3A-D046EB5C01A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31FAF894-3343-4FD3-9116-A27A19AFD45B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31FAF894-3343-4FD3-9116-A27A19AFD45B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31FAF894-3343-4FD3-9116-A27A19AFD45B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31FAF894-3343-4FD3-9116-A27A19AFD45B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{492649C1-125A-457E-8F14-9E785DCFFD49} = {6490D4F2-E591-4013-A80A-6BB0B50F2C21}
+		{31FAF894-3343-4FD3-9116-A27A19AFD45B} = {6490D4F2-E591-4013-A80A-6BB0B50F2C21}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C14D27F5-1332-495A-A4BA-A03DBD925174}
