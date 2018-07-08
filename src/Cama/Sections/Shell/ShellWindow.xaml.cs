@@ -16,6 +16,7 @@ namespace Cama.Sections.Shell
         public void AddTab(TabItem userControl)
         {
             MyTabControl.Items.Add(userControl);
+            MyTabControl.SelectedItem = userControl;
         }
 
         public void RemoveTab(string name)

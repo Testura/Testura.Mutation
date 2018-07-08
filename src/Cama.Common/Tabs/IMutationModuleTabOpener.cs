@@ -1,7 +1,11 @@
-﻿namespace Cama.Common.Tabs
+﻿using Cama.Core.Mutation;
+
+namespace Cama.Common.Tabs
 {
     public interface IMutationModuleTabOpener
     {
-        void OpenMutationOverviewTab();
+        void OpenOverviewTab();
+
+        void OpenDocumentDetailsTab(MutatedDocument document);
     }
 }

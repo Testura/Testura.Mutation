@@ -1,4 +1,6 @@
 ﻿using Cama.Common.Tabs;
+using Cama.Core.Mutation;
+using Cama.Module.Mutation.Sections.Details;
 using Cama.Module.Mutation.Sections.Overview;
 
 namespace Cama.Module.Mutation.Tab
@@ -12,9 +14,14 @@ namespace Cama.Module.Mutation.Tab
             _mainTabContainer = mainTabContainer;
         }
 
-        public void OpenMutationOverviewTab()
+        public void OpenOverviewTab()
         {
             _mainTabContainer.AddTab(new MutationOverviewView());
+        }
+
+        public void OpenDocumentDetailsTab(MutatedDocument document)
+        {
+            _mainTabContainer.AddTab(new MutationDetailsView(document));
         }
     }
 }

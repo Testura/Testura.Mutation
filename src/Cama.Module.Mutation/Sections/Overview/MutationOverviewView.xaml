@@ -1,7 +1,8 @@
 ﻿<TabItem x:Class="Cama.Module.Mutation.Sections.Overview.MutationOverviewView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              prism:ViewModelLocator.AutoWireViewModel="True"
              Header="Overview">
     <Grid>
@@ -19,6 +20,11 @@
                       CanUserAddRows="False"
                       ItemsSource="{Binding Documents}"
                       Grid.Row="1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding DocumentSelectedCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Change in file" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True" MinWidth="200"/>
                 <DataGridTextColumn Header="Method"

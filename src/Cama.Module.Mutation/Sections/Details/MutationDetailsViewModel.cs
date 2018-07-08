@@ -1,36 +1,27 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Threading.Tasks;
-using Cama.Core.Services;
-using Cama.Module.Mutation.Models;
-using Prism.Commands;
+using Cama.Core.Mutation;
+using Microsoft.CodeAnalysis;
 using Prism.Mvvm;
 
 namespace Cama.Module.Mutation.Sections.Details
 {
-    public class MutationDetailsViewModel : BindableBase
+    public class MutationDetailsViewModel : BindableBase, INotifyPropertyChanged
     {
-        private readonly SomeService _someService;
-
-        public MutationDetailsViewModel(SomeService someService)
+        public MutationDetailsViewModel()
         {
-            _someService = someService;
-            Documents = new ObservableCollection<DocumentRowModel>();
-            StartCommand = new DelegateCommand(Start);
         }
 
-        public DelegateCommand StartCommand { get; set; }
+        public MutatedDocument Document { get; set; }
 
-        public ObservableCollection<DocumentRowModel> Documents { get; set; }
-
-        private async void Start()
+        public void Initialize(MutatedDocument document)
         {
-
+            Document = document;
         }
 
         private async Task RunTestsAsync()
         {
+            /*
             var testService = new TestRunnerService();
             var runs = Documents.Select((d) => new Task(async () =>
             {
@@ -75,6 +66,7 @@ namespace Cama.Module.Mutation.Sections.Details
 
             var i = 0;
             i++;
+            */
         }
     }
 }

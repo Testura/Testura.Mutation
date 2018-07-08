@@ -26,7 +26,7 @@ namespace Cama.Module.Start.Sections.Welcome
         private void ClickMe()
         {
             _mainTabContainer.RemoveTab("Welcome");
-            _mutationModuleTabOpener.OpenMutationOverviewTab();
+            _mutationModuleTabOpener.OpenOverviewTab();
         }
     }
 }

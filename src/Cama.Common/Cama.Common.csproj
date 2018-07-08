@@ -46,5 +46,11 @@
     <Compile Include="Tabs\IMainTabContainer.cs" />
     <Compile Include="Tabs\IMutationModuleTabOpener.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cama.Core\Cama.Core.csproj">
+      <Project>{43eb1e4e-4f79-4554-b358-4a6d711ce39a}</Project>
+      <Name>Cama.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
