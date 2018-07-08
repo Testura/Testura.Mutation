@@ -1,22 +1,27 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Cama.Core.Mutation;
-using Microsoft.CodeAnalysis;
 using Prism.Mvvm;
 
 namespace Cama.Module.Mutation.Sections.Details
 {
     public class MutationDetailsViewModel : BindableBase, INotifyPropertyChanged
     {
-        public MutationDetailsViewModel()
-        {
-        }
+        public IList<string> UnitTests { get; set; }
 
-        public MutatedDocument Document { get; set; }
+        public string CodeAfterMutation { get; set; }
+
+        public string CodeBeforeMutation { get; set; }
+
+        public string FileName { get; set; }
 
         public void Initialize(MutatedDocument document)
         {
-            Document = document;
+            FileName = document.FileName;
+            CodeBeforeMutation = document.Replacer.Orginal.ToFullString();
+            CodeAfterMutation = document.Replacer.Replace.ToFullString();
+            UnitTests = document.Tests;
         }
 
         private async Task RunTestsAsync()
