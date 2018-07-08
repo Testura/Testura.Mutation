@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows;
+using Cama.Common.Tabs;
 using Cama.Module.Mutation;
+using Cama.Module.Mutation.Tab;
 using Cama.Module.Start;
 using Cama.Sections.Shell;
 using Prism.Modularity;
@@ -66,6 +68,13 @@ namespace Cama
                 ModuleType = mutationModule.AssemblyQualifiedName,
                 InitializationMode = InitializationMode.OnDemand
             });
+        }
+
+        protected override void ConfigureContainer()
+        {
+            base.ConfigureContainer();
+            Container.RegisterType<IMainTabContainer, TabContainer>();
+            Container.RegisterType<IMutationModuleTabOpener, MutationTabOpener>();
         }
     }
 }

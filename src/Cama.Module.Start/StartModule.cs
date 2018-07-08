@@ -9,17 +9,14 @@ namespace Cama.Module.Start
     public class StartModule : IModule
     {
         private readonly IUnityContainer _container;
-        private readonly IRegionManager _regionManager;
 
-        public StartModule(IUnityContainer container, IRegionManager regionManager)
+        public StartModule(IUnityContainer container)
         {
             _container = container;
-            _regionManager = regionManager;
         }
 
         public void Initialize()
         {
-            _regionManager.RegisterViewWithRegion(RegionNames.MainContentRegion, typeof(WelcomeView));
         }
     }
 }

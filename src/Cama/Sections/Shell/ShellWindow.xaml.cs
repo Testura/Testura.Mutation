@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace Cama.Sections.Shell
 {
@@ -10,6 +11,23 @@ namespace Cama.Sections.Shell
         public ShellWindow()
         {
             InitializeComponent();
+        }
+
+        public void AddTab(TabItem userControl)
+        {
+            MyTabControl.Items.Add(userControl);
+        }
+
+        public void RemoveTab(string name)
+        {
+            for (int n = 0; n < MyTabControl.Items.Count; n++)
+            {
+                var tabItem = MyTabControl.Items[n] as TabItem;
+                if (tabItem.Header.ToString() == name)
+                {
+                    MyTabControl.Items.Remove(tabItem);
+                }
+            }
         }
     }
 }

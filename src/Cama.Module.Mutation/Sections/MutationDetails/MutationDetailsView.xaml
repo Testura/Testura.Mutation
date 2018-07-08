@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Cama.Module.Mutation.Sections.MutationDetails.MutationDetailsView"
+﻿<TabItem x:Class="Cama.Module.Mutation.Sections.MutationDetails.MutationDetailsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
@@ -6,4 +6,4 @@
     <StackPanel>
         <Button Command="{Binding StartCommand}" Content="CLICK ME" Width="200" Height="400"/>
     </StackPanel>
-</UserControl>
+</TabItem>

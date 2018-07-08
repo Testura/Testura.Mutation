@@ -60,6 +60,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Sections\Shell\TabContainer.cs" />
+    <Compile Include="Sections\Shell\TabShellWindow.xaml.cs">
+      <DependentUpon>TabShellWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Resources\MaterialDesign.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Sections\Menu\MenuView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -77,11 +85,16 @@
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sections\Menu\MenuViewModel.cs" />
-    <Compile Include="Sections\Shell\ShellWindowViewModel.cs" />
+    <Compile Include="Sections\Shell\MyInterTabClient.cs" />
+    <Compile Include="Sections\Shell\ShellViewModel.cs" />
     <Compile Include="Sections\Shell\ShellWindow.xaml.cs">
       <DependentUpon>ShellWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Sections\Shell\TabShellWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -107,6 +120,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Dragablz">
+      <Version>0.0.3.203</Version>
+    </PackageReference>
     <PackageReference Include="MaterialDesignThemes">
       <Version>2.4.0.1044</Version>
     </PackageReference>

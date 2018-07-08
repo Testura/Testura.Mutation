@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\settings\Cama.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,10 +48,6 @@
     <Compile Include="Models\DocumentRowModel.cs" />
     <Compile Include="MutationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sections\Shell\MutationShellView.xaml.cs">
-      <DependentUpon>MutationShellView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Sections\Shell\MutationMainViewModel.cs" />
     <Compile Include="Sections\MutationDetails\MutationDetailsView.xaml.cs">
       <DependentUpon>MutationDetailsView.xaml</DependentUpon>
     </Compile>
@@ -59,6 +56,7 @@
       <DependentUpon>MutationOverviewView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sections\MutationOverview\MutationOverviewViewModel.cs" />
+    <Compile Include="Tab\MutationTabOpener.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -74,10 +72,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Sections\Shell\MutationShellView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Sections\MutationDetails\MutationDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -88,6 +82,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Dragablz">
+      <Version>0.0.3.203</Version>
+    </PackageReference>
     <PackageReference Include="MaterialDesignThemes">
       <Version>2.4.0.1044</Version>
     </PackageReference>
