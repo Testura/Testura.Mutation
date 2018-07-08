@@ -5,6 +5,25 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              Header="Overview">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+            <Button Content="Create documents" Command="{Binding CreateDocumentsCommand}" Width="200" Grid.Row="0" HorizontalAlignment="Left" Margin="10, 0, 0, 0"/>
+        <DataGrid x:Name="MetroDataGrid"
+                      Margin="10, 0, 10, 10"
+                      SelectionUnit="FullRow"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="False"
+                      CanUserSortColumns="False"
+                      CanUserAddRows="False"
+                      ItemsSource="{Binding Documents}"
+                      Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Change in file" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True" MinWidth="200"/>
+                <DataGridTextColumn Header="Method"
+                                        Binding="{Binding Document.Replacer.Method.Identifier}" Width="*" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </TabItem>

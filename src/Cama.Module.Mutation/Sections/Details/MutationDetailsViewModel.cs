@@ -26,13 +26,7 @@ namespace Cama.Module.Mutation.Sections.Details
 
         private async void Start()
         {
-            var result = await _someService.DoSomeWorkAsync(@"D:\Programmering\Testura\Testura.Code\Testura.Code.sln", "Testura.Code", "Testura.Code.Tests");
-            foreach (var mutatedDocument in result)
-            {
-                Documents.Add(new DocumentRowModel { Document = mutatedDocument, Status = "Not run" });
-            }
 
-            await RunTestsAsync();
         }
 
         private async Task RunTestsAsync()
