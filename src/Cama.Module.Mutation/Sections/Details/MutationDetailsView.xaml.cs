@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Cama.Module.Mutation.Sections.MutationDetails
+namespace Cama.Module.Mutation.Sections.Details
 {
     /// <summary>
     /// Interaction logic for MutationDetailsView

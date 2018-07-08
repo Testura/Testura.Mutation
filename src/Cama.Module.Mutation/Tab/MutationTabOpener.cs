@@ -1,5 +1,5 @@
 ﻿using Cama.Common.Tabs;
-using Cama.Module.Mutation.Sections.MutationOverview;
+using Cama.Module.Mutation.Sections.Overview;
 
 namespace Cama.Module.Mutation.Tab
 {

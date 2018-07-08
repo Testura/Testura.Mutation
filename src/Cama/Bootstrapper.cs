@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Windows;
 using Cama.Common.Tabs;
+using Cama.Module.Debug;
 using Cama.Module.Mutation;
 using Cama.Module.Mutation.Tab;
 using Cama.Module.Start;
@@ -54,6 +55,7 @@ namespace Cama
         {
             var startModule = typeof(StartModule);
             var mutationModule = typeof(MutationModule);
+            var debugModule = typeof(DebugModule);
 
             ModuleCatalog.AddModule(new ModuleInfo
             {
@@ -67,6 +69,13 @@ namespace Cama
                 ModuleName = mutationModule.Name,
                 ModuleType = mutationModule.AssemblyQualifiedName,
                 InitializationMode = InitializationMode.OnDemand
+            });
+
+            ModuleCatalog.AddModule(new ModuleInfo
+            {
+                ModuleName = debugModule.Name,
+                ModuleType = debugModule.AssemblyQualifiedName,
+                InitializationMode = InitializationMode.WhenAvailable
             });
         }
 

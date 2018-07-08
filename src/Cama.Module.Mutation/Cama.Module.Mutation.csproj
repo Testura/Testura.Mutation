@@ -48,14 +48,14 @@
     <Compile Include="Models\DocumentRowModel.cs" />
     <Compile Include="MutationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sections\MutationDetails\MutationDetailsView.xaml.cs">
+    <Compile Include="Sections\Details\MutationDetailsView.xaml.cs">
       <DependentUpon>MutationDetailsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sections\MutationDetails\MutationDetailsViewModel.cs" />
-    <Compile Include="Sections\MutationOverview\MutationOverviewView.xaml.cs">
+    <Compile Include="Sections\Details\MutationDetailsViewModel.cs" />
+    <Compile Include="Sections\Overview\MutationOverviewView.xaml.cs">
       <DependentUpon>MutationOverviewView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sections\MutationOverview\MutationOverviewViewModel.cs" />
+    <Compile Include="Sections\Overview\MutationOverviewViewModel.cs" />
     <Compile Include="Tab\MutationTabOpener.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,11 +72,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Sections\MutationDetails\MutationDetailsView.xaml">
+    <Page Include="Sections\Details\MutationDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Sections\MutationOverview\MutationOverviewView.xaml">
+    <Page Include="Sections\Overview\MutationOverviewView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

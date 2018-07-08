@@ -136,6 +136,10 @@
       <Project>{4e413455-59c5-4da5-870a-a3481d2c6b8a}</Project>
       <Name>Cama.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cama.Module.Debug\Cama.Module.Debug.csproj">
+      <Project>{a205b338-b1d2-4b72-8d13-58c67cd75306}</Project>
+      <Name>Cama.Module.Debug</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cama.Module.Mutation\Cama.Module.Mutation.csproj">
       <Project>{492649c1-125a-457e-8f14-9e785dcffd49}</Project>
       <Name>Cama.Module.Mutation</Name>

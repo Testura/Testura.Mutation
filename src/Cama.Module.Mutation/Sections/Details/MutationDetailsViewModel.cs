@@ -7,7 +7,7 @@ using Cama.Module.Mutation.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 
-namespace Cama.Module.Mutation.Sections.MutationDetails
+namespace Cama.Module.Mutation.Sections.Details
 {
     public class MutationDetailsViewModel : BindableBase
     {
