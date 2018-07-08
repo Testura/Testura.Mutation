@@ -3,12 +3,13 @@ using System.Reflection;
 using System.Windows;
 using Cama.Common.Tabs;
 using Cama.Module.Debug;
+using Cama.Module.Menu;
 using Cama.Module.Mutation;
 using Cama.Module.Mutation.Tab;
 using Cama.Module.Start;
 using Cama.Sections.Shell;
-using Prism.Modularity;
 using Microsoft.Practices.Unity;
+using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Unity;
 
@@ -53,29 +54,19 @@ namespace Cama
 
         protected override void ConfigureModuleCatalog()
         {
-            var startModule = typeof(StartModule);
-            var mutationModule = typeof(MutationModule);
-            var debugModule = typeof(DebugModule);
+            AddModule(typeof(StartModule), InitializationMode.WhenAvailable);
+            AddModule(typeof(MutationModule), InitializationMode.OnDemand);
+            AddModule(typeof(DebugModule), InitializationMode.WhenAvailable);
+            AddModule(typeof(MenuModule), InitializationMode.WhenAvailable);
+        }
 
+        private void AddModule(Type type, InitializationMode mode)
+        {
             ModuleCatalog.AddModule(new ModuleInfo
             {
-                ModuleName = startModule.Name,
-                ModuleType = startModule.AssemblyQualifiedName,
-                InitializationMode = InitializationMode.WhenAvailable
-            });
-
-            ModuleCatalog.AddModule(new ModuleInfo
-            {
-                ModuleName = mutationModule.Name,
-                ModuleType = mutationModule.AssemblyQualifiedName,
-                InitializationMode = InitializationMode.OnDemand
-            });
-
-            ModuleCatalog.AddModule(new ModuleInfo
-            {
-                ModuleName = debugModule.Name,
-                ModuleType = debugModule.AssemblyQualifiedName,
-                InitializationMode = InitializationMode.WhenAvailable
+                ModuleName = type.Name,
+                ModuleType = type.AssemblyQualifiedName,
+                InitializationMode = mode
             });
         }
 

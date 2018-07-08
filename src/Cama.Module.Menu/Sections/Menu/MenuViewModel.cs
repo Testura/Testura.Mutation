@@ -1,11 +1,10 @@
 ﻿using Cama.Common.Tabs;
-using Cama.Module.Start.Sections.Welcome;
 using Prism.Commands;
 using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Regions;
 
-namespace Cama.Sections.Menu
+namespace Cama.Module.Menu.Sections.Menu
 {
     public class MenuViewModel : BindableBase
     {
@@ -25,7 +24,6 @@ namespace Cama.Sections.Menu
 
         private void NewProject()
         {
-            _mainTabContainer.AddTab(new WelcomeView());
             /*
             _moduleManager.LoadModule(nameof(MutationModule));
             _regionManager.RequestNavigate(RegionNames.MainContentRegion, new Uri(typeof(MutationShellView).FullName, UriKind.Relative));
