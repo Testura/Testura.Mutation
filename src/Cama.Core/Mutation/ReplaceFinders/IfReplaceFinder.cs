@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Replacer = Cama.Core.Models.Mutation.Replacer;
 
 namespace Cama.Core.Mutation.ReplaceFinders
 {

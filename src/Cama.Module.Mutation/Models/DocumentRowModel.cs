@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
-using Cama.Core.Mutation;
-using Cama.Core.TestRunner.Result;
+using Cama.Core.Models;
+using Cama.Core.Models.Mutation;
 
 namespace Cama.Module.Mutation.Models
 {
@@ -14,6 +14,6 @@ namespace Cama.Module.Mutation.Models
 
         public string Status { get; set; }
 
-        public NUnitTestSuiteResult LatestResult { get; set; }
+        public TestSuiteResult LatestResult { get; set; }
     }
 }

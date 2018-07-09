@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cama.Core.Mutation.Analyzer
+namespace Cama.Core.Models.Mutation
 {
     public class UnitTestInformation
     {

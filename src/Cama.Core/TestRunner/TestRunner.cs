@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
-using Cama.Core.TestRunner.Result;
 using Cama.Core.TestRunner.Result.Maker;
 using NUnit;
 using NUnit.Engine;
 using NUnit.Engine.Runners;
 using NUnit.Engine.Services;
+using TestSuiteResult = Cama.Core.Models.TestSuiteResult;
 
 namespace Cama.Core.TestRunner
 {
     public class TestRunner : ITestRunner
     {
-        public NUnitTestSuiteResult RunTests(string dllPath, IList<string> testNames)
+        public TestSuiteResult RunTests(string dllPath, IList<string> testNames)
         {
             var package = new TestPackage(dllPath);
 
@@ -50,7 +50,7 @@ namespace Cama.Core.TestRunner
             return builder.GetFilter();
         }
 
-        private static NUnitTestSuiteResult CreateResult(XmlNode result)
+        private static TestSuiteResult CreateResult(XmlNode result)
         {
             var nUnitTestCaseResultMaker = new NUnitTestCaseResultMaker();
             if (result.Name != "test-run")
@@ -60,7 +60,7 @@ namespace Cama.Core.TestRunner
 
             var name = result.GetAttribute("name");
             var testCaseResults = nUnitTestCaseResultMaker.CreateTestCaseResult(result);
-            return new NUnitTestSuiteResult(name, testCaseResults, result.InnerXml);
+            return new TestSuiteResult(name, testCaseResults, result.InnerXml);
         }
     }
 }

@@ -43,19 +43,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\CompilationException.cs" />
+    <Compile Include="Models\CompilationError.cs" />
+    <Compile Include="Models\CompilationResult.cs" />
+    <Compile Include="Models\Mutation\MutatedDocument.cs" />
+    <Compile Include="Models\Mutation\MutationDocumentResult.cs" />
+    <Compile Include="Models\Mutation\Replacer.cs" />
+    <Compile Include="Models\Mutation\UnitTestInformation.cs" />
+    <Compile Include="Models\TestResult.cs" />
+    <Compile Include="Models\TestSuiteResult.cs" />
     <Compile Include="Mutation\Analyzer\UnitTestAnalyzer.cs" />
-    <Compile Include="Mutation\Analyzer\UnitTestInformation.cs" />
-    <Compile Include="Mutation\MutatedDocument.cs" />
     <Compile Include="Mutation\ReplaceFinders\IfReplaceFinder.cs" />
-    <Compile Include="Mutation\Replacer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DependencyFilesHandler.cs" />
+    <Compile Include="Services\MutatedDocumentCompiler.cs" />
     <Compile Include="Services\SomeService.cs" />
-    <Compile Include="Services\TestRunnerService.cs" />
     <Compile Include="TestRunner\ITestRunner.cs" />
     <Compile Include="TestRunner\Result\Maker\INUnitTestCaseResultMaker.cs" />
     <Compile Include="TestRunner\Result\Maker\NUnitTestCaseResultMaker.cs" />
-    <Compile Include="TestRunner\Result\NunitTestCaseResult.cs" />
-    <Compile Include="TestRunner\Result\NUnitTestSuiteResult.cs" />
     <Compile Include="TestRunner\TestCaseRunData.cs" />
     <Compile Include="TestRunner\TestRunner.cs" />
   </ItemGroup>

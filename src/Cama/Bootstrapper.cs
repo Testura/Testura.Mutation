@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Windows;
 using Cama.Common.Tabs;
 using Cama.Module.Debug;
+using Cama.Module.Loading;
 using Cama.Module.Menu;
 using Cama.Module.Mutation;
 using Cama.Module.Mutation.Tab;
@@ -58,6 +59,7 @@ namespace Cama
             AddModule(typeof(MutationModule), InitializationMode.OnDemand);
             AddModule(typeof(DebugModule), InitializationMode.WhenAvailable);
             AddModule(typeof(MenuModule), InitializationMode.WhenAvailable);
+            AddModule(typeof(LoadingModule), InitializationMode.WhenAvailable);
         }
 
         private void AddModule(Type type, InitializationMode mode)

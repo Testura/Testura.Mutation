@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Cama.Core.TestRunner.Result
+namespace Cama.Core.Models
 {
     [Serializable]
-    public class NUnitTestCaseResult
+    public class TestResult
     {
         /// <summary>
         /// Gets or sets the full name of this test

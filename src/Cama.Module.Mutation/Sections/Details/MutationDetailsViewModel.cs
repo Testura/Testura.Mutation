@@ -1,13 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading.Tasks;
-using Cama.Core.Mutation;
+using Cama.Common.Tabs;
+using Cama.Core.Models.Mutation;
+using Prism.Commands;
 using Prism.Mvvm;
 
 namespace Cama.Module.Mutation.Sections.Details
 {
     public class MutationDetailsViewModel : BindableBase, INotifyPropertyChanged
     {
+        private readonly IMutationModuleTabOpener _tabOpener;
+        private MutatedDocument _document;
+
+        public MutationDetailsViewModel(IMutationModuleTabOpener tabOpener)
+        {
+            _tabOpener = tabOpener;
+            ExecuteTestsCommand = new DelegateCommand(ExecuteTests);
+        }
+
         public IList<string> UnitTests { get; set; }
 
         public string CodeAfterMutation { get; set; }
@@ -16,62 +26,20 @@ namespace Cama.Module.Mutation.Sections.Details
 
         public string FileName { get; set; }
 
+        public DelegateCommand ExecuteTestsCommand { get; set; }
+
         public void Initialize(MutatedDocument document)
         {
+            _document = document;
             FileName = document.FileName;
             CodeBeforeMutation = document.Replacer.Orginal.ToFullString();
             CodeAfterMutation = document.Replacer.Replace.ToFullString();
             UnitTests = document.Tests;
         }
 
-        private async Task RunTestsAsync()
+        private void ExecuteTests()
         {
-            /*
-            var testService = new TestRunnerService();
-            var runs = Documents.Select((d) => new Task(async () =>
-            {
-                d.Status = "Running..";
-                var testResult = await testService.RunTestsAsync(d.Document);
-
-                if (testResult == null)
-                {
-                    d.Status = "Unexpected result...";
-                    return;
-                }
-
-                if (testResult.IsSuccess)
-                {
-                    d.Status = "Failed..";
-                }
-                else
-                {
-                    d.Status = "Success";
-                }
-
-                d.LatestResult = testResult;
-            }));
-
-            var queue = new Queue<Task>(runs.Take(10));
-            var waitList = new List<Task>();
-
-            while (queue.Any())
-            {
-                if (waitList.Count > 10)
-                {
-                    var finishedTask = await Task.WhenAny(waitList.ToArray());
-                    waitList.Remove(finishedTask);
-                }
-                else
-                {
-                    var newOne = queue.Dequeue();
-                    newOne.Start();
-                    waitList.Add(newOne);
-                }
-            }
-
-            var i = 0;
-            i++;
-            */
+            _tabOpener.OpenTestRunTab(new List<MutatedDocument> { _document });
         }
     }
 }

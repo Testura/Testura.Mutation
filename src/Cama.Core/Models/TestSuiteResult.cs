@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Cama.Core.TestRunner.Result
+namespace Cama.Core.Models
 {
-    public class NUnitTestSuiteResult
+    public class TestSuiteResult
     {
         private readonly string _innerXml;
 
-        public NUnitTestSuiteResult(string name, IList<NUnitTestCaseResult> results, string innerXml)
+        public TestSuiteResult(string name, IList<TestResult> results, string innerXml)
         {
             _innerXml = innerXml;
             Name = name;
@@ -25,6 +25,6 @@ namespace Cama.Core.TestRunner.Result
         /// <summary>
         /// Gets the detailed result of this test suite
         /// </summary>
-        public IList<NUnitTestCaseResult> TestResults { get; }
+        public IList<TestResult> TestResults { get; }
     }
 }

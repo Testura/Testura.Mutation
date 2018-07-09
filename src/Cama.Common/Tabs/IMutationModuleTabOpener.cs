@@ -1,4 +1,5 @@
-﻿using Cama.Core.Mutation;
+﻿using System.Collections.Generic;
+using Cama.Core.Models.Mutation;
 
 namespace Cama.Common.Tabs
 {
@@ -7,5 +8,7 @@ namespace Cama.Common.Tabs
         void OpenOverviewTab();
 
         void OpenDocumentDetailsTab(MutatedDocument document);
+
+        void OpenTestRunTab(IList<MutatedDocument> documents);
     }
 }

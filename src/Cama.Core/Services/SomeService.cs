@@ -3,12 +3,13 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cama.Core.Mutation;
+using Cama.Core.Models.Mutation;
 using Cama.Core.Mutation.Analyzer;
 using Cama.Core.Mutation.ReplaceFinders;
 using Microsoft.Build.Locator;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.MSBuild;
+using MutatedDocument = Cama.Core.Models.Mutation.MutatedDocument;
 
 namespace Cama.Core.Services
 {

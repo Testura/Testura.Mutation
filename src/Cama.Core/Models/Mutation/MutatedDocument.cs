@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cama.Core.Mutation.Analyzer;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Editing;
 
-namespace Cama.Core.Mutation
+namespace Cama.Core.Models.Mutation
 {
     public class MutatedDocument
     {

@@ -18,6 +18,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Column="0">
                 <GroupBox
@@ -63,6 +64,7 @@
                     </DataGrid>
                 </GroupBox>
             </Grid>
+            <Button Content="Execute tests for this mutation" HorizontalAlignment="Right" Width="250" Command="{Binding ExecuteTestsCommand}" Grid.Row="2" Grid.Column="2" Margin="0, 0, 15, 0" />
         </Grid>
     </Grid>
 </TabItem>

@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
 using NUnit;
+using TestResult = Cama.Core.Models.TestResult;
 
 namespace Cama.Core.TestRunner.Result.Maker
 {
     public class NUnitTestCaseResultMaker : INUnitTestCaseResultMaker
     {
-        public IList<NUnitTestCaseResult> CreateTestCaseResult(XmlNode startNode)
+        public IList<TestResult> CreateTestCaseResult(XmlNode startNode)
         {
-            return CreateTestCaseResult(startNode, new List<NUnitTestCaseResult>());
+            return CreateTestCaseResult(startNode, new List<TestResult>());
         }
 
-        private IList<NUnitTestCaseResult> CreateTestCaseResult(XmlNode node, IList<NUnitTestCaseResult> results)
+        private IList<TestResult> CreateTestCaseResult(XmlNode node, IList<TestResult> results)
         {
             if (node.Name != "test-case")
             {
@@ -22,7 +23,7 @@ namespace Cama.Core.TestRunner.Result.Maker
             }
             else
             {
-                results.Add(new NUnitTestCaseResult
+                results.Add(new TestResult
                 {
                     FullName = node.GetAttribute("fullname"),
                     Name = node.GetAttribute("name"),

@@ -1,6 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Cama.Core.Mutation
+namespace Cama.Core.Models.Mutation
 {
     public class Replacer
     {

@@ -133,6 +133,10 @@
       <Project>{a205b338-b1d2-4b72-8d13-58c67cd75306}</Project>
       <Name>Cama.Module.Debug</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cama.Module.Loading\Cama.Module.Loading.csproj">
+      <Project>{f98a17e0-3581-4e4c-b5e2-c436fe2e05da}</Project>
+      <Name>Cama.Module.Loading</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cama.Module.Menu\Cama.Module.Menu.csproj">
       <Project>{9a10e0fb-442e-4b7f-8225-3fe14afd756a}</Project>
       <Name>Cama.Module.Menu</Name>

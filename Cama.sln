@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Module.Debug", "src\Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Module.Menu", "src\Cama.Module.Menu\Cama.Module.Menu.csproj", "{9A10E0FB-442E-4B7F-8225-3FE14AFD756A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Module.Loading", "src\Cama.Module.Loading\Cama.Module.Loading.csproj", "{F98A17E0-3581-4E4C-B5E2-C436FE2E05DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{9A10E0FB-442E-4B7F-8225-3FE14AFD756A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A10E0FB-442E-4B7F-8225-3FE14AFD756A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A10E0FB-442E-4B7F-8225-3FE14AFD756A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F98A17E0-3581-4E4C-B5E2-C436FE2E05DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F98A17E0-3581-4E4C-B5E2-C436FE2E05DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F98A17E0-3581-4E4C-B5E2-C436FE2E05DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F98A17E0-3581-4E4C-B5E2-C436FE2E05DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{31FAF894-3343-4FD3-9116-A27A19AFD45B} = {6490D4F2-E591-4013-A80A-6BB0B50F2C21}
 		{A205B338-B1D2-4B72-8D13-58C67CD75306} = {6490D4F2-E591-4013-A80A-6BB0B50F2C21}
 		{9A10E0FB-442E-4B7F-8225-3FE14AFD756A} = {6490D4F2-E591-4013-A80A-6BB0B50F2C21}
+		{F98A17E0-3581-4E4C-B5E2-C436FE2E05DA} = {6490D4F2-E591-4013-A80A-6BB0B50F2C21}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C14D27F5-1332-495A-A4BA-A03DBD925174}

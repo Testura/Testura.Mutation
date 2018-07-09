@@ -21,7 +21,7 @@
                       ItemsSource="{Binding Documents}"
                       Grid.Row="1">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
+                <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding DocumentSelectedCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>

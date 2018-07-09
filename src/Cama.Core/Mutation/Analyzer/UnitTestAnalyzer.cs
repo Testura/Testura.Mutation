@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Cama.Core.Exceptions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using UnitTestInformation = Cama.Core.Models.Mutation.UnitTestInformation;
 
 namespace Cama.Core.Mutation.Analyzer
 {
