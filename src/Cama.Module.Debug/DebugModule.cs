@@ -1,4 +1,4 @@
-﻿using Cama.Common;
+﻿using Cama.Infrastructure;
 using Cama.Module.Debug.Sections.Shell;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;

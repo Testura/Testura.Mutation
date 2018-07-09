@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using Cama.Common.Tabs;
+using Cama.Infrastructure.Tabs;
 
 namespace Cama.Sections.Shell
 {

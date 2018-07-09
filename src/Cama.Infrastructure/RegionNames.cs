@@ -1,4 +1,4 @@
-﻿namespace Cama.Common
+﻿namespace Cama.Infrastructure
 {
     public class RegionNames
     {

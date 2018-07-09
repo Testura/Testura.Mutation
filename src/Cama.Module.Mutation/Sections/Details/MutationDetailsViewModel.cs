@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using Cama.Common.Tabs;
 using Cama.Core.Models.Mutation;
+using Cama.Infrastructure.Tabs;
 using Prism.Commands;
 using Prism.Mvvm;
 

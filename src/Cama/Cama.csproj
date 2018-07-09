@@ -125,9 +125,9 @@
     <PackageReference Include="Prism.Unity" Version="6.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cama.Common\Cama.Common.csproj">
+    <ProjectReference Include="..\Cama.Infrastructure\Cama.Infrastructure.csproj">
       <Project>{4e413455-59c5-4da5-870a-a3481d2c6b8a}</Project>
-      <Name>Cama.Common</Name>
+      <Name>Cama.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cama.Module.Debug\Cama.Module.Debug.csproj">
       <Project>{a205b338-b1d2-4b72-8d13-58c67cd75306}</Project>

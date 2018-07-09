@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using Cama.Common.Tabs;
 using Cama.Core.Services;
+using Cama.Infrastructure;
+using Cama.Infrastructure.Tabs;
 using Cama.Module.Mutation.Models;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -11,11 +12,13 @@ namespace Cama.Module.Mutation.Sections.Overview
     {
         private readonly SomeService _someService;
         private readonly IMutationModuleTabOpener _tabOpener;
+        private readonly ILoadingDisplayer _loadingDisplayer;
 
-        public MutationOverviewViewModel(SomeService someService, IMutationModuleTabOpener tabOpener)
+        public MutationOverviewViewModel(SomeService someService, IMutationModuleTabOpener tabOpener, ILoadingDisplayer loadingDisplayer)
         {
             _someService = someService;
             _tabOpener = tabOpener;
+            _loadingDisplayer = loadingDisplayer;
             Documents = new ObservableCollection<DocumentRowModel>();
             CreateDocumentsCommand = new DelegateCommand(CreateDocuments);
             DocumentSelectedCommand = new DelegateCommand<DocumentRowModel>(DocumentSelected);
@@ -29,11 +32,13 @@ namespace Cama.Module.Mutation.Sections.Overview
 
         private async void CreateDocuments()
         {
+            _loadingDisplayer.ShowLoading("Creating mutation documents");
             var result = await _someService.DoSomeWorkAsync(@"D:\Programmering\Testura\Testura.Code\Testura.Code.sln", "Testura.Code", "Testura.Code.Tests");
             foreach (var mutatedDocument in result)
             {
                 Documents.Add(new DocumentRowModel { Document = mutatedDocument, Status = "Not run" });
             }
+            _loadingDisplayer.HideLoading();
         }
 
         private void DocumentSelected(DocumentRowModel documentRow)

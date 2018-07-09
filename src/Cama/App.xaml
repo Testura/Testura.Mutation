@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="Resources/MaterialDesign.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" />
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

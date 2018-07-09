@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Cama.Common.Tabs;
 using Cama.Core.Models.Mutation;
+using Cama.Infrastructure.Tabs;
 using Cama.Module.Mutation.Sections.Details;
 using Cama.Module.Mutation.Sections.Overview;
 using Cama.Module.Mutation.Sections.TestRun;

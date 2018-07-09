@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama", "src\Cama\Cama.csproj", "{5566D42B-8E32-473A-AD1B-1717B00FB092}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Common", "src\Cama.Common\Cama.Common.csproj", "{4E413455-59C5-4DA5-870A-A3481D2C6B8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Infrastructure", "src\Cama.Infrastructure\Cama.Infrastructure.csproj", "{4E413455-59C5-4DA5-870A-A3481D2C6B8A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Core", "src\Cama.Core\Cama.Core.csproj", "{43EB1E4E-4F79-4554-B358-4A6D711CE39A}"
 EndProject

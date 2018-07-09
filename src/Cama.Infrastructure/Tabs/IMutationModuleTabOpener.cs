@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cama.Core.Models.Mutation;
 
-namespace Cama.Common.Tabs
+namespace Cama.Infrastructure.Tabs
 {
     public interface IMutationModuleTabOpener
     {

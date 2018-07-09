@@ -1,4 +1,4 @@
-﻿using Cama.Common.Tabs;
+﻿using Cama.Infrastructure.Tabs;
 using Prism.Commands;
 using Prism.Mvvm;
 

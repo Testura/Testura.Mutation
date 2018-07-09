@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows;
-using Cama.Common.Tabs;
+using Cama.Infrastructure.Tabs;
 using Cama.Module.Debug;
 using Cama.Module.Loading;
 using Cama.Module.Menu;
