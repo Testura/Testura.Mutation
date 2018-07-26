@@ -13,7 +13,5 @@ namespace Cama.Module.Mutation.Models
         public MutatedDocument Document { get; set; }
 
         public string Status { get; set; }
-
-        public TestSuiteResult LatestResult { get; set; }
     }
 }

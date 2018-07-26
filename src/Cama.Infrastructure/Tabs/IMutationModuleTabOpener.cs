@@ -10,5 +10,7 @@ namespace Cama.Infrastructure.Tabs
         void OpenDocumentDetailsTab(MutatedDocument document);
 
         void OpenTestRunTab(IList<MutatedDocument> documents);
+
+        void OpenDocumentResultTab(MutationDocumentResult result);
     }
 }

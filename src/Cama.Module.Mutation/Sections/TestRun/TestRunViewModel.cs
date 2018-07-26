@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Cama.Core.Models.Mutation;
+using Cama.Infrastructure.Tabs;
 using Cama.Module.Mutation.Models;
 using Cama.Module.Mutation.Services;
 using Prism.Commands;
@@ -16,13 +17,16 @@ namespace Cama.Module.Mutation.Sections.TestRun
     public class TestRunViewModel : BindableBase, INotifyPropertyChanged
     {
         private readonly TestRunnerService _testRunnerService;
+        private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
 
-        public TestRunViewModel(TestRunnerService testRunnerService)
+        public TestRunViewModel(TestRunnerService testRunnerService, IMutationModuleTabOpener mutationModuleTabOpener)
         {
             _testRunnerService = testRunnerService;
+            _mutationModuleTabOpener = mutationModuleTabOpener;
             RunningDocuments = new ObservableCollection<TestRunDocument>();
             CompletedDocuments = new ObservableCollection<MutationDocumentResult>();
             RunCommand = new DelegateCommand(RunTestsAsync);
+            CompletedDocumentSelectedCommand = new DelegateCommand<MutationDocumentResult>(OpenCompleteDocumentTab);
         }
 
         public ObservableCollection<TestRunDocument> RunningDocuments { get; set; }
@@ -30,6 +34,8 @@ namespace Cama.Module.Mutation.Sections.TestRun
         public ObservableCollection<MutationDocumentResult> CompletedDocuments { get; set; }
 
         public DelegateCommand RunCommand { get; set; }
+
+        public DelegateCommand<MutationDocumentResult> CompletedDocumentSelectedCommand { get; set; }
 
         public void SetDocuments(IList<MutatedDocument> documents)
         {
@@ -70,6 +76,11 @@ namespace Cama.Module.Mutation.Sections.TestRun
                 Application.Current.Dispatcher.BeginInvoke(new Action(() => RunningDocuments.Remove(runDocument)));
                 Application.Current.Dispatcher.BeginInvoke(new Action(() => CompletedDocuments.Add(result)));
             }
+        }
+
+        private void OpenCompleteDocumentTab(MutationDocumentResult obj)
+        {
+            _mutationModuleTabOpener.OpenDocumentResultTab(obj);
         }
     }
 }

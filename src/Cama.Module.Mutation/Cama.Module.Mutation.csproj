@@ -58,6 +58,10 @@
       <DependentUpon>MutationOverviewView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sections\Overview\MutationOverviewViewModel.cs" />
+    <Compile Include="Sections\Result\MutationDocumentTestResultView.xaml.cs">
+      <DependentUpon>MutationDocumentTestResultView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\Result\MutationDocumentTestResultViewModel.cs" />
     <Compile Include="Sections\TestRun\TestRunView.xaml.cs">
       <DependentUpon>TestRunView.xaml</DependentUpon>
     </Compile>
@@ -87,6 +91,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Sections\Result\MutationDocumentTestResultView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Sections\TestRun\TestRunView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -114,6 +122,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
+    <Resource Include="Resources\error.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\checked.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -26,7 +26,8 @@ namespace Cama.Module.Mutation.Services
         {
             var basePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestRun",
                 document.Document.Id.ToString());
-            var mainFilePath = Path.Combine(basePath, "Testura.Code.Tests.dll");
+            var mainFilePath = Path.Combine(basePath, "Testura.Code.dll");
+            var mainTestFilePath = Path.Combine(basePath, "Testura.Code.Tests.dll");
 
             Directory.CreateDirectory(basePath);
 
@@ -34,7 +35,7 @@ namespace Cama.Module.Mutation.Services
             var compilerResult = await _compiler.CompileAsync(mainFilePath, document.Document);
             if (!compilerResult.IsSuccess)
             {
-                return new MutationDocumentResult {Completed = false, CompilerResult = compilerResult, Document = document.Document};
+                return new MutationDocumentResult { Completed = false, CompilerResult = compilerResult, Document = document.Document };
             }
 
             document.Status = TestRunDocument.TestRunStatusEnum.CopyFiles;
@@ -42,11 +43,11 @@ namespace Cama.Module.Mutation.Services
 
             document.Status = TestRunDocument.TestRunStatusEnum.Running;
             var results =
-                _testRunner.RunTests(mainFilePath, document.Document.Tests);
+                _testRunner.RunTests(mainTestFilePath, document.Document.Tests);
 
             Directory.Delete(basePath, true);
 
-            return new MutationDocumentResult {Completed = true, CompilerResult = compilerResult, TestResult = results, Document = document.Document};
+            return new MutationDocumentResult { Completed = true, CompilerResult = compilerResult, TestResult = results, Document = document.Document };
         }
     }
 }

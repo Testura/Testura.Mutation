@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Cama.Core.Models.Mutation;
 using Cama.Core.Services;
 using Cama.Infrastructure;
 using Cama.Infrastructure.Tabs;
@@ -22,13 +25,18 @@ namespace Cama.Module.Mutation.Sections.Overview
             Documents = new ObservableCollection<DocumentRowModel>();
             CreateDocumentsCommand = new DelegateCommand(CreateDocuments);
             DocumentSelectedCommand = new DelegateCommand<DocumentRowModel>(DocumentSelected);
+            RunAllMutationsCommand = new DelegateCommand(RunAllMutations);
         }
 
         public DelegateCommand CreateDocumentsCommand { get; set; }
 
+        public DelegateCommand RunAllMutationsCommand { get; set; }
+
         public DelegateCommand<DocumentRowModel> DocumentSelectedCommand { get; set; }
 
         public ObservableCollection<DocumentRowModel> Documents { get; set; }
+
+        public bool IsMutationDocumentsLoaded => Documents.Any();
 
         private async void CreateDocuments()
         {
@@ -38,7 +46,13 @@ namespace Cama.Module.Mutation.Sections.Overview
             {
                 Documents.Add(new DocumentRowModel { Document = mutatedDocument, Status = "Not run" });
             }
+
             _loadingDisplayer.HideLoading();
+        }
+
+        private void RunAllMutations()
+        {
+            _tabOpener.OpenTestRunTab(Documents.Select(d => d.Document).ToList());
         }
 
         private void DocumentSelected(DocumentRowModel documentRow)
