@@ -1,4 +1,5 @@
-﻿using Cama.Infrastructure;
+﻿using Cama.Core.Logs;
+using Cama.Infrastructure;
 using Cama.Module.Debug.Sections.Shell;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
@@ -20,6 +21,7 @@ namespace Cama.Module.Debug
         public void Initialize()
         {
             _regionManager.RegisterViewWithRegion(RegionNames.BottomRegion, typeof(DebugShellView));
+            _container.RegisterType<LogWatcher>(new ContainerControlledLifetimeManager());
         }
     }
 }

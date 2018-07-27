@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeAnalysis, Version=2.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.CodeAnalysis.Common.2.8.2\lib\netstandard1.3\Microsoft.CodeAnalysis.dll</HintPath>
     </Reference>
@@ -117,6 +120,9 @@
     <Compile Include="Tabs\IMutationModuleTabOpener.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Cama.Core\Log4Net.Config">
+      <Link>Log4Net.Config</Link>
+    </None>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>

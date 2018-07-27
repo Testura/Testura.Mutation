@@ -43,8 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\CompilationException.cs" />
+    <Compile Include="Logs\LogWatcher.cs" />
+    <Compile Include="Logs\MemoryAppenderWithEvents.cs" />
     <Compile Include="Models\CompilationError.cs" />
     <Compile Include="Models\CompilationResult.cs" />
+    <Compile Include="Models\CreateMutationDocumentStatus.cs" />
     <Compile Include="Models\Mutation\MutatedDocument.cs" />
     <Compile Include="Models\Mutation\MutationDocumentResult.cs" />
     <Compile Include="Models\Mutation\Replacer.cs" />
@@ -65,8 +68,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Log4Net.Config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Build.Locator">
       <Version>1.0.18</Version>
     </PackageReference>

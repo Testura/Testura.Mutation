@@ -107,6 +107,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="..\Cama.Core\Log4Net.Config">
+      <Link>Log4Net.Config</Link>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -115,6 +118,9 @@
   <ItemGroup>
     <PackageReference Include="Dragablz">
       <Version>0.0.3.203</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
     </PackageReference>
     <PackageReference Include="MaterialDesignThemes">
       <Version>2.4.0.1044</Version>

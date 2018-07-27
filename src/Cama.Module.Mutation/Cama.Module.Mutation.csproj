@@ -107,6 +107,9 @@
     <PackageReference Include="Dragablz">
       <Version>0.0.3.203</Version>
     </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
     <PackageReference Include="MaterialDesignThemes">
       <Version>2.4.0.1044</Version>
     </PackageReference>
@@ -129,6 +132,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="..\Cama.Core\Log4Net.Config">
+      <Link>Log4Net.Config</Link>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
