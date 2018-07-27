@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Anotar.Log4Net;
 using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
 using Cama.Core.Mutation.Analyzer;
@@ -23,8 +24,6 @@ namespace Cama.Core.Services
             _unitTestAnalyzer = unitTestAnalyzer;
         }
 
-        public event EventHandler<CreateMutationDocumentStatus> MutationDocumentStatus;
-
         public async Task<ConcurrentQueue<MutatedDocument>> DoSomeWorkAsync(string solutionPath, string mainProjectName, string unitTestProjectName)
         {
             try
@@ -33,10 +32,10 @@ namespace Cama.Core.Services
                 var props = new Dictionary<string, string> { ["Platform"] = "AnyCPU" };
                 var workspace = MSBuildWorkspace.Create(props);
 
-                MutationDocumentStatus?.Invoke(this, new CreateMutationDocumentStatus { CurrentDocument = "Opening solution", PercentageDone = 0 });
+                LogTo.Info("Opening solution..");
                 var solution = await workspace.OpenSolutionAsync(solutionPath);
 
-                MutationDocumentStatus?.Invoke(this, new CreateMutationDocumentStatus { CurrentDocument = "Analyze tests", PercentageDone = 0 });
+                LogTo.Info("Starting to analyze test..");
                 var testInformations = await Task.Run(() =>
                     _unitTestAnalyzer.MapTestsAsync(
                         solution.Projects.FirstOrDefault(p => p.Name == unitTestProjectName)));
@@ -44,12 +43,14 @@ namespace Cama.Core.Services
 
                 var queue = new ConcurrentQueue<MutatedDocument>();
                 var documents = mainProject.DocumentIds;
+
+                LogTo.Info("Starting to create mutations..");
                 for (int n = 0; n < documents.Count; n++)
                 {
                     var documentId = documents[n];
                     var document = mainProject.GetDocument(documentId);
 
-                    MutationDocumentStatus?.Invoke(this, new CreateMutationDocumentStatus { CurrentDocument = document.Name, PercentageDone = ((double)n / documents.Count) * 100 });
+                    LogTo.Info($"Creating mutation for {document.Name}..");
 
                     var ifReplaceFinders = new IfReplaceFinder();
                     var root = document.GetSyntaxRootAsync().Result;

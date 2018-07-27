@@ -1,25 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Cama.Core.Logs;
 using Prism.Mvvm;
 
 namespace Cama.Module.Debug.Sections.Shell
 {
-    public class DebugShellViewModel : BindableBase
+    public class DebugShellViewModel : BindableBase, INotifyPropertyChanged
     {
         private readonly LogWatcher _logWatcher;
 
         public DebugShellViewModel(LogWatcher logWatcher)
         {
             _logWatcher = logWatcher;
-            _logWatcher.Updated += LogWatcherOnUpdated;
+            LogText = string.Empty;
+            _logWatcher.NewMessage += LogWatcherOnNewMessage;
         }
 
-        private void LogWatcherOnUpdated(object sender, EventArgs eventArgs)
+        public string LogText { get; set; }
+
+        private void LogWatcherOnNewMessage(object sender, string s)
         {
+            LogText += s;
         }
     }
 }

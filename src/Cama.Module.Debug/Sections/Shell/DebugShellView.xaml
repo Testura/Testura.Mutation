@@ -13,7 +13,9 @@
                                      TabStripPlacement="Bottom"
                                      Background="{DynamicResource MaterialDesignPaper}">
                 <TabItem Header="Output">
-                    <Label Content="Hej"></Label>
+                    <ScrollViewer>
+                        <Label Content="{Binding LogText}" />
+                    </ScrollViewer>
                 </TabItem>
                 <TabItem Header="Compiler">
                     <Label Content="Buu"></Label>

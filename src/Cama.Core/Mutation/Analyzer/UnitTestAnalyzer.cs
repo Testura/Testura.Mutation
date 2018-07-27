@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Anotar.Log4Net;
 using Cama.Core.Exceptions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -23,6 +24,7 @@ namespace Cama.Core.Mutation.Analyzer
             var unitTestInformations = new List<UnitTestInformation>();
             foreach (var testProjectDocument in unitTestProject.Documents)
             {
+                LogTo.Info($"Analyzing {testProjectDocument.Name}");
                 var semanticModel = testProjectDocument.GetSemanticModelAsync().Result;
 
                 var root = testProjectDocument.GetSyntaxRootAsync().Result;

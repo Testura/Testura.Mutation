@@ -26,34 +26,12 @@ namespace Cama.Module.Mutation.Sections.Overview
         public MutationOverviewViewModel(SomeService someService, IMutationModuleTabOpener tabOpener, ILoadingDisplayer loadingDisplayer)
         {
             _someService = someService;
-            _someService.MutationDocumentStatus += SomeServiceOnMutationDocumentStatus;
             _tabOpener = tabOpener;
             _loadingDisplayer = loadingDisplayer;
             Documents = new ObservableCollection<DocumentRowModel>();
             CreateDocumentsCommand = new DelegateCommand(CreateDocuments);
             DocumentSelectedCommand = new DelegateCommand<DocumentRowModel>(DocumentSelected);
             RunAllMutationsCommand = new DelegateCommand(RunAllMutations);
-
-            ILog myLogger = LogManager.GetLogger("Audit");
-
-            var auditAppender = new EventLogAppender()
-            {
-                Name = "AuditAppender",
-                
-                Layout = new PatternLayout()
-                {
-                    ConversionPattern = "%newline %date %-5level %newline%message%newline",
-                },
-            };
-
-            auditAppender.
-
-            ((PatternLayout)auditAppender.Layout).ActivateOptions();
-            auditAppender.ActivateOptions();
-
-            log4net.Repository.Hierarchy.Logger l = (log4net.Repository.Hierarchy.Logger)myLogger.Logger;
-            l.AddAppender(auditAppender);
-            l.Repository.Configured = true;
         }
 
         public DelegateCommand CreateDocumentsCommand { get; set; }
@@ -86,11 +64,6 @@ namespace Cama.Module.Mutation.Sections.Overview
         private void DocumentSelected(DocumentRowModel documentRow)
         {
             _tabOpener.OpenDocumentDetailsTab(documentRow.Document);
-        }
-
-        private void SomeServiceOnMutationDocumentStatus(object sender, CreateMutationDocumentStatus createMutationDocumentStatus)
-        {
-            _loadingDisplayer.ShowLoading($"Creating mutation documents.. {createMutationDocumentStatus.CurrentDocument} ({createMutationDocumentStatus.PercentageDone}%)");
         }
     }
 }
