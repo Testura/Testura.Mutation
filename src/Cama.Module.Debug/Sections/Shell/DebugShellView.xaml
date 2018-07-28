@@ -4,6 +4,7 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:dockablz="http://dragablz.net/winfx/xaml/dockablz"
              xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+             xmlns:behavior="clr-namespace:Cama.Module.Debug.Behavior"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
         <dockablz:Layout Margin="0, 10, 0, 0">
@@ -13,7 +14,7 @@
                                      TabStripPlacement="Bottom"
                                      Background="{DynamicResource MaterialDesignPaper}">
                 <TabItem Header="Output">
-                    <ScrollViewer>
+                    <ScrollViewer behavior:AutoScrollBehavior.AutoScroll="True">
                         <Label Content="{Binding LogText}" />
                     </ScrollViewer>
                 </TabItem>
