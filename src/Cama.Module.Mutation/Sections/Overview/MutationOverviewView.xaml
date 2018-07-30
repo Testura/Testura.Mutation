@@ -29,13 +29,13 @@
                                   Grid.Row="0">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseDoubleClick">
-                                    <i:InvokeCommandAction Command="{Binding DocumentSelectedCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" />
+                                    <i:InvokeCommandAction Command="{Binding FileSelectedCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Change in file" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True" MinWidth="200"/>
-                                <DataGridTextColumn Header="Method"
-                                                    Binding="{Binding Document.Replacer.Method.Identifier}" Width="*" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="File" Binding="{Binding MFile.FileName}" Width="*" IsReadOnly="True" MinWidth="200"/>
+                                <DataGridTextColumn Header="Number of mutations"
+                                                    Binding="{Binding MutationCount}" Width="*" IsReadOnly="True"/>
                             </DataGrid.Columns>
                         </DataGrid>
                         <Button Content="Run all mutations" Grid.Row="1" Command="{Binding RunAllMutationsCommand}" />

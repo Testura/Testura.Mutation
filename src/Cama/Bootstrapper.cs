@@ -8,6 +8,7 @@ using Cama.Module.Menu;
 using Cama.Module.Mutation;
 using Cama.Module.Mutation.Tab;
 using Cama.Module.Start;
+using Cama.Module.Start.Tab;
 using Cama.Sections.Shell;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
@@ -77,6 +78,7 @@ namespace Cama
             base.ConfigureContainer();
             Container.RegisterType<IMainTabContainer, TabContainer>();
             Container.RegisterType<IMutationModuleTabOpener, MutationTabOpener>();
+            Container.RegisterType<IStartModuleTabOpener, StartModuleTabOpener>();
         }
     }
 }

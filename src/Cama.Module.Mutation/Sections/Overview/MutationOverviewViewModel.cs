@@ -30,7 +30,7 @@ namespace Cama.Module.Mutation.Sections.Overview
             _loadingDisplayer = loadingDisplayer;
             Documents = new ObservableCollection<DocumentRowModel>();
             CreateDocumentsCommand = new DelegateCommand(CreateDocuments);
-            DocumentSelectedCommand = new DelegateCommand<DocumentRowModel>(DocumentSelected);
+            FileSelectedCommand = new DelegateCommand<DocumentRowModel>(DocumentSelected);
             RunAllMutationsCommand = new DelegateCommand(RunAllMutations);
         }
 
@@ -38,7 +38,7 @@ namespace Cama.Module.Mutation.Sections.Overview
 
         public DelegateCommand RunAllMutationsCommand { get; set; }
 
-        public DelegateCommand<DocumentRowModel> DocumentSelectedCommand { get; set; }
+        public DelegateCommand<DocumentRowModel> FileSelectedCommand { get; set; }
 
         public ObservableCollection<DocumentRowModel> Documents { get; set; }
 
@@ -50,7 +50,7 @@ namespace Cama.Module.Mutation.Sections.Overview
             var result = await Task.Run(() => _someService.DoSomeWorkAsync(@"D:\Programmering\Testura\Testura.Code\Testura.Code.sln", "Testura.Code", "Testura.Code.Tests"));
             foreach (var mutatedDocument in result)
             {
-                Documents.Add(new DocumentRowModel { Document = mutatedDocument, Status = "Not run" });
+                Documents.Add(new DocumentRowModel { MFile = mutatedDocument });
             }
 
             _loadingDisplayer.HideLoading();
@@ -58,12 +58,12 @@ namespace Cama.Module.Mutation.Sections.Overview
 
         private void RunAllMutations()
         {
-            _tabOpener.OpenTestRunTab(Documents.Select(d => d.Document).ToList());
+            // _tabOpener.OpenTestRunTab(Documents.Select(d => d.Document).ToList());
         }
 
         private void DocumentSelected(DocumentRowModel documentRow)
         {
-            _tabOpener.OpenDocumentDetailsTab(documentRow.Document);
+            _tabOpener.OpenFileDetailsTab(documentRow.MFile);
         }
     }
 }

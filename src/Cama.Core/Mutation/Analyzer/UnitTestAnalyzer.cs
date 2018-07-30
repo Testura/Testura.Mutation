@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
@@ -14,11 +15,19 @@ namespace Cama.Core.Mutation.Analyzer
         public async Task<IList<UnitTestInformation>> MapTestsAsync(Project unitTestProject)
         {
             var compilation = await unitTestProject.GetCompilationAsync();
+
             var errors = compilation.GetDiagnostics().Where(d => d.Severity == DiagnosticSeverity.Error);
 
             if (errors.Any())
             {
                 throw new CompilationException(errors.Select(e => e.ToString()));
+            }
+
+            var directory = Path.GetDirectoryName(unitTestProject.OutputFilePath);
+
+            foreach (var file in Directory.GetFiles(directory))
+            {
+                File.Copy(file, Path.Combine(@"C:\Users\Mille\OneDrive\Dokument\temp", Path.GetFileName(file)), true);
             }
 
             var unitTestInformations = new List<UnitTestInformation>();

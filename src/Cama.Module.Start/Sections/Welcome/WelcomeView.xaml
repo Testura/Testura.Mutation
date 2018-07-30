@@ -12,5 +12,7 @@
             <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Welcome to Cama!</TextBlock>
         </materialDesign:Card>
         <Button Content="Create new project" Command="{Binding ClickMeCommand}" Width="150" Margin="10, 0, 0 ,0" />
+        <materialDesign:DialogHost Identifier="RootDialog">
+        </materialDesign:DialogHost>
     </StackPanel>
 </TabItem>

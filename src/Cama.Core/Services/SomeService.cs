@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +23,7 @@ namespace Cama.Core.Services
             _unitTestAnalyzer = unitTestAnalyzer;
         }
 
-        public async Task<ConcurrentQueue<MutatedDocument>> DoSomeWorkAsync(string solutionPath, string mainProjectName, string unitTestProjectName)
+        public async Task<IList<MFile>> DoSomeWorkAsync(string solutionPath, string mainProjectName, string unitTestProjectName)
         {
             try
             {
@@ -41,7 +40,7 @@ namespace Cama.Core.Services
                         solution.Projects.FirstOrDefault(p => p.Name == unitTestProjectName)));
                 var mainProject = solution.Projects.FirstOrDefault(p => p.Name == mainProjectName);
 
-                var queue = new ConcurrentQueue<MutatedDocument>();
+                var list = new List<MFile>();
                 var documents = mainProject.DocumentIds;
 
                 LogTo.Info("Starting to create mutations..");
@@ -61,13 +60,10 @@ namespace Cama.Core.Services
                         ? testInformations.Where(t => t.ReferencedClasses.Contains(className)).ToList()
                         : new List<UnitTestInformation>();
 
-                    foreach (var replacers in ifReplaceFinders.Replacers)
-                    {
-                        queue.Enqueue(new MutatedDocument(document, replacers, tests));
-                    }
+                    list.Add(new MFile(document.Name, ifReplaceFinders.Replacers.Select(r => new MutatedDocument(document, r, tests)).ToList()));
                 }
 
-                return queue;
+                return list;
             }
             catch (Exception ex)
             {

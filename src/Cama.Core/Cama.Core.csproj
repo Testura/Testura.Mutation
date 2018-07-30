@@ -48,10 +48,12 @@
     <Compile Include="Models\CompilationError.cs" />
     <Compile Include="Models\CompilationResult.cs" />
     <Compile Include="Models\CreateMutationDocumentStatus.cs" />
+    <Compile Include="Models\MFile.cs" />
     <Compile Include="Models\Mutation\MutatedDocument.cs" />
     <Compile Include="Models\Mutation\MutationDocumentResult.cs" />
     <Compile Include="Models\Mutation\Replacer.cs" />
     <Compile Include="Models\Mutation\UnitTestInformation.cs" />
+    <Compile Include="Models\Solution\SolutionProjectInfo.cs" />
     <Compile Include="Models\TestResult.cs" />
     <Compile Include="Models\TestSuiteResult.cs" />
     <Compile Include="Mutation\Analyzer\UnitTestAnalyzer.cs" />
@@ -60,6 +62,7 @@
     <Compile Include="Services\DependencyFilesHandler.cs" />
     <Compile Include="Services\MutatedDocumentCompiler.cs" />
     <Compile Include="Services\SomeService.cs" />
+    <Compile Include="Solution\SolutionService.cs" />
     <Compile Include="TestRunner\ITestRunner.cs" />
     <Compile Include="TestRunner\Result\Maker\INUnitTestCaseResultMaker.cs" />
     <Compile Include="TestRunner\Result\Maker\NUnitTestCaseResultMaker.cs" />

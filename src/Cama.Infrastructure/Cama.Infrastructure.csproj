@@ -118,6 +118,7 @@
     <Compile Include="RegionNames.cs" />
     <Compile Include="Tabs\IMainTabContainer.cs" />
     <Compile Include="Tabs\IMutationModuleTabOpener.cs" />
+    <Compile Include="Tabs\IStartModuleTabOpener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Cama.Core\Log4Net.Config">
