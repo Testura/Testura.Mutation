@@ -18,9 +18,10 @@ namespace Cama.Module.Mutation.Tab
             _mainTabContainer = mainTabContainer;
         }
 
-        public void OpenOverviewTab()
+        public void OpenOverviewTab(CamaConfig config)
         {
-            _mainTabContainer.AddTab(new MutationOverviewView());
+            _mainTabContainer.RemoveAllTabs();
+            _mainTabContainer.AddTab(new MutationOverviewView(config));
         }
 
         public void OpenDocumentDetailsTab(MutatedDocument document)

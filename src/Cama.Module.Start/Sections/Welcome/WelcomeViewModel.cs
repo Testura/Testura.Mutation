@@ -1,4 +1,8 @@
-﻿using Cama.Infrastructure.Tabs;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using Cama.Core.Services.Project;
+using Cama.Infrastructure.Services;
+using Cama.Infrastructure.Tabs;
 using Cama.Module.Start.Sections.NewProject;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
@@ -6,21 +10,30 @@ using Prism.Mvvm;
 
 namespace Cama.Module.Start.Sections.Welcome
 {
-    class WelcomeViewModel : BindableBase
+    class WelcomeViewModel : BindableBase, INotifyPropertyChanged
     {
         private readonly IMainTabContainer _mainTabContainer;
         private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
         private readonly IStartModuleTabOpener _startModuleTabOpener;
+        private readonly ProjectHistoryService _projectHistoryService;
+        private readonly IOpenProjectService _openProjectService;
 
-        public WelcomeViewModel(IMainTabContainer mainTabContainer, IMutationModuleTabOpener mutationModuleTabOpener, IStartModuleTabOpener startModuleTabOpener)
+        public WelcomeViewModel(IMutationModuleTabOpener mutationModuleTabOpener, IStartModuleTabOpener startModuleTabOpener, ProjectHistoryService projectHistoryService, IOpenProjectService openProjectService)
         {
-            _mainTabContainer = mainTabContainer;
             _mutationModuleTabOpener = mutationModuleTabOpener;
             _startModuleTabOpener = startModuleTabOpener;
+            _projectHistoryService = projectHistoryService;
+            _openProjectService = openProjectService;
             ClickMeCommand = new DelegateCommand(ClickMe);
+            OpenHistoryProjectCommand = new DelegateCommand<string>(OpenHistoryProject);
+            ProjectHistory = _projectHistoryService.GetHistory();
         }
 
+        public IList<string> ProjectHistory { get; set; }
+
         public DelegateCommand ClickMeCommand { get; set; }
+
+        public DelegateCommand<string> OpenHistoryProjectCommand { get; set; }
 
         private async void ClickMe()
         {
@@ -33,8 +46,12 @@ namespace Cama.Module.Start.Sections.Welcome
 
         }
 
-        private void ClosingEventHandler(object sender, DialogOpenedEventArgs eventargs)
+
+        private void OpenHistoryProject(string obj)
         {
+            var config = _openProjectService.OpenProject(obj);
+            _mutationModuleTabOpener.OpenOverviewTab(config);
         }
+
     }
 }

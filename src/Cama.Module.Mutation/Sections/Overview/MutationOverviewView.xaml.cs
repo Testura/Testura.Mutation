@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using Cama.Core.Models.Mutation;
 
 namespace Cama.Module.Mutation.Sections.Overview
 {
@@ -7,9 +8,12 @@ namespace Cama.Module.Mutation.Sections.Overview
     /// </summary>
     public partial class MutationOverviewView : TabItem
     {
-        public MutationOverviewView()
+        public MutationOverviewView(CamaConfig config)
         {
             InitializeComponent();
+
+            var viewModel = DataContext as MutationOverviewViewModel;
+            viewModel.Initialize(config);
         }
     }
 }

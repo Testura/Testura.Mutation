@@ -5,14 +5,36 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
              xmlns:dockablz="http://dragablz.net/winfx/xaml/dockablz"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              prism:ViewModelLocator.AutoWireViewModel="True"
              Header="Welcome">
-    <StackPanel>
-        <materialDesign:Card Padding="32" Margin="16">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="500" />
+        </Grid.ColumnDefinitions>
+        <materialDesign:Card Padding="32" Margin="16, 16, 0, 16" Grid.Row="0" Grid.Column="0">
             <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Welcome to Cama!</TextBlock>
         </materialDesign:Card>
-        <Button Content="Create new project" Command="{Binding ClickMeCommand}" Width="150" Margin="10, 0, 0 ,0" />
-        <materialDesign:DialogHost Identifier="RootDialog">
-        </materialDesign:DialogHost>
-    </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="16">
+            <GroupBox
+                Header="History"
+                Style="{DynamicResource MaterialDesignCardGroupBox}"
+                Margin="16">
+                <ListBox ItemsSource="{Binding ProjectHistory}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction  Command="{Binding OpenHistoryProjectCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ListBox>
+            </GroupBox>
+            <Button Content="Create new project" Command="{Binding ClickMeCommand}" Width="150" Margin="10, 0, 16 ,0" HorizontalAlignment="Right" />
+        </StackPanel>
+
+
+    </Grid>
 </TabItem>

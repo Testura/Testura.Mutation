@@ -30,5 +30,10 @@ namespace Cama.Sections.Shell
                 }
             }
         }
+
+        public void RemoveAllTabs()
+        {
+            MyTabControl.Items.Clear();
+        }
     }
 }

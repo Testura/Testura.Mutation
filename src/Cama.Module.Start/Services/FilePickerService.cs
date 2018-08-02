@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using System.Windows.Forms;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace Cama.Module.Start.Services
 {
@@ -13,6 +14,13 @@ namespace Cama.Module.Start.Services
 
             fileDialog.ShowDialog();
             return fileDialog.FileName;
+        }
+
+        public string PickDirectory()
+        {
+            var fileDialog = new FolderBrowserDialog();
+            fileDialog.ShowDialog();
+            return fileDialog.SelectedPath;
         }
     }
 }

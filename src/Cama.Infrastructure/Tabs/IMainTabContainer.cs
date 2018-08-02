@@ -7,5 +7,7 @@ namespace Cama.Infrastructure.Tabs
         void AddTab(TabItem userControl);
 
         void RemoveTab(string name);
+
+        void RemoveAllTabs();
     }
 }

@@ -17,6 +17,12 @@ namespace Cama.Sections.Shell
             var shell = (ShellWindow)Application.Current.MainWindow;
             shell.RemoveTab(name);
         }
+
+        public void RemoveAllTabs()
+        {
+            var shell = (ShellWindow)Application.Current.MainWindow;
+            shell.RemoveAllTabs();
+        }
     }
 }
  

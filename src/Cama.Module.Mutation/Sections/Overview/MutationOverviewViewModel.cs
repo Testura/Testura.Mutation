@@ -65,5 +65,9 @@ namespace Cama.Module.Mutation.Sections.Overview
         {
             _tabOpener.OpenFileDetailsTab(documentRow.MFile);
         }
+
+        public void Initialize(CamaConfig config)
+        {
+        }
     }
 }

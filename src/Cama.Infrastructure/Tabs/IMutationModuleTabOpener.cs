@@ -6,7 +6,7 @@ namespace Cama.Infrastructure.Tabs
 {
     public interface IMutationModuleTabOpener
     {
-        void OpenOverviewTab();
+        void OpenOverviewTab(CamaConfig config);
 
         void OpenDocumentDetailsTab(MutatedDocument document);
 

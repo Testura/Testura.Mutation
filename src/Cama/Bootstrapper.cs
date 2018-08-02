@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows;
+using Cama.Core.Services.Project;
 using Cama.Infrastructure.Tabs;
 using Cama.Module.Debug;
 using Cama.Module.Loading;
@@ -79,6 +80,8 @@ namespace Cama
             Container.RegisterType<IMainTabContainer, TabContainer>();
             Container.RegisterType<IMutationModuleTabOpener, MutationTabOpener>();
             Container.RegisterType<IStartModuleTabOpener, StartModuleTabOpener>();
+            Container.RegisterType<ICreateProjectService, ProjectService>();
+            Container.RegisterType<IOpenProjectService, ProjectService>();
         }
     }
 }
