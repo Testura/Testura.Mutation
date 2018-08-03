@@ -10,6 +10,8 @@ using Cama.Infrastructure.Tabs;
 using Cama.Module.Mutation.Models;
 using Cama.Module.Mutation.Services;
 using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -28,9 +30,44 @@ namespace Cama.Module.Mutation.Sections.TestRun
             CompletedDocuments = new ObservableCollection<MutationDocumentResult>();
             RunCommand = new DelegateCommand(RunTestsAsync);
             CompletedDocumentSelectedCommand = new DelegateCommand<MutationDocumentResult>(OpenCompleteDocumentTab);
-            PointLabel = chartPoint =>
-                string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
+            MutationScore = "0%";
+            MutationsSurvivedCount = new ObservableValue(0);
+            MutationsKilledCount = new ObservableValue(0);
+
+            MutationStatistics = new SeriesCollection
+            {
+                new PieSeries
+                {
+                    Title = "Survived",
+                    Values = new ChartValues<ObservableValue> { MutationsSurvivedCount },
+                    DataLabels = true,
+                    LabelPoint = chartPoint => $"{chartPoint.Y} ({chartPoint.Participation:P})"
+                },
+                new PieSeries
+                {
+                    Title = "Killed",
+                    Values = new ChartValues<ObservableValue> { MutationsKilledCount },
+                    DataLabels = true,
+                    LabelPoint = chartPoint => $"{chartPoint.Y} ({chartPoint.Participation:P})"
+                }
+            };
         }
+
+        public int MutationCount { get; set; }
+
+        public int FinishedMutationsCount { get; set; }
+
+        public int MutationsInQueueCount { get; set; }
+
+        public ObservableValue MutationsSurvivedCount { get; set; }
+
+        public ObservableValue MutationsKilledCount { get; set; }
+
+        public int FailedToCompileMutationsCount { get; set; }
+
+        public string MutationScore { get; set; }
+
+        public SeriesCollection MutationStatistics { get; set; }
 
         public ObservableCollection<TestRunDocument> RunningDocuments { get; set; }
 
@@ -40,11 +77,11 @@ namespace Cama.Module.Mutation.Sections.TestRun
 
         public DelegateCommand<MutationDocumentResult> CompletedDocumentSelectedCommand { get; set; }
 
-        public Func<ChartPoint, string> PointLabel { get; set; }
 
         public void SetDocuments(IList<MutatedDocument> documents)
         {
             RunningDocuments.AddRange(documents.Select(d => new TestRunDocument { Document = d, Status = TestRunDocument.TestRunStatusEnum.InQueue }));
+            MutationCount = documents.Count;
         }
 
         private async void RunTestsAsync()
@@ -55,6 +92,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
                 MoveDocumentToCompleted(d, testResult);
             }));
 
+            MutationsInQueueCount = runs.Count();
             var queue = new Queue<Task>(runs);
             var waitList = new List<Task>();
 
@@ -67,6 +105,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
                 }
                 else
                 {
+                    MutationsInQueueCount--;
                     var newOne = queue.Dequeue();
                     newOne.Start();
                     waitList.Add(newOne);
@@ -80,6 +119,24 @@ namespace Cama.Module.Mutation.Sections.TestRun
             {
                 Application.Current.Dispatcher.BeginInvoke(new Action(() => RunningDocuments.Remove(runDocument)));
                 Application.Current.Dispatcher.BeginInvoke(new Action(() => CompletedDocuments.Add(result)));
+                FinishedMutationsCount++;
+
+                if (!result.CompilerResult.IsSuccess)
+                {
+                    FailedToCompileMutationsCount++;
+                    return;
+                }
+
+                if (result.TestResult.IsSuccess)
+                {
+                    MutationsSurvivedCount.Value++;
+                }
+                else
+                {
+                    MutationsKilledCount.Value++;
+                }
+
+                MutationScore = $"{Math.Round((MutationsKilledCount.Value / (MutationsKilledCount.Value + MutationsSurvivedCount.Value)) * 100)}%";
             }
         }
 

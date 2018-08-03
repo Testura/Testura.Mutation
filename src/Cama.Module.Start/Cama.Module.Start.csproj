@@ -89,7 +89,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Bar.cs" />
     <Compile Include="Models\ProjectListItem.cs" />
     <Compile Include="Sections\NewProject\NewProjectDialog.xaml.cs">
       <DependentUpon>NewProjectDialog.xaml</DependentUpon>

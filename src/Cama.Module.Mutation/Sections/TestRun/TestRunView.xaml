@@ -30,10 +30,15 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    ToolTip="MaterialDesignDiscreteSlider"
-                    Margin="16"
+                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                    Margin="16, 0, 16, 0"
                     Width="100"/>
-                <Button Content="Run mutations" Command="{Binding RunCommand}" Margin="0, 0, 16, 0"/>
+                <Label Content="Run all tests: " Margin="16" />
+                <ToggleButton
+                    Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                    ToolTip="Run all unit tests for each mutation"
+                    Margin="16"/>
+                <Button Content="Run mutations" Command="{Binding RunCommand}" Margin="16, 0, 16, 0"/>
             </StackPanel>
         </materialDesign:Card>
 
@@ -82,9 +87,8 @@
                         Margin="16 0 16 8"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
-                        Style="{StaticResource MaterialDesignCaptionTextBlock}">
-                        1020
-                        </TextBlock>
+                        Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                            Text="{Binding MutationCount}" />
                     </Grid>
                 </materialDesign:Card>
 
@@ -117,9 +121,8 @@
                             Margin="16 0 16 8"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
-                            Style="{StaticResource MaterialDesignCaptionTextBlock}">
-                            1020
-                        </TextBlock>
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                            Text="{Binding FinishedMutationsCount}" />
                     </Grid>
                 </materialDesign:Card>
 
@@ -152,8 +155,8 @@
                         Margin="16 0 16 8"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
-                        Style="{StaticResource MaterialDesignCaptionTextBlock}">
-                        1020
+                        Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                        Text="{Binding MutationsInQueueCount}">
                         </TextBlock>
                     </Grid>
                 </materialDesign:Card>
@@ -187,9 +190,8 @@
                             Margin="16 0 16 8"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
-                            Style="{StaticResource MaterialDesignCaptionTextBlock}">
-                            1020
-                        </TextBlock>
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                            Text="{Binding FailedToCompileMutationsCount}" />
                     </Grid>
                 </materialDesign:Card>
 
@@ -200,7 +202,7 @@
                     Grid.Row="0"
                     Grid.Column="2"
                     Grid.RowSpan="2"
-                    Margin="0, 0, 16, 0"
+                    Margin="0, 0, 0, 0"
                     VerticalAlignment="Center">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -225,9 +227,8 @@
                             Margin="16 0 16 8"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
-                            Style="{StaticResource MaterialDesignDisplay3TextBlock}">
-                            1020
-                        </TextBlock>
+                            Style="{StaticResource MaterialDesignDisplay3TextBlock}"
+                            Text="{Binding MutationScore}" />
                     </Grid>
                 </materialDesign:Card>
             </Grid>
@@ -239,13 +240,7 @@
             Margin="16"
             Grid.Row="1"
             Grid.Column="1">
-            <wpf:PieChart LegendLocation="Bottom" Hoverable="True" DataTooltip="{x:Null}" >
-                <wpf:PieChart.Series>
-                    <wpf:PieSeries Title="Alive" Values="3" DataLabels="True"
-                                   LabelPoint="{Binding PointLabel}"/>
-                    <wpf:PieSeries Title="Killed" Values="4" DataLabels="True" 
-                                   LabelPoint="{Binding PointLabel}"/>
-                </wpf:PieChart.Series>
+            <wpf:PieChart LegendLocation="Bottom" Hoverable="True" DataTooltip="{x:Null}" Series="{Binding MutationStatistics}">
             </wpf:PieChart>
         </GroupBox>
 
