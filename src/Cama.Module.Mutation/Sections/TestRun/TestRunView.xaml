@@ -3,82 +3,319 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              prism:ViewModelLocator.AutoWireViewModel="True"
              Header="Test run">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="110" />
+            <RowDefinition Height="310" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Margin="16, 0, 0, 0">
-            <Button Content="Run mutations" Command="{Binding RunCommand}" />
-            <Button Content="See complete result" Margin="10, 0, 0, 0" />
-        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="1">
+        <materialDesign:Card Margin="16, 16, 16, 8" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Numbers of mutants in parallel: " Margin="16" />
+                <Slider
+                    TickFrequency="5"
+                    Orientation="Horizontal"
+                    Minimum="1"
+                    Maximum="50"
+                    Value="10"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    ToolTip="MaterialDesignDiscreteSlider"
+                    Margin="16"
+                    Width="100"/>
+                <Button Content="Run mutations" Command="{Binding RunCommand}" Margin="0, 0, 16, 0"/>
+            </StackPanel>
+        </materialDesign:Card>
+
+        <GroupBox
+            Header="Status"
+            Style="{DynamicResource MaterialDesignCardGroupBox}"
+            Margin="16"
+            Grid.Row="1"
+            Grid.Column="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <materialDesign:Card
+                    Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                    Padding="0"
+                    Grid.Column="0"
+                    Margin="0, 0, 16, 8"
+                    VerticalAlignment="Bottom">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                            Height="*" />
+                            <RowDefinition
+                            Height="*" />
+                            <RowDefinition
+                            Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Margin="16 16 16 4"
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                            Number of mutations
+                            </TextBlock>
+                        <Separator
+                        Grid.Row="1"
+                        Style="{StaticResource MaterialDesignLightSeparator}" />
+                        <TextBlock
+                        Grid.Row="2"
+                        Margin="16 0 16 8"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                        1020
+                        </TextBlock>
+                    </Grid>
+                </materialDesign:Card>
+
+                <materialDesign:Card
+                    Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                    Padding="0"
+                    Grid.Column="1"
+                    Margin="0, 0, 16, 8"
+                    VerticalAlignment="Bottom">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Margin="16 16 16 4"
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                            Finished mutations
+                        </TextBlock>
+                        <Separator
+                            Grid.Row="1"
+                            Style="{StaticResource MaterialDesignLightSeparator}" />
+                        <TextBlock
+                            Grid.Row="2"
+                            Margin="16 0 16 8"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                            1020
+                        </TextBlock>
+                    </Grid>
+                </materialDesign:Card>
+
+                <materialDesign:Card
+                    Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                    Padding="0"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="0, 0, 16, 0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                            Height="*" />
+                            <RowDefinition
+                            Height="*" />
+                            <RowDefinition
+                            Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Margin="16 16 16 4"
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                            Mutations in queue
+                        </TextBlock>
+                        <Separator
+                        Grid.Row="1"
+                        Style="{StaticResource MaterialDesignLightSeparator}" />
+                        <TextBlock
+                        Grid.Row="2"
+                        Margin="16 0 16 8"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                        1020
+                        </TextBlock>
+                    </Grid>
+                </materialDesign:Card>
+
+                <materialDesign:Card
+                    Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                    Padding="0"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0, 0, 16, 0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Margin="16 16 16 4"
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                            Mutations failed to compile
+                        </TextBlock>
+                        <Separator
+                            Grid.Row="1"
+                            Style="{StaticResource MaterialDesignLightSeparator}" />
+                        <TextBlock
+                            Grid.Row="2"
+                            Margin="16 0 16 8"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                            1020
+                        </TextBlock>
+                    </Grid>
+                </materialDesign:Card>
+
+
+                <materialDesign:Card
+                    Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                    Padding="0"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Grid.RowSpan="2"
+                    Margin="0, 0, 16, 0"
+                    VerticalAlignment="Center">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Margin="16 16 16 4"
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                            Current mutation score
+                        </TextBlock>
+                        <Separator
+                            Grid.Row="1"
+                            Style="{StaticResource MaterialDesignLightSeparator}" />
+                        <TextBlock
+                            Grid.Row="2"
+                            Margin="16 0 16 8"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Style="{StaticResource MaterialDesignDisplay3TextBlock}">
+                            1020
+                        </TextBlock>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
+            Header="Statistics"
+            Style="{DynamicResource MaterialDesignCardGroupBox}"
+            Margin="16"
+            Grid.Row="1"
+            Grid.Column="1">
+            <wpf:PieChart LegendLocation="Bottom" Hoverable="True" DataTooltip="{x:Null}" >
+                <wpf:PieChart.Series>
+                    <wpf:PieSeries Title="Alive" Values="3" DataLabels="True"
+                                   LabelPoint="{Binding PointLabel}"/>
+                    <wpf:PieSeries Title="Killed" Values="4" DataLabels="True" 
+                                   LabelPoint="{Binding PointLabel}"/>
+                </wpf:PieChart.Series>
+            </wpf:PieChart>
+        </GroupBox>
+
+        <Grid Grid.Row="2" Grid.Column="0">
             <GroupBox
                 Header="Running"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
                 Margin="16">
-                <DataGrid
-                    SelectionUnit="FullRow"
-                    AutoGenerateColumns="False"
-                    IsReadOnly="False"
-                    ItemsSource="{Binding RunningDocuments}"
-                    CanUserAddRows="false"
-                    Grid.Row="1">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Change in file" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True" MinWidth="200"/>
-                        <DataGridTextColumn Header="Method" Binding="{Binding Document.Replacer.Method.Identifier}" Width="*" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*" IsReadOnly="True"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <ScrollViewer>
+                    <DataGrid
+                        SelectionUnit="FullRow"
+                        AutoGenerateColumns="False"
+                        IsReadOnly="False"
+                        ItemsSource="{Binding RunningDocuments}"
+                        CanUserAddRows="false"
+                        Grid.Row="1">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Change in file" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True" MinWidth="200"/>
+                            <DataGridTextColumn Header="Method" Binding="{Binding Document.Replacer.Method.Identifier}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
             </GroupBox>
         </Grid>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Grid.Column="1">
             <GroupBox
                 Header="Completed"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
-                Margin="16, 8, 16, 16">
-                <DataGrid
-                          SelectionUnit="FullRow"
-                          AutoGenerateColumns="False"
-                          IsReadOnly="False"
-                          ItemsSource="{Binding CompletedDocuments}"
-                          CanUserAddRows="false"
-                          Grid.Row="1">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDoubleClick">
-                            <i:InvokeCommandAction Command="{Binding CompletedDocumentSelectedCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Change in file" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True" MinWidth="200"/>
-                        <DataGridTextColumn Header="Method" Binding="{Binding Document.Replacer.Method.Identifier}" Width="*" IsReadOnly="True"/>
-                        <DataGridTemplateColumn Header="Result" Width="*" IsReadOnly="True">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Label>
-                                        <Label.Style>
-                                            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Completed}" Value="False">
-                                                        <Setter Property="Content" Value="Survived"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Completed}" Value="True">
-                                                        <Setter Property="Content" Value="Killed"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Label.Style>
-                                    </Label>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                Margin="16">
+                <ScrollViewer>
+                        <DataGrid
+                              SelectionUnit="FullRow"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="False"
+                              ItemsSource="{Binding CompletedDocuments}"
+                              CanUserAddRows="false"
+                              Grid.Row="1">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding CompletedDocumentSelectedCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Change in file" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True" MinWidth="200"/>
+                            <DataGridTextColumn Header="Method" Binding="{Binding Document.Replacer.Method.Identifier}" Width="*" IsReadOnly="True"/>
+                            <DataGridTemplateColumn Header="Result" Width="*" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label>
+                                            <Label.Style>
+                                                <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Completed}" Value="False">
+                                                            <Setter Property="Content" Value="Survived"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Completed}" Value="True">
+                                                            <Setter Property="Content" Value="Killed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Label.Style>
+                                        </Label>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    </ScrollViewer>
             </GroupBox>
         </Grid>
     </Grid>

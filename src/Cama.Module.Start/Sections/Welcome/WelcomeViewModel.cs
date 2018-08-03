@@ -3,8 +3,6 @@ using System.ComponentModel;
 using Cama.Core.Services.Project;
 using Cama.Infrastructure.Services;
 using Cama.Infrastructure.Tabs;
-using Cama.Module.Start.Sections.NewProject;
-using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Mvvm;
 

@@ -9,6 +9,7 @@ using Cama.Core.Models.Mutation;
 using Cama.Infrastructure.Tabs;
 using Cama.Module.Mutation.Models;
 using Cama.Module.Mutation.Services;
+using LiveCharts;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -27,6 +28,8 @@ namespace Cama.Module.Mutation.Sections.TestRun
             CompletedDocuments = new ObservableCollection<MutationDocumentResult>();
             RunCommand = new DelegateCommand(RunTestsAsync);
             CompletedDocumentSelectedCommand = new DelegateCommand<MutationDocumentResult>(OpenCompleteDocumentTab);
+            PointLabel = chartPoint =>
+                string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
         }
 
         public ObservableCollection<TestRunDocument> RunningDocuments { get; set; }
@@ -36,6 +39,8 @@ namespace Cama.Module.Mutation.Sections.TestRun
         public DelegateCommand RunCommand { get; set; }
 
         public DelegateCommand<MutationDocumentResult> CompletedDocumentSelectedCommand { get; set; }
+
+        public Func<ChartPoint, string> PointLabel { get; set; }
 
         public void SetDocuments(IList<MutatedDocument> documents)
         {

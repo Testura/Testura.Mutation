@@ -34,7 +34,5 @@
             </GroupBox>
             <Button Content="Create new project" Command="{Binding ClickMeCommand}" Width="150" Margin="10, 0, 16 ,0" HorizontalAlignment="Right" />
         </StackPanel>
-
-
     </Grid>
 </TabItem>
