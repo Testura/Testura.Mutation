@@ -18,10 +18,10 @@ namespace Cama.Core.Mutation.MutationOperators.DecisionMutations
             {
                 [SyntaxKind.EqualsEqualsToken] = SyntaxKind.ExclamationEqualsToken,
                 [SyntaxKind.ExclamationEqualsToken] = SyntaxKind.EqualsEqualsToken,
-                [SyntaxKind.LessThanExpression] = SyntaxKind.GreaterThanExpression,
-                [SyntaxKind.LessThanOrEqualExpression] = SyntaxKind.GreaterThanExpression,
-                [SyntaxKind.GreaterThanExpression] = SyntaxKind.LessThanExpression,
-                [SyntaxKind.GreaterThanOrEqualExpression] = SyntaxKind.LessThanExpression
+                [SyntaxKind.LessThanToken] = SyntaxKind.GreaterThanToken,
+                [SyntaxKind.LessThanEqualsToken] = SyntaxKind.GreaterThanToken,
+                [SyntaxKind.GreaterThanToken] = SyntaxKind.LessThanToken,
+                [SyntaxKind.GreaterThanEqualsToken] = SyntaxKind.LessThanToken
             };
         }
 
