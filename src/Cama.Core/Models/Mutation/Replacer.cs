@@ -4,9 +4,9 @@ namespace Cama.Core.Models.Mutation
 {
     public class Replacer
     {
-        public IfStatementSyntax Orginal { get; set; }
+        public StatementSyntax Orginal { get; set; }
 
-        public IfStatementSyntax Replace { get; set; }
+        public StatementSyntax Replace { get; set; }
 
         public MethodDeclarationSyntax Method { get; set; }
     }

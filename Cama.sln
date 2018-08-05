@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Module.Menu", "src\Cam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Module.Loading", "src\Cama.Module.Loading\Cama.Module.Loading.csproj", "{F98A17E0-3581-4E4C-B5E2-C436FE2E05DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cama.Tests", "src\Cama.Tests\Cama.Tests.csproj", "{4930103E-0E46-474A-B1F5-4F9AA3943C27}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{F98A17E0-3581-4E4C-B5E2-C436FE2E05DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F98A17E0-3581-4E4C-B5E2-C436FE2E05DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F98A17E0-3581-4E4C-B5E2-C436FE2E05DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4930103E-0E46-474A-B1F5-4F9AA3943C27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4930103E-0E46-474A-B1F5-4F9AA3943C27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4930103E-0E46-474A-B1F5-4F9AA3943C27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4930103E-0E46-474A-B1F5-4F9AA3943C27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

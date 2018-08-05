@@ -9,8 +9,8 @@ namespace Cama.Core.Mutation.MutationOperators
         {
             switch (mutationOperators)
             {
-                case Core.MutationOperators.DIOC:
-                    return new DicMutationOperator();
+                case Core.MutationOperators.IfConditional:
+                    return new IfConditionalMutationOperator();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mutationOperators), mutationOperators, null);
             }

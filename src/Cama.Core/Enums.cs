@@ -4,7 +4,9 @@ namespace Cama.Core
 {
     public enum MutationOperators
     {
-        [EnumMember(Value = "If statement operator change")]
-        DIOC
+        [EnumMember(Value = "If conditional operator change")]
+        IfConditional,
+
+        SA
     }
 }

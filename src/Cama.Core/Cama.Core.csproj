@@ -61,10 +61,11 @@
     <Compile Include="Models\TestResult.cs" />
     <Compile Include="Models\TestSuiteResult.cs" />
     <Compile Include="Mutation\Analyzer\UnitTestAnalyzer.cs" />
-    <Compile Include="Mutation\MutationOperators\DecisionMutations\DicMutationOperator.cs" />
+    <Compile Include="Mutation\MutationOperators\DecisionMutations\IfConditionalMutationOperator.cs" />
     <Compile Include="Mutation\MutationOperators\IMutationOperator.cs" />
     <Compile Include="Mutation\MutationOperators\MutationOperator.cs" />
     <Compile Include="Mutation\MutationOperators\MutationOperatorFactory.cs" />
+    <Compile Include="Mutation\MutationOperators\StatementMutations\MathMutationOperator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DependencyFilesHandler.cs" />
     <Compile Include="Services\MutatedDocumentCompiler.cs" />
@@ -136,7 +137,6 @@
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Mutation\MutationOperators\StatementMutations\" />
     <Folder Include="Mutation\MutationOperators\ValueMutations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

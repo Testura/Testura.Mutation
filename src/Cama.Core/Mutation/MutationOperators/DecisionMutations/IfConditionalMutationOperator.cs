@@ -8,11 +8,11 @@ using Replacer = Cama.Core.Models.Mutation.Replacer;
 
 namespace Cama.Core.Mutation.MutationOperators.DecisionMutations
 {
-    public class DicMutationOperator : MutationOperator
+    public class IfConditionalMutationOperator : MutationOperator
     {
         private readonly Dictionary<SyntaxKind, SyntaxKind> _replacementTable;
 
-        public DicMutationOperator()
+        public IfConditionalMutationOperator()
         {
             _replacementTable = new Dictionary<SyntaxKind, SyntaxKind>
             {

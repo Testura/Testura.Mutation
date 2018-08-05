@@ -15,7 +15,7 @@ namespace Cama.Core.Models.Mutation
         {
             Replacer = replacer;
             Id = Guid.NewGuid();
-            FileName = orginalDocument.Name;
+            FileName = orginalDocument?.Name;
             _orginalDocument = orginalDocument;
             _tests = tests;
         }
