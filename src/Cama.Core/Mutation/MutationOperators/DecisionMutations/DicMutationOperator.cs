@@ -6,16 +6,24 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Replacer = Cama.Core.Models.Mutation.Replacer;
 
-namespace Cama.Core.Mutation.ReplaceFinders
+namespace Cama.Core.Mutation.MutationOperators.DecisionMutations
 {
-    public class IfReplaceFinder : CSharpSyntaxRewriter
+    public class DicMutationOperator : MutationOperator
     {
-        public IfReplaceFinder()
-        {
-            Replacers = new List<Replacer>();
-        }
+        private readonly Dictionary<SyntaxKind, SyntaxKind> _replacementTable;
 
-        public List<Replacer> Replacers { get; }
+        public DicMutationOperator()
+        {
+            _replacementTable = new Dictionary<SyntaxKind, SyntaxKind>
+            {
+                [SyntaxKind.EqualsEqualsToken] = SyntaxKind.ExclamationEqualsToken,
+                [SyntaxKind.ExclamationEqualsToken] = SyntaxKind.EqualsEqualsToken,
+                [SyntaxKind.LessThanExpression] = SyntaxKind.GreaterThanExpression,
+                [SyntaxKind.LessThanOrEqualExpression] = SyntaxKind.GreaterThanExpression,
+                [SyntaxKind.GreaterThanExpression] = SyntaxKind.LessThanExpression,
+                [SyntaxKind.GreaterThanOrEqualExpression] = SyntaxKind.LessThanExpression
+            };
+        }
 
         public override SyntaxNode VisitIfStatement(IfStatementSyntax node)
         {
@@ -36,20 +44,12 @@ namespace Cama.Core.Mutation.ReplaceFinders
                 var tokens = node.Condition.ChildTokens();
                 foreach (var syntaxToken in tokens)
                 {
-                    if (syntaxToken.Kind() == SyntaxKind.EqualsEqualsToken)
+                    var kind = syntaxToken.Kind();
+                    if (_replacementTable.ContainsKey(kind))
                     {
-                        var condition =
-                            node.Condition.ReplaceToken(tokens.First(), SyntaxFactory.Token(SyntaxKind.ExclamationEqualsToken));
+                        var condition = node.Condition.ReplaceToken(tokens.First(), SyntaxFactory.Token(_replacementTable[kind]));
                         var newNode = SyntaxFactory.IfStatement(condition, node.Statement);
 
-                        Replacers.Add(new Replacer { Orginal = node, Replace = newNode, Method = method });
-                    }
-
-                    if (syntaxToken.Kind() == SyntaxKind.ExclamationEqualsToken)
-                    {
-                        var condition =
-                            node.Condition.ReplaceToken(tokens.First(), SyntaxFactory.Token(SyntaxKind.EqualsEqualsToken));
-                        var newNode = SyntaxFactory.IfStatement(condition, node.Statement);
                         Replacers.Add(new Replacer { Orginal = node, Replace = newNode, Method = method });
                     }
                 }

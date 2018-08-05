@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Cama.Core;
+using Cama.Core.Extensions;
 using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
+using Cama.Core.Mutation.MutationOperators;
 using Cama.Core.Services;
 using Cama.Infrastructure;
 using Cama.Infrastructure.Tabs;
@@ -32,6 +35,14 @@ namespace Cama.Module.Mutation.Sections.Overview
             CreateDocumentsCommand = new DelegateCommand(CreateDocuments);
             FileSelectedCommand = new DelegateCommand<DocumentRowModel>(DocumentSelected);
             RunAllMutationsCommand = new DelegateCommand(RunAllMutations);
+            MutationOperatorGridItems = new ObservableCollection<MutationOperatorGridItem>(Enum
+                .GetValues(typeof(MutationOperators)).Cast<MutationOperators>().Select(m =>
+                    new MutationOperatorGridItem
+                    {
+                        IsSelected = false,
+                        MutationOperator = m,
+                        Description = m.GetValue()
+                    }));
         }
 
         public DelegateCommand CreateDocumentsCommand { get; set; }
@@ -42,12 +53,15 @@ namespace Cama.Module.Mutation.Sections.Overview
 
         public ObservableCollection<DocumentRowModel> Documents { get; set; }
 
+        public ObservableCollection<MutationOperatorGridItem> MutationOperatorGridItems { get; set; }
+
         public bool IsMutationDocumentsLoaded => Documents.Any();
 
         private async void CreateDocuments()
         {
             _loadingDisplayer.ShowLoading("Creating mutation documents..");
-            var result = await Task.Run(() => _someService.DoSomeWorkAsync(@"D:\Programmering\Testura\Testura.Code\Testura.Code.sln", "Testura.Code", "Testura.Code.Tests"));
+            var settings = MutationOperatorGridItems.Where(m => m.IsSelected).Select(m => m.MutationOperator);
+            var result = await Task.Run(() => _someService.DoSomeWorkAsync(@"D:\Programmering\Testura\Testura.Code\Testura.Code.sln", "Testura.Code", "Testura.Code.Tests", settings.Select(MutationOperatorFactory.GetMutationOperator).ToList()));
             foreach (var mutatedDocument in result)
             {
                 Documents.Add(new DocumentRowModel { MFile = mutatedDocument });

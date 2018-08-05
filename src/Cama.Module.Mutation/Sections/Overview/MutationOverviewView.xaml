@@ -9,10 +9,34 @@
         <ContentPresenter.ContentTemplate>
             <DataTemplate>
                 <Grid>
-                    <StackPanel Margin="0, 75, 0, 0" x:Name="CreateInfo">
-                        <TextBlock Text="You must set up the mutant documents." HorizontalAlignment="Center" Style="{StaticResource MaterialDesignDisplay1TextBlock}" Foreground="White" />
-                        <Button Content="Create documents" Command="{Binding CreateDocumentsCommand}" Width="200" Grid.Row="0" HorizontalAlignment="Center" Margin="0, 10, 0, 0"/>
-                    </StackPanel>
+                    <Grid x:Name="CreateInfo">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="60" />
+                        </Grid.RowDefinitions>
+                        <GroupBox
+                            Header="Mutations"
+                            Style="{DynamicResource MaterialDesignCardGroupBox}"
+                            Margin="16">
+                            <DataGrid
+                                SelectionUnit="FullRow"
+                                AutoGenerateColumns="False"
+                                IsReadOnly="True"
+                                ItemsSource="{Binding MutationOperatorGridItems}">
+                                <DataGrid.Columns>
+                                    <DataGridCheckBoxColumn Header="Selected"
+                                                        Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" Width="100" IsReadOnly="False" />
+                                    <DataGridTextColumn Header="Operator"
+                                                            Binding="{Binding MutationOperator}" Width="150" IsReadOnly="True"/>
+
+                                    <DataGridTextColumn Header="Description"
+                                                        Binding="{Binding Description}" Width="*" IsReadOnly="True"/>
+                                </DataGrid.Columns>
+                                
+                            </DataGrid>
+                        </GroupBox>
+                        <Button Content="Create documents" Command="{Binding CreateDocumentsCommand}" Width="200" Grid.Row="1" HorizontalAlignment="Right" Margin="16, 0, 16, 16" />
+                    </Grid>
                     <Grid x:Name="MutationDocumentsGrid">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />

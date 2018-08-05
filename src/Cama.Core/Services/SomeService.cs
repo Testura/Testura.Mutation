@@ -6,7 +6,7 @@ using Anotar.Log4Net;
 using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
 using Cama.Core.Mutation.Analyzer;
-using Cama.Core.Mutation.ReplaceFinders;
+using Cama.Core.Mutation.MutationOperators;
 using Microsoft.Build.Locator;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.MSBuild;
@@ -23,7 +23,7 @@ namespace Cama.Core.Services
             _unitTestAnalyzer = unitTestAnalyzer;
         }
 
-        public async Task<IList<MFile>> DoSomeWorkAsync(string solutionPath, string mainProjectName, string unitTestProjectName)
+        public async Task<IList<MFile>> DoSomeWorkAsync(string solutionPath, string mainProjectName, string unitTestProjectName, IList<IMutationOperator> mutationOperators)
         {
             try
             {
@@ -51,16 +51,20 @@ namespace Cama.Core.Services
 
                     LogTo.Info($"Creating mutation for {document.Name}..");
 
-                    var ifReplaceFinders = new IfReplaceFinder();
                     var root = document.GetSyntaxRootAsync().Result;
-                    ifReplaceFinders.Visit(root);
                     var className = root.DescendantNodes().OfType<ClassDeclarationSyntax>().FirstOrDefault()?.Identifier
                         .Text;
                     var tests = className != null
                         ? testInformations.Where(t => t.ReferencedClasses.Contains(className)).ToList()
                         : new List<UnitTestInformation>();
+                    var replacers = new List<MutatedDocument>();
 
-                    list.Add(new MFile(document.Name, ifReplaceFinders.Replacers.Select(r => new MutatedDocument(document, r, tests)).ToList()));
+                    foreach (var mutationOperator in mutationOperators)
+                    {
+                        replacers.AddRange(mutationOperator.GetMutatedDocument(root, document, tests));
+                    }
+
+                    list.Add(new MFile(document.Name, replacers));
                 }
 
                 return list;
