@@ -27,18 +27,6 @@ namespace Cama.Core.Mutation.MutationOperators.DecisionMutations
 
         public override SyntaxNode VisitIfStatement(IfStatementSyntax node)
         {
-            MethodDeclarationSyntax method = null;
-            var parent = node.Parent;
-            while (parent.GetType() != typeof(MethodDeclarationSyntax) && parent.GetType() != typeof(ConstructorDeclarationSyntax))
-            {
-                parent = parent.Parent;
-            }
-
-            if (parent?.GetType() == typeof(MethodDeclarationSyntax))
-            {
-                method = parent as MethodDeclarationSyntax;
-            }
-
             try
             {
                 var tokens = node.Condition.ChildTokens();
@@ -50,7 +38,7 @@ namespace Cama.Core.Mutation.MutationOperators.DecisionMutations
                         var condition = node.Condition.ReplaceToken(tokens.First(), SyntaxFactory.Token(_replacementTable[kind]));
                         var newNode = SyntaxFactory.IfStatement(condition, node.Statement);
 
-                        Replacers.Add(new Replacer { Orginal = node, Replace = newNode, Method = method });
+                        Replacers.Add(new Replacer { Orginal = node, Replace = newNode, Where = GetWhere(node) });
                     }
                 }
             }
@@ -59,7 +47,7 @@ namespace Cama.Core.Mutation.MutationOperators.DecisionMutations
                 Console.WriteLine("Failed on: " + node);
             }
 
-            return node;
+            return base.VisitIfStatement(node);
         }
     }
 }

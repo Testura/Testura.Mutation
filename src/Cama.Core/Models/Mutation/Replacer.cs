@@ -8,6 +8,6 @@ namespace Cama.Core.Models.Mutation
 
         public StatementSyntax Replace { get; set; }
 
-        public MethodDeclarationSyntax Method { get; set; }
+        public string Where { get; set; }
     }
 }

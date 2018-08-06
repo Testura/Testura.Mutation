@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Mutation\MutationOperators\DecisionMutations\IfConditionalMutationOperatorTests.cs" />
+    <Compile Include="Core\Mutation\MutationOperators\StatemenMutations\BinaryExpressionMutationOperatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -65,7 +65,7 @@
     <Compile Include="Mutation\MutationOperators\IMutationOperator.cs" />
     <Compile Include="Mutation\MutationOperators\MutationOperator.cs" />
     <Compile Include="Mutation\MutationOperators\MutationOperatorFactory.cs" />
-    <Compile Include="Mutation\MutationOperators\StatementMutations\MathMutationOperator.cs" />
+    <Compile Include="Mutation\MutationOperators\StatementMutations\BinaryExpressionMutationOperator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DependencyFilesHandler.cs" />
     <Compile Include="Services\MutatedDocumentCompiler.cs" />
