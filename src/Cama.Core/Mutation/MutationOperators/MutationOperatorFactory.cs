@@ -1,6 +1,5 @@
 ﻿using System;
-using Cama.Core.Mutation.MutationOperators.DecisionMutations;
-using Cama.Core.Mutation.MutationOperators.StatementMutations;
+using Cama.Core.Mutation.MutationOperators.BinaryExpressionMutations;
 
 namespace Cama.Core.Mutation.MutationOperators
 {
@@ -10,11 +9,17 @@ namespace Cama.Core.Mutation.MutationOperators
         {
             switch (mutationOperators)
             {
-                case Core.MutationOperators.IfConditional:
-                    return new IfConditionalMutationOperator();
+                case Core.MutationOperators.ConditionalBoundary:
+                    return new ConditionalBoundaryMutationOperator();
 
-                case Core.MutationOperators.SA:
-                    return new BinaryExpressionMutationOperator();
+                case Core.MutationOperators.NegateCondtional:
+                    return new NegateConditionalMutationOperator();
+
+                case Core.MutationOperators.Math:
+                    return new MathMutationOperator();
+
+                case Core.MutationOperators.NegateTypeCompability:
+                    return new NegateTypeCompabilityMutationOperator();
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mutationOperators), mutationOperators, null);

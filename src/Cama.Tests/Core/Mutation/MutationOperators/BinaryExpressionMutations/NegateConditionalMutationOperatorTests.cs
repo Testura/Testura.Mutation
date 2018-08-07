@@ -1,11 +1,11 @@
-﻿using Cama.Core.Mutation.MutationOperators.DecisionMutations;
+﻿using Cama.Core.Mutation.MutationOperators.BinaryExpressionMutations;
 using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
 
-namespace Cama.Tests.Core.Mutation.MutationOperators.DecisionMutations
+namespace Cama.Tests.Core.Mutation.MutationOperators.BinaryExpressionMutations
 {
     [TestFixture]
-    public class IfConditionalMutationOperatorTests
+    public class NegateConditionalMutationOperatorTests
     {
         [TestCase("==", "!=")]
         [TestCase("!=", "==")]
@@ -18,7 +18,7 @@ namespace Cama.Tests.Core.Mutation.MutationOperators.DecisionMutations
             var tree = SyntaxFactory.ParseSyntaxTree($"classC{{publicvoidDo(){{if(i{conditional}1)}}");
             var root = tree.GetRoot();
 
-            var ifConditionalMutationOperator = new IfConditionalMutationOperator();
+            var ifConditionalMutationOperator = new NegateConditionalMutationOperator();
             var doc = ifConditionalMutationOperator.GetMutatedDocument(root, null, null);
 
            Assert.AreEqual($"if(i{mutatedConditional}1)", doc[0].Replacer.Replace.ToString());

@@ -1,12 +1,11 @@
-﻿using Cama.Core.Mutation.MutationOperators.DecisionMutations;
-using Cama.Core.Mutation.MutationOperators.StatementMutations;
+﻿using Cama.Core.Mutation.MutationOperators.BinaryExpressionMutations;
 using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
 
-namespace Cama.Tests.Core.Mutation.MutationOperators.StatemenMutations
+namespace Cama.Tests.Core.Mutation.MutationOperators.BinaryExpressionMutations
 {
     [TestFixture]
-    public class BinaryExpressionMutationOperatorTests
+    public class MathMutationOperatorTests
     {
         [TestCase("1+2", "1-2")]
         [TestCase("1-2", "1+2")]
@@ -23,7 +22,7 @@ namespace Cama.Tests.Core.Mutation.MutationOperators.StatemenMutations
             var tree = SyntaxFactory.ParseSyntaxTree($"classC{{publicvoidDo(){{var i = {binary};}}");
             var root = tree.GetRoot();
 
-            var binaryExpressionMutationOperator = new BinaryExpressionMutationOperator();
+            var binaryExpressionMutationOperator = new MathMutationOperator();
             var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null, null);
 
             Assert.AreEqual($"var i = {mutatedBinary};", doc[0].Replacer.Replace.ToString());
@@ -35,7 +34,7 @@ namespace Cama.Tests.Core.Mutation.MutationOperators.StatemenMutations
             var tree = SyntaxFactory.ParseSyntaxTree($"classC{{publicvoidDo(){{var i = 1+2/3;}}");
             var root = tree.GetRoot();
 
-            var binaryExpressionMutationOperator = new BinaryExpressionMutationOperator();
+            var binaryExpressionMutationOperator = new MathMutationOperator();
             var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null, null);
 
             Assert.AreEqual(2, doc.Count);
@@ -49,7 +48,7 @@ namespace Cama.Tests.Core.Mutation.MutationOperators.StatemenMutations
             var tree = SyntaxFactory.ParseSyntaxTree($"classC{{public int Propi{{ get{{ return 1+2; }}}}");
             var root = tree.GetRoot();
 
-            var binaryExpressionMutationOperator = new BinaryExpressionMutationOperator();
+            var binaryExpressionMutationOperator = new MathMutationOperator();
             var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null, null);
 
             Assert.AreEqual($"return 1-2;", doc[0].Replacer.Replace.ToString());

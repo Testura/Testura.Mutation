@@ -32,8 +32,8 @@
                               IsReadOnly="False"
                               ItemsSource="{Binding File.StatementsMutations}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Method"
-                                                Binding="{Binding Replacer.Method.Identifier}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Where"
+                                                Binding="{Binding Replacer.Where}" Width="*" IsReadOnly="True"/>
                         </DataGrid.Columns>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDoubleClick">
