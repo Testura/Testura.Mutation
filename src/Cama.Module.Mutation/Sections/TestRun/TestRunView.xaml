@@ -269,7 +269,7 @@
 
         <Grid Grid.Row="2" Grid.Column="1">
             <GroupBox
-                Header="Completed"
+                Header="Survuved"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
                 Margin="16">
                 <ScrollViewer>
@@ -277,7 +277,7 @@
                               SelectionUnit="FullRow"
                               AutoGenerateColumns="False"
                               IsReadOnly="False"
-                              ItemsSource="{Binding CompletedDocuments}"
+                              ItemsSource="{Binding SurvivedDocuments}"
                               CanUserAddRows="false"
                               Grid.Row="1">
                         <i:Interaction.Triggers>

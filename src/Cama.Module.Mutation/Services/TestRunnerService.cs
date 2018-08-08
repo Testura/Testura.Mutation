@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cama.Core.Models.Mutation;
@@ -43,7 +44,7 @@ namespace Cama.Module.Mutation.Services
 
             document.Status = TestRunDocument.TestRunStatusEnum.Running;
             var results =
-                _testRunner.RunTests(mainTestFilePath, document.Document.Tests);
+                _testRunner.RunTests(mainTestFilePath, /* document.Document.Tests */ new List<string>());
 
             Directory.Delete(basePath, true);
 

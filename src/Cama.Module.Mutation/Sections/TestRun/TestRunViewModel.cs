@@ -28,6 +28,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
             _mutationModuleTabOpener = mutationModuleTabOpener;
             RunningDocuments = new ObservableCollection<TestRunDocument>();
             CompletedDocuments = new ObservableCollection<MutationDocumentResult>();
+            SurvivedDocuments = new ObservableCollection<MutationDocumentResult>();
             RunCommand = new DelegateCommand(RunTestsAsync);
             CompletedDocumentSelectedCommand = new DelegateCommand<MutationDocumentResult>(OpenCompleteDocumentTab);
             MutationScore = "0%";
@@ -72,6 +73,8 @@ namespace Cama.Module.Mutation.Sections.TestRun
         public ObservableCollection<TestRunDocument> RunningDocuments { get; set; }
 
         public ObservableCollection<MutationDocumentResult> CompletedDocuments { get; set; }
+
+        public ObservableCollection<MutationDocumentResult> SurvivedDocuments { get; set; }
 
         public DelegateCommand RunCommand { get; set; }
 
@@ -130,6 +133,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
                 if (result.TestResult.IsSuccess)
                 {
                     MutationsSurvivedCount.Value++;
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() => SurvivedDocuments.Add(result)));
                 }
                 else
                 {

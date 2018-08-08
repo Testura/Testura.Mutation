@@ -39,7 +39,7 @@ namespace Cama.Module.Mutation.Sections.Overview
                 .GetValues(typeof(MutationOperators)).Cast<MutationOperators>().Select(m =>
                     new MutationOperatorGridItem
                     {
-                        IsSelected = false,
+                        IsSelected = true,
                         MutationOperator = m,
                         Description = m.GetValue()
                     }));

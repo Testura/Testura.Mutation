@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using Cama.Core.TestRunner.Result.Maker;
 using NUnit;
@@ -31,8 +32,6 @@ namespace Cama.Core.TestRunner
 
                 using (NUnit.Engine.ITestRunner runner = engine.GetRunner(package))
                 {
-                    var c = runner.CountTestCases(TestFilter.Empty);
-
                     var result = runner.Run(new TestEventDispatcher(), CreateFilter(testNames, engine.Services.GetService<ITestFilterService>().GetTestFilterBuilder()));
                     runner.Unload();
                     return CreateResult(result);
@@ -42,6 +41,11 @@ namespace Cama.Core.TestRunner
 
         public TestFilter CreateFilter(IList<string> testNames, ITestFilterBuilder builder)
         {
+            if (!testNames.Any())
+            {
+                return TestFilter.Empty;
+            }
+
             foreach (var testName in testNames)
             {
                 builder.AddTest(testName);
