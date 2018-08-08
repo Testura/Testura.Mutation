@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\AvalonEditBehavior.cs" />
+    <Compile Include="Common\Avalon\ChangeColorizer.cs" />
     <Compile Include="Models\DocumentRowModel.cs" />
     <Compile Include="Models\MutationOperatorGridItem.cs" />
     <Compile Include="Models\TestRunDocument.cs" />

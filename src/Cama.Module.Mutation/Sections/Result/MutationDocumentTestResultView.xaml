@@ -3,12 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:common="clr-namespace:Cama.Module.Mutation.Common"
+             xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
              prism:ViewModelLocator.AutoWireViewModel="True"
              Header="{Binding Title}">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="150" />
+                <RowDefinition Height="2*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <GroupBox
@@ -30,9 +34,41 @@
                     </Label.Style>
                 </Label>
             </GroupBox>
+            <Grid Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0" Column="0">
+                    <GroupBox
+                        Header="Before mutation"
+                        Style="{DynamicResource MaterialDesignCardGroupBox}"
+                        Margin="16">
+                        <avalonedit:TextEditor Name="textEditor" FontFamily="Consolas" SyntaxHighlighting="C#" FontSize="8pt" 
+                                               IsReadOnly="True" Padding="15">
+                            <i:Interaction.Behaviors>
+                                <common:AvalonEditBehavior CodeText="{Binding CodeBeforeMutation, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </i:Interaction.Behaviors>
+                        </avalonedit:TextEditor>
+                    </GroupBox>
+                </Grid>
 
+                <Grid Grid.Row="0" Column="2">
+                    <GroupBox
+                        Header="After mutation"
+                        Style="{DynamicResource MaterialDesignCardGroupBox}"
+                        Margin="16">
+                        <avalonedit:TextEditor Name="textEditorAfter" FontFamily="Consolas" SyntaxHighlighting="C#" FontSize="8pt" 
+                                               IsReadOnly="True" Padding="15">
+                            <i:Interaction.Behaviors>
+                                <common:AvalonEditBehavior CodeText="{Binding CodeAfterMutation, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </i:Interaction.Behaviors>
+                        </avalonedit:TextEditor>
+                    </GroupBox>
+                </Grid>
+            </Grid>
             <GroupBox 
-                Grid.Row="1"
+                Grid.Row="2"
                 Header="Test results"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
                 Margin="16">

@@ -39,18 +39,23 @@
                     </Grid>
                     <Grid x:Name="MutationDocumentsGrid">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="200" />
                         </Grid.RowDefinitions>
-                        <DataGrid
+                        <Button Content="Run all mutations" Grid.Row="0" Command="{Binding RunAllMutationsCommand}" HorizontalAlignment="Right" Margin="0, 16, 16, 0" />
+                        <GroupBox
+                            Header="Mutations"
+                            Style="{DynamicResource MaterialDesignCardGroupBox}"
+                            Margin="16"
+                            Grid.Row="1">
+                            <DataGrid
                                   Margin="10, 0, 10, 10"
                                   SelectionUnit="FullRow"
                                   AutoGenerateColumns="False"
                                   IsReadOnly="False"
                                   CanUserSortColumns="False"
                                   CanUserAddRows="False"
-                                  ItemsSource="{Binding Documents}"
-                                  Grid.Row="0">
+                                  ItemsSource="{Binding Documents}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseDoubleClick">
                                     <i:InvokeCommandAction Command="{Binding FileSelectedCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" />
@@ -62,7 +67,7 @@
                                                     Binding="{Binding MutationCount}" Width="*" IsReadOnly="True"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <Button Content="Run all mutations" Grid.Row="1" Command="{Binding RunAllMutationsCommand}" />
+                            </GroupBox>
                     </Grid>
                 </Grid>
                 <DataTemplate.Triggers>

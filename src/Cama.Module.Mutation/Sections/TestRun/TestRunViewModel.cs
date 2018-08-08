@@ -130,7 +130,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
                     return;
                 }
 
-                if (result.TestResult.IsSuccess)
+                if (result.Survived)
                 {
                     MutationsSurvivedCount.Value++;
                     Application.Current.Dispatcher.BeginInvoke(new Action(() => SurvivedDocuments.Add(result)));

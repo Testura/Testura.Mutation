@@ -2,7 +2,7 @@
 {
     public class MutationDocumentResult
     {
-        public bool Completed { get; set; }
+        public bool Survived { get; set; }
 
         public CompilationResult CompilerResult { get; set; }
 

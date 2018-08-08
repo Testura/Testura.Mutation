@@ -295,10 +295,10 @@
                                             <Label.Style>
                                                 <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Completed}" Value="False">
+                                                        <DataTrigger Binding="{Binding Survived}" Value="True">
                                                             <Setter Property="Content" Value="Survived"/>
                                                         </DataTrigger>
-                                                        <DataTrigger Binding="{Binding Completed}" Value="True">
+                                                        <DataTrigger Binding="{Binding Survived}" Value="False">
                                                             <Setter Property="Content" Value="Killed"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>

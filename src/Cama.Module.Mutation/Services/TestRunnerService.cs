@@ -36,7 +36,7 @@ namespace Cama.Module.Mutation.Services
             var compilerResult = await _compiler.CompileAsync(mainFilePath, document.Document);
             if (!compilerResult.IsSuccess)
             {
-                return new MutationDocumentResult { Completed = false, CompilerResult = compilerResult, Document = document.Document };
+                return new MutationDocumentResult { Survived = false, CompilerResult = compilerResult, Document = document.Document };
             }
 
             document.Status = TestRunDocument.TestRunStatusEnum.CopyFiles;
@@ -48,7 +48,7 @@ namespace Cama.Module.Mutation.Services
 
             Directory.Delete(basePath, true);
 
-            return new MutationDocumentResult { Completed = true, CompilerResult = compilerResult, TestResult = results, Document = document.Document };
+            return new MutationDocumentResult { Survived = results.IsSuccess, CompilerResult = compilerResult, TestResult = results, Document = document.Document };
         }
     }
 }
