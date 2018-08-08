@@ -6,7 +6,7 @@ using Anotar.Log4Net;
 using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
 using Cama.Core.Mutation.Analyzer;
-using Cama.Core.Mutation.MutationOperators;
+using Cama.Core.Mutation.Mutators;
 using Microsoft.Build.Locator;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.MSBuild;

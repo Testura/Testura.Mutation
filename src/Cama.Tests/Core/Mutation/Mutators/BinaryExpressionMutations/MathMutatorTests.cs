@@ -1,11 +1,11 @@
-﻿using Cama.Core.Mutation.MutationOperators.BinaryExpressionMutations;
+﻿using Cama.Core.Mutation.Mutators.BinaryExpressionMutators;
 using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
 
-namespace Cama.Tests.Core.Mutation.MutationOperators.BinaryExpressionMutations
+namespace Cama.Tests.Core.Mutation.Mutators.BinaryExpressionMutations
 {
     [TestFixture]
-    public class MathMutationOperatorTests
+    public class MathMutatorTests
     {
         [TestCase("1+2", "1-2")]
         [TestCase("1-2", "1+2")]
@@ -22,19 +22,19 @@ namespace Cama.Tests.Core.Mutation.MutationOperators.BinaryExpressionMutations
             var tree = SyntaxFactory.ParseSyntaxTree($"classC{{publicvoidDo(){{var i = {binary};}}");
             var root = tree.GetRoot();
 
-            var binaryExpressionMutationOperator = new MathMutationOperator();
+            var binaryExpressionMutationOperator = new MathMutator();
             var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null, null);
 
             Assert.AreEqual($"var i = {mutatedBinary};", doc[0].Replacer.Replace.ToString());
         }
 
         [Test]
-        public void BinaryTestMultiple()
+        public void GetMutatedDocument_WhenHavingMultipleMathOperationsInSameStatement_ShouldMutateAll()
         {
             var tree = SyntaxFactory.ParseSyntaxTree($"classC{{publicvoidDo(){{var i = 1+2/3;}}");
             var root = tree.GetRoot();
 
-            var binaryExpressionMutationOperator = new MathMutationOperator();
+            var binaryExpressionMutationOperator = new MathMutator();
             var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null, null);
 
             Assert.AreEqual(2, doc.Count);
@@ -43,12 +43,12 @@ namespace Cama.Tests.Core.Mutation.MutationOperators.BinaryExpressionMutations
         }
 
         [Test]
-        public void BinaryTestFromProperty()
+        public void GetMutatedDocument_WhenHavingAReturnStatementWithMathOperator_ShouldMutate()
         {
             var tree = SyntaxFactory.ParseSyntaxTree($"classC{{public int Propi{{ get{{ return 1+2; }}}}");
             var root = tree.GetRoot();
 
-            var binaryExpressionMutationOperator = new MathMutationOperator();
+            var binaryExpressionMutationOperator = new MathMutator();
             var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null, null);
 
             Assert.AreEqual($"return 1-2;", doc[0].Replacer.Replace.ToString());

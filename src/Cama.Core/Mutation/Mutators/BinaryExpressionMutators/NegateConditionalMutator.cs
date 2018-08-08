@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace Cama.Core.Mutation.MutationOperators.BinaryExpressionMutations
+namespace Cama.Core.Mutation.Mutators.BinaryExpressionMutators
 {
-    public class NegateConditionalMutationOperator : BinaryExpressionMutationOperator
+    public class NegateConditionalMutator : BinaryExpressionMutator
     {
         private readonly Dictionary<SyntaxKind, SyntaxKind> _replacementTable;
 
-        public NegateConditionalMutationOperator()
+        public NegateConditionalMutator()
         {
             _replacementTable = new Dictionary<SyntaxKind, SyntaxKind>
             {

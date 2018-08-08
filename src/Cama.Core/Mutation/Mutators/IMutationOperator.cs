@@ -2,7 +2,7 @@
 using Cama.Core.Models.Mutation;
 using Microsoft.CodeAnalysis;
 
-namespace Cama.Core.Mutation.MutationOperators
+namespace Cama.Core.Mutation.Mutators
 {
     public interface IMutationOperator
     {

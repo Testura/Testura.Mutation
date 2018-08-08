@@ -7,7 +7,7 @@ using Cama.Core;
 using Cama.Core.Extensions;
 using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
-using Cama.Core.Mutation.MutationOperators;
+using Cama.Core.Mutation.Mutators;
 using Cama.Core.Services;
 using Cama.Infrastructure;
 using Cama.Infrastructure.Tabs;

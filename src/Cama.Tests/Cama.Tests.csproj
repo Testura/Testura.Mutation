@@ -146,10 +146,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Mutation\MutationOperators\BinaryExpressionMutations\ConditionalBoundaryMutationOperatorTests.cs" />
-    <Compile Include="Core\Mutation\MutationOperators\BinaryExpressionMutations\NegateConditionalMutationOperatorTests.cs" />
-    <Compile Include="Core\Mutation\MutationOperators\BinaryExpressionMutations\MathMutationOperatorTests.cs" />
-    <Compile Include="Core\Mutation\MutationOperators\NegateTypeCompabilityTests.cs" />
+    <Compile Include="Core\Mutation\Mutators\BinaryExpressionMutations\ConditionalBoundaryMutatorTests.cs" />
+    <Compile Include="Core\Mutation\Mutators\BinaryExpressionMutations\NegateConditionalMutatorTests.cs" />
+    <Compile Include="Core\Mutation\Mutators\BinaryExpressionMutations\MathMutatorTests.cs" />
+    <Compile Include="Core\Mutation\Mutators\IncrementsMutatorTests.cs" />
+    <Compile Include="Core\Mutation\Mutators\NegateTypeMutatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

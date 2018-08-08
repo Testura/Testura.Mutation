@@ -4,9 +4,9 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Cama.Core.Mutation.MutationOperators.BinaryExpressionMutations
+namespace Cama.Core.Mutation.Mutators.BinaryExpressionMutators
 {
-    public abstract class BinaryExpressionMutationOperator : MutationOperator
+    public abstract class BinaryExpressionMutator : MutationOperator
     {
         public override SyntaxNode VisitBinaryExpression(BinaryExpressionSyntax node)
         {
@@ -32,16 +32,5 @@ namespace Cama.Core.Mutation.MutationOperators.BinaryExpressionMutations
         }
 
         protected abstract Dictionary<SyntaxKind, SyntaxKind> GetReplacementTable();
-
-        protected StatementSyntax GetStatement(BinaryExpressionSyntax binaryExpressionSyntax)
-        {
-            SyntaxNode statementPart = binaryExpressionSyntax.Parent;
-            while (!(statementPart is StatementSyntax))
-            {
-                statementPart = statementPart.Parent;
-            }
-
-            return statementPart as StatementSyntax;
-        }
     }
 }

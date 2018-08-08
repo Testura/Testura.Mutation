@@ -14,6 +14,9 @@ namespace Cama.Core
         Math,
 
         [EnumMember(Value = "Negate all type compatibility checks (\"x is y\") by replacing it with \"!(x is y)\"")]
-        NegateTypeCompability
+        NegateTypeCompability,
+
+        [EnumMember(Value = "Replace post increment and decrement with their counter part.")]
+        Increment
     }
 }

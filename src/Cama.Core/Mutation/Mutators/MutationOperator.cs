@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Cama.Core.Mutation.MutationOperators
+namespace Cama.Core.Mutation.Mutators
 {
     public class MutationOperator : CSharpSyntaxRewriter, IMutationOperator
     {
@@ -23,12 +23,23 @@ namespace Cama.Core.Mutation.MutationOperators
             return Replacers.Select(r => new MutatedDocument(document, r, connectedTests)).ToList();
         }
 
+        protected StatementSyntax GetStatement(ExpressionSyntax binaryExpressionSyntax)
+        {
+            SyntaxNode statementPart = binaryExpressionSyntax.Parent;
+            while (!(statementPart is StatementSyntax))
+            {
+                statementPart = statementPart.Parent;
+            }
+
+            return statementPart as StatementSyntax;
+        }
+
         protected string GetWhere(CSharpSyntaxNode statementSyntax)
         {
             int count = 0;
 
             var statementPart = statementSyntax.Parent;
-            while (count < 10)
+            while (count < 10 && statementPart.Parent != null)
             {
                 statementPart = statementPart.Parent;
 
@@ -50,7 +61,7 @@ namespace Cama.Core.Mutation.MutationOperators
                 count++;
             }
 
-            return "Unkown";
+            return "Unknown";
         }
     }
 }

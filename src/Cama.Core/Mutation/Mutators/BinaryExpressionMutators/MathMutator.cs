@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace Cama.Core.Mutation.MutationOperators.BinaryExpressionMutations
+namespace Cama.Core.Mutation.Mutators.BinaryExpressionMutators
 {
-    public class MathMutationOperator : BinaryExpressionMutationOperator
+    public class MathMutator : BinaryExpressionMutator
     {
         private readonly Dictionary<SyntaxKind, SyntaxKind> _replacementTable;
 
-        public MathMutationOperator()
+        public MathMutator()
         {
             _replacementTable = new Dictionary<SyntaxKind, SyntaxKind>
             {
@@ -20,13 +20,7 @@ namespace Cama.Core.Mutation.MutationOperators.BinaryExpressionMutations
                 [SyntaxKind.BarToken] = SyntaxKind.AmpersandToken,
                 [SyntaxKind.CaretToken] = SyntaxKind.AmpersandToken,
                 [SyntaxKind.LessThanLessThanToken] = SyntaxKind.GreaterThanGreaterThanToken,
-                [SyntaxKind.GreaterThanGreaterThanToken] = SyntaxKind.LessThanLessThanToken,
-                [SyntaxKind.EqualsEqualsToken] = SyntaxKind.ExclamationEqualsToken,
-                [SyntaxKind.ExclamationEqualsToken] = SyntaxKind.EqualsEqualsToken,
-                [SyntaxKind.LessThanToken] = SyntaxKind.GreaterThanToken,
-                [SyntaxKind.LessThanEqualsToken] = SyntaxKind.GreaterThanToken,
-                [SyntaxKind.GreaterThanToken] = SyntaxKind.LessThanToken,
-                [SyntaxKind.GreaterThanEqualsToken] = SyntaxKind.LessThanToken
+                [SyntaxKind.GreaterThanGreaterThanToken] = SyntaxKind.LessThanLessThanToken
             };
         }
 

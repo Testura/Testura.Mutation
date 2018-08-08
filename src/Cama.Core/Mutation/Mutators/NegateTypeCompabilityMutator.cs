@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using Cama.Core.Models.Mutation;
+﻿using Cama.Core.Models.Mutation;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Cama.Core.Mutation.MutationOperators.BinaryExpressionMutations
+namespace Cama.Core.Mutation.Mutators
 {
-    public class NegateTypeCompabilityMutationOperator : BinaryExpressionMutationOperator
+    public class NegateTypeCompabilityMutator : MutationOperator
     {
         public override SyntaxNode VisitBinaryExpression(BinaryExpressionSyntax node)
         {
@@ -26,11 +25,6 @@ namespace Cama.Core.Mutation.MutationOperators.BinaryExpressionMutations
             }
 
             return base.VisitBinaryExpression(node);
-        }
-
-        protected override Dictionary<SyntaxKind, SyntaxKind> GetReplacementTable()
-        {
-            return new Dictionary<SyntaxKind, SyntaxKind>();
         }
     }
 }
