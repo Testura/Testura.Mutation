@@ -6,6 +6,7 @@
              xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
              xmlns:common="clr-namespace:Cama.Module.Mutation.Common"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:codeDiff="clr-namespace:Cama.Module.Mutation.Common.CodeDiff"
              prism:ViewModelLocator.AutoWireViewModel="True"
              Header="{Binding FileName}">
     <Grid>
@@ -16,38 +17,44 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="80" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Column="0">
+            <materialDesign:Card Margin="8, 8, 16, 8" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
+                <CheckBox
+                    Style="{StaticResource MaterialDesignCheckBox}"
+                    Command="{Binding ShowFullCodeCommand}"
+                    CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"
+                    Foreground="White"
+                    Margin="16">
+                    Show full code
+                </CheckBox>
+            </materialDesign:Card>
+
+            <Grid Grid.Row="1" Column="0">
                 <GroupBox
                     Header="Before mutation"
                     Style="{DynamicResource MaterialDesignCardGroupBox}"
                     Margin="16">
-                    <avalonedit:TextEditor Name="textEditor" FontFamily="Consolas" SyntaxHighlighting="C#" FontSize="8pt" 
-                                           IsReadOnly="True" Padding="15">
-                        <i:Interaction.Behaviors>
-                            <common:AvalonEditBehavior CodeText="{Binding CodeBeforeMutation, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </i:Interaction.Behaviors>
-                    </avalonedit:TextEditor>
+                    <RichTextBox x:Name="beforeDiff"
+                                 codeDiff:SideBySideDiffModelVisualizer.Vorher="{Binding Diff, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" AcceptsReturn="True" IsReadOnly="True" 
+                                 VerticalScrollBarVisibility="Visible"/>
                 </GroupBox>
             </Grid>
 
-            <Grid Grid.Row="0" Column="2">
+            <Grid Grid.Row="1" Column="2">
                 <GroupBox
                     Header="After mutation"
                     Style="{DynamicResource MaterialDesignCardGroupBox}"
                     Margin="16">
-                    <avalonedit:TextEditor Name="textEditorAfter" FontFamily="Consolas" SyntaxHighlighting="C#" FontSize="8pt" 
-                                           IsReadOnly="True" Padding="15">
-                        <i:Interaction.Behaviors>
-                            <common:AvalonEditBehavior CodeText="{Binding CodeAfterMutation, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </i:Interaction.Behaviors>
-                    </avalonedit:TextEditor>
+                    <RichTextBox
+                                 codeDiff:SideBySideDiffModelVisualizer.Nachher="{Binding Diff, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" AcceptsReturn="True" IsReadOnly="True" 
+                                 VerticalScrollBarVisibility="Visible"/>
                 </GroupBox>
             </Grid>
-            <Grid Grid.Row="1" Grid.ColumnSpan="3">
+            <Grid Grid.Row="2" Grid.ColumnSpan="3">
                 <GroupBox
                     Header="Connected unit tests"
                     Style="{DynamicResource MaterialDesignCardGroupBox}"

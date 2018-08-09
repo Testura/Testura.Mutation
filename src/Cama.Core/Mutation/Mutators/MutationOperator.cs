@@ -25,40 +25,29 @@ namespace Cama.Core.Mutation.Mutators
 
         protected StatementSyntax GetStatement(ExpressionSyntax binaryExpressionSyntax)
         {
-            SyntaxNode statementPart = binaryExpressionSyntax.Parent;
-            while (!(statementPart is StatementSyntax))
-            {
-                statementPart = statementPart.Parent;
-            }
-
-            return statementPart as StatementSyntax;
+            return binaryExpressionSyntax.FirstAncestorOrSelf<StatementSyntax>();
         }
 
-        protected string GetWhere(CSharpSyntaxNode statementSyntax)
+        protected string GetWhere(CSharpSyntaxNode syntaxNode)
         {
-            int count = 0;
+            var methodDeclaration = syntaxNode.FirstAncestorOrSelf<MethodDeclarationSyntax>();
 
-            var statementPart = statementSyntax.Parent;
-            while (count < 10 && statementPart.Parent != null)
+            if (methodDeclaration != null)
             {
-                statementPart = statementPart.Parent;
+                return $"{methodDeclaration.Identifier.Value}(M)";
+            }
 
-                if (statementPart is MethodDeclarationSyntax)
-                {
-                    return (statementPart as MethodDeclarationSyntax).Identifier.ValueText;
-                }
+            var constructorDeclaration = syntaxNode.FirstAncestorOrSelf<ConstructorDeclarationSyntax>();
 
-                if (statementPart is ConstructorDeclarationSyntax)
-                {
-                    return (statementPart as ConstructorDeclarationSyntax).Identifier.ValueText;
-                }
+            if (constructorDeclaration != null)
+            {
+                return $"{constructorDeclaration.Identifier.Value}(C)";
+            }
 
-                if (statementPart is PropertyDeclarationSyntax)
-                {
-                    return (statementPart as PropertyDeclarationSyntax).Identifier.ValueText;
-                }
-
-                count++;
+            var propertyDeclaration = syntaxNode.FirstAncestorOrSelf<PropertyDeclarationSyntax>();
+            if (propertyDeclaration != null)
+            {
+                return $"{constructorDeclaration.Identifier.Value}(P)";
             }
 
             return "Unknown";

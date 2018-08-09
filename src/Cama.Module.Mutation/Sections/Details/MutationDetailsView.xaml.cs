@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 using Cama.Core.Models.Mutation;
-using Cama.Module.Mutation.Common.Avalon;
 
 namespace Cama.Module.Mutation.Sections.Details
 {
@@ -15,10 +14,6 @@ namespace Cama.Module.Mutation.Sections.Details
 
             var dataContext = DataContext as MutationDetailsViewModel;
             dataContext.Initialize(document);
-
-            /*
-            textEditor.TextArea.TextView.LineTransformers.Add(new ChangeColorizer());
-            */
         }
     }
 }

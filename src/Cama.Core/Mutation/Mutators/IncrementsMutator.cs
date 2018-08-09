@@ -29,12 +29,7 @@ namespace Cama.Core.Mutation.Mutators
             var orginalStatement = GetStatement(node);
             var mutatesdStatement = orginalStatement.ReplaceNode(node, newNode);
 
-            Replacers.Add(new Replacer
-            {
-                Orginal = orginalStatement,
-                Replace = mutatesdStatement,
-                Where = GetWhere(node)
-            });
+            Replacers.Add(new Replacer(orginalStatement, mutatesdStatement, GetWhere(node)));
         }
     }
 }

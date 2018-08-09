@@ -17,7 +17,7 @@ namespace Cama.Tests.Core.Mutation.Mutators
             var binaryExpressionMutationOperator = new IncrementsMutator();
             var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null, null);
 
-            Assert.AreEqual(postMutation, doc[0].Replacer.Replace.ToString());
+            Assert.AreEqual(postMutation, doc[0].Replacer.Mutation.ToString());
         }
 
         [Test]

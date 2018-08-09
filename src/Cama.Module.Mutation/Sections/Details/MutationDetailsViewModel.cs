@@ -2,6 +2,9 @@
 using System.ComponentModel;
 using Cama.Core.Models.Mutation;
 using Cama.Infrastructure.Tabs;
+using DiffPlex;
+using DiffPlex.DiffBuilder;
+using DiffPlex.DiffBuilder.Model;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -16,6 +19,7 @@ namespace Cama.Module.Mutation.Sections.Details
         {
             _tabOpener = tabOpener;
             ExecuteTestsCommand = new DelegateCommand(ExecuteTests);
+            ShowFullCodeCommand = new DelegateCommand<bool?>(ShowFullCode);
         }
 
         public IList<string> UnitTests { get; set; }
@@ -28,13 +32,24 @@ namespace Cama.Module.Mutation.Sections.Details
 
         public DelegateCommand ExecuteTestsCommand { get; set; }
 
+        public DelegateCommand<bool?> ShowFullCodeCommand { get; set; }
+
+        public SideBySideDiffModel Diff { get; private set; }
+
         public void Initialize(MutatedDocument document)
         {
             _document = document;
             FileName = document.FileName;
-            CodeBeforeMutation = document.Replacer.Orginal.ToFullString();
-            CodeAfterMutation = document.Replacer.Replace.ToFullString();
             UnitTests = document.Tests;
+            ShowFullCode(false);
+        }
+
+        private void ShowFullCode(bool? showFullCode)
+        {
+            CodeBeforeMutation = showFullCode.Value ? _document.Replacer.FullOrginal.ToFullString() : _document.Replacer.Orginal.ToFullString();
+            CodeAfterMutation = showFullCode.Value ? _document.Replacer.FullMutation.ToFullString() : _document.Replacer.Mutation.ToFullString();
+            var diffBuilder = new SideBySideDiffBuilder(new Differ());
+            Diff = diffBuilder.BuildDiffModel(CodeBeforeMutation, CodeAfterMutation);
         }
 
         private void ExecuteTests()

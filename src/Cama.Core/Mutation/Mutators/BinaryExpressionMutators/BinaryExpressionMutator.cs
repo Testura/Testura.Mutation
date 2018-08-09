@@ -15,17 +15,12 @@ namespace Cama.Core.Mutation.Mutators.BinaryExpressionMutators
 
             if (replacementTable.ContainsKey(operatorKind))
             {
-                var newNode = node.ReplaceToken(node.OperatorToken, SyntaxFactory.Token(replacementTable[operatorKind]));
+                var newNode = node.ReplaceToken(node.OperatorToken, SyntaxFactory.Token(replacementTable[operatorKind]).WithTrailingTrivia(SyntaxFactory.Whitespace(" ")));
 
                 var orginalStatement = GetStatement(node);
                 var mutatesdStatement = orginalStatement.ReplaceNode(node, newNode);
 
-                Replacers.Add(new Replacer
-                {
-                    Orginal = orginalStatement,
-                    Replace = mutatesdStatement,
-                    Where = GetWhere(node)
-                });
+                Replacers.Add(new Replacer(orginalStatement, mutatesdStatement, GetWhere(node)));
             }
 
             return base.VisitBinaryExpression(node);

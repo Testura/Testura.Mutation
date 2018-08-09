@@ -31,7 +31,7 @@ namespace Cama.Core.Models.Mutation
         public Document CreateMutatedDocument()
         {
             var editor = DocumentEditor.CreateAsync(_orginalDocument).Result;
-            editor.ReplaceNode(Replacer.Orginal, Replacer.Replace);
+            editor.ReplaceNode(Replacer.Orginal, Replacer.Mutation);
             return _orginalDocument.WithText(editor.GetChangedDocument().GetSyntaxRootAsync().Result.GetText());
         }
     }
