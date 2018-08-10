@@ -17,6 +17,9 @@ namespace Cama.Core
         NegateTypeCompability,
 
         [EnumMember(Value = "Replace post increment and decrement with their counter part.")]
-        Increment
+        Increment,
+
+        [EnumMember(Value = "Replace return value of methods or properties.")]
+        ReturnValue
     }
 }

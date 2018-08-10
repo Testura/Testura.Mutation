@@ -5,18 +5,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cama.Core.Mutation.Mutators
 {
-    public class NegateTypeCompabilityMutator : MutationOperator
+    public class NegateTypeCompabilityMutator : Mutator
     {
         public override SyntaxNode VisitBinaryExpression(BinaryExpressionSyntax node)
         {
             if (node.IsKind(SyntaxKind.IsExpression))
             {
                 var newNode = SyntaxFactory.PrefixUnaryExpression(SyntaxKind.LogicalNotExpression, SyntaxFactory.ParenthesizedExpression(node));
-
-                var orginalStatement = GetStatement(node);
-                var mutatesdStatement = orginalStatement.ReplaceNode(node, newNode);
-
-                Replacers.Add(new Replacer(orginalStatement, mutatesdStatement, GetWhere(node)));
+                Replacers.Add(new Replacer(node, newNode, GetWhere(node)));
             }
 
             return base.VisitBinaryExpression(node);

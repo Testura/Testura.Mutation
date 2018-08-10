@@ -19,7 +19,7 @@ namespace Cama.Tests.Core.Mutation.Mutators.BinaryExpressionMutations
             var ifConditionalMutationOperator = new ConditionalBoundaryMutator();
             var doc = ifConditionalMutationOperator.GetMutatedDocument(root, null, null);
 
-           Assert.AreEqual($"if(i{mutatedConditional}1)", doc[0].Replacer.Mutation.ToString());
+           Assert.AreEqual($"i{mutatedConditional}1", doc[0].Replacer.Mutation.ToString());
         }
     }
 }

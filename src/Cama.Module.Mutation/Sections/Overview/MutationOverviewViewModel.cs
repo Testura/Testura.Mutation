@@ -25,6 +25,7 @@ namespace Cama.Module.Mutation.Sections.Overview
         private readonly SomeService _someService;
         private readonly IMutationModuleTabOpener _tabOpener;
         private readonly ILoadingDisplayer _loadingDisplayer;
+        private CamaConfig _config;
 
         public MutationOverviewViewModel(SomeService someService, IMutationModuleTabOpener tabOpener, ILoadingDisplayer loadingDisplayer)
         {
@@ -61,13 +62,18 @@ namespace Cama.Module.Mutation.Sections.Overview
         {
             _loadingDisplayer.ShowLoading("Creating mutation documents..");
             var settings = MutationOperatorGridItems.Where(m => m.IsSelected).Select(m => m.MutationOperator);
-            var result = await Task.Run(() => _someService.DoSomeWorkAsync(@"D:\Programmering\Testura\Testura.Code\Testura.Code.sln", "Testura.Code", "Testura.Code.Tests", settings.Select(MutationOperatorFactory.GetMutationOperator).ToList()));
+            var result = await Task.Run(() => _someService.DoSomeWorkAsync(_config.ProjectBinPath, _config.SolutionPath, _config.MutationProjectNames, _config.TestProjectName, settings.Select(MutationOperatorFactory.GetMutationOperator).ToList()));
             foreach (var mutatedDocument in result)
             {
                 Documents.Add(new DocumentRowModel { MFile = mutatedDocument });
             }
 
             _loadingDisplayer.HideLoading();
+        }
+
+        public void Initialize(CamaConfig config)
+        {
+            _config = config;
         }
 
         private void RunAllMutations()
@@ -78,10 +84,6 @@ namespace Cama.Module.Mutation.Sections.Overview
         private void DocumentSelected(DocumentRowModel documentRow)
         {
             _tabOpener.OpenFileDetailsTab(documentRow.MFile);
-        }
-
-        public void Initialize(CamaConfig config)
-        {
         }
     }
 }

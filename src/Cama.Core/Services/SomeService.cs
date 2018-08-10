@@ -23,7 +23,7 @@ namespace Cama.Core.Services
             _unitTestAnalyzer = unitTestAnalyzer;
         }
 
-        public async Task<IList<MFile>> DoSomeWorkAsync(string solutionPath, string mainProjectName, string unitTestProjectName, IList<IMutationOperator> mutationOperators)
+        public async Task<IList<MFile>> DoSomeWorkAsync(string camaProjectBinpath, string solutionPath, IList<string> mainProjectNames, string unitTestProjectName, IList<IMutator> mutationOperators)
         {
             try
             {
@@ -35,36 +35,57 @@ namespace Cama.Core.Services
                 var solution = await workspace.OpenSolutionAsync(solutionPath);
 
                 LogTo.Info("Starting to analyze test..");
+
+                /*
                 var testInformations = await Task.Run(() =>
                     _unitTestAnalyzer.MapTestsAsync(
+                        Path.Combine(camaProjectBinpath),
                         solution.Projects.FirstOrDefault(p => p.Name == unitTestProjectName)));
-                var mainProject = solution.Projects.FirstOrDefault(p => p.Name == mainProjectName);
 
+                */
                 var list = new List<MFile>();
-                var documents = mainProject.DocumentIds;
 
-                LogTo.Info("Starting to create mutations..");
-                for (int n = 0; n < documents.Count; n++)
+                foreach (var mainProjectName in mainProjectNames)
                 {
-                    var documentId = documents[n];
-                    var document = mainProject.GetDocument(documentId);
+                    var mainProject = solution.Projects.FirstOrDefault(p => p.Name == mainProjectName);
+                    var documents = mainProject.DocumentIds;
 
-                    LogTo.Info($"Creating mutation for {document.Name}..");
-
-                    var root = document.GetSyntaxRootAsync().Result;
-                    var className = root.DescendantNodes().OfType<ClassDeclarationSyntax>().FirstOrDefault()?.Identifier
-                        .Text;
-                    var tests = className != null
-                        ? testInformations.Where(t => t.ReferencedClasses.Contains(className)).ToList()
-                        : new List<UnitTestInformation>();
-                    var replacers = new List<MutatedDocument>();
-
-                    foreach (var mutationOperator in mutationOperators)
+                    LogTo.Info("Starting to create mutations..");
+                    for (int n = 0; n < documents.Count; n++)
                     {
-                        replacers.AddRange(mutationOperator.GetMutatedDocument(root, document, tests));
-                    }
+                        try
+                        {
+                            var documentId = documents[n];
+                            var document = mainProject.GetDocument(documentId);
 
-                    list.Add(new MFile(document.Name, replacers));
+                            LogTo.Info($"Creating mutation for {document.Name}..");
+
+                            var root = document.GetSyntaxRootAsync().Result;
+                            var className = root.DescendantNodes().OfType<ClassDeclarationSyntax>().FirstOrDefault()
+                                ?.Identifier
+                                .Text;
+
+                            /*
+                            var tests = className != null
+                                ? testInformations.Where(t => t.ReferencedClasses.Contains(className)).ToList()
+                                : new List<UnitTestInformation>();
+                                */
+                            var tests = new List<UnitTestInformation>();
+
+                            var replacers = new List<MutatedDocument>();
+
+                            foreach (var mutationOperator in mutationOperators)
+                            {
+                                replacers.AddRange(mutationOperator.GetMutatedDocument(root, document, tests));
+                            }
+
+                            list.Add(new MFile(document.Name, replacers));
+                        }
+                        catch (Exception ex)
+                        {
+                            LogTo.Error("Error when creating mutation: " + ex.Message);
+                        }
+                    }
                 }
 
                 return list;

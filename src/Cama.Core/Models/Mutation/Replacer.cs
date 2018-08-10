@@ -1,12 +1,11 @@
 ﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cama.Core.Models.Mutation
 {
     public class Replacer
     {
-        public Replacer(StatementSyntax orginal, StatementSyntax mutation, string where)
+        public Replacer(SyntaxNode orginal, SyntaxNode mutation, string where)
         {
             Orginal = orginal;
             Mutation = mutation;
@@ -15,9 +14,9 @@ namespace Cama.Core.Models.Mutation
             Where = where;
         }
 
-        public StatementSyntax Orginal { get; }
+        public SyntaxNode Orginal { get; }
 
-        public StatementSyntax Mutation { get; }
+        public SyntaxNode Mutation { get; }
 
         public CompilationUnitSyntax FullOrginal { get; }
 
@@ -25,7 +24,7 @@ namespace Cama.Core.Models.Mutation
 
         public string Where { get; }
 
-        private CompilationUnitSyntax GetRoot(CSharpSyntaxNode syntaxNode)
+        private CompilationUnitSyntax GetRoot(SyntaxNode syntaxNode)
         {
             return syntaxNode.FirstAncestorOrSelf<CompilationUnitSyntax>();
         }

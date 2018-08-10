@@ -7,9 +7,9 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cama.Core.Mutation.Mutators
 {
-    public class MutationOperator : CSharpSyntaxRewriter, IMutationOperator
+    public class Mutator : CSharpSyntaxRewriter, IMutator
     {
-        public MutationOperator()
+        public Mutator()
         {
             Replacers = new List<Replacer>();
         }
@@ -23,10 +23,12 @@ namespace Cama.Core.Mutation.Mutators
             return Replacers.Select(r => new MutatedDocument(document, r, connectedTests)).ToList();
         }
 
+        /*
         protected StatementSyntax GetStatement(ExpressionSyntax binaryExpressionSyntax)
         {
             return binaryExpressionSyntax.FirstAncestorOrSelf<StatementSyntax>();
         }
+        */
 
         protected string GetWhere(CSharpSyntaxNode syntaxNode)
         {
@@ -47,7 +49,7 @@ namespace Cama.Core.Mutation.Mutators
             var propertyDeclaration = syntaxNode.FirstAncestorOrSelf<PropertyDeclarationSyntax>();
             if (propertyDeclaration != null)
             {
-                return $"{constructorDeclaration.Identifier.Value}(P)";
+                return $"{propertyDeclaration.Identifier.Value}(P)";
             }
 
             return "Unknown";

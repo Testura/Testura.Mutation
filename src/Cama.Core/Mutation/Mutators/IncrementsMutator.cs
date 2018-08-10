@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cama.Core.Mutation.Mutators
 {
-    public class IncrementsMutator : MutationOperator
+    public class IncrementsMutator : Mutator
     {
         public override SyntaxNode VisitPostfixUnaryExpression(PostfixUnaryExpressionSyntax node)
         {
@@ -26,10 +26,7 @@ namespace Cama.Core.Mutation.Mutators
 
         private void CreateReplacer(PostfixUnaryExpressionSyntax node, PostfixUnaryExpressionSyntax newNode)
         {
-            var orginalStatement = GetStatement(node);
-            var mutatesdStatement = orginalStatement.ReplaceNode(node, newNode);
-
-            Replacers.Add(new Replacer(orginalStatement, mutatesdStatement, GetWhere(node)));
+            Replacers.Add(new Replacer(node, newNode, GetWhere(node)));
         }
     }
 }

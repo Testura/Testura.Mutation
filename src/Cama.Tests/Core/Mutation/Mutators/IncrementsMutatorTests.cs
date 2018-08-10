@@ -7,8 +7,8 @@ namespace Cama.Tests.Core.Mutation.Mutators
     [TestFixture]
     public class IncrementsMutatorTests
     {
-        [TestCase("i++", "i--;", TestName = "GetMutatedDocument_WhenHavingAStatementWithPostIncrementExpression_ShouldMutateIt")]
-        [TestCase("i--", "i++;", TestName = "GetMutatedDocument_WhenHavingAStatementWithPostIncrementExpression_ShouldMutateIt")]
+        [TestCase("i++", "i--", TestName = "GetMutatedDocument_WhenHavingAStatementWithPostIncrementExpression_ShouldMutateIt")]
+        [TestCase("i--", "i++", TestName = "GetMutatedDocument_WhenHavingAStatementWithPostIncrementExpression_ShouldMutateIt")]
         public void Positive(string preMutation, string postMutation)
         {
             var tree = SyntaxFactory.ParseSyntaxTree($"classC{{public void Do(){{{preMutation};}}");

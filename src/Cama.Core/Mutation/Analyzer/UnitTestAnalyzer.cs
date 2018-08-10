@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace Cama.Core.Mutation.Analyzer
 {
     public class UnitTestAnalyzer
     {
-        public async Task<IList<UnitTestInformation>> MapTestsAsync(Project unitTestProject)
+        public async Task<IList<UnitTestInformation>> MapTestsAsync(string camaProjectBin, Project unitTestProject)
         {
             var compilation = await unitTestProject.GetCompilationAsync();
 
@@ -27,34 +28,45 @@ namespace Cama.Core.Mutation.Analyzer
 
             foreach (var file in Directory.GetFiles(directory))
             {
-                File.Copy(file, Path.Combine(@"C:\Users\Mille\OneDrive\Dokument\temp", Path.GetFileName(file)), true);
+                File.Copy(file, Path.Combine(camaProjectBin, Path.GetFileName(file)), true);
             }
 
             var unitTestInformations = new List<UnitTestInformation>();
             foreach (var testProjectDocument in unitTestProject.Documents)
             {
-                LogTo.Info($"Analyzing {testProjectDocument.Name}");
-                var semanticModel = testProjectDocument.GetSemanticModelAsync().Result;
-
-                var root = testProjectDocument.GetSyntaxRootAsync().Result;
-                var methods = root.DescendantNodes().OfType<MethodDeclarationSyntax>();
-                foreach (var methodDeclarationSyntax in methods)
+                try
                 {
-                    var methodSymbol = semanticModel.GetDeclaredSymbol(methodDeclarationSyntax);
-                    var test = new UnitTestInformation
-                    {
-                        TestName = methodSymbol.ToString().Replace("(", string.Empty).Replace(")", string.Empty)
-                    };
+                    LogTo.Info($"Analyzing {testProjectDocument.Name}");
+                    var semanticModel = testProjectDocument.GetSemanticModelAsync().Result;
 
-                    var body = methodDeclarationSyntax.Body;
-                    var invocations = body.DescendantNodes().OfType<InvocationExpressionSyntax>();
-                    foreach (var invocationExpressionSyntax in invocations)
+                    var root = testProjectDocument.GetSyntaxRootAsync().Result;
+                    var methods = root.DescendantNodes().OfType<MethodDeclarationSyntax>();
+                    foreach (var methodDeclarationSyntax in methods)
                     {
-                        var symbol = semanticModel.GetSymbolInfo(invocationExpressionSyntax).Symbol;
-                        test.ReferencedClasses.Add(symbol.ContainingType.Name);
+                        var methodSymbol = semanticModel.GetDeclaredSymbol(methodDeclarationSyntax);
+                        var test = new UnitTestInformation
+                        {
+                            TestName = methodSymbol?.ToString().Replace("(", string.Empty).Replace(")", string.Empty)
+                        };
+
+                        var body = methodDeclarationSyntax.Body;
+                        var invocations = body?.DescendantNodes().OfType<InvocationExpressionSyntax>();
+
+                        if (invocations != null)
+                        {
+                            foreach (var invocationExpressionSyntax in invocations)
+                            {
+                                var symbol = semanticModel.GetSymbolInfo(invocationExpressionSyntax).Symbol;
+                                test.ReferencedClasses.Add(symbol.ContainingType.Name);
+                            }
+                        }
+
+                        unitTestInformations.Add(test);
                     }
-
-                    unitTestInformations.Add(test);
+                }
+                catch (Exception ex)
+                {
+                    LogTo.Error("Failed to analyze: " + ex.Message);
                 }
             }
 

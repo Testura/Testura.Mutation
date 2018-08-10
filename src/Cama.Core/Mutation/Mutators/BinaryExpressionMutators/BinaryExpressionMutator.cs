@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cama.Core.Mutation.Mutators.BinaryExpressionMutators
 {
-    public abstract class BinaryExpressionMutator : MutationOperator
+    public abstract class BinaryExpressionMutator : Mutator
     {
         public override SyntaxNode VisitBinaryExpression(BinaryExpressionSyntax node)
         {
@@ -16,11 +16,7 @@ namespace Cama.Core.Mutation.Mutators.BinaryExpressionMutators
             if (replacementTable.ContainsKey(operatorKind))
             {
                 var newNode = node.ReplaceToken(node.OperatorToken, SyntaxFactory.Token(replacementTable[operatorKind]).WithTrailingTrivia(SyntaxFactory.Whitespace(" ")));
-
-                var orginalStatement = GetStatement(node);
-                var mutatesdStatement = orginalStatement.ReplaceNode(node, newNode);
-
-                Replacers.Add(new Replacer(orginalStatement, mutatesdStatement, GetWhere(node)));
+                Replacers.Add(new Replacer(node, newNode, GetWhere(node)));
             }
 
             return base.VisitBinaryExpression(node);

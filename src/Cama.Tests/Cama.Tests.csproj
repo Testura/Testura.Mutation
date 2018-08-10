@@ -151,6 +151,7 @@
     <Compile Include="Core\Mutation\Mutators\BinaryExpressionMutations\MathMutatorTests.cs" />
     <Compile Include="Core\Mutation\Mutators\IncrementsMutatorTests.cs" />
     <Compile Include="Core\Mutation\Mutators\NegateTypeMutatorTests.cs" />
+    <Compile Include="Core\Mutation\Mutators\ReturnValueMutatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

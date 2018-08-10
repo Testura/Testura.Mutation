@@ -21,7 +21,7 @@ namespace Cama.Tests.Core.Mutation.Mutators.BinaryExpressionMutations
             var ifConditionalMutationOperator = new NegateConditionalMutator();
             var doc = ifConditionalMutationOperator.GetMutatedDocument(root, null, null);
 
-           Assert.AreEqual($"if(i{postMutation}1)", doc[0].Replacer.Mutation.ToString());
+           Assert.AreEqual($"i{postMutation}1", doc[0].Replacer.Mutation.ToString());
         }
     }
 }

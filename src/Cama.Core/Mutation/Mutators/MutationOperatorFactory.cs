@@ -5,7 +5,7 @@ namespace Cama.Core.Mutation.Mutators
 {
     public static class MutationOperatorFactory
     {
-        public static IMutationOperator GetMutationOperator(Core.MutationOperators mutationOperators)
+        public static IMutator GetMutationOperator(Core.MutationOperators mutationOperators)
         {
             switch (mutationOperators)
             {
@@ -23,6 +23,9 @@ namespace Cama.Core.Mutation.Mutators
 
                 case MutationOperators.Increment:
                     return new IncrementsMutator();
+
+                case MutationOperators.ReturnValue:
+                    return new ReturnValueMutator();
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mutationOperators), mutationOperators, null);

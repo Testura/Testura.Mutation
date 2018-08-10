@@ -64,12 +64,13 @@
     <Compile Include="Mutation\Mutators\BinaryExpressionMutators\BinaryExpressionMutator.cs" />
     <Compile Include="Mutation\Mutators\BinaryExpressionMutators\ConditionalBoundaryMutator.cs" />
     <Compile Include="Mutation\Mutators\BinaryExpressionMutators\NegateConditionalMutator.cs" />
-    <Compile Include="Mutation\Mutators\IMutationOperator.cs" />
+    <Compile Include="Mutation\Mutators\IMutator.cs" />
     <Compile Include="Mutation\Mutators\NegateTypeCompabilityMutator.cs" />
     <Compile Include="Mutation\Mutators\IncrementsMutator.cs" />
-    <Compile Include="Mutation\Mutators\MutationOperator.cs" />
+    <Compile Include="Mutation\Mutators\Mutator.cs" />
     <Compile Include="Mutation\Mutators\MutationOperatorFactory.cs" />
     <Compile Include="Mutation\Mutators\BinaryExpressionMutators\MathMutator.cs" />
+    <Compile Include="Mutation\Mutators\ReturnValueMutator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DependencyFilesHandler.cs" />
     <Compile Include="Services\MutatedDocumentCompiler.cs" />

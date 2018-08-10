@@ -12,6 +12,7 @@ namespace Cama.Core.Services.Project
             var directoryPath = Path.GetDirectoryName(config.ProjectPath);
             LogTo.Info($"Creating project directory at {directoryPath}");
             Directory.CreateDirectory(directoryPath);
+            Directory.CreateDirectory(config.ProjectBinPath);
             LogTo.Info("Creating neccessary project files");
             File.WriteAllText(config.ProjectPath, JsonConvert.SerializeObject(config));
         }
@@ -19,7 +20,9 @@ namespace Cama.Core.Services.Project
         public CamaConfig OpenProject(string path)
         {
             LogTo.Info($"Opening project at {path}");
-            return JsonConvert.DeserializeObject<CamaConfig>(File.ReadAllText(path));
+            var config = JsonConvert.DeserializeObject<CamaConfig>(File.ReadAllText(path));
+            config.ProjectPath = path;
+            return config;
         }
     }
 }
