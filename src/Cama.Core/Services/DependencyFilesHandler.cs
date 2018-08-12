@@ -5,12 +5,12 @@ namespace Cama.Core.Services
 {
     public class DependencyFilesHandler
     {
-        public void CopyDependencies(string path)
+        public void CopyDependencies(string path, string targetPath)
         {
-            var files = Directory.GetFiles(@"C:\Users\Mille\OneDrive\Dokument\temp");
+            var files = Directory.GetFiles(path);
             foreach (var file in files.Where(f => f.EndsWith(".dll") && !f.Contains("Testura.Code.dll")))
             {
-                File.Copy(file, Path.Combine(path, Path.GetFileName(file)), true);
+                File.Copy(file, Path.Combine(targetPath, Path.GetFileName(file)), true);
             }
         }
     }

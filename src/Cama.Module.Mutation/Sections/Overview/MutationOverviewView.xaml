@@ -39,17 +39,16 @@
                     </Grid>
                     <Grid x:Name="MutationDocumentsGrid">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="50" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="60" />
                         </Grid.RowDefinitions>
-                        <Button Content="Run all mutations" Grid.Row="0" Command="{Binding RunAllMutationsCommand}" HorizontalAlignment="Right" Margin="0, 16, 16, 0" />
                         <GroupBox
                             Header="Mutations"
                             Style="{DynamicResource MaterialDesignCardGroupBox}"
                             Margin="16"
-                            Grid.Row="1">
+                            Grid.Row="0">
                             <DataGrid
-                                  Margin="10, 0, 10, 10"
+                                  Margin="10, 0, 10, 0"
                                   SelectionUnit="FullRow"
                                   AutoGenerateColumns="False"
                                   IsReadOnly="False"
@@ -68,6 +67,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
                             </GroupBox>
+                        <Button Content="Run all mutations" Grid.Row="1" Command="{Binding RunAllMutationsCommand}" HorizontalAlignment="Right" Margin="0, 8, 16, 16" />
                     </Grid>
                 </Grid>
                 <DataTemplate.Triggers>

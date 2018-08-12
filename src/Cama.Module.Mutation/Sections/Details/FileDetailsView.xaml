@@ -14,14 +14,12 @@
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="70" />
+        <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="50" />
+                <RowDefinition Height="60" />
             </Grid.RowDefinitions>
-        <Button Content="Run all mutation connect to file" Width="250" Grid.ColumnSpan="3" HorizontalAlignment="Right" Margin="16" Command="{Binding ExecuteTestsCommand}" />
-            <Grid Grid.Row="1" Column="0" Grid.ColumnSpan="3">
+        
+            <Grid Grid.Row="0" Column="0" Grid.ColumnSpan="3">
                 <GroupBox
                     Header="Condtional mutations"
                     Style="{DynamicResource MaterialDesignCardGroupBox}"
@@ -43,5 +41,6 @@
                 </DataGrid>
                 </GroupBox>
             </Grid>
+        <Button Content="Run all mutation connect to file" Grid.Row="1" Width="250" Grid.ColumnSpan="3" HorizontalAlignment="Right" Margin="16" Command="{Binding ExecuteTestsCommand}" />
         </Grid>
 </TabItem>

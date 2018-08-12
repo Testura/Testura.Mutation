@@ -14,6 +14,7 @@ namespace Cama.Module.Mutation.Sections.Details
     {
         private readonly IMutationModuleTabOpener _tabOpener;
         private MutatedDocument _document;
+        private CamaConfig _config;
 
         public MutationDetailsViewModel(IMutationModuleTabOpener tabOpener)
         {
@@ -36,11 +37,15 @@ namespace Cama.Module.Mutation.Sections.Details
 
         public SideBySideDiffModel Diff { get; private set; }
 
-        public void Initialize(MutatedDocument document)
+        public string Title { get; set; }
+
+        public void Initialize(MutatedDocument document, CamaConfig config)
         {
+            _config = config;
             _document = document;
             FileName = document.FileName;
             UnitTests = document.Tests;
+            Title = $"{document.FileName} - {document.Replacer.Where}";
             ShowFullCode(false);
         }
 
@@ -54,7 +59,7 @@ namespace Cama.Module.Mutation.Sections.Details
 
         private void ExecuteTests()
         {
-            _tabOpener.OpenTestRunTab(new List<MutatedDocument> { _document });
+            _tabOpener.OpenTestRunTab(new List<MutatedDocument> { _document }, _config);
         }
     }
 }

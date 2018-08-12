@@ -8,7 +8,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:codeDiff="clr-namespace:Cama.Module.Mutation.Common.CodeDiff"
              prism:ViewModelLocator.AutoWireViewModel="True"
-             Header="{Binding FileName}">
+             Header="{Binding Title}">
     <Grid>
         <Grid Margin="5">
             <Grid.ColumnDefinitions>
@@ -38,7 +38,8 @@
                     Header="Before mutation"
                     Style="{DynamicResource MaterialDesignCardGroupBox}"
                     Margin="16">
-                    <RichTextBox x:Name="beforeDiff"
+                    <RichTextBox x:Name="BeforeTxt"
+                                 ScrollViewer.ScrollChanged="OnScrollChanged"
                                  codeDiff:SideBySideDiffModelVisualizer.Vorher="{Binding Diff, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" AcceptsReturn="True" IsReadOnly="True" 
                                  VerticalScrollBarVisibility="Visible"/>
                 </GroupBox>
@@ -49,7 +50,8 @@
                     Header="After mutation"
                     Style="{DynamicResource MaterialDesignCardGroupBox}"
                     Margin="16">
-                    <RichTextBox
+                    <RichTextBox x:Name="AfterTxt"
+                                 ScrollViewer.ScrollChanged="OnScrollChanged"
                                  codeDiff:SideBySideDiffModelVisualizer.Nachher="{Binding Diff, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" AcceptsReturn="True" IsReadOnly="True" 
                                  VerticalScrollBarVisibility="Visible"/>
                 </GroupBox>
@@ -71,7 +73,7 @@
                     </DataGrid>
                 </GroupBox>
             </Grid>
-            <Button Content="Execute tests for this mutation" HorizontalAlignment="Right" Width="250" Command="{Binding ExecuteTestsCommand}" Grid.Row="2" Grid.Column="2" Margin="0, 0, 15, 0" />
+            <Button Content="Execute tests for this mutation" HorizontalAlignment="Right" Width="250" Command="{Binding ExecuteTestsCommand}" Grid.Row="3" Grid.Column="2" Margin="0, 0, 15, 0" />
         </Grid>
     </Grid>
 </TabItem>

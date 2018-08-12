@@ -24,14 +24,14 @@ namespace Cama.Module.Mutation.Tab
             _mainTabContainer.AddTab(new MutationOverviewView(config));
         }
 
-        public void OpenDocumentDetailsTab(MutatedDocument document)
+        public void OpenDocumentDetailsTab(MutatedDocument document, CamaConfig config)
         {
-            _mainTabContainer.AddTab(new MutationDetailsView(document));
+            _mainTabContainer.AddTab(new MutationDetailsView(document, config));
         }
 
-        public void OpenTestRunTab(IList<MutatedDocument> documents)
+        public void OpenTestRunTab(IList<MutatedDocument> documents, CamaConfig config)
         {
-            _mainTabContainer.AddTab(new TestRunView(documents));
+            _mainTabContainer.AddTab(new TestRunView(documents, config));
         }
 
         public void OpenDocumentResultTab(MutationDocumentResult result)
@@ -39,9 +39,9 @@ namespace Cama.Module.Mutation.Tab
             _mainTabContainer.AddTab(new MutationDocumentTestResultView(result));
         }
 
-        public void OpenFileDetailsTab(MFile file)
+        public void OpenFileDetailsTab(MFile file, CamaConfig config)
         {
-            _mainTabContainer.AddTab(new FileDetailsView(file));
+            _mainTabContainer.AddTab(new FileDetailsView(file, config));
         }
     }
 }

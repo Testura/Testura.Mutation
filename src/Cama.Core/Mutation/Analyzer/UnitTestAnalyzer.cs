@@ -57,7 +57,10 @@ namespace Cama.Core.Mutation.Analyzer
                             foreach (var invocationExpressionSyntax in invocations)
                             {
                                 var symbol = semanticModel.GetSymbolInfo(invocationExpressionSyntax).Symbol;
-                                test.ReferencedClasses.Add(symbol.ContainingType.Name);
+                                if (symbol != null)
+                                {
+                                    test.ReferencedClasses.Add(symbol.ContainingType.Name);
+                                }
                             }
                         }
 

@@ -10,6 +10,7 @@ namespace Cama.Module.Mutation.Sections.Details
     public class FileDetailsViewModel : BindableBase, INotifyPropertyChanged
     {
         private readonly IMutationModuleTabOpener _tabOpener;
+        private CamaConfig _config;
 
 
         public FileDetailsViewModel(IMutationModuleTabOpener tabOpener)
@@ -27,20 +28,21 @@ namespace Cama.Module.Mutation.Sections.Details
 
         public DelegateCommand<MutatedDocument> MutationSelectedCommand { get; set; }
 
-        public void Initialize(MFile file)
+        public void Initialize(MFile file, CamaConfig config)
         {
+            _config = config;
             File = file;
             FileName = File.FileName;
         }
 
         private void ExecuteTests()
         {
-            _tabOpener.OpenTestRunTab(File.StatementsMutations);
+            _tabOpener.OpenTestRunTab(File.StatementsMutations, _config);
         }
 
         private void MutationSelected(MutatedDocument obj)
         {
-            _tabOpener.OpenDocumentDetailsTab(obj);
+            _tabOpener.OpenDocumentDetailsTab(obj, _config);
         }
     }
 }

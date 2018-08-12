@@ -25,5 +25,17 @@ namespace Cama.Tests.Core.Mutation.Mutators
 
             Assert.AreEqual(postMutation, doc[0].Replacer.Mutation.ToString());
         }
+
+        [Test]
+        public void GetMutationDocument_WhenHavingReturnThatCallOnDifferentMethod_ShouldNotMutate()
+        {
+            var tree = SyntaxFactory.ParseSyntaxTree($"classC{{publicvoidDo(){{return it.Do(true);}}");
+            var root = tree.GetRoot();
+
+            var ifConditionalMutationOperator = new ReturnValueMutator();
+            var doc = ifConditionalMutationOperator.GetMutatedDocument(root, null, null);
+
+            Assert.IsEmpty(doc);
+        }
     }
 }

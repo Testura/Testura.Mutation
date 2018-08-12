@@ -78,12 +78,12 @@ namespace Cama.Module.Mutation.Sections.Overview
 
         private void RunAllMutations()
         {
-            _tabOpener.OpenTestRunTab(Documents.SelectMany(d => d.MFile.StatementsMutations).ToList());
+            _tabOpener.OpenTestRunTab(Documents.SelectMany(d => d.MFile.StatementsMutations).ToList(), _config);
         }
 
         private void DocumentSelected(DocumentRowModel documentRow)
         {
-            _tabOpener.OpenFileDetailsTab(documentRow.MFile);
+            _tabOpener.OpenFileDetailsTab(documentRow.MFile, _config);
         }
     }
 }

@@ -9,12 +9,12 @@ namespace Cama.Module.Mutation.Sections.TestRun
     /// </summary>
     public partial class TestRunView : TabItem
     {
-        public TestRunView(IList<MutatedDocument> documents)
+        public TestRunView(IList<MutatedDocument> documents, CamaConfig config)
         {
             InitializeComponent();
 
             var dataContext = DataContext as TestRunViewModel;
-            dataContext.SetDocuments(documents);
+            dataContext.SetDocuments(documents, config);
         }
     }
 }

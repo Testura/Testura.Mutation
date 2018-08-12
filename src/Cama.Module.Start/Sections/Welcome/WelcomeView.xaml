@@ -17,7 +17,13 @@
             <ColumnDefinition Width="500" />
         </Grid.ColumnDefinitions>
         <materialDesign:Card Padding="32" Margin="16, 16, 0, 16" Grid.Row="0" Grid.Column="0">
-            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Welcome to Cama!</TextBlock>
+            <StackPanel>
+            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Foreground="White">Welcome to Cama!</TextBlock>
+            <TextBlock TextWrapping="Wrap" Foreground="White">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum sollicitudin luctus. Nulla rhoncus imperdiet quam. Pellentesque tincidunt, ante in consectetur mattis, dui dolor efficitur nisl, sit amet fringilla lacus purus sed justo. Nam vel urna varius, volutpat nulla vel, tristique augue. Praesent vitae tincidunt nibh, sed ultricies enim. Aenean vitae est ligula. Sed laoreet leo sed purus rhoncus, et condimentum neque posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris nibh metus, hendrerit vel luctus in, fermentum sit amet nisl. Donec risus enim, imperdiet eget felis sit amet, ullamcorper ullamcorper enim. Aliquam vel lacinia sem. Sed et vehicula velit, sit amet volutpat dolor. In iaculis pharetra mattis.
+                <LineBreak/>
+                <LineBreak/>
+                Etiam malesuada sollicitudin sapien ut interdum. Quisque sollicitudin lectus justo, a lacinia diam finibus ac. Etiam augue lorem, gravida nec lorem a, egestas cursus justo. Suspendisse consequat maximus diam eget ullamcorper. Vestibulum sed finibus dolor. Integer consectetur lacus ipsum, eget porttitor ipsum tincidunt a. Etiam mattis lacus non tellus vestibulum, ac ornare sapien tempor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam dignissim tempor purus vitae feugiat.</TextBlock>
+            </StackPanel>
         </materialDesign:Card>
         <StackPanel Grid.Row="0" Grid.Column="1" Margin="16">
             <GroupBox

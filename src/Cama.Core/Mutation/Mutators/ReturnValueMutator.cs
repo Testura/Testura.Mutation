@@ -12,41 +12,42 @@ namespace Cama.Core.Mutation.Mutators
     {
         public override SyntaxNode VisitReturnStatement(ReturnStatementSyntax node)
         {
-            var literlaExpressions = node.DescendantNodes().OfType<LiteralExpressionSyntax>().ToList();
+            if (!node.DescendantNodes().Any())
+            {
+                return base.VisitReturnStatement(node);
+            }
 
-            foreach (var literalExpressionSyntax in literlaExpressions)
+            if (node.DescendantNodes().First() is LiteralExpressionSyntax literlaExpression)
             {
                 SyntaxNode newNode = null;
 
-                if (literalExpressionSyntax.IsKind(SyntaxKind.TrueLiteralExpression))
+                if (literlaExpression.IsKind(SyntaxKind.TrueLiteralExpression))
                 {
-                    newNode = node.ReplaceNode(literalExpressionSyntax, LiteralExpression(SyntaxKind.FalseLiteralExpression, Token(SyntaxKind.FalseKeyword)));
+                    newNode = node.ReplaceNode(literlaExpression, LiteralExpression(SyntaxKind.FalseLiteralExpression, Token(SyntaxKind.FalseKeyword)));
                 }
 
-                if (literalExpressionSyntax.IsKind(SyntaxKind.FalseLiteralExpression))
+                if (literlaExpression.IsKind(SyntaxKind.FalseLiteralExpression))
                 {
-                    newNode = node.ReplaceNode(literalExpressionSyntax, LiteralExpression(SyntaxKind.TrueLiteralExpression, Token(SyntaxKind.TrueKeyword)));
+                    newNode = node.ReplaceNode(literlaExpression, LiteralExpression(SyntaxKind.TrueLiteralExpression, Token(SyntaxKind.TrueKeyword)));
                 }
 
-                if (literalExpressionSyntax.IsKind(SyntaxKind.NullLiteralExpression))
+                if (literlaExpression.IsKind(SyntaxKind.NullLiteralExpression))
                 {
                     newNode = node.Parent.ReplaceNode(node.Parent, ThrowStatement(ObjectCreationExpression(IdentifierName(typeof(Exception).Name)).WithArgumentList(ArgumentList(SingletonSeparatedList<ArgumentSyntax>(Argument(LiteralExpression(SyntaxKind.StringLiteralExpression, Literal("Mmmmutation"))))))));
                 }
 
-                if (literalExpressionSyntax.IsKind(SyntaxKind.StringLiteralExpression))
+                if (literlaExpression.IsKind(SyntaxKind.StringLiteralExpression))
                 {
-                    newNode = node.ReplaceNode(literalExpressionSyntax, LiteralExpression(SyntaxKind.StringLiteralExpression, Literal("Mutation")));
+                    newNode = node.ReplaceNode(literlaExpression, LiteralExpression(SyntaxKind.StringLiteralExpression, Literal("Mutation")));
                 }
 
-                if (literalExpressionSyntax.IsKind(SyntaxKind.NumericLiteralExpression))
+                if (literlaExpression.IsKind(SyntaxKind.NumericLiteralExpression))
                 {
-                    if (!double.TryParse(literalExpressionSyntax.Token.Value.ToString(), out var value))
+                    if (double.TryParse(literlaExpression.Token.Value.ToString(), out var value))
                     {
-                        continue;
+                        value = value == 0 ? 1 : 0;
+                        newNode = node.ReplaceNode(literlaExpression, LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(value)));
                     }
-
-                    value = value == 0 ? 1 : 0;
-                    newNode = node.ReplaceNode(literalExpressionSyntax, LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(value)));
                 }
 
                 if (newNode != null)

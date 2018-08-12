@@ -21,6 +21,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
     {
         private readonly TestRunnerService _testRunnerService;
         private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
+        private CamaConfig _config;
 
         public TestRunViewModel(TestRunnerService testRunnerService, IMutationModuleTabOpener mutationModuleTabOpener)
         {
@@ -80,9 +81,9 @@ namespace Cama.Module.Mutation.Sections.TestRun
 
         public DelegateCommand<MutationDocumentResult> CompletedDocumentSelectedCommand { get; set; }
 
-
-        public void SetDocuments(IList<MutatedDocument> documents)
+        public void SetDocuments(IList<MutatedDocument> documents, CamaConfig config)
         {
+            _config = config;
             RunningDocuments.AddRange(documents.Select(d => new TestRunDocument { Document = d, Status = TestRunDocument.TestRunStatusEnum.InQueue }));
             MutationCount = documents.Count;
         }
@@ -91,7 +92,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
         {
             var runs = RunningDocuments.Select((d) => new Task(async () =>
             {
-                var testResult = await _testRunnerService.RunTestAsync(d);
+                var testResult = await _testRunnerService.RunTestAsync(d, _config.ProjectBinPath);
                 MoveDocumentToCompleted(d, testResult);
             }));
 

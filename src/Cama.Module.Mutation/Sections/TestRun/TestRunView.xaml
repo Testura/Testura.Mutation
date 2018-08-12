@@ -30,7 +30,6 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Style="{StaticResource MaterialDesignDiscreteSlider}"
                     Margin="16, 0, 16, 0"
                     Width="100"/>
                 <Label Content="Run all tests: " Margin="16" />
@@ -269,7 +268,7 @@
 
         <Grid Grid.Row="2" Grid.Column="1">
             <GroupBox
-                Header="Survuved"
+                Header="Survived"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
                 Margin="16">
                 <ScrollViewer>
@@ -287,7 +286,7 @@
                         </i:Interaction.Triggers>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Change in file" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True" MinWidth="200"/>
-                            <DataGridTextColumn Header="Method" Binding="{Binding Document.Replacer.Method.Identifier}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Where" Binding="{Binding Document.Replacer.Where}" Width="*" IsReadOnly="True"/>
                             <DataGridTemplateColumn Header="Result" Width="*" IsReadOnly="True">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

@@ -79,10 +79,7 @@ namespace Cama.Core.Services
                                 replacers.AddRange(mutationOperator.GetMutatedDocument(root, document, tests));
                             }
 
-                            if (replacers.Any())
-                            {
-                                list.Add(new MFile(document.Name, replacers));
-                            }
+                            list.Add(new MFile(document.Name, replacers));
                         }
                         catch (Exception ex)
                         {

@@ -8,12 +8,12 @@ namespace Cama.Infrastructure.Tabs
     {
         void OpenOverviewTab(CamaConfig config);
 
-        void OpenDocumentDetailsTab(MutatedDocument document);
+        void OpenDocumentDetailsTab(MutatedDocument document, CamaConfig config);
 
-        void OpenTestRunTab(IList<MutatedDocument> documents);
+        void OpenTestRunTab(IList<MutatedDocument> documents, CamaConfig config);
 
         void OpenDocumentResultTab(MutationDocumentResult result);
 
-        void OpenFileDetailsTab(MFile file);
+        void OpenFileDetailsTab(MFile file, CamaConfig config);
     }
 }

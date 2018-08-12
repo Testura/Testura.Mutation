@@ -23,7 +23,7 @@ namespace Cama.Module.Mutation.Services
             _testRunner = testRunner;
         }
 
-        public async Task<MutationDocumentResult> RunTestAsync(TestRunDocument document)
+        public async Task<MutationDocumentResult> RunTestAsync(TestRunDocument document, string sourcePath)
         {
             var basePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestRun",
                 document.Document.Id.ToString());
@@ -32,15 +32,15 @@ namespace Cama.Module.Mutation.Services
 
             Directory.CreateDirectory(basePath);
 
+                        document.Status = TestRunDocument.TestRunStatusEnum.CopyFiles;
+            _dependencyFilesHandler.CopyDependencies(sourcePath, basePath);
+
             document.Status = TestRunDocument.TestRunStatusEnum.Compiling;
             var compilerResult = await _compiler.CompileAsync(mainFilePath, document.Document);
             if (!compilerResult.IsSuccess)
             {
                 return new MutationDocumentResult { Survived = false, CompilerResult = compilerResult, Document = document.Document };
             }
-
-            document.Status = TestRunDocument.TestRunStatusEnum.CopyFiles;
-            _dependencyFilesHandler.CopyDependencies(basePath);
 
             document.Status = TestRunDocument.TestRunStatusEnum.Running;
             var results =

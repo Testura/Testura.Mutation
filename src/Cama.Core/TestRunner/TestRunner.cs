@@ -32,7 +32,8 @@ namespace Cama.Core.TestRunner
 
                 using (NUnit.Engine.ITestRunner runner = engine.GetRunner(package))
                 {
-                    var result = runner.Run(new TestEventDispatcher(), CreateFilter(testNames, engine.Services.GetService<ITestFilterService>().GetTestFilterBuilder()));
+                    var filter = CreateFilter(testNames, engine.Services.GetService<ITestFilterService>().GetTestFilterBuilder());
+                    var result = runner.Run(new TestEventDispatcher(), filter);
                     runner.Unload();
                     return CreateResult(result);
                 }
