@@ -22,13 +22,14 @@ namespace Cama.Console
         private static async void Do()
         {
             var projectLoader = new ProjectService();
-            var config = projectLoader.OpenProjectAsync(@"C:\Users\Milleb\Documents\Cama\Projects\TesturaCode\TesturaCode.cama");
+            var config = await projectLoader.OpenProjectAsync(@"C:\Users\Mille\OneDrive\Dokument\cama\TesturaCode.json");
+            // var config = await projectLoader.OpenProjectAsync(@"C:\Users\Milleb\Documents\Cama\Projects\TesturaCode\TesturaCode.cama");
 
             var someService = new MutatorCreator(new UnitTestAnalyzer());
             var files = await someService.CreateMutatorsAsync(config, new List<IMutator> { new MathMutator() });
 
             var testRunner = new TestRunnerService(new MutatedDocumentCompiler(), new DependencyFilesHandler(), new TestRunner());
-            var result = await testRunner.RunTestAsync(files.Where(f => f.StatementsMutations.Any()).ToList()[1].StatementsMutations.FirstOrDefault(), @"C:\Users\Milleb\Documents\Cama\Testura.Code-master\src\Testura.Code.Tests\bin\Debug");
+            var result = await testRunner.RunTestAsync(files.Where(f => f.StatementsMutations.Any()).ToList()[1].StatementsMutations.FirstOrDefault(), config.TestProjectOutputPath);
 
         }
     }
