@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
@@ -23,7 +24,7 @@ namespace Cama.Core.Services
             _unitTestAnalyzer = unitTestAnalyzer;
         }
 
-        public async Task<IList<MFile>> DoSomeWorkAsync(string camaProjectBinpath, string solutionPath, IList<string> mainProjectNames, string unitTestProjectName, IList<IMutator> mutationOperators)
+        public async Task<IList<MFile>> DoSomeWorkAsync(CamaConfig config, IList<IMutator> mutationOperators)
         {
             try
             {
@@ -32,20 +33,21 @@ namespace Cama.Core.Services
                 var workspace = MSBuildWorkspace.Create(props);
 
                 LogTo.Info("Opening solution..");
-                var solution = await workspace.OpenSolutionAsync(solutionPath);
-
+                var solution = await workspace.OpenSolutionAsync(config.SolutionPath);
                 LogTo.Info("Starting to analyze test..");
+
+                config.TestProjectOutputPath = Path.GetDirectoryName(solution.Projects.FirstOrDefault(p => p.Name == config.TestProjectName).OutputFilePath);
 
                 /*
                 var testInformations = await Task.Run(() =>
                     _unitTestAnalyzer.MapTestsAsync(
-                        Path.Combine(camaProjectBinpath),
+                        solution.Projects.FirstOrDefault(p => p.Name == unitTestProjectName).OutputFilePath,
                         solution.Projects.FirstOrDefault(p => p.Name == unitTestProjectName)));
+                        */
 
-                */
                 var list = new List<MFile>();
 
-                foreach (var mainProjectName in mainProjectNames)
+                foreach (var mainProjectName in config.MutationProjectNames)
                 {
                     var mainProject = solution.Projects.FirstOrDefault(p => p.Name == mainProjectName);
                     var documents = mainProject.DocumentIds;

@@ -257,8 +257,7 @@
                         CanUserAddRows="false"
                         Grid.Row="1">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Change in file" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True" MinWidth="200"/>
-                            <DataGridTextColumn Header="Method" Binding="{Binding Document.Replacer.Method.Identifier}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Where" Binding="{Binding Document.Where}" Width="*" IsReadOnly="True" MinWidth="200"/>
                             <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*" IsReadOnly="True"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -285,8 +284,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Change in file" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True" MinWidth="200"/>
-                            <DataGridTextColumn Header="Where" Binding="{Binding Document.Replacer.Where}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Where" Binding="{Binding Document.Where}" Width="*" IsReadOnly="True"/>
                             <DataGridTemplateColumn Header="Result" Width="*" IsReadOnly="True">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

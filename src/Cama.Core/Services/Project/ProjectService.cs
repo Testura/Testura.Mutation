@@ -9,11 +9,7 @@ namespace Cama.Core.Services.Project
     {
         public void CreateProject(CamaConfig config)
         {
-            var directoryPath = Path.GetDirectoryName(config.ProjectPath);
-            LogTo.Info($"Creating project directory at {directoryPath}");
-            Directory.CreateDirectory(directoryPath);
-            Directory.CreateDirectory(config.ProjectBinPath);
-            LogTo.Info("Creating neccessary project files");
+            LogTo.Info("Creating project file");
             File.WriteAllText(config.ProjectPath, JsonConvert.SerializeObject(config));
         }
 

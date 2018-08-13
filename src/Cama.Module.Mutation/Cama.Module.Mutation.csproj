@@ -74,7 +74,6 @@
       <DependentUpon>TestRunView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sections\TestRun\TestRunViewModel.cs" />
-    <Compile Include="Services\TestRunnerService.cs" />
     <Compile Include="Tab\MutationTabOpener.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -135,7 +134,7 @@
       <Version>6.3.0</Version>
     </PackageReference>
     <PackageReference Include="PropertyChanged.Fody">
-      <Version>2.5.8</Version>
+      <Version>2.5.9</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

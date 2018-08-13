@@ -6,9 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Cama.Core.Models.Mutation;
+using Cama.Core.Services;
 using Cama.Infrastructure.Tabs;
 using Cama.Module.Mutation.Models;
-using Cama.Module.Mutation.Services;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -84,7 +84,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
         public void SetDocuments(IList<MutatedDocument> documents, CamaConfig config)
         {
             _config = config;
-            RunningDocuments.AddRange(documents.Select(d => new TestRunDocument { Document = d, Status = TestRunDocument.TestRunStatusEnum.InQueue }));
+            RunningDocuments.AddRange(documents.Select(d => new TestRunDocument { Document = d, Status = TestRunDocument.TestRunStatusEnum.Waiting }));
             MutationCount = documents.Count;
         }
 
@@ -92,7 +92,8 @@ namespace Cama.Module.Mutation.Sections.TestRun
         {
             var runs = RunningDocuments.Select((d) => new Task(async () =>
             {
-                var testResult = await _testRunnerService.RunTestAsync(d, _config.ProjectBinPath);
+                d.Status = TestRunDocument.TestRunStatusEnum.Running;
+                var testResult = await _testRunnerService.RunTestAsync(d.Document, _config.TestProjectOutputPath);
                 MoveDocumentToCompleted(d, testResult);
             }));
 

@@ -62,7 +62,7 @@ namespace Cama.Module.Mutation.Sections.Overview
         {
             _loadingDisplayer.ShowLoading("Creating mutation documents..");
             var settings = MutationOperatorGridItems.Where(m => m.IsSelected).Select(m => m.MutationOperator);
-            var result = await Task.Run(() => _someService.DoSomeWorkAsync(_config.ProjectBinPath, _config.SolutionPath, _config.MutationProjectNames, _config.TestProjectName, settings.Select(MutationOperatorFactory.GetMutationOperator).ToList()));
+            var result = await Task.Run(() => _someService.DoSomeWorkAsync(_config, settings.Select(MutationOperatorFactory.GetMutationOperator).ToList()));
             foreach (var mutatedDocument in result)
             {
                 Documents.Add(new DocumentRowModel { MFile = mutatedDocument });

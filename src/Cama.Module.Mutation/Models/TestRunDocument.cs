@@ -9,7 +9,7 @@ namespace Cama.Module.Mutation.Models
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 067
 
-        public enum TestRunStatusEnum { InQueue, Compiling, CopyFiles, Running }
+        public enum TestRunStatusEnum { Running, Waiting }
 
         public MutatedDocument Document { get; set; }
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using Newtonsoft.Json;
 
 namespace Cama.Core.Models.Mutation
@@ -15,8 +14,9 @@ namespace Cama.Core.Models.Mutation
 
         public string TestProjectName { get; set; }
 
-        public IList<string> MutationProjectNames { get; set; }
+        [JsonIgnore]
+        public string TestProjectOutputPath { get; set; }
 
-        public string ProjectBinPath => Path.Combine(Path.GetDirectoryName(ProjectPath), "bin");
+        public IList<string> MutationProjectNames { get; set; }
     }
 }

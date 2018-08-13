@@ -24,6 +24,8 @@ namespace Cama.Core.Models.Mutation
 
         public string FileName { get;  }
 
+        public string Where => $"{FileName} - {Replacer.Where}";
+
         public Replacer Replacer { get; }
 
         public IList<string> Tests => _tests.Select(t => t.TestName).ToList();
