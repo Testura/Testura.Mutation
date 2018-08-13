@@ -23,7 +23,7 @@ namespace Cama.Module.Start.Sections.Welcome
             _projectHistoryService = projectHistoryService;
             _openProjectService = openProjectService;
             ClickMeCommand = new DelegateCommand(ClickMe);
-            OpenHistoryProjectCommand = new DelegateCommand<string>(OpenHistoryProject);
+            OpenHistoryProjectCommand = new DelegateCommand<string>(OpenHistoryProjectAsync);
             ProjectHistory = _projectHistoryService.GetHistory();
         }
 
@@ -45,9 +45,9 @@ namespace Cama.Module.Start.Sections.Welcome
         }
 
 
-        private void OpenHistoryProject(string obj)
+        private async void OpenHistoryProjectAsync(string obj)
         {
-            var config = _openProjectService.OpenProject(obj);
+            var config = await _openProjectService.OpenProjectAsync(obj);
             _mutationModuleTabOpener.OpenOverviewTab(config);
         }
 

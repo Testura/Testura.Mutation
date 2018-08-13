@@ -77,7 +77,7 @@
     <Compile Include="Services\Project\ICreateProjectService.cs" />
     <Compile Include="Services\Project\IOpenProjectService.cs" />
     <Compile Include="Services\Project\ProjectService.cs" />
-    <Compile Include="Services\SomeService.cs" />
+    <Compile Include="Services\MutatorCreator.cs" />
     <Compile Include="Services\TestRunnerService.cs" />
     <Compile Include="Solution\SolutionService.cs" />
     <Compile Include="TestRunner\ITestRunner.cs" />

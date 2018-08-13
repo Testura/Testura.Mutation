@@ -94,17 +94,17 @@ namespace Cama.Module.Start.Sections.NewProject
 
         private void CreateProject()
         {
+            var projectPath = Path.Combine(ProjectPath, $"{ProjectName}.json");
+
             var config = new CamaConfig
             {
-                ProjectName = ProjectName,
-                ProjectPath = Path.Combine(ProjectPath, ProjectName, $"{ProjectName}.cama"),
                 MutationProjectNames = SelectedProjectsInSolution.Where(s => s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
                 SolutionPath = SolutionPath,
                 TestProjectName = SelectedTestProjectInSolution
             };
 
-            _createProjectService.CreateProject(config);
-            _projectHistoryService.AddToHistory(config.ProjectPath);
+            _createProjectService.CreateProject(projectPath, config);
+            _projectHistoryService.AddToHistory(projectPath);
             _mutationModuleTabOpener.OpenOverviewTab(config);
         }
     }

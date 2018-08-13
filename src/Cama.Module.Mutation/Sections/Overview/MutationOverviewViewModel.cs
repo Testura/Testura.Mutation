@@ -22,14 +22,14 @@ namespace Cama.Module.Mutation.Sections.Overview
 {
     public class MutationOverviewViewModel : BindableBase
     {
-        private readonly SomeService _someService;
+        private readonly MutatorCreator _mutatorCreator;
         private readonly IMutationModuleTabOpener _tabOpener;
         private readonly ILoadingDisplayer _loadingDisplayer;
         private CamaConfig _config;
 
-        public MutationOverviewViewModel(SomeService someService, IMutationModuleTabOpener tabOpener, ILoadingDisplayer loadingDisplayer)
+        public MutationOverviewViewModel(MutatorCreator mutatorCreator, IMutationModuleTabOpener tabOpener, ILoadingDisplayer loadingDisplayer)
         {
-            _someService = someService;
+            _mutatorCreator = mutatorCreator;
             _tabOpener = tabOpener;
             _loadingDisplayer = loadingDisplayer;
             Documents = new ObservableCollection<DocumentRowModel>();
@@ -62,7 +62,7 @@ namespace Cama.Module.Mutation.Sections.Overview
         {
             _loadingDisplayer.ShowLoading("Creating mutation documents..");
             var settings = MutationOperatorGridItems.Where(m => m.IsSelected).Select(m => m.MutationOperator);
-            var result = await Task.Run(() => _someService.DoSomeWorkAsync(_config, settings.Select(MutationOperatorFactory.GetMutationOperator).ToList()));
+            var result = await Task.Run(() => _mutatorCreator.CreateMutatorsAsync(_config, settings.Select(MutationOperatorFactory.GetMutationOperator).ToList()));
             foreach (var mutatedDocument in result)
             {
                 Documents.Add(new DocumentRowModel { MFile = mutatedDocument });

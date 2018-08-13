@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
@@ -8,35 +7,31 @@ using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
 using Cama.Core.Mutation.Analyzer;
 using Cama.Core.Mutation.Mutators;
-using Microsoft.Build.Locator;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.MSBuild;
 using MutatedDocument = Cama.Core.Models.Mutation.MutatedDocument;
 
 namespace Cama.Core.Services
 {
-    public class SomeService
+    public class MutatorCreator
     {
         private readonly UnitTestAnalyzer _unitTestAnalyzer;
 
-        public SomeService(UnitTestAnalyzer unitTestAnalyzer)
+        public MutatorCreator(UnitTestAnalyzer unitTestAnalyzer)
         {
             _unitTestAnalyzer = unitTestAnalyzer;
         }
 
-        public async Task<IList<MFile>> DoSomeWorkAsync(CamaConfig config, IList<IMutator> mutationOperators)
+        public async Task<IList<MFile>> CreateMutatorsAsync(CamaConfig config, IList<IMutator> mutationOperators)
         {
             try
             {
-                MSBuildLocator.RegisterDefaults();
                 var props = new Dictionary<string, string> { ["Platform"] = "AnyCPU" };
                 var workspace = MSBuildWorkspace.Create(props);
 
                 LogTo.Info("Opening solution..");
                 var solution = await workspace.OpenSolutionAsync(config.SolutionPath);
                 LogTo.Info("Starting to analyze test..");
-
-                config.TestProjectOutputPath = Path.GetDirectoryName(solution.Projects.FirstOrDefault(p => p.Name == config.TestProjectName).OutputFilePath);
 
                 /*
                 var testInformations = await Task.Run(() =>
