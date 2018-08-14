@@ -8,7 +8,7 @@ namespace Cama.Core.Services
         public void CopyDependencies(string path, string targetPath)
         {
             var files = Directory.GetFiles(path);
-            foreach (var file in files.Where(f => f.EndsWith(".dll") && !f.Contains("Testura.Code.dll")))
+            foreach (var file in files.Where(f => f.EndsWith(".dll")))
             {
                 File.Copy(file, Path.Combine(targetPath, Path.GetFileName(file)), true);
             }

@@ -58,7 +58,8 @@
                         Header="Before mutation"
                         Style="{DynamicResource MaterialDesignCardGroupBox}"
                         Margin="16">
-                        <RichTextBox x:Name="beforeDiff"
+                        <RichTextBox x:Name="BeforeTxt"
+                                     ScrollViewer.ScrollChanged="OnScrollChanged"
                                      codeDiff:SideBySideDiffModelVisualizer.Vorher="{Binding Diff, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" AcceptsReturn="True" IsReadOnly="True" 
                                      VerticalScrollBarVisibility="Visible"/>
                     </GroupBox>
@@ -70,6 +71,8 @@
                         Style="{DynamicResource MaterialDesignCardGroupBox}"
                         Margin="16">
                         <RichTextBox
+                            x:Name="AfterTxt"
+                            ScrollViewer.ScrollChanged="OnScrollChanged"
                             codeDiff:SideBySideDiffModelVisualizer.Nachher="{Binding Diff, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" AcceptsReturn="True" IsReadOnly="True" 
                             VerticalScrollBarVisibility="Visible"/>
                     </GroupBox>

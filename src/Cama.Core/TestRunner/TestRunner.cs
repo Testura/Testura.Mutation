@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using Anotar.Log4Net;
+using Cama.Core.Models;
 using Cama.Core.TestRunner.Result.Maker;
 using NUnit;
 using NUnit.Engine;
@@ -34,8 +36,17 @@ namespace Cama.Core.TestRunner
                 {
                     var filter = CreateFilter(testNames, engine.Services.GetService<ITestFilterService>().GetTestFilterBuilder());
                     var result = runner.Run(new TestEventDispatcher(), filter);
-                    runner.Unload();
-                    return CreateResult(result);
+                    try
+                    {
+                        runner.Unload();
+                        return CreateResult(result);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogTo.ErrorException("Failed to unload test runner", ex);
+                    }
+
+                    return new TestSuiteResult("ERROR", new List<TestResult>(), "NULL");
                 }
             }
         }

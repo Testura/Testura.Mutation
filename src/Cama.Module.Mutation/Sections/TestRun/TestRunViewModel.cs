@@ -25,6 +25,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
         private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
         private readonly SaveReportService _saveReportService;
         private readonly ILoadingDisplayer _loadingDisplayer;
+        private List<MutationDocumentResult> _mutantsFailedToCompile;
         private CamaConfig _config;
 
         public TestRunViewModel(TestRunnerService testRunnerService, IMutationModuleTabOpener mutationModuleTabOpener, SaveReportService saveReportService, ILoadingDisplayer loadingDisplayer)
@@ -39,9 +40,11 @@ namespace Cama.Module.Mutation.Sections.TestRun
             RunCommand = new DelegateCommand(RunTestsAsync);
             CompletedDocumentSelectedCommand = new DelegateCommand<MutationDocumentResult>(OpenCompleteDocumentTab);
             SaveReportCommand = new DelegateCommand(SaveReportAsync);
+            FailedToCompileCommand = new DelegateCommand(FailedToCompile);
             MutationScore = "0%";
             MutationsSurvivedCount = new ObservableValue(0);
             MutationsKilledCount = new ObservableValue(0);
+            _mutantsFailedToCompile = new List<MutationDocumentResult>();
 
             MutationStatistics = new SeriesCollection
             {
@@ -90,6 +93,8 @@ namespace Cama.Module.Mutation.Sections.TestRun
 
         public DelegateCommand SaveReportCommand { get; set; }
 
+        public DelegateCommand FailedToCompileCommand { get; set; }
+
         public void SetDocuments(IList<MutatedDocument> documents, CamaConfig config)
         {
             _config = config;
@@ -102,27 +107,27 @@ namespace Cama.Module.Mutation.Sections.TestRun
             var runs = RunningDocuments.Select((d) => new Task(async () =>
             {
                 d.Status = TestRunDocument.TestRunStatusEnum.Running;
-                var testResult = await _testRunnerService.RunTestAsync(d.Document, _config.TestProjectOutputPath);
+                var testResult = await _testRunnerService.RunTestAsync(_config, d.Document, _config.TestProjectOutputPath);
                 MoveDocumentToCompleted(d, testResult);
             }));
 
             MutationsInQueueCount = runs.Count();
             var queue = new Queue<Task>(runs);
-            var waitList = new List<Task>();
+            var runList = new List<Task>();
 
             while (queue.Any())
             {
-                if (waitList.Count > 10)
+                if (runList.Count > 4)
                 {
-                    var finishedTask = await Task.WhenAny(waitList.ToArray());
-                    waitList.Remove(finishedTask);
+                    var finishedTask = await Task.WhenAny(runList.ToArray());
+                    runList.Remove(finishedTask);
                 }
                 else
                 {
                     MutationsInQueueCount--;
                     var newOne = queue.Dequeue();
                     newOne.Start();
-                    waitList.Add(newOne);
+                    runList.Add(newOne);
                 }
             }
         }
@@ -138,6 +143,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
                 if (!result.CompilerResult.IsSuccess)
                 {
                     FailedToCompileMutationsCount++;
+                    _mutantsFailedToCompile.Add(result);
                     return;
                 }
 
@@ -165,6 +171,11 @@ namespace Cama.Module.Mutation.Sections.TestRun
             _loadingDisplayer.ShowLoading("Saving report..");
             await Task.Run(() => _saveReportService.SaveReport(SurvivedDocuments));
             _loadingDisplayer.HideLoading();
+        }
+
+        private void FailedToCompile()
+        {
+            _mutationModuleTabOpener.OpenFaildToCompileTab(_mutantsFailedToCompile);
         }
 
     }

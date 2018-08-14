@@ -13,5 +13,11 @@ namespace Cama.Core.Models.Mutation
 
         [JsonIgnore]
         public string TestProjectOutputPath { get; set; }
+
+        [JsonIgnore]
+        public string TestProjectOutputFileName { get; set; }
+
+        [JsonIgnore]
+        public string MutationProjectOutputFileName { get; set; }
     }
 }

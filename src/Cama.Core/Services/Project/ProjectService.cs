@@ -31,7 +31,13 @@ namespace Cama.Core.Services.Project
                 LogTo.Info("Opening solution..");
                 var solution = await workspace.OpenSolutionAsync(config.SolutionPath);
                 LogTo.Info("Looking for test project output path.");
-                config.TestProjectOutputPath = Path.GetDirectoryName(solution.Projects.FirstOrDefault(p => p.Name == config.TestProjectName).OutputFilePath);
+
+                var testProjectOutput = solution.Projects.FirstOrDefault(p => p.Name == config.TestProjectName).OutputFilePath;
+
+                config.TestProjectOutputPath = Path.GetDirectoryName(testProjectOutput);
+                config.TestProjectOutputFileName = Path.GetFileName(testProjectOutput);
+                config.MutationProjectOutputFileName = Path.GetFileName(solution.Projects.FirstOrDefault(p => p.Name == config.MutationProjectNames[0]).OutputFilePath);
+
                 workspace.CloseSolution();
                 LogTo.Info("Done opening project.");
             }

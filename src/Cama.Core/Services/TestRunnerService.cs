@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -19,11 +20,11 @@ namespace Cama.Core.Services
             _testRunner = testRunner;
         }
 
-        public async Task<MutationDocumentResult> RunTestAsync(MutatedDocument document, string sourcePath)
+        public async Task<MutationDocumentResult> RunTestAsync(CamaConfig config, MutatedDocument document, string sourcePath)
         {
             var basePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestRun", document.Id.ToString());
-            var mainFilePath = Path.Combine(basePath, "Testura.Code.dll");
-            var mainTestFilePath = Path.Combine(basePath, "Testura.Code.Tests.dll");
+            var mainFilePath = Path.Combine(basePath, config.MutationProjectOutputFileName);
+            var mainTestFilePath = Path.Combine(basePath, config.TestProjectOutputFileName);
 
             Directory.CreateDirectory(basePath);
             _dependencyFilesHandler.CopyDependencies(sourcePath, basePath);
@@ -35,7 +36,13 @@ namespace Cama.Core.Services
 
             var results = _testRunner.RunTests(mainTestFilePath, /* document.Document.Tests */ new List<string>());
 
-            Directory.Delete(basePath, true);
+            try
+            {
+                Directory.Delete(basePath, true);
+            }
+            catch (Exception)
+            {
+            }
 
             return new MutationDocumentResult { Survived = results.IsSuccess, CompilerResult = compilerResult, TestResult = results, Document = document };
         }

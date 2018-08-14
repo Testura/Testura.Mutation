@@ -15,5 +15,7 @@ namespace Cama.Infrastructure.Tabs
         void OpenDocumentResultTab(MutationDocumentResult result);
 
         void OpenFileDetailsTab(MFile file, CamaConfig config);
+
+        void OpenFaildToCompileTab(IList<MutationDocumentResult> mutantsFailedToCompile);
     }
 }

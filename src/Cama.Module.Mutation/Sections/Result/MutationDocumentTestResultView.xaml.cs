@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using Cama.Core.Models.Mutation;
-using Cama.Module.Mutation.Sections.TestRun;
 
 namespace Cama.Module.Mutation.Sections.Result
 {
@@ -16,6 +14,14 @@ namespace Cama.Module.Mutation.Sections.Result
 
             var dataContext = DataContext as MutationDocumentTestResultViewModel;
             dataContext.SetMutationDocumentTestResult(result);
+        }
+
+        private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            var textToSync = (sender == BeforeTxt) ? AfterTxt : BeforeTxt;
+
+            textToSync.ScrollToVerticalOffset(e.VerticalOffset);
+            textToSync.ScrollToHorizontalOffset(e.HorizontalOffset);
         }
     }
 }
