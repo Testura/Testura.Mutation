@@ -11,7 +11,7 @@ namespace Cama.Core.Mutation.Mutators
         {
             if (node.IsKind(SyntaxKind.IsExpression))
             {
-                var newNode = SyntaxFactory.PrefixUnaryExpression(SyntaxKind.LogicalNotExpression, SyntaxFactory.ParenthesizedExpression(node));
+                var newNode = SyntaxFactory.PrefixUnaryExpression(SyntaxKind.LogicalNotExpression, SyntaxFactory.ParenthesizedExpression(node)).NormalizeWhitespace();
                 Replacers.Add(new MutationInfo(node, newNode, GetWhere(node)));
             }
 

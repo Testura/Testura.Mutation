@@ -11,13 +11,13 @@ namespace Cama.Core.Mutation.Mutators
         {
             if (node.IsKind(SyntaxKind.PostIncrementExpression) && node.Parent?.Kind() != SyntaxKind.ForStatement)
             {
-                var newNode = SyntaxFactory.PostfixUnaryExpression(SyntaxKind.PostDecrementExpression, node.Operand);
+                var newNode = SyntaxFactory.PostfixUnaryExpression(SyntaxKind.PostDecrementExpression, node.Operand).NormalizeWhitespace();
                 CreateReplacer(node, newNode);
             }
 
             if (node.IsKind(SyntaxKind.PostDecrementExpression) && node.Parent?.Kind() != SyntaxKind.ForStatement)
             {
-                var newNode = SyntaxFactory.PostfixUnaryExpression(SyntaxKind.PostIncrementExpression, node.Operand);
+                var newNode = SyntaxFactory.PostfixUnaryExpression(SyntaxKind.PostIncrementExpression, node.Operand).NormalizeWhitespace();
                 CreateReplacer(node, newNode);
             }
 

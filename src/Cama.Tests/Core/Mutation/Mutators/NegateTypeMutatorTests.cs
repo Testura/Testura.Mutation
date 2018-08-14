@@ -9,7 +9,7 @@ namespace Cama.Tests.Core.Mutation.Mutators
     {
 
         [TestCase("i is bool", "!(i is bool)", TestName = "GetMutatedDocument_WhenHavingATypeCompabilityCheck_ShouldMutateIt")]
-        [TestCase("i is bool && o == 1", "!(i is bool )", TestName = "GetMutatedDocument_WhenHavingATypeCompabilityCheckInsideAComplexStatement_ShouldMutateIt")]
+        [TestCase("i is bool && o == 1", "!(i is bool)", TestName = "GetMutatedDocument_WhenHavingATypeCompabilityCheckInsideAComplexStatement_ShouldMutateIt")]
         public void Positive(string preMutation, string postMutation)
         {
             var tree = SyntaxFactory.ParseSyntaxTree($"classC{{publicvoidDo(){{if({preMutation})}}");

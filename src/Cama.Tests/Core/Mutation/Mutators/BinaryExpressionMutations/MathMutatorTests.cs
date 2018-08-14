@@ -7,16 +7,16 @@ namespace Cama.Tests.Core.Mutation.Mutators.BinaryExpressionMutations
     [TestFixture]
     public class MathMutatorTests
     {
-        [TestCase("1+2", "1- 2")]
-        [TestCase("1-2", "1+ 2")]
-        [TestCase("1*2", "1/ 2")]
-        [TestCase("1/2", "1* 2")]
-        [TestCase("1%2", "1* 2")]
-        [TestCase("1&2", "1| 2")]
-        [TestCase("1|2", "1& 2")]
-        [TestCase("1^2", "1& 2")]
-        [TestCase("1<<2", "1>> 2")]
-        [TestCase("1>>2", "1<< 2")]
+        [TestCase("1+2", "1 - 2")]
+        [TestCase("1-2", "1 + 2")]
+        [TestCase("1*2", "1 / 2")]
+        [TestCase("1/2", "1 * 2")]
+        [TestCase("1%2", "1 * 2")]
+        [TestCase("1&2", "1 | 2")]
+        [TestCase("1|2", "1 & 2")]
+        [TestCase("1^2", "1 & 2")]
+        [TestCase("1<<2", "1 >> 2")]
+        [TestCase("1>>2", "1 << 2")]
         public void BinaryTests(string binary, string mutatedBinary)
         {
             var tree = SyntaxFactory.ParseSyntaxTree($"classC{{publicvoidDo(){{var i = {binary};}}");
@@ -38,8 +38,8 @@ namespace Cama.Tests.Core.Mutation.Mutators.BinaryExpressionMutations
             var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null, null);
 
             Assert.AreEqual(2, doc.Count);
-            Assert.AreEqual("1- 2/3", doc[0].MutationInfo.Mutation.ToString());
-            Assert.AreEqual("2* 3", doc[1].MutationInfo.Mutation.ToString());
+            Assert.AreEqual("1 - 2 / 3", doc[0].MutationInfo.Mutation.ToString());
+            Assert.AreEqual("2 * 3", doc[1].MutationInfo.Mutation.ToString());
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace Cama.Tests.Core.Mutation.Mutators.BinaryExpressionMutations
             var binaryExpressionMutationOperator = new MathMutator();
             var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null, null);
 
-            Assert.AreEqual("1- 2", doc[0].MutationInfo.Mutation.ToString());
+            Assert.AreEqual("1 - 2", doc[0].MutationInfo.Mutation.ToString());
         }
 
         [Test]

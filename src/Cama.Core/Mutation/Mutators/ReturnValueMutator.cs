@@ -52,6 +52,7 @@ namespace Cama.Core.Mutation.Mutators
 
                 if (newNode != null)
                 {
+                    newNode = newNode.NormalizeWhitespace();
                     Replacers.Add(new MutationInfo(node, newNode, GetWhere(node)));
                 }
             }
