@@ -245,7 +245,7 @@
 
         <Grid Grid.Row="2" Grid.Column="0">
             <GroupBox
-                Header="Running"
+                Header="Mutations"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
                 Margin="16">
                 <ScrollViewer>
@@ -257,7 +257,9 @@
                         CanUserAddRows="false"
                         Grid.Row="1">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Where" Binding="{Binding Document.Where}" Width="*" IsReadOnly="True" MinWidth="200"/>
+                            <DataGridTextColumn Header="File" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Where" Binding="{Binding Document.MutationInfo.Location.Where}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Line" Binding="{Binding Document.MutationInfo.Location.Line}" Width="*" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*" IsReadOnly="True"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -284,7 +286,9 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Where" Binding="{Binding Document.Where}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="File" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Where" Binding="{Binding Document.MutationInfo.Location.Where}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Line" Binding="{Binding Document.MutationInfo.Location.Line}" Width="*" IsReadOnly="True"/>
                             <DataGridTemplateColumn Header="Result" Width="*" IsReadOnly="True">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

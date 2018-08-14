@@ -25,7 +25,7 @@ namespace Cama.Tests.Core.Mutation.Mutators.BinaryExpressionMutations
             var binaryExpressionMutationOperator = new MathMutator();
             var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null, null);
 
-            Assert.AreEqual(mutatedBinary, doc[0].Replacer.Mutation.ToString());
+            Assert.AreEqual(mutatedBinary, doc[0].MutationInfo.Mutation.ToString());
         }
 
         [Test]
@@ -38,8 +38,8 @@ namespace Cama.Tests.Core.Mutation.Mutators.BinaryExpressionMutations
             var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null, null);
 
             Assert.AreEqual(2, doc.Count);
-            Assert.AreEqual("1- 2/3", doc[0].Replacer.Mutation.ToString());
-            Assert.AreEqual("2* 3", doc[1].Replacer.Mutation.ToString());
+            Assert.AreEqual("1- 2/3", doc[0].MutationInfo.Mutation.ToString());
+            Assert.AreEqual("2* 3", doc[1].MutationInfo.Mutation.ToString());
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace Cama.Tests.Core.Mutation.Mutators.BinaryExpressionMutations
             var binaryExpressionMutationOperator = new MathMutator();
             var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null, null);
 
-            Assert.AreEqual("1- 2", doc[0].Replacer.Mutation.ToString());
+            Assert.AreEqual("1- 2", doc[0].MutationInfo.Mutation.ToString());
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace Cama.Tests.Core.Mutation.Mutators.BinaryExpressionMutations
             var binaryExpressionMutationOperator = new MathMutator();
             var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null, null);
 
-            Assert.AreEqual("1 - 2", doc[0].Replacer.Mutation.ToString());
+            Assert.AreEqual("1 - 2", doc[0].MutationInfo.Mutation.ToString());
         }
     }
 }

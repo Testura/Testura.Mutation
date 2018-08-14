@@ -28,11 +28,13 @@
                               SelectionUnit="FullRow"
                               AutoGenerateColumns="False"
                               IsReadOnly="False"
-                              ItemsSource="{Binding File.StatementsMutations}">
+                              ItemsSource="{Binding File.MutatedDocuments}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Where"
-                                                Binding="{Binding Replacer.Where}" Width="*" IsReadOnly="True"/>
-                        </DataGrid.Columns>
+                                                Binding="{Binding MutationInfo.Location.Where}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Line"
+                                                Binding="{Binding MutationInfo.Location.Line}" Width="*" IsReadOnly="True"/>
+                    </DataGrid.Columns>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding MutationSelectedCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" />

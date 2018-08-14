@@ -11,9 +11,9 @@ namespace Cama.Core.Models.Mutation
         private readonly Document _orginalDocument;
         private readonly IList<UnitTestInformation> _tests;
 
-        public MutatedDocument(Document orginalDocument, Replacer replacer, IList<UnitTestInformation> tests)
+        public MutatedDocument(Document orginalDocument, MutationInfo mutationInfo, IList<UnitTestInformation> tests)
         {
-            Replacer = replacer;
+            MutationInfo = mutationInfo;
             Id = Guid.NewGuid();
             FileName = orginalDocument?.Name;
             _orginalDocument = orginalDocument;
@@ -24,16 +24,14 @@ namespace Cama.Core.Models.Mutation
 
         public string FileName { get;  }
 
-        public string Where => $"{FileName} - {Replacer.Where}";
-
-        public Replacer Replacer { get; }
+        public MutationInfo MutationInfo { get; }
 
         public IList<string> Tests => _tests.Select(t => t.TestName).ToList();
 
         public Document CreateMutatedDocument()
         {
             var editor = DocumentEditor.CreateAsync(_orginalDocument).Result;
-            editor.ReplaceNode(Replacer.Orginal, Replacer.Mutation);
+            editor.ReplaceNode(MutationInfo.Orginal, MutationInfo.Mutation);
             return _orginalDocument.WithText(editor.GetChangedDocument().GetSyntaxRootAsync().Result.GetText());
         }
     }

@@ -3,15 +3,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cama.Core.Models.Mutation
 {
-    public class Replacer
+    public class MutationInfo
     {
-        public Replacer(SyntaxNode orginal, SyntaxNode mutation, string where)
+        public MutationInfo(SyntaxNode orginal, SyntaxNode mutation, MutationLocationInfo location)
         {
             Orginal = orginal;
             Mutation = mutation;
             FullOrginal = GetRoot(orginal);
             FullMutation = FullOrginal.ReplaceNode(Orginal, Mutation);
-            Where = where;
+            Location = location;
         }
 
         public SyntaxNode Orginal { get; }
@@ -22,7 +22,7 @@ namespace Cama.Core.Models.Mutation
 
         public CompilationUnitSyntax FullMutation { get; }
 
-        public string Where { get; }
+        public MutationLocationInfo Location { get; }
 
         private CompilationUnitSyntax GetRoot(SyntaxNode syntaxNode)
         {

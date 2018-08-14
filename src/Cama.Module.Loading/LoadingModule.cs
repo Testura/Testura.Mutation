@@ -1,4 +1,5 @@
-﻿using Cama.Infrastructure;
+﻿using System.ComponentModel;
+using Cama.Infrastructure;
 using Cama.Module.Loading.Sections.Loading;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
@@ -19,9 +20,6 @@ namespace Cama.Module.Loading
 
         public void Initialize()
         {
-            _container.RegisterType<LoadingViewModel>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<ILoadingDisplayer, LoadingViewModel>(new ContainerControlledLifetimeManager());
-
             _regionManager.RegisterViewWithRegion(RegionNames.LoadRegion, typeof(LoadingView));
         }
     }

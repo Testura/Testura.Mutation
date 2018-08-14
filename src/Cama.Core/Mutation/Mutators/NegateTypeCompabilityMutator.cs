@@ -12,7 +12,7 @@ namespace Cama.Core.Mutation.Mutators
             if (node.IsKind(SyntaxKind.IsExpression))
             {
                 var newNode = SyntaxFactory.PrefixUnaryExpression(SyntaxKind.LogicalNotExpression, SyntaxFactory.ParenthesizedExpression(node));
-                Replacers.Add(new Replacer(node, newNode, GetWhere(node)));
+                Replacers.Add(new MutationInfo(node, newNode, GetWhere(node)));
             }
 
             return base.VisitBinaryExpression(node);

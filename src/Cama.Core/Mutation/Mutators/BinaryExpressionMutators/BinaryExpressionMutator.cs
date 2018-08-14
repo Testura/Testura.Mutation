@@ -16,7 +16,7 @@ namespace Cama.Core.Mutation.Mutators.BinaryExpressionMutators
             if (replacementTable.ContainsKey(operatorKind))
             {
                 var newNode = node.ReplaceToken(node.OperatorToken, SyntaxFactory.Token(replacementTable[operatorKind]).WithTrailingTrivia(SyntaxFactory.Whitespace(" ")));
-                Replacers.Add(new Replacer(node, newNode, GetWhere(node)));
+                Replacers.Add(new MutationInfo(node, newNode, GetWhere(node)));
             }
 
             return base.VisitBinaryExpression(node);

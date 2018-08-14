@@ -8,11 +8,11 @@ namespace Cama.Core.Models
         public MFile(string fileName, IList<MutatedDocument> statementsMutations)
         {
             FileName = fileName;
-            StatementsMutations = new List<MutatedDocument>(statementsMutations);
+            MutatedDocuments = new List<MutatedDocument>(statementsMutations);
         }
 
         public string FileName { get; }
 
-        public IList<MutatedDocument> StatementsMutations { get; set; }
+        public IList<MutatedDocument> MutatedDocuments { get; set; }
     }
 }

@@ -45,14 +45,14 @@ namespace Cama.Module.Mutation.Sections.Details
             _document = document;
             FileName = document.FileName;
             UnitTests = document.Tests;
-            Title = $"{document.FileName} - {document.Replacer.Where}";
+            Title = $"{document.FileName} - {document.MutationInfo.Location})";
             ShowFullCode(false);
         }
 
         private void ShowFullCode(bool? showFullCode)
         {
-            CodeBeforeMutation = showFullCode.Value ? _document.Replacer.FullOrginal.ToFullString() : _document.Replacer.Orginal.ToFullString();
-            CodeAfterMutation = showFullCode.Value ? _document.Replacer.FullMutation.ToFullString() : _document.Replacer.Mutation.ToFullString();
+            CodeBeforeMutation = showFullCode.Value ? _document.MutationInfo.FullOrginal.ToFullString() : _document.MutationInfo.Orginal.ToFullString();
+            CodeAfterMutation = showFullCode.Value ? _document.MutationInfo.FullMutation.ToFullString() : _document.MutationInfo.Mutation.ToFullString();
             var diffBuilder = new SideBySideDiffBuilder(new Differ());
             Diff = diffBuilder.BuildDiffModel(CodeBeforeMutation, CodeAfterMutation);
         }

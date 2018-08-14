@@ -26,7 +26,7 @@ namespace Cama.Core.Mutation.Mutators
 
         private void CreateReplacer(PostfixUnaryExpressionSyntax node, PostfixUnaryExpressionSyntax newNode)
         {
-            Replacers.Add(new Replacer(node, newNode, GetWhere(node)));
+            Replacers.Add(new MutationInfo(node, newNode, GetWhere(node)));
         }
     }
 }

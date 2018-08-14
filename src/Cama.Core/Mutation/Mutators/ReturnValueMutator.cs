@@ -52,7 +52,7 @@ namespace Cama.Core.Mutation.Mutators
 
                 if (newNode != null)
                 {
-                    Replacers.Add(new Replacer(node, newNode, GetWhere(node)));
+                    Replacers.Add(new MutationInfo(node, newNode, GetWhere(node)));
                 }
             }
 
@@ -60,7 +60,7 @@ namespace Cama.Core.Mutation.Mutators
             foreach (var objectCreationExpressionSyntax in objectCreationExpressions)
             {
                 var newNode = node.ReplaceNode(objectCreationExpressionSyntax, LiteralExpression(SyntaxKind.NullLiteralExpression));
-                Replacers.Add(new Replacer(node, newNode, GetWhere(node)));
+                Replacers.Add(new MutationInfo(node, newNode, GetWhere(node)));
             }
 
             return base.VisitReturnStatement(node);

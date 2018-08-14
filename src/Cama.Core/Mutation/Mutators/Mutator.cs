@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -11,10 +12,10 @@ namespace Cama.Core.Mutation.Mutators
     {
         public Mutator()
         {
-            Replacers = new List<Replacer>();
+            Replacers = new List<MutationInfo>();
         }
 
-        protected IList<Replacer> Replacers { get; }
+        protected IList<MutationInfo> Replacers { get; }
 
         public IList<MutatedDocument> GetMutatedDocument(SyntaxNode root, Document document, List<UnitTestInformation> connectedTests)
         {
@@ -30,29 +31,39 @@ namespace Cama.Core.Mutation.Mutators
         }
         */
 
-        protected string GetWhere(CSharpSyntaxNode syntaxNode)
+        protected MutationLocationInfo GetWhere(CSharpSyntaxNode syntaxNode)
         {
+            var where = "Unknown";
+
             var methodDeclaration = syntaxNode.FirstAncestorOrSelf<MethodDeclarationSyntax>();
 
             if (methodDeclaration != null)
             {
-                return $"{methodDeclaration.Identifier.Value}(M)";
+                where = $"{methodDeclaration.Identifier.Value}(M)";
             }
 
             var constructorDeclaration = syntaxNode.FirstAncestorOrSelf<ConstructorDeclarationSyntax>();
 
             if (constructorDeclaration != null)
             {
-                return $"{constructorDeclaration.Identifier.Value}(C)";
+                where = $"{constructorDeclaration.Identifier.Value}(C)";
             }
 
             var propertyDeclaration = syntaxNode.FirstAncestorOrSelf<PropertyDeclarationSyntax>();
             if (propertyDeclaration != null)
             {
-                return $"{propertyDeclaration.Identifier.Value}(P)";
+                where = $"{propertyDeclaration.Identifier.Value}(P)";
             }
 
-            return "Unknown";
+            var location = syntaxNode.GetLocation();
+            var locationString = "Unknown line";
+            var pos = location.GetLineSpan();
+            if (pos.Path != null)
+            {
+                locationString = $"@({pos.StartLinePosition.Line + 1}:{pos.StartLinePosition.Character + 1})";
+            }
+
+            return new MutationLocationInfo { Where = where, Line = locationString };
         }
     }
 }

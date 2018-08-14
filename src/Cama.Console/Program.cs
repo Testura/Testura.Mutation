@@ -29,7 +29,7 @@ namespace Cama.Console
             var files = await someService.CreateMutatorsAsync(config, new List<IMutator> { new MathMutator() });
 
             var testRunner = new TestRunnerService(new MutatedDocumentCompiler(), new DependencyFilesHandler(), new TestRunner());
-            var result = await testRunner.RunTestAsync(files.Where(f => f.StatementsMutations.Any()).ToList()[1].StatementsMutations.FirstOrDefault(), config.TestProjectOutputPath);
+            var result = await testRunner.RunTestAsync(files.Where(f => f.MutatedDocuments.Any()).ToList()[1].MutatedDocuments.FirstOrDefault(), config.TestProjectOutputPath);
 
         }
     }

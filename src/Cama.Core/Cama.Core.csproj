@@ -55,7 +55,7 @@
     <Compile Include="Models\Mutation\CamaConfig.cs" />
     <Compile Include="Models\Mutation\MutatedDocument.cs" />
     <Compile Include="Models\Mutation\MutationDocumentResult.cs" />
-    <Compile Include="Models\Mutation\Replacer.cs" />
+    <Compile Include="Models\Mutation\MutationInfo.cs" />
     <Compile Include="Models\Mutation\UnitTestInformation.cs" />
     <Compile Include="Models\Solution\SolutionProjectInfo.cs" />
     <Compile Include="Models\TestResult.cs" />
@@ -71,6 +71,7 @@
     <Compile Include="Mutation\Mutators\MutationOperatorFactory.cs" />
     <Compile Include="Mutation\Mutators\BinaryExpressionMutators\MathMutator.cs" />
     <Compile Include="Mutation\Mutators\ReturnValueMutator.cs" />
+    <Compile Include="Models\MutationLocationInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DependencyFilesHandler.cs" />
     <Compile Include="Services\MutatedDocumentCompiler.cs" />

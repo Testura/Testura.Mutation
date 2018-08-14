@@ -37,7 +37,7 @@ namespace Cama.Module.Mutation.Sections.Details
 
         private void ExecuteTests()
         {
-            _tabOpener.OpenTestRunTab(File.StatementsMutations, _config);
+            _tabOpener.OpenTestRunTab(File.MutatedDocuments, _config);
         }
 
         private void MutationSelected(MutatedDocument obj)

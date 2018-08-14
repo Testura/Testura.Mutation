@@ -78,7 +78,7 @@ namespace Cama.Module.Mutation.Sections.Overview
 
         private void RunAllMutations()
         {
-            _tabOpener.OpenTestRunTab(Documents.SelectMany(d => d.MFile.StatementsMutations).ToList(), _config);
+            _tabOpener.OpenTestRunTab(Documents.SelectMany(d => d.MFile.MutatedDocuments).ToList(), _config);
         }
 
         private void DocumentSelected(DocumentRowModel documentRow)

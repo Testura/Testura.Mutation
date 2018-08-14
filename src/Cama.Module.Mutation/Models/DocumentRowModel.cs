@@ -11,6 +11,6 @@ namespace Cama.Module.Mutation.Models
 
         public MFile MFile { get; set; }
 
-        public int MutationCount => MFile.StatementsMutations.Count;
+        public int MutationCount => MFile.MutatedDocuments.Count;
     }
 }

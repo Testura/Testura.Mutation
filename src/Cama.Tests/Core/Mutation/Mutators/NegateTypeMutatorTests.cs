@@ -18,7 +18,7 @@ namespace Cama.Tests.Core.Mutation.Mutators
             var ifConditionalMutationOperator = new NegateTypeCompabilityMutator();
             var doc = ifConditionalMutationOperator.GetMutatedDocument(root, null, null);
 
-            Assert.AreEqual(postMutation, doc[0].Replacer.Mutation.ToString());
+            Assert.AreEqual(postMutation, doc[0].MutationInfo.Mutation.ToString());
         }
     }
 }

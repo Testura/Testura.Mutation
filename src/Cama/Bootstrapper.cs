@@ -2,9 +2,11 @@
 using System.Reflection;
 using System.Windows;
 using Cama.Core.Services.Project;
+using Cama.Infrastructure;
 using Cama.Infrastructure.Tabs;
 using Cama.Module.Debug;
 using Cama.Module.Loading;
+using Cama.Module.Loading.Sections.Loading;
 using Cama.Module.Menu;
 using Cama.Module.Mutation;
 using Cama.Module.Mutation.Tab;
@@ -82,6 +84,10 @@ namespace Cama
             Container.RegisterType<IStartModuleTabOpener, StartModuleTabOpener>();
             Container.RegisterType<ICreateProjectService, ProjectService>();
             Container.RegisterType<IOpenProjectService, ProjectService>();
+
+            // Ugly, should be in the loading module...
+            Container.RegisterType<LoadingViewModel>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ILoadingDisplayer, LoadingViewModel>(new ContainerControlledLifetimeManager());
         }
     }
 }
