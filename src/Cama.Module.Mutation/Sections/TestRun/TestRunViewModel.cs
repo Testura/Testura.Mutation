@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using Cama.Core.Models.Mutation;
 using Cama.Core.Services;
+using Cama.Infrastructure;
 using Cama.Infrastructure.Tabs;
 using Cama.Module.Mutation.Models;
+using Cama.Module.Mutation.Services;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -21,17 +23,22 @@ namespace Cama.Module.Mutation.Sections.TestRun
     {
         private readonly TestRunnerService _testRunnerService;
         private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
+        private readonly SaveReportService _saveReportService;
+        private readonly ILoadingDisplayer _loadingDisplayer;
         private CamaConfig _config;
 
-        public TestRunViewModel(TestRunnerService testRunnerService, IMutationModuleTabOpener mutationModuleTabOpener)
+        public TestRunViewModel(TestRunnerService testRunnerService, IMutationModuleTabOpener mutationModuleTabOpener, SaveReportService saveReportService, ILoadingDisplayer loadingDisplayer)
         {
             _testRunnerService = testRunnerService;
             _mutationModuleTabOpener = mutationModuleTabOpener;
+            _saveReportService = saveReportService;
+            _loadingDisplayer = loadingDisplayer;
             RunningDocuments = new ObservableCollection<TestRunDocument>();
             CompletedDocuments = new ObservableCollection<MutationDocumentResult>();
             SurvivedDocuments = new ObservableCollection<MutationDocumentResult>();
             RunCommand = new DelegateCommand(RunTestsAsync);
             CompletedDocumentSelectedCommand = new DelegateCommand<MutationDocumentResult>(OpenCompleteDocumentTab);
+            SaveReportCommand = new DelegateCommand(SaveReportAsync);
             MutationScore = "0%";
             MutationsSurvivedCount = new ObservableValue(0);
             MutationsKilledCount = new ObservableValue(0);
@@ -80,6 +87,8 @@ namespace Cama.Module.Mutation.Sections.TestRun
         public DelegateCommand RunCommand { get; set; }
 
         public DelegateCommand<MutationDocumentResult> CompletedDocumentSelectedCommand { get; set; }
+
+        public DelegateCommand SaveReportCommand { get; set; }
 
         public void SetDocuments(IList<MutatedDocument> documents, CamaConfig config)
         {
@@ -150,5 +159,13 @@ namespace Cama.Module.Mutation.Sections.TestRun
         {
             _mutationModuleTabOpener.OpenDocumentResultTab(obj);
         }
+
+        private async void SaveReportAsync()
+        {
+            _loadingDisplayer.ShowLoading("Saving report..");
+            await Task.Run(() => _saveReportService.SaveReport(SurvivedDocuments));
+            _loadingDisplayer.HideLoading();
+        }
+
     }
 }

@@ -74,6 +74,7 @@
       <DependentUpon>TestRunView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sections\TestRun\TestRunViewModel.cs" />
+    <Compile Include="Services\SaveReportService.cs" />
     <Compile Include="Tab\MutationTabOpener.cs" />
   </ItemGroup>
   <ItemGroup>
