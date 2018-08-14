@@ -29,6 +29,18 @@ namespace Cama.Tests.Core.Mutation.Mutators.BinaryExpressionMutations
         }
 
         [Test]
+        public void GetMutatedDocument_WhenHavingBinaryExpressionThatContainsAString_ShouldNotMutate()
+        {
+            var tree = SyntaxFactory.ParseSyntaxTree($"classC{{publicvoidDo(){{var i = \"test\" + 2; }}");
+            var root = tree.GetRoot();
+
+            var binaryExpressionMutationOperator = new MathMutator();
+            var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null, null);
+
+            Assert.IsEmpty(doc, "Should not be able to find any mutations");
+        }
+
+        [Test]
         public void GetMutatedDocument_WhenHavingMultipleMathOperationsInSameStatement_ShouldMutateAll()
         {
             var tree = SyntaxFactory.ParseSyntaxTree("classC{{publicvoidDo(){{var i = 1+2/3;}}");

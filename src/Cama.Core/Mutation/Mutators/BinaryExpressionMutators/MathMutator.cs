@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using Cama.Core.Models.Mutation;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cama.Core.Mutation.Mutators.BinaryExpressionMutators
 {
@@ -11,7 +14,6 @@ namespace Cama.Core.Mutation.Mutators.BinaryExpressionMutators
         {
             _replacementTable = new Dictionary<SyntaxKind, SyntaxKind>
             {
-                [SyntaxKind.PlusToken] = SyntaxKind.MinusToken,
                 [SyntaxKind.MinusToken] = SyntaxKind.PlusToken,
                 [SyntaxKind.AsteriskToken] = SyntaxKind.SlashToken,
                 [SyntaxKind.SlashToken] = SyntaxKind.AsteriskToken,
@@ -22,6 +24,25 @@ namespace Cama.Core.Mutation.Mutators.BinaryExpressionMutators
                 [SyntaxKind.LessThanLessThanToken] = SyntaxKind.GreaterThanGreaterThanToken,
                 [SyntaxKind.GreaterThanGreaterThanToken] = SyntaxKind.LessThanLessThanToken
             };
+        }
+
+        public override SyntaxNode VisitBinaryExpression(BinaryExpressionSyntax node)
+        {
+            var operatorKind = node.OperatorToken.Kind();
+
+            if (operatorKind == SyntaxKind.PlusToken)
+            {
+                var left = node.Left;
+                var right = node.Right;
+
+                if (!left.IsKind(SyntaxKind.StringLiteralExpression) && !right.IsKind(SyntaxKind.StringLiteralExpression))
+                {
+                    var newNode = node.ReplaceToken(node.OperatorToken, SyntaxFactory.Token(SyntaxKind.MinusToken)).NormalizeWhitespace();
+                    Replacers.Add(new MutationInfo(node, newNode, GetWhere(node)));
+                }
+            }
+
+            return base.VisitBinaryExpression(node);
         }
 
         protected override Dictionary<SyntaxKind, SyntaxKind> GetReplacementTable()
