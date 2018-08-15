@@ -18,7 +18,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <materialDesign:Card Margin="8, 16, 16, 8" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
+        <materialDesign:Card Margin="8, 16, 16, 8" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" IsEnabled="{Binding TestNotStarted}">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Numbers of mutants in parallel: " Margin="16" />
                 <Slider
@@ -43,7 +43,8 @@
 
         <materialDesign:Card Margin="16, 16, 8, 8" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">
             <StackPanel Orientation="Horizontal">
-                <Button Content="See failed to compile mutants" Command="{Binding FailedToCompileCommand}" Margin="16" />
+                <Button Content="See result from all mutations" Command="{Binding SeeAllMutationsCommand}" Margin="16" />
+                <Button Content="See failed to compile mutations" Command="{Binding FailedToCompileCommand}" Margin="16" />
                 <Button Content="Save report" Command="{Binding SaveReportCommand}" Margin="16" />
             </StackPanel>
         </materialDesign:Card>

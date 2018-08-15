@@ -66,6 +66,10 @@
       <DependentUpon>MutationOverviewView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sections\Overview\MutationOverviewViewModel.cs" />
+    <Compile Include="Sections\Result\AllCompletedMutationDocumentTestResultView.xaml.cs">
+      <DependentUpon>AllCompletedMutationDocumentTestResultView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\Result\AllCompletedMutationDocumentTestResultViewModel.cs" />
     <Compile Include="Sections\Result\FailedToCompileMutationDocumentsView.xaml.cs">
       <DependentUpon>FailedToCompileMutationDocumentsView.xaml</DependentUpon>
     </Compile>
@@ -104,6 +108,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Sections\Overview\MutationOverviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sections\Result\AllCompletedMutationDocumentTestResultView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

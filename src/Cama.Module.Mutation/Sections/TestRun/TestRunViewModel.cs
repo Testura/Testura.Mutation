@@ -41,6 +41,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
             CompletedDocumentSelectedCommand = new DelegateCommand<MutationDocumentResult>(OpenCompleteDocumentTab);
             SaveReportCommand = new DelegateCommand(SaveReportAsync);
             FailedToCompileCommand = new DelegateCommand(FailedToCompile);
+            SeeAllMutationsCommand = new DelegateCommand(SeeAllMutations);
             MutationScore = "0%";
             MutationsSurvivedCount = new ObservableValue(0);
             MutationsKilledCount = new ObservableValue(0);
@@ -63,7 +64,11 @@ namespace Cama.Module.Mutation.Sections.TestRun
                     LabelPoint = chartPoint => $"{chartPoint.Y} ({chartPoint.Participation:P})"
                 }
             };
+
+            TestNotStarted = true;
         }
+
+        public bool TestNotStarted { get; set; }
 
         public int MutationCount { get; set; }
 
@@ -95,6 +100,8 @@ namespace Cama.Module.Mutation.Sections.TestRun
 
         public DelegateCommand FailedToCompileCommand { get; set; }
 
+        public DelegateCommand SeeAllMutationsCommand { get; set; }
+
         public void SetDocuments(IList<MutatedDocument> documents, CamaConfig config)
         {
             _config = config;
@@ -104,6 +111,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
 
         private async void RunTestsAsync()
         {
+            TestNotStarted = false;
             var runs = RunningDocuments.Select((d) => new Task(async () =>
             {
                 d.Status = TestRunDocument.TestRunStatusEnum.Running;
@@ -178,5 +186,9 @@ namespace Cama.Module.Mutation.Sections.TestRun
             _mutationModuleTabOpener.OpenFaildToCompileTab(_mutantsFailedToCompile);
         }
 
+        private void SeeAllMutations()
+        {
+            _mutationModuleTabOpener.OpenAllMutationResultTab(CompletedDocuments.ToList());
+        }
     }
 }

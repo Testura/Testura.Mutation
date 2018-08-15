@@ -6,12 +6,12 @@
              xmlns:local="clr-namespace:Cama.Module.Mutation.Sections.Result"
              xmlns:mvvm="http://prismlibrary.com/"
              mc:Ignorable="d" 
-            mvvm:ViewModelLocator.AutoWireViewModel="True"
+                mvvm:ViewModelLocator.AutoWireViewModel="True"
              Header="Failed to compile">
     <Grid>
         <GroupBox 
                 Grid.Row="3"
-                Header="Failed to compile mutants"
+                Header="Failed to compile mutations"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
                 Margin="16">
             <DataGrid

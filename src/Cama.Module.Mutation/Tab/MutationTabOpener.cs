@@ -48,5 +48,10 @@ namespace Cama.Module.Mutation.Tab
         {
             _mainTabContainer.AddTab(new FailedToCompileMutationDocumentsView(mutantsFailedToCompile));
         }
+
+        public void OpenAllMutationResultTab(List<MutationDocumentResult> completedMutations)
+        {
+            _mainTabContainer.AddTab(new AllCompletedMutationDocumentTestResultView(completedMutations));
+        }
     }
 }
