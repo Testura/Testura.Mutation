@@ -38,6 +38,10 @@ namespace Cama.Core.TestRunner
                     var result = runner.Run(new TestEventDispatcher(), filter);
                     try
                     {
+                        if (result.InnerText.Contains("System.IO.FileLoadException : Could not load file or assembly "))
+                        {
+                        }
+
                         runner.Unload();
                         return CreateResult(result);
                     }
