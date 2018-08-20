@@ -77,11 +77,10 @@ namespace Cama.Module.Mutation.Common.CodeDiff
                                 case ChangeType.Inserted: paragraph.Inlines.Add(NewRun(oldNewPiece.Text ?? string.Empty, Brushes.LightGreen)); break;
                                 case ChangeType.Deleted: paragraph.Inlines.Add(NewRun(oldNewPiece.Text ?? string.Empty, Brushes.OrangeRed)); break;
                                 case ChangeType.Modified: paragraph.Inlines.Add(NewRun(oldNewPiece.Text ?? string.Empty, Brushes.Yellow)); break;
-                                default: throw new ArgumentException();
                             }
                         }
+
                         break;
-                    default: throw new ArgumentException();
                 }
             }
         }

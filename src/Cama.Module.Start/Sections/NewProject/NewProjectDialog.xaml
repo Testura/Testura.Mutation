@@ -65,7 +65,8 @@
                 MinWidth="72"
                 Margin="0, 10, 0, 10"
                 ItemsSource="{Binding ProjectNamesInSolution}"
-                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                SelectedValue="{Binding SelectedTestProjectInSolution}">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel />
