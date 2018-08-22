@@ -4,22 +4,22 @@ namespace Cama.Core
 {
     public enum MutationOperators
     {
-        [EnumMember(Value = "Replace boundary conditionals like <, <=, >, >= with their counterparts. ")]
+        [EnumMember(Value = "Replace boundary conditionals(<, <=, >, >=) with their counterpart. ")]
         ConditionalBoundary,
 
-        [EnumMember(Value = "Negate all conditionals by replacing for exaple == with !=")]
+        [EnumMember(Value = "Replace conditionals(==, !=) with their counterpart.")]
         NegateCondtional,
 
-        [EnumMember(Value = "Replace binary arithmetic operations")]
+        [EnumMember(Value = "Replace binary arithmetic operations(+, -, /, %, <, >, &) with their counterpart")]
         Math,
 
-        [EnumMember(Value = "Negate all type compatibility checks (\"x is y\") by replacing it with \"!(x is y)\"")]
+        [EnumMember(Value = "Replace type compatibility checks (\"x is y\") with \"!(x is y)\"")]
         NegateTypeCompability,
 
-        [EnumMember(Value = "Replace post increment and decrement with their counter part.")]
+        [EnumMember(Value = "Replace post increment and decrement with their counterparts.")]
         Increment,
 
-        [EnumMember(Value = "Replace return value of methods or properties.")]
+        [EnumMember(Value = "Replace return values of methods or properties.")]
         ReturnValue
     }
 }
