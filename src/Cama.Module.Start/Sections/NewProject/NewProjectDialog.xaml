@@ -15,13 +15,19 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         mvvm:ViewModelLocator.AutoWireViewModel="True"
         Header="New project">
-    <StackPanel Margin="16">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="175" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
         <GroupBox
             Header="Project info"
             Style="{DynamicResource MaterialDesignGroupBox}"
             Margin="0, 10, 0, 0"
             materialDesign:ShadowAssist.ShadowDepth="Depth3"
-            BorderThickness="0">
+            BorderThickness="0"
+            Grid.Row="0">
             <StackPanel>
                 <TextBox
                     materialDesign:HintAssist.Hint="Project name"
@@ -46,9 +52,16 @@
             Style="{DynamicResource MaterialDesignGroupBox}"
             Margin="0, 10, 0, 0"
             materialDesign:ShadowAssist.ShadowDepth="Depth3"
-            BorderThickness="0">
-            <StackPanel>
-            <Grid Margin="0, 10, 0, 10">
+            BorderThickness="0"
+            Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65" />
+                    <RowDefinition Height="65" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+            <Grid Margin="0, 10, 0, 10" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="100" />
@@ -66,15 +79,16 @@
                 Margin="0, 10, 0, 10"
                 ItemsSource="{Binding ProjectNamesInSolution}"
                 Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                SelectedValue="{Binding SelectedTestProjectInSolution}">
+                SelectedValue="{Binding SelectedTestProjectInSolution}"
+                Grid.Row="1">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel />
                 </ItemsPanelTemplate>
             </ComboBox.ItemsPanel>
         </ComboBox>
-                <TextBlock Text="Projects to mutate:" Margin="0, 10, 0, 10"></TextBlock>
-                <materialDesign:Card>
+                <TextBlock Text="Projects to mutate:" Margin="0, 10, 0, 10" Grid.Row="2" />
+                <materialDesign:Card Grid.Row="3">
                     <ItemsControl
                     ItemsSource="{Binding SelectedProjectsInSolution}"
                     Grid.IsSharedSizeScope="True"
@@ -115,10 +129,17 @@
                                 </DataTemplate.Triggers>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
+                        <ItemsControl.Template>
+                            <ControlTemplate>
+                                <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}">
+                                    <ItemsPresenter />
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
                     </ItemsControl>
                 </materialDesign:Card>
-            </StackPanel>
+            </Grid>
         </GroupBox>
-        <Button Content="Create Project" HorizontalAlignment="Right" Width="200" Command="{Binding CreateProjectCommand }" />
-    </StackPanel>
+        <Button Content="Create Project" HorizontalAlignment="Right" Width="200" Command="{Binding CreateProjectCommand }" Grid.Row="2" />
+    </Grid>
 </TabItem>
