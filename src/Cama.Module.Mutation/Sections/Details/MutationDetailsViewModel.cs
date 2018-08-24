@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using Cama.Core.Models.Mutation;
+using Cama.Core.Models.Project;
 using Cama.Infrastructure.Tabs;
 using DiffPlex;
 using DiffPlex.DiffBuilder;
@@ -14,7 +15,7 @@ namespace Cama.Module.Mutation.Sections.Details
     {
         private readonly IMutationModuleTabOpener _tabOpener;
         private MutatedDocument _document;
-        private CamaConfig _config;
+        private CamaRunConfig _config;
 
         public MutationDetailsViewModel(IMutationModuleTabOpener tabOpener)
         {
@@ -39,7 +40,7 @@ namespace Cama.Module.Mutation.Sections.Details
 
         public string Title { get; set; }
 
-        public void Initialize(MutatedDocument document, CamaConfig config)
+        public void Initialize(MutatedDocument document, CamaRunConfig config)
         {
             _config = config;
             _document = document;

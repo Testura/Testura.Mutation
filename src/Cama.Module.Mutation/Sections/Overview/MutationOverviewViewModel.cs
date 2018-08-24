@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Cama.Core;
 using Cama.Core.Extensions;
-using Cama.Core.Models;
-using Cama.Core.Models.Mutation;
+using Cama.Core.Models.Project;
 using Cama.Core.Mutation.Mutators;
 using Cama.Core.Services;
 using Cama.Infrastructure;
 using Cama.Infrastructure.Tabs;
 using Cama.Module.Mutation.Models;
-using log4net;
-using log4net.Appender;
-using log4net.Layout;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -25,7 +20,7 @@ namespace Cama.Module.Mutation.Sections.Overview
         private readonly MutatorCreator _mutatorCreator;
         private readonly IMutationModuleTabOpener _tabOpener;
         private readonly ILoadingDisplayer _loadingDisplayer;
-        private CamaConfig _config;
+        private CamaRunConfig _config;
 
         public MutationOverviewViewModel(MutatorCreator mutatorCreator, IMutationModuleTabOpener tabOpener, ILoadingDisplayer loadingDisplayer)
         {
@@ -71,7 +66,7 @@ namespace Cama.Module.Mutation.Sections.Overview
             _loadingDisplayer.HideLoading();
         }
 
-        public void Initialize(CamaConfig config)
+        public void Initialize(CamaRunConfig config)
         {
             _config = config;
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
+using Cama.Core.Models.Project;
 using Cama.Infrastructure.Tabs;
 using Cama.Module.Mutation.Sections.Details;
 using Cama.Module.Mutation.Sections.Overview;
@@ -18,18 +19,18 @@ namespace Cama.Module.Mutation.Tab
             _mainTabContainer = mainTabContainer;
         }
 
-        public void OpenOverviewTab(CamaConfig config)
+        public void OpenOverviewTab(CamaRunConfig config)
         {
             _mainTabContainer.RemoveAllTabs();
             _mainTabContainer.AddTab(new MutationOverviewView(config));
         }
 
-        public void OpenDocumentDetailsTab(MutatedDocument document, CamaConfig config)
+        public void OpenDocumentDetailsTab(MutatedDocument document, CamaRunConfig config)
         {
             _mainTabContainer.AddTab(new MutationDetailsView(document, config));
         }
 
-        public void OpenTestRunTab(IList<MutatedDocument> documents, CamaConfig config)
+        public void OpenTestRunTab(IList<MutatedDocument> documents, CamaRunConfig config)
         {
             _mainTabContainer.AddTab(new TestRunView(documents, config));
         }
@@ -39,7 +40,7 @@ namespace Cama.Module.Mutation.Tab
             _mainTabContainer.AddTab(new MutationDocumentTestResultView(result));
         }
 
-        public void OpenFileDetailsTab(MFile file, CamaConfig config)
+        public void OpenFileDetailsTab(MFile file, CamaRunConfig config)
         {
             _mainTabContainer.AddTab(new FileDetailsView(file, config));
         }

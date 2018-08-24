@@ -16,6 +16,7 @@ namespace Cama.Core.Models.Mutation
             MutationInfo = mutationInfo;
             Id = Guid.NewGuid();
             FileName = orginalDocument?.Name;
+            ProjectName = orginalDocument?.Project.Name;
             _orginalDocument = orginalDocument;
             _tests = tests;
         }
@@ -23,6 +24,8 @@ namespace Cama.Core.Models.Mutation
         public Guid Id { get; }
 
         public string FileName { get;  }
+
+        public string ProjectName { get; set; }
 
         public MutationInfo MutationInfo { get; }
 

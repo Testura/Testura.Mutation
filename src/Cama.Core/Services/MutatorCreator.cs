@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
+using Cama.Core.Models.Project;
 using Cama.Core.Mutation.Analyzer;
 using Cama.Core.Mutation.Mutators;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -22,7 +23,7 @@ namespace Cama.Core.Services
             _unitTestAnalyzer = unitTestAnalyzer;
         }
 
-        public async Task<IList<MFile>> CreateMutatorsAsync(CamaConfig config, IList<IMutator> mutationOperators)
+        public async Task<IList<MFile>> CreateMutatorsAsync(CamaRunConfig config, IList<IMutator> mutationOperators)
         {
             try
             {
@@ -42,10 +43,10 @@ namespace Cama.Core.Services
 
                 var list = new List<MFile>();
 
-                foreach (var mainProjectName in config.MutationProjectNames)
+                foreach (var mutationprojectInfo in config.MutationProjects)
                 {
-                    var mainProject = solution.Projects.FirstOrDefault(p => p.Name == mainProjectName);
-                    var documents = mainProject.DocumentIds;
+                    var currentProject = solution.Projects.FirstOrDefault(p => p.Name == mutationprojectInfo.MutationProjectName);
+                    var documents = currentProject.DocumentIds;
 
                     LogTo.Info("Starting to create mutations..");
                     for (int n = 0; n < documents.Count; n++)
@@ -53,7 +54,7 @@ namespace Cama.Core.Services
                         try
                         {
                             var documentId = documents[n];
-                            var document = mainProject.GetDocument(documentId);
+                            var document = currentProject.GetDocument(documentId);
 
                             LogTo.Info($"Creating mutation for {document.Name}..");
 
@@ -68,17 +69,16 @@ namespace Cama.Core.Services
                                 : new List<UnitTestInformation>();
                                 */
                             var tests = new List<UnitTestInformation>();
-
-                            var replacers = new List<MutatedDocument>();
+                            var mutatedDocuments = new List<MutatedDocument>();
 
                             foreach (var mutationOperator in mutationOperators)
                             {
-                                replacers.AddRange(mutationOperator.GetMutatedDocument(root, document, tests));
+                                mutatedDocuments.AddRange(mutationOperator.GetMutatedDocument(root, document, tests));
                             }
 
-                            if (replacers.Any())
+                            if (mutatedDocuments.Any())
                             {
-                                list.Add(new MFile(document.Name, replacers));
+                                list.Add(new MFile(document.Name, mutatedDocuments));
                             }
                         }
                         catch (Exception ex)

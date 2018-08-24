@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Cama.Core.Models.Mutation;
+using Cama.Core.Models.Project;
 using Cama.Core.Services;
 using Cama.Infrastructure;
 using Cama.Infrastructure.Tabs;
@@ -26,7 +27,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
         private readonly SaveReportService _saveReportService;
         private readonly ILoadingDisplayer _loadingDisplayer;
         private List<MutationDocumentResult> _mutantsFailedToCompile;
-        private CamaConfig _config;
+        private CamaRunConfig _config;
 
         public TestRunViewModel(TestRunnerService testRunnerService, IMutationModuleTabOpener mutationModuleTabOpener, SaveReportService saveReportService, ILoadingDisplayer loadingDisplayer)
         {
@@ -102,7 +103,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
 
         public DelegateCommand SeeAllMutationsCommand { get; set; }
 
-        public void SetDocuments(IList<MutatedDocument> documents, CamaConfig config)
+        public void SetDocuments(IList<MutatedDocument> documents, CamaRunConfig config)
         {
             _config = config;
             RunningDocuments.AddRange(documents.Select(d => new TestRunDocument { Document = d, Status = TestRunDocument.TestRunStatusEnum.Waiting }));
@@ -114,9 +115,11 @@ namespace Cama.Module.Mutation.Sections.TestRun
             TestNotStarted = false;
             var runs = RunningDocuments.Select((d) => new Task(async () =>
             {
+
                 d.Status = TestRunDocument.TestRunStatusEnum.Running;
-                var testResult = await _testRunnerService.RunTestAsync(_config, d.Document, _config.TestProjectOutputPath);
+                var testResult = await _testRunnerService.RunTestAsync(_config, d.Document);
                 MoveDocumentToCompleted(d, testResult);
+
             }));
 
             MutationsInQueueCount = runs.Count();

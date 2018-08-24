@@ -52,11 +52,14 @@
     <Compile Include="Models\CompilationResult.cs" />
     <Compile Include="Models\CreateMutationDocumentStatus.cs" />
     <Compile Include="Models\MFile.cs" />
-    <Compile Include="Models\Mutation\CamaConfig.cs" />
+    <Compile Include="Models\Project\CamaLocalConfig.cs" />
+    <Compile Include="Models\Project\CamaRunConfig.cs" />
     <Compile Include="Models\Mutation\MutatedDocument.cs" />
     <Compile Include="Models\Mutation\MutationDocumentResult.cs" />
     <Compile Include="Models\Mutation\MutationInfo.cs" />
     <Compile Include="Models\Mutation\UnitTestInformation.cs" />
+    <Compile Include="Models\Project\MutationProjectInfo.cs" />
+    <Compile Include="Models\Project\TestProjectInfo.cs" />
     <Compile Include="Models\Solution\SolutionProjectInfo.cs" />
     <Compile Include="Models\TestResult.cs" />
     <Compile Include="Models\TestSuiteResult.cs" />

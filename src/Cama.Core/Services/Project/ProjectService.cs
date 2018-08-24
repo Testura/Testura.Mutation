@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
-using Cama.Core.Models.Mutation;
+using Cama.Core.Models.Project;
 using Microsoft.Build.Locator;
 using Microsoft.CodeAnalysis.MSBuild;
 using Newtonsoft.Json;
@@ -12,16 +12,18 @@ namespace Cama.Core.Services.Project
 {
     public class ProjectService : ICreateProjectService, IOpenProjectService
     {
-        public void CreateProject(string savePath, CamaConfig config)
+        public void CreateProject(string savePath, CamaLocalConfig config)
         {
             LogTo.Info("Creating project file");
             File.WriteAllText(savePath, JsonConvert.SerializeObject(config));
         }
 
-        public async Task<CamaConfig> OpenProjectAsync(string path)
+        public async Task<CamaRunConfig> OpenProjectAsync(string path)
         {
             LogTo.Info($"Opening project at {path}");
-            var config = JsonConvert.DeserializeObject<CamaConfig>(File.ReadAllText(path));
+
+            var localConfig = JsonConvert.DeserializeObject<CamaLocalConfig>(File.ReadAllText(path));
+            var runConfig = new CamaRunConfig { SolutionPath = localConfig.SolutionPath };
 
             MSBuildLocator.RegisterDefaults();
             var props = new Dictionary<string, string> { ["Platform"] = "AnyCPU" };
@@ -29,20 +31,33 @@ namespace Cama.Core.Services.Project
             using (var workspace = MSBuildWorkspace.Create(props))
             {
                 LogTo.Info("Opening solution..");
-                var solution = await workspace.OpenSolutionAsync(config.SolutionPath);
+                var solution = await workspace.OpenSolutionAsync(localConfig.SolutionPath);
                 LogTo.Info("Looking for test project output path.");
 
-                var testProjectOutput = solution.Projects.FirstOrDefault(p => p.Name == config.TestProjectName).OutputFilePath;
+                foreach (var testProjectName in localConfig.TestProjectNames)
+                {
+                    var testProjectOutput = solution.Projects.FirstOrDefault(p => p.Name == testProjectName).OutputFilePath;
+                    runConfig.TestProjects.Add(new TestProjectInfo
+                    {
+                        TestProjectOutputPath = Path.GetDirectoryName(testProjectOutput),
+                        TestProjectOutputFileName = Path.GetFileName(testProjectOutput)
+                    });
+                }
 
-                config.TestProjectOutputPath = Path.GetDirectoryName(testProjectOutput);
-                config.TestProjectOutputFileName = Path.GetFileName(testProjectOutput);
-                config.MutationProjectOutputFileName = Path.GetFileName(solution.Projects.FirstOrDefault(p => p.Name == config.MutationProjectNames[0]).OutputFilePath);
+                foreach (var localConfigMutationProjectName in localConfig.MutationProjectNames)
+                {
+                    runConfig.MutationProjects.Add(new MutationProjectInfo
+                    {
+                        MutationProjectName = localConfigMutationProjectName,
+                        MutationProjectOutputFileName = Path.GetFileName(solution.Projects.FirstOrDefault(p => p.Name == localConfig.MutationProjectNames[0]).OutputFilePath)
+                    });
+                }
 
                 workspace.CloseSolution();
                 LogTo.Info("Done opening project.");
             }
 
-            return config;
+            return runConfig;
         }
     }
 }

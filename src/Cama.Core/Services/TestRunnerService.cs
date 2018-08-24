@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
+using Cama.Core.Models.Project;
+using File = System.IO.File;
 
 namespace Cama.Core.Services
 {
@@ -20,21 +24,29 @@ namespace Cama.Core.Services
             _testRunner = testRunner;
         }
 
-        public async Task<MutationDocumentResult> RunTestAsync(CamaConfig config, MutatedDocument document, string sourcePath)
+        public async Task<MutationDocumentResult> RunTestAsync(CamaRunConfig config, MutatedDocument document)
         {
+            var results = new List<TestSuiteResult>();
             var basePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestRun", document.Id.ToString());
-            var mainFilePath = Path.Combine(basePath, config.MutationProjectOutputFileName);
-            var mainTestFilePath = Path.Combine(basePath, config.TestProjectOutputFileName);
-
+            var mainFilePath = Path.Combine(basePath, config.MutationProjects.FirstOrDefault(m => m.MutationProjectName == document.ProjectName).MutationProjectOutputFileName);
             Directory.CreateDirectory(basePath);
-            _dependencyFilesHandler.CopyDependencies(sourcePath, basePath);
+
             var compilerResult = await _compiler.CompileAsync(mainFilePath, document);
             if (!compilerResult.IsSuccess)
             {
                 return new MutationDocumentResult { Survived = false, CompilerResult = compilerResult, Document = document };
             }
 
-            var results = _testRunner.RunTests(mainTestFilePath, /* document.Document.Tests */ new List<string>());
+            foreach (var testProject in config.TestProjects)
+            {
+                var baseTestPath = Path.Combine(basePath, Guid.NewGuid().ToString());
+                var mainTestFilePath = Path.Combine(baseTestPath, testProject.TestProjectOutputFileName);
+                Directory.CreateDirectory(baseTestPath);
+
+                _dependencyFilesHandler.CopyDependencies(testProject.TestProjectOutputPath, baseTestPath);
+                File.Copy(mainFilePath, Path.Combine(baseTestPath, Path.GetFileName(mainFilePath)), true);
+                results.Add(_testRunner.RunTests(mainTestFilePath, /* document.Document.Tests */ new List<string>()));
+            }
 
             try
             {
@@ -44,7 +56,19 @@ namespace Cama.Core.Services
             {
             }
 
-            return new MutationDocumentResult { Survived = results.IsSuccess, CompilerResult = compilerResult, TestResult = results, Document = document };
+            var final = CombineResult(document.FileName, results);
+            return new MutationDocumentResult { Survived = final.IsSuccess, CompilerResult = compilerResult, TestResult = final, Document = document };
+        }
+
+        private TestSuiteResult CombineResult(string name, IList<TestSuiteResult> testResult)
+        {
+            var tests = new List<TestResult>();
+            foreach (var testSuiteResult in testResult)
+            {
+                tests.AddRange(testSuiteResult.TestResults);
+            }
+
+            return new TestSuiteResult(name, tests, null);
         }
     }
 }

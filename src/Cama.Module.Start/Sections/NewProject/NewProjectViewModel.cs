@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cama.Core.Models.Mutation;
+using Cama.Core.Models.Project;
 using Cama.Core.Services.Project;
 using Cama.Core.Solution;
 using Cama.Infrastructure;
@@ -60,7 +61,7 @@ namespace Cama.Module.Start.Sections.NewProject
 
         public string SolutionPath { get; set; }
 
-        public string SelectedTestProjectInSolution { get; set; }
+        public List<ProjectListItem> SelectedTestProjectInSolution { get; set; }
 
         public List<string> ProjectNamesInSolution { get; set; }
 
@@ -76,7 +77,7 @@ namespace Cama.Module.Start.Sections.NewProject
                 var projects = await _solutionService.GetSolutionInfoAsync(SolutionPath);
                 _loadingDisplayer.HideLoading();
                 ProjectNamesInSolution = projects.Select(p => p.Name).ToList();
-                SelectedTestProjectInSolution = ProjectNamesInSolution.First();
+                SelectedTestProjectInSolution = projects.Select(p => new ProjectListItem(p, false)).ToList();
                 SelectedProjectsInSolution = projects.Select(p => new ProjectListItem(p, false)).ToList();
             }
         }
@@ -96,16 +97,18 @@ namespace Cama.Module.Start.Sections.NewProject
         {
             var projectPath = Path.Combine(ProjectPath, $"{ProjectName}.json");
 
-            var config = new CamaConfig
+
+            var config = new CamaLocalConfig
             {
                 MutationProjectNames = SelectedProjectsInSolution.Where(s => s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
                 SolutionPath = SolutionPath,
-                TestProjectName = SelectedTestProjectInSolution
+                TestProjectNames = SelectedTestProjectInSolution.Where(s => s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
             };
+
 
             _createProjectService.CreateProject(projectPath, config);
             _projectHistoryService.AddToHistory(projectPath);
-            _mutationModuleTabOpener.OpenOverviewTab(config);
+            _mutationModuleTabOpener.OpenOverviewTab(null);
         }
     }
 }

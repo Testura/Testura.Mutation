@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
+using Cama.Core.Models.Project;
 using Cama.Infrastructure.Tabs;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -10,7 +11,7 @@ namespace Cama.Module.Mutation.Sections.Details
     public class FileDetailsViewModel : BindableBase, INotifyPropertyChanged
     {
         private readonly IMutationModuleTabOpener _tabOpener;
-        private CamaConfig _config;
+        private CamaRunConfig _config;
 
 
         public FileDetailsViewModel(IMutationModuleTabOpener tabOpener)
@@ -28,7 +29,7 @@ namespace Cama.Module.Mutation.Sections.Details
 
         public DelegateCommand<MutatedDocument> MutationSelectedCommand { get; set; }
 
-        public void Initialize(MFile file, CamaConfig config)
+        public void Initialize(MFile file, CamaRunConfig config)
         {
             _config = config;
             File = file;
