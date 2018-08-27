@@ -2746,7 +2746,6 @@ public partial class TestDefinitionType
 [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
 public partial class CodedWebTestElementType : BaseTestType
 {
-
 }
 
 /// <remarks/>
@@ -2963,6 +2962,10 @@ public abstract partial class BaseTestType
     [System.Xml.Serialization.XmlElementAttribute("TcmInformation", typeof(TcmInformationType))]
     [System.Xml.Serialization.XmlElementAttribute("TestCategory", typeof(BaseTestTypeTestCategory))]
     [System.Xml.Serialization.XmlElementAttribute("WorkItemIDs", typeof(WorkItemIDsType))]
+    [System.Xml.Serialization.XmlElementAttribute("IncludedWebTests", typeof(CodedWebTestElementTypeIncludedWebTests))]
+    [System.Xml.Serialization.XmlElementAttribute("WebTestClass", typeof(CodedWebTestElementTypeWebTestClass))]
+    [System.Xml.Serialization.XmlElementAttribute("Command", typeof(GenericTestTypeCommand))]
+    [System.Xml.Serialization.XmlElementAttribute("SummaryXmlFile", typeof(GenericTestTypeSummaryXmlFile))]
     public object[] Items
     {
         get
@@ -4168,7 +4171,7 @@ public partial class LoadTestType
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("LoadTestPlugin", typeof(LoadTestTypeLoadTestPluginsLoadTestPlugin[]), IsNullable = false)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("LoadTestPlugin", typeof(LoadTestTypeLoadTestPluginsLoadTestPlugin), IsNullable = false)]
     public LoadTestTypeLoadTestPluginsLoadTestPlugin[][] LoadTestPlugins
     {
         get
@@ -16165,9 +16168,10 @@ public partial class ResultsType
 
     private object[] itemsField;
 
+    private ItemsChoiceType3[] itemsElementNameField;
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAnyElementAttribute()]
-    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("Items")]
     [System.Xml.Serialization.XmlElementAttribute("GenericTestResult", typeof(TestResultAggregationType))]
     [System.Xml.Serialization.XmlElementAttribute("LoadTestResult", typeof(LoadTestResultType))]
     [System.Xml.Serialization.XmlElementAttribute("ManualTestResult", typeof(ManualTestResultType))]
@@ -16175,6 +16179,7 @@ public partial class ResultsType
     [System.Xml.Serialization.XmlElementAttribute("TestResultAggregation", typeof(TestResultAggregationType))]
     [System.Xml.Serialization.XmlElementAttribute("UnitTestResult", typeof(UnitTestResultType))]
     [System.Xml.Serialization.XmlElementAttribute("WebTestResult", typeof(WebTestResultType))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
     public object[] Items
     {
         get
@@ -16184,6 +16189,21 @@ public partial class ResultsType
         set
         {
             this.itemsField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemsChoiceType3[] ItemsElementName
+    {
+        get
+        {
+            return this.itemsElementNameField;
+        }
+        set
+        {
+            this.itemsElementNameField = value;
         }
     }
 }
@@ -18000,6 +18020,39 @@ public partial class UnitTestResultType : TestResultAggregationType
             this.hasSufficientAccessField = value;
         }
     }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IncludeInSchema = false)]
+public enum ItemsChoiceType3
+{
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("##any:")]
+    Item,
+
+    /// <remarks/>
+    GenericTestResult,
+
+    /// <remarks/>
+    LoadTestResult,
+
+    /// <remarks/>
+    ManualTestResult,
+
+    /// <remarks/>
+    TestResult,
+
+    /// <remarks/>
+    TestResultAggregation,
+
+    /// <remarks/>
+    UnitTestResult,
+
+    /// <remarks/>
+    WebTestResult,
 }
 
 /// <remarks/>

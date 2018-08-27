@@ -28,15 +28,18 @@ namespace Cama.Console
         {
             var projectLoader = new ProjectService();
 
+            var config = await projectLoader.OpenProjectAsync(@"C:\Users\Mille\OneDrive\Dokument\cama\TesturaCode.json");
             /* var config = await projectLoader.OpenProjectAsync(@"C:\Users\Milleb\Documents\Cama\Projects\NewProject.json"); */
-            var config = await projectLoader.OpenProjectAsync(@"C:\Users\Milleb\Documents\Cama\Projects\adsadsadsadsa.json");
+            /* var config = await projectLoader.OpenProjectAsync(@"C:\Users\Milleb\Documents\Cama\Projects\adsadsadsadsa.json"); */
 
             var someService = new MutatorCreator(new UnitTestAnalyzer());
             var files = await someService.CreateMutatorsAsync(config, new List<IMutator> { new MathMutator(), new ConditionalBoundaryMutator(), new NegateConditionalMutator(), new ReturnValueMutator() });
 
             var results = await RunTests(files, config);
 
-            RtxReport.SaveReport(results, @"C:\Users\Milleb\Documents\Cama\Result.trx");
+            RtxReport.SaveReport(results, @"C:\Users\Mille\OneDrive\Dokument\cama\Result.trx");
+            /* RtxReport.SaveReport(results, @"C:\Users\Milleb\Documents\Cama\Result.trx"); */
+            
         }
 
 
@@ -52,7 +55,7 @@ namespace Cama.Console
                 {
                     results.Add(result);
                 }
-            })).Take(3).ToArray();
+            })).Take(2).ToArray();
 
             var queue = new Queue<Task>(runs);
             var runList = new List<Task>();
