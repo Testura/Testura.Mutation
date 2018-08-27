@@ -4096,7 +4096,7 @@ public partial class LoadTestType
 
     private LoadTestTypeRunConfigurations[] runConfigurationsField;
 
-    private LoadTestTypeLoadTestPluginsLoadTestPlugin[][] loadTestPluginsField;
+    private LoadTestTypeLoadTestPluginsLoadTestPlugin[] loadTestPluginsField;
 
     private string idField;
 
@@ -4172,7 +4172,7 @@ public partial class LoadTestType
 
     /// <remarks/>
     [System.Xml.Serialization.XmlArrayItemAttribute("LoadTestPlugin", typeof(LoadTestTypeLoadTestPluginsLoadTestPlugin), IsNullable = false)]
-    public LoadTestTypeLoadTestPluginsLoadTestPlugin[][] LoadTestPlugins
+    public LoadTestTypeLoadTestPluginsLoadTestPlugin[] LoadTestPlugins
     {
         get
         {

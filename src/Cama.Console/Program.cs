@@ -55,7 +55,7 @@ namespace Cama.Console
                 {
                     results.Add(result);
                 }
-            })).Take(2).ToArray();
+            })).Take(10).ToArray();
 
             var queue = new Queue<Task>(runs);
             var runList = new List<Task>();
