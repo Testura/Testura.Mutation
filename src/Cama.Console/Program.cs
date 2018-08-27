@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
+using Cama.Core.Models.Project;
 using Cama.Core.Mutation.Analyzer;
 using Cama.Core.Mutation.Mutators;
 using Cama.Core.Mutation.Mutators.BinaryExpressionMutators;
@@ -24,27 +27,52 @@ namespace Cama.Console
         private static async void Do()
         {
             var projectLoader = new ProjectService();
-            var config = await projectLoader.OpenProjectAsync(@"C:\Users\Milleb\Documents\Cama\Projects\NewProject.json");
+
+            /* var config = await projectLoader.OpenProjectAsync(@"C:\Users\Milleb\Documents\Cama\Projects\NewProject.json"); */
+            var config = await projectLoader.OpenProjectAsync(@"C:\Users\Milleb\Documents\Cama\Projects\adsadsadsadsa.json");
 
             var someService = new MutatorCreator(new UnitTestAnalyzer());
             var files = await someService.CreateMutatorsAsync(config, new List<IMutator> { new MathMutator(), new ConditionalBoundaryMutator(), new NegateConditionalMutator(), new ReturnValueMutator() });
 
+            var results = await RunTests(files, config);
+
+            RtxReport.SaveReport(results, @"C:\Users\Milleb\Documents\Cama\Result.trx");
+        }
+
+
+        private static async Task<IList<MutationDocumentResult>> RunTests(IList<MFile> files, CamaRunConfig config)
+        {
             var testRunner = new TestRunnerService(new MutatedDocumentCompiler(), new DependencyFilesHandler(), new TestRunner());
-            foreach (var mFile in files)
+            var results = new List<MutationDocumentResult>();
+
+            var runs = files.SelectMany(f => f.MutatedDocuments).Select((d) => new Task(async () =>
             {
-                foreach (var mFileMutatedDocument in mFile.MutatedDocuments)
+                var result = await testRunner.RunTestAsync(config, d);
+                lock (results)
                 {
-                    var result = await testRunner.RunTestAsync(config, mFileMutatedDocument);
+                    results.Add(result);
+                }
+            })).Take(3).ToArray();
+
+            var queue = new Queue<Task>(runs);
+            var runList = new List<Task>();
+
+            while (queue.Any() || runList.Any())
+            {
+                if (runList.Count > 4 || (runList.Count > 0 && !queue.Any()))
+                {
+                    var finishedTask = await Task.WhenAny(runList);
+                    runList.Remove(finishedTask);
+                }
+                else if(queue.Any())
+                {
+                    var newOne = queue.Dequeue();
+                    newOne.Start();
+                    runList.Add(newOne);
                 }
             }
-            
 
-            /*
-            var testRunner = new TestRunnerService(new MutatedDocumentCompiler(), new DependencyFilesHandler(), new TestRunner());
-            var result = await testRunner.RunTestAsync(config, files.Where(f => f.MutatedDocuments.Any()).ToList()[1].MutatedDocuments.FirstOrDefault(), config.TestProjectOutputPath);
-
-            HtmlReport.SaveReport(new List<MutationDocumentResult> { result }, "test.html");
-            */
+            return results;
         }
     }
 }

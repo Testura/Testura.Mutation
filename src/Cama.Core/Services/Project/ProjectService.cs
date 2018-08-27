@@ -34,7 +34,7 @@ namespace Cama.Core.Services.Project
                 var solution = await workspace.OpenSolutionAsync(localConfig.SolutionPath);
                 LogTo.Info("Looking for test project output path.");
 
-                foreach (var testProjectName in localConfig.TestProjectNames)
+                foreach (var testProjectName in localConfig.TestProjects)
                 {
                     var testProjectOutput = solution.Projects.FirstOrDefault(p => p.Name == testProjectName).OutputFilePath;
                     runConfig.TestProjects.Add(new TestProjectInfo
@@ -44,12 +44,12 @@ namespace Cama.Core.Services.Project
                     });
                 }
 
-                foreach (var localConfigMutationProjectName in localConfig.MutationProjectNames)
+                foreach (var localConfigMutationProjectName in localConfig.MutationProjects)
                 {
                     runConfig.MutationProjects.Add(new MutationProjectInfo
                     {
                         MutationProjectName = localConfigMutationProjectName,
-                        MutationProjectOutputFileName = Path.GetFileName(solution.Projects.FirstOrDefault(p => p.Name == localConfig.MutationProjectNames[0]).OutputFilePath)
+                        MutationProjectOutputFileName = Path.GetFileName(solution.Projects.FirstOrDefault(p => p.Name == localConfig.MutationProjects[0]).OutputFilePath)
                     });
                 }
 

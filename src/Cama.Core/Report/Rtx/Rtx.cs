@@ -20,23 +20,10 @@
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute("GenericTest", Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class GenericTestType : BaseTestType {
-    
-    private object[] itemsField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("Command", typeof(GenericTestTypeCommand))]
-    [System.Xml.Serialization.XmlElementAttribute("SummaryXmlFile", typeof(GenericTestTypeSummaryXmlFile))]
-    public object[] Items {
-        get {
-            return this.itemsField;
-        }
-        set {
-            this.itemsField = value;
-        }
-    }
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute("GenericTest", Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class GenericTestType : BaseTestType
+{
 }
 
 /// <remarks/>
@@ -44,90 +31,110 @@ public partial class GenericTestType : BaseTestType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class GenericTestTypeCommand {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class GenericTestTypeCommand
+{
+
     private GenericTestTypeCommandEnvironmentVariable[] environmentVariablesField;
-    
+
     private string filenameField;
-    
+
     private string argumentsField;
-    
+
     private string workingDirectoryField;
-    
+
     private int maxDurationField;
-    
+
     private bool redirectStandardOutputAndErrorField;
-    
-    public GenericTestTypeCommand() {
+
+    public GenericTestTypeCommand()
+    {
         this.maxDurationField = 3600000;
         this.redirectStandardOutputAndErrorField = true;
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("EnvironmentVariable", IsNullable=false)]
-    public GenericTestTypeCommandEnvironmentVariable[] EnvironmentVariables {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("EnvironmentVariable", IsNullable = false)]
+    public GenericTestTypeCommandEnvironmentVariable[] EnvironmentVariables
+    {
+        get
+        {
             return this.environmentVariablesField;
         }
-        set {
+        set
+        {
             this.environmentVariablesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string filename {
-        get {
+    public string filename
+    {
+        get
+        {
             return this.filenameField;
         }
-        set {
+        set
+        {
             this.filenameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string arguments {
-        get {
+    public string arguments
+    {
+        get
+        {
             return this.argumentsField;
         }
-        set {
+        set
+        {
             this.argumentsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string workingDirectory {
-        get {
+    public string workingDirectory
+    {
+        get
+        {
             return this.workingDirectoryField;
         }
-        set {
+        set
+        {
             this.workingDirectoryField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(3600000)]
-    public int maxDuration {
-        get {
+    public int maxDuration
+    {
+        get
+        {
             return this.maxDurationField;
         }
-        set {
+        set
+        {
             this.maxDurationField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool redirectStandardOutputAndError {
-        get {
+    public bool redirectStandardOutputAndError
+    {
+        get
+        {
             return this.redirectStandardOutputAndErrorField;
         }
-        set {
+        set
+        {
             this.redirectStandardOutputAndErrorField = value;
         }
     }
@@ -138,31 +145,38 @@ public partial class GenericTestTypeCommand {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class GenericTestTypeCommandEnvironmentVariable {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class GenericTestTypeCommandEnvironmentVariable
+{
+
     private string nameField;
-    
+
     private string valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string value {
-        get {
+    public string value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -174,65 +188,81 @@ public partial class GenericTestTypeCommandEnvironmentVariable {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class StatisticalType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class StatisticalType
+{
+
     private decimal goodField;
-    
+
     private decimal goodToBadField;
-    
+
     private decimal badField;
-    
+
     private decimal badToGoodField;
-    
+
     private SecType switchTimeField;
-    
+
     /// <remarks/>
-    public decimal Good {
-        get {
+    public decimal Good
+    {
+        get
+        {
             return this.goodField;
         }
-        set {
+        set
+        {
             this.goodField = value;
         }
     }
-    
+
     /// <remarks/>
-    public decimal GoodToBad {
-        get {
+    public decimal GoodToBad
+    {
+        get
+        {
             return this.goodToBadField;
         }
-        set {
+        set
+        {
             this.goodToBadField = value;
         }
     }
-    
+
     /// <remarks/>
-    public decimal Bad {
-        get {
+    public decimal Bad
+    {
+        get
+        {
             return this.badField;
         }
-        set {
+        set
+        {
             this.badField = value;
         }
     }
-    
+
     /// <remarks/>
-    public decimal BadToGood {
-        get {
+    public decimal BadToGood
+    {
+        get
+        {
             return this.badToGoodField;
         }
-        set {
+        set
+        {
             this.badToGoodField = value;
         }
     }
-    
+
     /// <remarks/>
-    public SecType SwitchTime {
-        get {
+    public SecType SwitchTime
+    {
+        get
+        {
             return this.switchTimeField;
         }
-        set {
+        set
+        {
             this.switchTimeField = value;
         }
     }
@@ -243,44 +273,54 @@ public partial class StatisticalType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class SecType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class SecType
+{
+
     private SecTypeUnit unitField;
-    
+
     private bool unitFieldSpecified;
-    
+
     private string valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public SecTypeUnit unit {
-        get {
+    public SecTypeUnit unit
+    {
+        get
+        {
             return this.unitField;
         }
-        set {
+        set
+        {
             this.unitField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool unitSpecified {
-        get {
+    public bool unitSpecified
+    {
+        get
+        {
             return this.unitFieldSpecified;
         }
-        set {
+        set
+        {
             this.unitFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlTextAttribute(DataType="positiveInteger")]
-    public string Value {
-        get {
+    [System.Xml.Serialization.XmlTextAttribute(DataType = "positiveInteger")]
+    public string Value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -289,9 +329,10 @@ public partial class SecType {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum SecTypeUnit {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum SecTypeUnit
+{
+
     /// <remarks/>
     sec,
 }
@@ -301,17 +342,21 @@ public enum SecTypeUnit {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class StatisticalErrorType : StatisticalType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class StatisticalErrorType : StatisticalType
+{
+
     private ErrorUnitType errorUnitField;
-    
+
     /// <remarks/>
-    public ErrorUnitType ErrorUnit {
-        get {
+    public ErrorUnitType ErrorUnit
+    {
+        get
+        {
             return this.errorUnitField;
         }
-        set {
+        set
+        {
             this.errorUnitField = value;
         }
     }
@@ -320,12 +365,13 @@ public partial class StatisticalErrorType : StatisticalType {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum ErrorUnitType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum ErrorUnitType
+{
+
     /// <remarks/>
     packet,
-    
+
     /// <remarks/>
     bit,
 }
@@ -335,55 +381,68 @@ public enum ErrorUnitType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class AddressType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class AddressType
+{
+
     private string ipAddressField;
-    
+
     private string ipMaskField;
-    
+
     private ushort portBeginField;
-    
+
     private ushort portEndField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="token")]
-    public string IpAddress {
-        get {
+    [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+    public string IpAddress
+    {
+        get
+        {
             return this.ipAddressField;
         }
-        set {
+        set
+        {
             this.ipAddressField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="token")]
-    public string IpMask {
-        get {
+    [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+    public string IpMask
+    {
+        get
+        {
             return this.ipMaskField;
         }
-        set {
+        set
+        {
             this.ipMaskField = value;
         }
     }
-    
+
     /// <remarks/>
-    public ushort PortBegin {
-        get {
+    public ushort PortBegin
+    {
+        get
+        {
             return this.portBeginField;
         }
-        set {
+        set
+        {
             this.portBeginField = value;
         }
     }
-    
+
     /// <remarks/>
-    public ushort PortEnd {
-        get {
+    public ushort PortEnd
+    {
+        get
+        {
             return this.portEndField;
         }
-        set {
+        set
+        {
             this.portEndField = value;
         }
     }
@@ -394,43 +453,53 @@ public partial class AddressType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class BurstLossType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class BurstLossType
+{
+
     private decimal rateField;
-    
+
     private string minPacketField;
-    
+
     private string maxPacketField;
-    
+
     /// <remarks/>
-    public decimal Rate {
-        get {
+    public decimal Rate
+    {
+        get
+        {
             return this.rateField;
         }
-        set {
+        set
+        {
             this.rateField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="positiveInteger")]
-    public string MinPacket {
-        get {
+    [System.Xml.Serialization.XmlElementAttribute(DataType = "positiveInteger")]
+    public string MinPacket
+    {
+        get
+        {
             return this.minPacketField;
         }
-        set {
+        set
+        {
             this.minPacketField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="positiveInteger")]
-    public string MaxPacket {
-        get {
+    [System.Xml.Serialization.XmlElementAttribute(DataType = "positiveInteger")]
+    public string MaxPacket
+    {
+        get
+        {
             return this.maxPacketField;
         }
-        set {
+        set
+        {
             this.maxPacketField = value;
         }
     }
@@ -441,17 +510,21 @@ public partial class BurstLossType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class RandomLossType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class RandomLossType
+{
+
     private decimal rateField;
-    
+
     /// <remarks/>
-    public decimal Rate {
-        get {
+    public decimal Rate
+    {
+        get
+        {
             return this.rateField;
         }
-        set {
+        set
+        {
             this.rateField = value;
         }
     }
@@ -462,18 +535,22 @@ public partial class RandomLossType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class PeriodicLossType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class PeriodicLossType
+{
+
     private string perPacketsField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="positiveInteger")]
-    public string PerPackets {
-        get {
+    [System.Xml.Serialization.XmlElementAttribute(DataType = "positiveInteger")]
+    public string PerPackets
+    {
+        get
+        {
             return this.perPacketsField;
         }
-        set {
+        set
+        {
             this.perPacketsField = value;
         }
     }
@@ -484,36 +561,44 @@ public partial class PeriodicLossType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class SizeType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class SizeType
+{
+
     private SizeTypeUnit unitField;
-    
+
     private string valueField;
-    
-    public SizeType() {
+
+    public SizeType()
+    {
         this.unitField = SizeTypeUnit.@byte;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(SizeTypeUnit.@byte)]
-    public SizeTypeUnit unit {
-        get {
+    public SizeTypeUnit unit
+    {
+        get
+        {
             return this.unitField;
         }
-        set {
+        set
+        {
             this.unitField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlTextAttribute(DataType="positiveInteger")]
-    public string Value {
-        get {
+    [System.Xml.Serialization.XmlTextAttribute(DataType = "positiveInteger")]
+    public string Value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -522,12 +607,13 @@ public partial class SizeType {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum SizeTypeUnit {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum SizeTypeUnit
+{
+
     /// <remarks/>
     @byte,
-    
+
     /// <remarks/>
     kb,
 }
@@ -537,31 +623,38 @@ public enum SizeTypeUnit {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class SpeedType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class SpeedType
+{
+
     private SpeedTypeUnit unitField;
-    
+
     private double valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public SpeedTypeUnit unit {
-        get {
+    public SpeedTypeUnit unit
+    {
+        get
+        {
             return this.unitField;
         }
-        set {
+        set
+        {
             this.unitField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlTextAttribute()]
-    public double Value {
-        get {
+    public double Value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -570,12 +663,13 @@ public partial class SpeedType {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum SpeedTypeUnit {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum SpeedTypeUnit
+{
+
     /// <remarks/>
     kbps,
-    
+
     /// <remarks/>
     mbps,
 }
@@ -587,29 +681,36 @@ public enum SpeedTypeUnit {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class ConstantTrafficType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class ConstantTrafficType
+{
+
     private SpeedType rateField;
-    
+
     private SizeType packetSizeField;
-    
+
     /// <remarks/>
-    public SpeedType Rate {
-        get {
+    public SpeedType Rate
+    {
+        get
+        {
             return this.rateField;
         }
-        set {
+        set
+        {
             this.rateField = value;
         }
     }
-    
+
     /// <remarks/>
-    public SizeType PacketSize {
-        get {
+    public SizeType PacketSize
+    {
+        get
+        {
             return this.packetSizeField;
         }
-        set {
+        set
+        {
             this.packetSizeField = value;
         }
     }
@@ -621,29 +722,36 @@ public partial class ConstantTrafficType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class ExponentialTrafficType : ConstantTrafficType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class ExponentialTrafficType : ConstantTrafficType
+{
+
     private SecType burstTimeField;
-    
+
     private SecType idleTimeField;
-    
+
     /// <remarks/>
-    public SecType BurstTime {
-        get {
+    public SecType BurstTime
+    {
+        get
+        {
             return this.burstTimeField;
         }
-        set {
+        set
+        {
             this.burstTimeField = value;
         }
     }
-    
+
     /// <remarks/>
-    public SecType IdleTime {
-        get {
+    public SecType IdleTime
+    {
+        get
+        {
             return this.idleTimeField;
         }
-        set {
+        set
+        {
             this.idleTimeField = value;
         }
     }
@@ -654,17 +762,21 @@ public partial class ExponentialTrafficType : ConstantTrafficType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class ParetoTrafficType : ExponentialTrafficType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class ParetoTrafficType : ExponentialTrafficType
+{
+
     private double shapeField;
-    
+
     /// <remarks/>
-    public double Shape {
-        get {
+    public double Shape
+    {
+        get
+        {
             return this.shapeField;
         }
-        set {
+        set
+        {
             this.shapeField = value;
         }
     }
@@ -675,68 +787,84 @@ public partial class ParetoTrafficType : ExponentialTrafficType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class RedQueueType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class RedQueueType
+{
+
     private DropType dropTypeField;
-    
+
     private UnitType queueModeField;
-    
+
     private string minPacketField;
-    
+
     private string maxPacketField;
-    
+
     private string packetSizeField;
-    
+
     /// <remarks/>
-    public DropType DropType {
-        get {
+    public DropType DropType
+    {
+        get
+        {
             return this.dropTypeField;
         }
-        set {
+        set
+        {
             this.dropTypeField = value;
         }
     }
-    
+
     /// <remarks/>
-    public UnitType QueueMode {
-        get {
+    public UnitType QueueMode
+    {
+        get
+        {
             return this.queueModeField;
         }
-        set {
+        set
+        {
             this.queueModeField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="positiveInteger")]
-    public string MinPacket {
-        get {
+    [System.Xml.Serialization.XmlElementAttribute(DataType = "positiveInteger")]
+    public string MinPacket
+    {
+        get
+        {
             return this.minPacketField;
         }
-        set {
+        set
+        {
             this.minPacketField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="positiveInteger")]
-    public string MaxPacket {
-        get {
+    [System.Xml.Serialization.XmlElementAttribute(DataType = "positiveInteger")]
+    public string MaxPacket
+    {
+        get
+        {
             return this.maxPacketField;
         }
-        set {
+        set
+        {
             this.maxPacketField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="positiveInteger")]
-    public string PacketSize {
-        get {
+    [System.Xml.Serialization.XmlElementAttribute(DataType = "positiveInteger")]
+    public string PacketSize
+    {
+        get
+        {
             return this.packetSizeField;
         }
-        set {
+        set
+        {
             this.packetSizeField = value;
         }
     }
@@ -745,16 +873,17 @@ public partial class RedQueueType {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public enum DropType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public enum DropType
+{
+
     /// <remarks/>
     DropTail,
-    
+
     /// <remarks/>
     DropHead,
-    
+
     /// <remarks/>
     DropRandom,
 }
@@ -762,15 +891,16 @@ public enum DropType {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum UnitType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum UnitType
+{
+
     /// <remarks/>
     @byte,
-    
+
     /// <remarks/>
     kb,
-    
+
     /// <remarks/>
     packet,
 }
@@ -780,42 +910,52 @@ public enum UnitType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class NormalQueueType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class NormalQueueType
+{
+
     private UnitType queueModeField;
-    
+
     private string sizeField;
-    
+
     private DropType dropTypeField;
-    
+
     /// <remarks/>
-    public UnitType QueueMode {
-        get {
+    public UnitType QueueMode
+    {
+        get
+        {
             return this.queueModeField;
         }
-        set {
+        set
+        {
             this.queueModeField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="positiveInteger")]
-    public string Size {
-        get {
+    [System.Xml.Serialization.XmlElementAttribute(DataType = "positiveInteger")]
+    public string Size
+    {
+        get
+        {
             return this.sizeField;
         }
-        set {
+        set
+        {
             this.sizeField = value;
         }
     }
-    
+
     /// <remarks/>
-    public DropType DropType {
-        get {
+    public DropType DropType
+    {
+        get
+        {
             return this.dropTypeField;
         }
-        set {
+        set
+        {
             this.dropTypeField = value;
         }
     }
@@ -826,29 +966,36 @@ public partial class NormalQueueType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class RandomErrorType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class RandomErrorType
+{
+
     private ErrorUnitType errorUnitField;
-    
+
     private decimal rateField;
-    
+
     /// <remarks/>
-    public ErrorUnitType ErrorUnit {
-        get {
+    public ErrorUnitType ErrorUnit
+    {
+        get
+        {
             return this.errorUnitField;
         }
-        set {
+        set
+        {
             this.errorUnitField = value;
         }
     }
-    
+
     /// <remarks/>
-    public decimal Rate {
-        get {
+    public decimal Rate
+    {
+        get
+        {
             return this.rateField;
         }
-        set {
+        set
+        {
             this.rateField = value;
         }
     }
@@ -859,53 +1006,66 @@ public partial class RandomErrorType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class BurstLatencyType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class BurstLatencyType
+{
+
     private MsecType timeField;
-    
+
     private SecType periodMinField;
-    
+
     private SecType periodMaxField;
-    
+
     private decimal probabilityField;
-    
+
     /// <remarks/>
-    public MsecType Time {
-        get {
+    public MsecType Time
+    {
+        get
+        {
             return this.timeField;
         }
-        set {
+        set
+        {
             this.timeField = value;
         }
     }
-    
+
     /// <remarks/>
-    public SecType PeriodMin {
-        get {
+    public SecType PeriodMin
+    {
+        get
+        {
             return this.periodMinField;
         }
-        set {
+        set
+        {
             this.periodMinField = value;
         }
     }
-    
+
     /// <remarks/>
-    public SecType PeriodMax {
-        get {
+    public SecType PeriodMax
+    {
+        get
+        {
             return this.periodMaxField;
         }
-        set {
+        set
+        {
             this.periodMaxField = value;
         }
     }
-    
+
     /// <remarks/>
-    public decimal Probability {
-        get {
+    public decimal Probability
+    {
+        get
+        {
             return this.probabilityField;
         }
-        set {
+        set
+        {
             this.probabilityField = value;
         }
     }
@@ -916,44 +1076,54 @@ public partial class BurstLatencyType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class MsecType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class MsecType
+{
+
     private MsecTypeUnit unitField;
-    
+
     private bool unitFieldSpecified;
-    
+
     private string valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public MsecTypeUnit unit {
-        get {
+    public MsecTypeUnit unit
+    {
+        get
+        {
             return this.unitField;
         }
-        set {
+        set
+        {
             this.unitField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool unitSpecified {
-        get {
+    public bool unitSpecified
+    {
+        get
+        {
             return this.unitFieldSpecified;
         }
-        set {
+        set
+        {
             this.unitFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlTextAttribute(DataType="positiveInteger")]
-    public string Value {
-        get {
+    [System.Xml.Serialization.XmlTextAttribute(DataType = "positiveInteger")]
+    public string Value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -962,9 +1132,10 @@ public partial class MsecType {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum MsecTypeUnit {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum MsecTypeUnit
+{
+
     /// <remarks/>
     msec,
 }
@@ -974,29 +1145,36 @@ public enum MsecTypeUnit {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class NormalLatencyType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class NormalLatencyType
+{
+
     private MsecType averageField;
-    
+
     private MsecType deviationField;
-    
+
     /// <remarks/>
-    public MsecType Average {
-        get {
+    public MsecType Average
+    {
+        get
+        {
             return this.averageField;
         }
-        set {
+        set
+        {
             this.averageField = value;
         }
     }
-    
+
     /// <remarks/>
-    public MsecType Deviation {
-        get {
+    public MsecType Deviation
+    {
+        get
+        {
             return this.deviationField;
         }
-        set {
+        set
+        {
             this.deviationField = value;
         }
     }
@@ -1008,29 +1186,36 @@ public partial class NormalLatencyType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class UniformLatencyType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class UniformLatencyType
+{
+
     private MsecType minField;
-    
+
     private MsecType maxField;
-    
+
     /// <remarks/>
-    public MsecType Min {
-        get {
+    public MsecType Min
+    {
+        get
+        {
             return this.minField;
         }
-        set {
+        set
+        {
             this.minField = value;
         }
     }
-    
+
     /// <remarks/>
-    public MsecType Max {
-        get {
+    public MsecType Max
+    {
+        get
+        {
             return this.maxField;
         }
-        set {
+        set
+        {
             this.maxField = value;
         }
     }
@@ -1041,17 +1226,21 @@ public partial class UniformLatencyType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LinearLatencyType : UniformLatencyType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LinearLatencyType : UniformLatencyType
+{
+
     private SecType periodField;
-    
+
     /// <remarks/>
-    public SecType Period {
-        get {
+    public SecType Period
+    {
+        get
+        {
             return this.periodField;
         }
-        set {
+        set
+        {
             this.periodField = value;
         }
     }
@@ -1062,17 +1251,21 @@ public partial class LinearLatencyType : UniformLatencyType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class FixedLatencyType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class FixedLatencyType
+{
+
     private MsecType timeField;
-    
+
     /// <remarks/>
-    public MsecType Time {
-        get {
+    public MsecType Time
+    {
+        get
+        {
             return this.timeField;
         }
-        set {
+        set
+        {
             this.timeField = value;
         }
     }
@@ -1083,41 +1276,51 @@ public partial class FixedLatencyType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class NormalReorderType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class NormalReorderType
+{
+
     private decimal rateField;
-    
+
     private double deviationField;
-    
+
     private ushort maxPacketLagField;
-    
+
     /// <remarks/>
-    public decimal Rate {
-        get {
+    public decimal Rate
+    {
+        get
+        {
             return this.rateField;
         }
-        set {
+        set
+        {
             this.rateField = value;
         }
     }
-    
+
     /// <remarks/>
-    public double Deviation {
-        get {
+    public double Deviation
+    {
+        get
+        {
             return this.deviationField;
         }
-        set {
+        set
+        {
             this.deviationField = value;
         }
     }
-    
+
     /// <remarks/>
-    public ushort MaxPacketLag {
-        get {
+    public ushort MaxPacketLag
+    {
+        get
+        {
             return this.maxPacketLagField;
         }
-        set {
+        set
+        {
             this.maxPacketLagField = value;
         }
     }
@@ -1128,17 +1331,21 @@ public partial class NormalReorderType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class Empirical2Type {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class Empirical2Type
+{
+
     private decimal rateField;
-    
+
     /// <remarks/>
-    public decimal Rate {
-        get {
+    public decimal Rate
+    {
+        get
+        {
             return this.rateField;
         }
-        set {
+        set
+        {
             this.rateField = value;
         }
     }
@@ -1149,17 +1356,21 @@ public partial class Empirical2Type {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class Empirical1Type {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class Empirical1Type
+{
+
     private decimal rateField;
-    
+
     /// <remarks/>
-    public decimal Rate {
-        get {
+    public decimal Rate
+    {
+        get
+        {
             return this.rateField;
         }
-        set {
+        set
+        {
             this.rateField = value;
         }
     }
@@ -1170,41 +1381,51 @@ public partial class Empirical1Type {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class PeriodicDisconnectionType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class PeriodicDisconnectionType
+{
+
     private decimal rateField;
-    
+
     private SecType connectionTimeField;
-    
+
     private SecType disconnectionTimeField;
-    
+
     /// <remarks/>
-    public decimal Rate {
-        get {
+    public decimal Rate
+    {
+        get
+        {
             return this.rateField;
         }
-        set {
+        set
+        {
             this.rateField = value;
         }
     }
-    
+
     /// <remarks/>
-    public SecType ConnectionTime {
-        get {
+    public SecType ConnectionTime
+    {
+        get
+        {
             return this.connectionTimeField;
         }
-        set {
+        set
+        {
             this.connectionTimeField = value;
         }
     }
-    
+
     /// <remarks/>
-    public SecType DisconnectionTime {
-        get {
+    public SecType DisconnectionTime
+    {
+        get
+        {
             return this.disconnectionTimeField;
         }
-        set {
+        set
+        {
             this.disconnectionTimeField = value;
         }
     }
@@ -1215,31 +1436,38 @@ public partial class PeriodicDisconnectionType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DataCollectorInformationType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DataCollectorInformationType
+{
+
     private DataCollectorInformationTypeDataCollector[] dataCollectorsField;
-    
+
     private DataCollectorInformationTypeConfigurationEditor[] configurationEditorsField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("DataCollector", IsNullable=false)]
-    public DataCollectorInformationTypeDataCollector[] DataCollectors {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("DataCollector", IsNullable = false)]
+    public DataCollectorInformationTypeDataCollector[] DataCollectors
+    {
+        get
+        {
             return this.dataCollectorsField;
         }
-        set {
+        set
+        {
             this.dataCollectorsField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("ConfigurationEditor", IsNullable=false)]
-    public DataCollectorInformationTypeConfigurationEditor[] ConfigurationEditors {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("ConfigurationEditor", IsNullable = false)]
+    public DataCollectorInformationTypeConfigurationEditor[] ConfigurationEditors
+    {
+        get
+        {
             return this.configurationEditorsField;
         }
-        set {
+        set
+        {
             this.configurationEditorsField = value;
         }
     }
@@ -1250,207 +1478,254 @@ public partial class DataCollectorInformationType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DataCollectorInformationTypeDataCollector {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DataCollectorInformationTypeDataCollector
+{
+
     private object friendlyNameField;
-    
+
     private object descriptionField;
-    
+
     private DataCollectorInformationTypeDataCollectorDefaultConfiguration defaultConfigurationField;
-    
+
     private DataCollectorInformationTypeDataCollectorConfigurationEditor configurationEditorField;
-    
+
     private string typeUriField;
-    
+
     private bool requiresOutOfProcessCollectionField;
-    
+
     private bool requiresOutOfProcessCollectionFieldSpecified;
-    
+
     private string assemblyQualifiedNameField;
-    
+
     private bool isEnabledByDefaultField;
-    
+
     private bool enabledOnCollectionOnlyAgentsField;
-    
+
     private string supportedTestClientsField;
-    
+
     private string supportedLocationsField;
-    
+
     private string supportedAgentRoleTypesField;
-    
+
     private bool isEnabledByDefaultForTailoredApplicationsField;
-    
+
     private bool supportsTailoredApplicationsField;
-    
-    public DataCollectorInformationTypeDataCollector() {
+
+    public DataCollectorInformationTypeDataCollector()
+    {
         this.isEnabledByDefaultField = false;
         this.enabledOnCollectionOnlyAgentsField = true;
         this.isEnabledByDefaultForTailoredApplicationsField = false;
         this.supportsTailoredApplicationsField = false;
     }
-    
+
     /// <remarks/>
-    public object FriendlyName {
-        get {
+    public object FriendlyName
+    {
+        get
+        {
             return this.friendlyNameField;
         }
-        set {
+        set
+        {
             this.friendlyNameField = value;
         }
     }
-    
+
     /// <remarks/>
-    public object Description {
-        get {
+    public object Description
+    {
+        get
+        {
             return this.descriptionField;
         }
-        set {
+        set
+        {
             this.descriptionField = value;
         }
     }
-    
+
     /// <remarks/>
-    public DataCollectorInformationTypeDataCollectorDefaultConfiguration DefaultConfiguration {
-        get {
+    public DataCollectorInformationTypeDataCollectorDefaultConfiguration DefaultConfiguration
+    {
+        get
+        {
             return this.defaultConfigurationField;
         }
-        set {
+        set
+        {
             this.defaultConfigurationField = value;
         }
     }
-    
+
     /// <remarks/>
-    public DataCollectorInformationTypeDataCollectorConfigurationEditor ConfigurationEditor {
-        get {
+    public DataCollectorInformationTypeDataCollectorConfigurationEditor ConfigurationEditor
+    {
+        get
+        {
             return this.configurationEditorField;
         }
-        set {
+        set
+        {
             this.configurationEditorField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string typeUri {
-        get {
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "anyURI")]
+    public string typeUri
+    {
+        get
+        {
             return this.typeUriField;
         }
-        set {
+        set
+        {
             this.typeUriField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool requiresOutOfProcessCollection {
-        get {
+    public bool requiresOutOfProcessCollection
+    {
+        get
+        {
             return this.requiresOutOfProcessCollectionField;
         }
-        set {
+        set
+        {
             this.requiresOutOfProcessCollectionField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool requiresOutOfProcessCollectionSpecified {
-        get {
+    public bool requiresOutOfProcessCollectionSpecified
+    {
+        get
+        {
             return this.requiresOutOfProcessCollectionFieldSpecified;
         }
-        set {
+        set
+        {
             this.requiresOutOfProcessCollectionFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string assemblyQualifiedName {
-        get {
+    public string assemblyQualifiedName
+    {
+        get
+        {
             return this.assemblyQualifiedNameField;
         }
-        set {
+        set
+        {
             this.assemblyQualifiedNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool isEnabledByDefault {
-        get {
+    public bool isEnabledByDefault
+    {
+        get
+        {
             return this.isEnabledByDefaultField;
         }
-        set {
+        set
+        {
             this.isEnabledByDefaultField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool enabledOnCollectionOnlyAgents {
-        get {
+    public bool enabledOnCollectionOnlyAgents
+    {
+        get
+        {
             return this.enabledOnCollectionOnlyAgentsField;
         }
-        set {
+        set
+        {
             this.enabledOnCollectionOnlyAgentsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string supportedTestClients {
-        get {
+    public string supportedTestClients
+    {
+        get
+        {
             return this.supportedTestClientsField;
         }
-        set {
+        set
+        {
             this.supportedTestClientsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string supportedLocations {
-        get {
+    public string supportedLocations
+    {
+        get
+        {
             return this.supportedLocationsField;
         }
-        set {
+        set
+        {
             this.supportedLocationsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string supportedAgentRoleTypes {
-        get {
+    public string supportedAgentRoleTypes
+    {
+        get
+        {
             return this.supportedAgentRoleTypesField;
         }
-        set {
+        set
+        {
             this.supportedAgentRoleTypesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool isEnabledByDefaultForTailoredApplications {
-        get {
+    public bool isEnabledByDefaultForTailoredApplications
+    {
+        get
+        {
             return this.isEnabledByDefaultForTailoredApplicationsField;
         }
-        set {
+        set
+        {
             this.isEnabledByDefaultForTailoredApplicationsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool supportsTailoredApplications {
-        get {
+    public bool supportsTailoredApplications
+    {
+        get
+        {
             return this.supportsTailoredApplicationsField;
         }
-        set {
+        set
+        {
             this.supportsTailoredApplicationsField = value;
         }
     }
@@ -1461,18 +1736,22 @@ public partial class DataCollectorInformationTypeDataCollector {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DataCollectorInformationTypeDataCollectorDefaultConfiguration {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DataCollectorInformationTypeDataCollectorDefaultConfiguration
+{
+
     private System.Xml.XmlElement[] anyField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAnyElementAttribute()]
-    public System.Xml.XmlElement[] Any {
-        get {
+    public System.Xml.XmlElement[] Any
+    {
+        get
+        {
             return this.anyField;
         }
-        set {
+        set
+        {
             this.anyField = value;
         }
     }
@@ -1483,43 +1762,53 @@ public partial class DataCollectorInformationTypeDataCollectorDefaultConfigurati
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DataCollectorInformationTypeDataCollectorConfigurationEditor {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DataCollectorInformationTypeDataCollectorConfigurationEditor
+{
+
     private DataCollectorInformationTypeDataCollectorConfigurationEditorConfiguration configurationField;
-    
+
     private string typeUriField;
-    
+
     private string helpUriField;
-    
+
     /// <remarks/>
-    public DataCollectorInformationTypeDataCollectorConfigurationEditorConfiguration Configuration {
-        get {
+    public DataCollectorInformationTypeDataCollectorConfigurationEditorConfiguration Configuration
+    {
+        get
+        {
             return this.configurationField;
         }
-        set {
+        set
+        {
             this.configurationField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string typeUri {
-        get {
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "anyURI")]
+    public string typeUri
+    {
+        get
+        {
             return this.typeUriField;
         }
-        set {
+        set
+        {
             this.typeUriField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string helpUri {
-        get {
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "anyURI")]
+    public string helpUri
+    {
+        get
+        {
             return this.helpUriField;
         }
-        set {
+        set
+        {
             this.helpUriField = value;
         }
     }
@@ -1530,18 +1819,22 @@ public partial class DataCollectorInformationTypeDataCollectorConfigurationEdito
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DataCollectorInformationTypeDataCollectorConfigurationEditorConfiguration {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DataCollectorInformationTypeDataCollectorConfigurationEditorConfiguration
+{
+
     private System.Xml.XmlElement[] anyField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAnyElementAttribute()]
-    public System.Xml.XmlElement[] Any {
-        get {
+    public System.Xml.XmlElement[] Any
+    {
+        get
+        {
             return this.anyField;
         }
-        set {
+        set
+        {
             this.anyField = value;
         }
     }
@@ -1552,31 +1845,38 @@ public partial class DataCollectorInformationTypeDataCollectorConfigurationEdito
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DataCollectorInformationTypeConfigurationEditor {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DataCollectorInformationTypeConfigurationEditor
+{
+
     private string typeUriField;
-    
+
     private string assemblyQualifiedNameField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string typeUri {
-        get {
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "anyURI")]
+    public string typeUri
+    {
+        get
+        {
             return this.typeUriField;
         }
-        set {
+        set
+        {
             this.typeUriField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string assemblyQualifiedName {
-        get {
+    public string assemblyQualifiedName
+    {
+        get
+        {
             return this.assemblyQualifiedNameField;
         }
-        set {
+        set
+        {
             this.assemblyQualifiedNameField = value;
         }
     }
@@ -1587,246 +1887,302 @@ public partial class DataCollectorInformationTypeConfigurationEditor {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestRequestType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestRequestType
+{
+
     private WebTestRequestTypeStringHttpBody stringHttpBodyField;
-    
+
     private WebTestRequestType[] dependentRequestsField;
-    
+
     private HeadersTypeHeader[] headersField;
-    
+
     private WebTestRequestTypeExtractionRule[] extractionRulesField;
-    
+
     private WebTestRequestTypeQueryStringParameter[] queryStringParametersField;
-    
+
     private WebTestRequestTypeFormPostHttpBody formPostHttpBodyField;
-    
+
     private string guidField;
-    
+
     private string methodField;
-    
+
     private decimal versionField;
-    
+
     private bool versionFieldSpecified;
-    
+
     private string urlField;
-    
+
     private byte thinkTimeField;
-    
+
     private bool thinkTimeFieldSpecified;
-    
+
     private byte timeoutField;
-    
+
     private bool timeoutFieldSpecified;
-    
+
     private bool parseLinksField;
-    
+
     private bool followRedirectsField;
-    
+
     private bool cacheField;
-    
-    public WebTestRequestType() {
+
+    public WebTestRequestType()
+    {
         this.parseLinksField = true;
         this.followRedirectsField = true;
         this.cacheField = true;
     }
-    
+
     /// <remarks/>
-    public WebTestRequestTypeStringHttpBody StringHttpBody {
-        get {
+    public WebTestRequestTypeStringHttpBody StringHttpBody
+    {
+        get
+        {
             return this.stringHttpBodyField;
         }
-        set {
+        set
+        {
             this.stringHttpBodyField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Request", IsNullable=false)]
-    public WebTestRequestType[] DependentRequests {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Request", IsNullable = false)]
+    public WebTestRequestType[] DependentRequests
+    {
+        get
+        {
             return this.dependentRequestsField;
         }
-        set {
+        set
+        {
             this.dependentRequestsField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Header", IsNullable=false)]
-    public HeadersTypeHeader[] Headers {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Header", IsNullable = false)]
+    public HeadersTypeHeader[] Headers
+    {
+        get
+        {
             return this.headersField;
         }
-        set {
+        set
+        {
             this.headersField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("ExtractionRule", IsNullable=false)]
-    public WebTestRequestTypeExtractionRule[] ExtractionRules {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("ExtractionRule", IsNullable = false)]
+    public WebTestRequestTypeExtractionRule[] ExtractionRules
+    {
+        get
+        {
             return this.extractionRulesField;
         }
-        set {
+        set
+        {
             this.extractionRulesField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("QueryStringParameter", IsNullable=false)]
-    public WebTestRequestTypeQueryStringParameter[] QueryStringParameters {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("QueryStringParameter", IsNullable = false)]
+    public WebTestRequestTypeQueryStringParameter[] QueryStringParameters
+    {
+        get
+        {
             return this.queryStringParametersField;
         }
-        set {
+        set
+        {
             this.queryStringParametersField = value;
         }
     }
-    
+
     /// <remarks/>
-    public WebTestRequestTypeFormPostHttpBody FormPostHttpBody {
-        get {
+    public WebTestRequestTypeFormPostHttpBody FormPostHttpBody
+    {
+        get
+        {
             return this.formPostHttpBodyField;
         }
-        set {
+        set
+        {
             this.formPostHttpBodyField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Guid {
-        get {
+    public string Guid
+    {
+        get
+        {
             return this.guidField;
         }
-        set {
+        set
+        {
             this.guidField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string method {
-        get {
+    public string method
+    {
+        get
+        {
             return this.methodField;
         }
-        set {
+        set
+        {
             this.methodField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public decimal version {
-        get {
+    public decimal version
+    {
+        get
+        {
             return this.versionField;
         }
-        set {
+        set
+        {
             this.versionField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool versionSpecified {
-        get {
+    public bool versionSpecified
+    {
+        get
+        {
             return this.versionFieldSpecified;
         }
-        set {
+        set
+        {
             this.versionFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string url {
-        get {
+    public string url
+    {
+        get
+        {
             return this.urlField;
         }
-        set {
+        set
+        {
             this.urlField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte thinkTime {
-        get {
+    public byte thinkTime
+    {
+        get
+        {
             return this.thinkTimeField;
         }
-        set {
+        set
+        {
             this.thinkTimeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool thinkTimeSpecified {
-        get {
+    public bool thinkTimeSpecified
+    {
+        get
+        {
             return this.thinkTimeFieldSpecified;
         }
-        set {
+        set
+        {
             this.thinkTimeFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte timeout {
-        get {
+    public byte timeout
+    {
+        get
+        {
             return this.timeoutField;
         }
-        set {
+        set
+        {
             this.timeoutField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool timeoutSpecified {
-        get {
+    public bool timeoutSpecified
+    {
+        get
+        {
             return this.timeoutFieldSpecified;
         }
-        set {
+        set
+        {
             this.timeoutFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool parseLinks {
-        get {
+    public bool parseLinks
+    {
+        get
+        {
             return this.parseLinksField;
         }
-        set {
+        set
+        {
             this.parseLinksField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool followRedirects {
-        get {
+    public bool followRedirects
+    {
+        get
+        {
             return this.followRedirectsField;
         }
-        set {
+        set
+        {
             this.followRedirectsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool cache {
-        get {
+    public bool cache
+    {
+        get
+        {
             return this.cacheField;
         }
-        set {
+        set
+        {
             this.cacheField = value;
         }
     }
@@ -1837,31 +2193,38 @@ public partial class WebTestRequestType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestRequestTypeStringHttpBody {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestRequestTypeStringHttpBody
+{
+
     private string contentTypeField;
-    
+
     private string valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string contentType {
-        get {
+    public string contentType
+    {
+        get
+        {
             return this.contentTypeField;
         }
-        set {
+        set
+        {
             this.contentTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlTextAttribute()]
-    public string Value {
-        get {
+    public string Value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -1872,31 +2235,38 @@ public partial class WebTestRequestTypeStringHttpBody {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class HeadersTypeHeader {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class HeadersTypeHeader
+{
+
     private string nameField;
-    
+
     private string valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string value {
-        get {
+    public string value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -1907,31 +2277,38 @@ public partial class HeadersTypeHeader {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestRequestTypeExtractionRule {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestRequestTypeExtractionRule
+{
+
     private string classNameField;
-    
+
     private string variableNameField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string className {
-        get {
+    public string className
+    {
+        get
+        {
             return this.classNameField;
         }
-        set {
+        set
+        {
             this.classNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string variableName {
-        get {
+    public string variableName
+    {
+        get
+        {
             return this.variableNameField;
         }
-        set {
+        set
+        {
             this.variableNameField = value;
         }
     }
@@ -1942,49 +2319,60 @@ public partial class WebTestRequestTypeExtractionRule {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestRequestTypeQueryStringParameter {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestRequestTypeQueryStringParameter
+{
+
     private string nameField;
-    
+
     private string valueField;
-    
+
     private bool useToGroupResultsField;
-    
-    public WebTestRequestTypeQueryStringParameter() {
+
+    public WebTestRequestTypeQueryStringParameter()
+    {
         this.useToGroupResultsField = false;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string value {
-        get {
+    public string value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool useToGroupResults {
-        get {
+    public bool useToGroupResults
+    {
+        get
+        {
             return this.useToGroupResultsField;
         }
-        set {
+        set
+        {
             this.useToGroupResultsField = value;
         }
     }
@@ -1995,30 +2383,37 @@ public partial class WebTestRequestTypeQueryStringParameter {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestRequestTypeFormPostHttpBody {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestRequestTypeFormPostHttpBody
+{
+
     private WebTestRequestTypeFormPostHttpBodyFormPostParameter[] formPostParameterField;
-    
+
     private WebTestRequestTypeFormPostHttpBodyFileUploadParameter fileUploadParameterField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("FormPostParameter")]
-    public WebTestRequestTypeFormPostHttpBodyFormPostParameter[] FormPostParameter {
-        get {
+    public WebTestRequestTypeFormPostHttpBodyFormPostParameter[] FormPostParameter
+    {
+        get
+        {
             return this.formPostParameterField;
         }
-        set {
+        set
+        {
             this.formPostParameterField = value;
         }
     }
-    
+
     /// <remarks/>
-    public WebTestRequestTypeFormPostHttpBodyFileUploadParameter FileUploadParameter {
-        get {
+    public WebTestRequestTypeFormPostHttpBodyFileUploadParameter FileUploadParameter
+    {
+        get
+        {
             return this.fileUploadParameterField;
         }
-        set {
+        set
+        {
             this.fileUploadParameterField = value;
         }
     }
@@ -2029,31 +2424,38 @@ public partial class WebTestRequestTypeFormPostHttpBody {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestRequestTypeFormPostHttpBodyFormPostParameter {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestRequestTypeFormPostHttpBodyFormPostParameter
+{
+
     private string nameField;
-    
+
     private string valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string value {
-        get {
+    public string value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -2064,44 +2466,54 @@ public partial class WebTestRequestTypeFormPostHttpBodyFormPostParameter {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestRequestTypeFormPostHttpBodyFileUploadParameter {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestRequestTypeFormPostHttpBodyFileUploadParameter
+{
+
     private string nameField;
-    
+
     private string fileNameField;
-    
+
     private string contentTypeField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string fileName {
-        get {
+    public string fileName
+    {
+        get
+        {
             return this.fileNameField;
         }
-        set {
+        set
+        {
             this.fileNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string contentType {
-        get {
+    public string contentType
+    {
+        get
+        {
             return this.contentTypeField;
         }
-        set {
+        set
+        {
             this.contentTypeField = value;
         }
     }
@@ -2112,19 +2524,23 @@ public partial class WebTestRequestTypeFormPostHttpBodyFileUploadParameter {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestItemsType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestItemsType
+{
+
     private object[] itemsField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Request", typeof(WebTestRequestType))]
     [System.Xml.Serialization.XmlElementAttribute("TransactionTimer", typeof(WebTestItemsTypeTransactionTimer))]
-    public object[] Items {
-        get {
+    public object[] Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
         }
     }
@@ -2135,30 +2551,37 @@ public partial class WebTestItemsType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestItemsTypeTransactionTimer {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestItemsTypeTransactionTimer
+{
+
     private WebTestItemsType itemsField;
-    
+
     private string nameField;
-    
+
     /// <remarks/>
-    public WebTestItemsType Items {
-        get {
+    public WebTestItemsType Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
@@ -2169,69 +2592,85 @@ public partial class WebTestItemsTypeTransactionTimer {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebDataType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebDataType
+{
+
     private WebDataTypeHeaders headersField;
-    
+
     private string urlField;
-    
+
     private string commandField;
-    
+
     private string contentTypeField;
-    
+
     private string encodingNameField;
-    
+
     /// <remarks/>
-    public WebDataTypeHeaders Headers {
-        get {
+    public WebDataTypeHeaders Headers
+    {
+        get
+        {
             return this.headersField;
         }
-        set {
+        set
+        {
             this.headersField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string url {
-        get {
+    public string url
+    {
+        get
+        {
             return this.urlField;
         }
-        set {
+        set
+        {
             this.urlField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string command {
-        get {
+    public string command
+    {
+        get
+        {
             return this.commandField;
         }
-        set {
+        set
+        {
             this.commandField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string contentType {
-        get {
+    public string contentType
+    {
+        get
+        {
             return this.contentTypeField;
         }
-        set {
+        set
+        {
             this.contentTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string encodingName {
-        get {
+    public string encodingName
+    {
+        get
+        {
             return this.encodingNameField;
         }
-        set {
+        set
+        {
             this.encodingNameField = value;
         }
     }
@@ -2242,8 +2681,9 @@ public partial class WebDataType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebDataTypeHeaders {
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebDataTypeHeaders
+{
 }
 
 /// <remarks/>
@@ -2251,13 +2691,14 @@ public partial class WebDataTypeHeaders {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestDefinitionType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestDefinitionType
+{
+
     private object[] itemsField;
-    
+
     private ItemsChoiceType4[] itemsElementNameField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAnyElementAttribute()]
     [System.Xml.Serialization.XmlElementAttribute("CodedWebTest", typeof(CodedWebTestElementType))]
@@ -2269,23 +2710,29 @@ public partial class TestDefinitionType {
     [System.Xml.Serialization.XmlElementAttribute("UnitTestElement", typeof(UnitTestType))]
     [System.Xml.Serialization.XmlElementAttribute("WebTest", typeof(DeclarativeWebTestElementType))]
     [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
-    public object[] Items {
-        get {
+    public object[] Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemsChoiceType4[] ItemsElementName {
-        get {
+    public ItemsChoiceType4[] ItemsElementName
+    {
+        get
+        {
             return this.itemsElementNameField;
         }
-        set {
+        set
+        {
             this.itemsElementNameField = value;
         }
     }
@@ -2296,22 +2743,10 @@ public partial class TestDefinitionType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class CodedWebTestElementType : BaseTestType {
-    
-    private object[] itemsField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("IncludedWebTests", typeof(CodedWebTestElementTypeIncludedWebTests))]
-    [System.Xml.Serialization.XmlElementAttribute("WebTestClass", typeof(CodedWebTestElementTypeWebTestClass))]
-    public object[] Items {
-        get {
-            return this.itemsField;
-        }
-        set {
-            this.itemsField = value;
-        }
-    }
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class CodedWebTestElementType : BaseTestType
+{
+
 }
 
 /// <remarks/>
@@ -2319,18 +2754,22 @@ public partial class CodedWebTestElementType : BaseTestType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class CodedWebTestElementTypeIncludedWebTests {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class CodedWebTestElementTypeIncludedWebTests
+{
+
     private CodedWebTestElementTypeIncludedWebTestsIncludedWebTest[] includedWebTestField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("IncludedWebTest")]
-    public CodedWebTestElementTypeIncludedWebTestsIncludedWebTest[] IncludedWebTest {
-        get {
+    public CodedWebTestElementTypeIncludedWebTestsIncludedWebTest[] IncludedWebTest
+    {
+        get
+        {
             return this.includedWebTestField;
         }
-        set {
+        set
+        {
             this.includedWebTestField = value;
         }
     }
@@ -2341,62 +2780,76 @@ public partial class CodedWebTestElementTypeIncludedWebTests {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class CodedWebTestElementTypeIncludedWebTestsIncludedWebTest {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class CodedWebTestElementTypeIncludedWebTestsIncludedWebTest
+{
+
     private string nameField;
-    
+
     private string pathField;
-    
+
     private string testIdField;
-    
+
     private bool isCodedWebTestField;
-    
-    public CodedWebTestElementTypeIncludedWebTestsIncludedWebTest() {
+
+    public CodedWebTestElementTypeIncludedWebTestsIncludedWebTest()
+    {
         this.isCodedWebTestField = false;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string path {
-        get {
+    public string path
+    {
+        get
+        {
             return this.pathField;
         }
-        set {
+        set
+        {
             this.pathField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testId {
-        get {
+    public string testId
+    {
+        get
+        {
             return this.testIdField;
         }
-        set {
+        set
+        {
             this.testIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool isCodedWebTest {
-        get {
+    public bool isCodedWebTest
+    {
+        get
+        {
             return this.isCodedWebTestField;
         }
-        set {
+        set
+        {
             this.isCodedWebTestField = value;
         }
     }
@@ -2407,44 +2860,54 @@ public partial class CodedWebTestElementTypeIncludedWebTestsIncludedWebTest {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class CodedWebTestElementTypeWebTestClass {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class CodedWebTestElementTypeWebTestClass
+{
+
     private string assemblyField;
-    
+
     private string namespaceField;
-    
+
     private string classField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string assembly {
-        get {
+    public string assembly
+    {
+        get
+        {
             return this.assemblyField;
         }
-        set {
+        set
+        {
             this.assemblyField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string @namespace {
-        get {
+    public string @namespace
+    {
+        get
+        {
             return this.namespaceField;
         }
-        set {
+        set
+        {
             this.namespaceField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string @class {
-        get {
+    public string @class
+    {
+        get
+        {
             return this.classField;
         }
-        set {
+        set
+        {
             this.classField = value;
         }
     }
@@ -2461,32 +2924,34 @@ public partial class CodedWebTestElementTypeWebTestClass {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public abstract partial class BaseTestType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public abstract partial class BaseTestType
+{
+
     private object[] itemsField;
-    
+
     private bool enabledField;
-    
+
     private string idField;
-    
+
     private string nameField;
-    
+
     private bool isGroupableField;
-    
+
     private int priorityField;
-    
+
     private string namedCategoryField;
-    
+
     private string storageField;
-    
-    public BaseTestType() {
+
+    public BaseTestType()
+    {
         this.enabledField = true;
         this.isGroupableField = true;
         this.priorityField = 2147483647;
         this.namedCategoryField = "";
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Agent", typeof(BaseTestTypeAgent))]
     [System.Xml.Serialization.XmlElementAttribute("Css", typeof(BaseTestTypeCss))]
@@ -2498,92 +2963,116 @@ public abstract partial class BaseTestType {
     [System.Xml.Serialization.XmlElementAttribute("TcmInformation", typeof(TcmInformationType))]
     [System.Xml.Serialization.XmlElementAttribute("TestCategory", typeof(BaseTestTypeTestCategory))]
     [System.Xml.Serialization.XmlElementAttribute("WorkItemIDs", typeof(WorkItemIDsType))]
-    public object[] Items {
-        get {
+    public object[] Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool enabled {
-        get {
+    public bool enabled
+    {
+        get
+        {
             return this.enabledField;
         }
-        set {
+        set
+        {
             this.enabledField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string id {
-        get {
+    public string id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool isGroupable {
-        get {
+    public bool isGroupable
+    {
+        get
+        {
             return this.isGroupableField;
         }
-        set {
+        set
+        {
             this.isGroupableField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(2147483647)]
-    public int priority {
-        get {
+    public int priority
+    {
+        get
+        {
             return this.priorityField;
         }
-        set {
+        set
+        {
             this.priorityField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute("")]
-    public string namedCategory {
-        get {
+    public string namedCategory
+    {
+        get
+        {
             return this.namedCategoryField;
         }
-        set {
+        set
+        {
             this.namedCategoryField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string storage {
-        get {
+    public string storage
+    {
+        get
+        {
             return this.storageField;
         }
-        set {
+        set
+        {
             this.storageField = value;
         }
     }
@@ -2594,36 +3083,44 @@ public abstract partial class BaseTestType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class BaseTestTypeAgent {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class BaseTestTypeAgent
+{
+
     private BaseTestTypeAgentAgentAttribute[] agentAttributeField;
-    
+
     private bool abortRunOnFailureField;
-    
-    public BaseTestTypeAgent() {
+
+    public BaseTestTypeAgent()
+    {
         this.abortRunOnFailureField = false;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("AgentAttribute")]
-    public BaseTestTypeAgentAgentAttribute[] AgentAttribute {
-        get {
+    public BaseTestTypeAgentAgentAttribute[] AgentAttribute
+    {
+        get
+        {
             return this.agentAttributeField;
         }
-        set {
+        set
+        {
             this.agentAttributeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool abortRunOnFailure {
-        get {
+    public bool abortRunOnFailure
+    {
+        get
+        {
             return this.abortRunOnFailureField;
         }
-        set {
+        set
+        {
             this.abortRunOnFailureField = value;
         }
     }
@@ -2634,31 +3131,38 @@ public partial class BaseTestTypeAgent {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class BaseTestTypeAgentAgentAttribute {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class BaseTestTypeAgentAgentAttribute
+{
+
     private string nameField;
-    
+
     private string valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string value {
-        get {
+    public string value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -2669,31 +3173,38 @@ public partial class BaseTestTypeAgentAgentAttribute {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class BaseTestTypeCss {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class BaseTestTypeCss
+{
+
     private string projectStructureField;
-    
+
     private string iterationField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string projectStructure {
-        get {
+    public string projectStructure
+    {
+        get
+        {
             return this.projectStructureField;
         }
-        set {
+        set
+        {
             this.projectStructureField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string iteration {
-        get {
+    public string iteration
+    {
+        get
+        {
             return this.iterationField;
         }
-        set {
+        set
+        {
             this.iterationField = value;
         }
     }
@@ -2704,8 +3215,9 @@ public partial class BaseTestTypeCss {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class BaseTestTypeDeploymentItems : DeploymentItemsType {
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class BaseTestTypeDeploymentItems : DeploymentItemsType
+{
 }
 
 /// <remarks/>
@@ -2713,18 +3225,22 @@ public partial class BaseTestTypeDeploymentItems : DeploymentItemsType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DeploymentItemsType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DeploymentItemsType
+{
+
     private DeploymentItemsTypeDeploymentItem[] deploymentItemField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("DeploymentItem")]
-    public DeploymentItemsTypeDeploymentItem[] DeploymentItem {
-        get {
+    public DeploymentItemsTypeDeploymentItem[] DeploymentItem
+    {
+        get
+        {
             return this.deploymentItemField;
         }
-        set {
+        set
+        {
             this.deploymentItemField = value;
         }
     }
@@ -2735,31 +3251,38 @@ public partial class DeploymentItemsType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DeploymentItemsTypeDeploymentItem {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DeploymentItemsTypeDeploymentItem
+{
+
     private string filenameField;
-    
+
     private string outputDirectoryField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string filename {
-        get {
+    public string filename
+    {
+        get
+        {
             return this.filenameField;
         }
-        set {
+        set
+        {
             this.filenameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string outputDirectory {
-        get {
+    public string outputDirectory
+    {
+        get
+        {
             return this.outputDirectoryField;
         }
-        set {
+        set
+        {
             this.outputDirectoryField = value;
         }
     }
@@ -2770,68 +3293,82 @@ public partial class DeploymentItemsTypeDeploymentItem {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class BaseTestTypeExecution {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class BaseTestTypeExecution
+{
+
     private string idField;
-    
+
     private string parentIdField;
-    
+
     private bool isRunOnRestartField;
-    
+
     private int timeOutField;
-    
-    public BaseTestTypeExecution() {
+
+    public BaseTestTypeExecution()
+    {
         this.idField = "00000000-0000-0000-0000-000000000000";
         this.parentIdField = "00000000-0000-0000-0000-000000000000";
         this.isRunOnRestartField = false;
         this.timeOutField = 0;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute("00000000-0000-0000-0000-000000000000")]
-    public string id {
-        get {
+    public string id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute("00000000-0000-0000-0000-000000000000")]
-    public string parentId {
-        get {
+    public string parentId
+    {
+        get
+        {
             return this.parentIdField;
         }
-        set {
+        set
+        {
             this.parentIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool isRunOnRestart {
-        get {
+    public bool isRunOnRestart
+    {
+        get
+        {
             return this.isRunOnRestartField;
         }
-        set {
+        set
+        {
             this.isRunOnRestartField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int timeOut {
-        get {
+    public int timeOut
+    {
+        get
+        {
             return this.timeOutField;
         }
-        set {
+        set
+        {
             this.timeOutField = value;
         }
     }
@@ -2842,17 +3379,21 @@ public partial class BaseTestTypeExecution {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class BaseTestTypeOwners {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class BaseTestTypeOwners
+{
+
     private BaseTestTypeOwnersOwner ownerField;
-    
+
     /// <remarks/>
-    public BaseTestTypeOwnersOwner Owner {
-        get {
+    public BaseTestTypeOwnersOwner Owner
+    {
+        get
+        {
             return this.ownerField;
         }
-        set {
+        set
+        {
             this.ownerField = value;
         }
     }
@@ -2863,18 +3404,22 @@ public partial class BaseTestTypeOwners {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class BaseTestTypeOwnersOwner {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class BaseTestTypeOwnersOwner
+{
+
     private string nameField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
@@ -2885,18 +3430,22 @@ public partial class BaseTestTypeOwnersOwner {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class BaseTestTypeProperties {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class BaseTestTypeProperties
+{
+
     private BaseTestTypePropertiesProperty[] propertyField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Property")]
-    public BaseTestTypePropertiesProperty[] Property {
-        get {
+    public BaseTestTypePropertiesProperty[] Property
+    {
+        get
+        {
             return this.propertyField;
         }
-        set {
+        set
+        {
             this.propertyField = value;
         }
     }
@@ -2907,29 +3456,36 @@ public partial class BaseTestTypeProperties {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class BaseTestTypePropertiesProperty {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class BaseTestTypePropertiesProperty
+{
+
     private object keyField;
-    
+
     private object valueField;
-    
+
     /// <remarks/>
-    public object Key {
-        get {
+    public object Key
+    {
+        get
+        {
             return this.keyField;
         }
-        set {
+        set
+        {
             this.keyField = value;
         }
     }
-    
+
     /// <remarks/>
-    public object Value {
-        get {
+    public object Value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -2940,57 +3496,70 @@ public partial class BaseTestTypePropertiesProperty {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TcmInformationType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TcmInformationType
+{
+
     private int testCaseIdField;
-    
+
     private int testRunIdField;
-    
+
     private int testResultIdField;
-    
+
     private string testIterationIdField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int testCaseId {
-        get {
+    public int testCaseId
+    {
+        get
+        {
             return this.testCaseIdField;
         }
-        set {
+        set
+        {
             this.testCaseIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int testRunId {
-        get {
+    public int testRunId
+    {
+        get
+        {
             return this.testRunIdField;
         }
-        set {
+        set
+        {
             this.testRunIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int testResultId {
-        get {
+    public int testResultId
+    {
+        get
+        {
             return this.testResultIdField;
         }
-        set {
+        set
+        {
             this.testResultIdField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="nonNegativeInteger")]
-    public string testIterationId {
-        get {
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "nonNegativeInteger")]
+    public string testIterationId
+    {
+        get
+        {
             return this.testIterationIdField;
         }
-        set {
+        set
+        {
             this.testIterationIdField = value;
         }
     }
@@ -3001,8 +3570,9 @@ public partial class TcmInformationType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class BaseTestTypeTestCategory : TestCategoryType {
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class BaseTestTypeTestCategory : TestCategoryType
+{
 }
 
 /// <remarks/>
@@ -3010,18 +3580,22 @@ public partial class BaseTestTypeTestCategory : TestCategoryType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestCategoryType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestCategoryType
+{
+
     private TestCategoryTypeTestCategoryItem[] testCategoryItemField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("TestCategoryItem")]
-    public TestCategoryTypeTestCategoryItem[] TestCategoryItem {
-        get {
+    public TestCategoryTypeTestCategoryItem[] TestCategoryItem
+    {
+        get
+        {
             return this.testCategoryItemField;
         }
-        set {
+        set
+        {
             this.testCategoryItemField = value;
         }
     }
@@ -3032,18 +3606,22 @@ public partial class TestCategoryType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestCategoryTypeTestCategoryItem {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestCategoryTypeTestCategoryItem
+{
+
     private string testCategoryField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string TestCategory {
-        get {
+    public string TestCategory
+    {
+        get
+        {
             return this.testCategoryField;
         }
-        set {
+        set
+        {
             this.testCategoryField = value;
         }
     }
@@ -3054,18 +3632,22 @@ public partial class TestCategoryTypeTestCategoryItem {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WorkItemIDsType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WorkItemIDsType
+{
+
     private IDElementType[] workItemField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("WorkItem")]
-    public IDElementType[] WorkItem {
-        get {
+    public IDElementType[] WorkItem
+    {
+        get
+        {
             return this.workItemField;
         }
-        set {
+        set
+        {
             this.workItemField = value;
         }
     }
@@ -3076,18 +3658,22 @@ public partial class WorkItemIDsType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class IDElementType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class IDElementType
+{
+
     private string idField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string id {
-        get {
+    public string id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
@@ -3098,18 +3684,22 @@ public partial class IDElementType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DeclarativeWebTestElementType : BaseTestType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DeclarativeWebTestElementType : BaseTestType
+{
+
     private string persistedWebTestField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string persistedWebTest {
-        get {
+    public string persistedWebTest
+    {
+        get
+        {
             return this.persistedWebTestField;
         }
-        set {
+        set
+        {
             this.persistedWebTestField = value;
         }
     }
@@ -3120,66 +3710,82 @@ public partial class DeclarativeWebTestElementType : BaseTestType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class UnitTestType : BaseTestType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class UnitTestType : BaseTestType
+{
+
     private UnitTestTypeTestMethod testMethodField;
-    
+
     private UnitTestTypeDataSource dataSourceField;
-    
+
     private UnitTestTypeAspNet aspNetField;
-    
+
     private object[] aspNetDevelopmentServersField;
-    
+
     private System.Xml.XmlNode extensionField;
-    
+
     /// <remarks/>
-    public UnitTestTypeTestMethod TestMethod {
-        get {
+    public UnitTestTypeTestMethod TestMethod
+    {
+        get
+        {
             return this.testMethodField;
         }
-        set {
+        set
+        {
             this.testMethodField = value;
         }
     }
-    
+
     /// <remarks/>
-    public UnitTestTypeDataSource DataSource {
-        get {
+    public UnitTestTypeDataSource DataSource
+    {
+        get
+        {
             return this.dataSourceField;
         }
-        set {
+        set
+        {
             this.dataSourceField = value;
         }
     }
-    
+
     /// <remarks/>
-    public UnitTestTypeAspNet AspNet {
-        get {
+    public UnitTestTypeAspNet AspNet
+    {
+        get
+        {
             return this.aspNetField;
         }
-        set {
+        set
+        {
             this.aspNetField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("DevelopmentServer", IsNullable=false)]
-    public object[] AspNetDevelopmentServers {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("DevelopmentServer", IsNullable = false)]
+    public object[] AspNetDevelopmentServers
+    {
+        get
+        {
             return this.aspNetDevelopmentServersField;
         }
-        set {
+        set
+        {
             this.aspNetDevelopmentServersField = value;
         }
     }
-    
+
     /// <remarks/>
-    public System.Xml.XmlNode Extension {
-        get {
+    public System.Xml.XmlNode Extension
+    {
+        get
+        {
             return this.extensionField;
         }
-        set {
+        set
+        {
             this.extensionField = value;
         }
     }
@@ -3190,75 +3796,92 @@ public partial class UnitTestType : BaseTestType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class UnitTestTypeTestMethod {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class UnitTestTypeTestMethod
+{
+
     private string codeBaseField;
-    
+
     private string classNameField;
-    
+
     private string nameField;
-    
+
     private bool isValidField;
-    
+
     private string adapterTypeNameField;
-    
-    public UnitTestTypeTestMethod() {
+
+    public UnitTestTypeTestMethod()
+    {
         this.isValidField = false;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string codeBase {
-        get {
+    public string codeBase
+    {
+        get
+        {
             return this.codeBaseField;
         }
-        set {
+        set
+        {
             this.codeBaseField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string className {
-        get {
+    public string className
+    {
+        get
+        {
             return this.classNameField;
         }
-        set {
+        set
+        {
             this.classNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool isValid {
-        get {
+    public bool isValid
+    {
+        get
+        {
             return this.isValidField;
         }
-        set {
+        set
+        {
             this.isValidField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string adapterTypeName {
-        get {
+    public string adapterTypeName
+    {
+        get
+        {
             return this.adapterTypeNameField;
         }
-        set {
+        set
+        {
             this.adapterTypeNameField = value;
         }
     }
@@ -3269,70 +3892,86 @@ public partial class UnitTestTypeTestMethod {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class UnitTestTypeDataSource {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class UnitTestTypeDataSource
+{
+
     private string settingNameField;
-    
+
     private string accessMethodField;
-    
+
     private string connectionStringField;
-    
+
     private string providerInvariantNameField;
-    
+
     private string tableNameField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string settingName {
-        get {
+    public string settingName
+    {
+        get
+        {
             return this.settingNameField;
         }
-        set {
+        set
+        {
             this.settingNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string accessMethod {
-        get {
+    public string accessMethod
+    {
+        get
+        {
             return this.accessMethodField;
         }
-        set {
+        set
+        {
             this.accessMethodField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string connectionString {
-        get {
+    public string connectionString
+    {
+        get
+        {
             return this.connectionStringField;
         }
-        set {
+        set
+        {
             this.connectionStringField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string providerInvariantName {
-        get {
+    public string providerInvariantName
+    {
+        get
+        {
             return this.providerInvariantNameField;
         }
-        set {
+        set
+        {
             this.providerInvariantNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string tableName {
-        get {
+    public string tableName
+    {
+        get
+        {
             return this.tableNameField;
         }
-        set {
+        set
+        {
             this.tableNameField = value;
         }
     }
@@ -3343,31 +3982,38 @@ public partial class UnitTestTypeDataSource {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class UnitTestTypeAspNet {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class UnitTestTypeAspNet
+{
+
     private DevelopmentServerType[] developmentServerField;
-    
+
     private string webSiteUrlField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("DevelopmentServer")]
-    public DevelopmentServerType[] DevelopmentServer {
-        get {
+    public DevelopmentServerType[] DevelopmentServer
+    {
+        get
+        {
             return this.developmentServerField;
         }
-        set {
+        set
+        {
             this.developmentServerField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string webSiteUrl {
-        get {
+    public string webSiteUrl
+    {
+        get
+        {
             return this.webSiteUrlField;
         }
-        set {
+        set
+        {
             this.webSiteUrlField = value;
         }
     }
@@ -3378,44 +4024,54 @@ public partial class UnitTestTypeAspNet {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DevelopmentServerType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DevelopmentServerType
+{
+
     private string pathToWebSiteField;
-    
+
     private string webApplicationRootField;
-    
+
     private string nameField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string pathToWebSite {
-        get {
+    public string pathToWebSite
+    {
+        get
+        {
             return this.pathToWebSiteField;
         }
-        set {
+        set
+        {
             this.pathToWebSiteField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string webApplicationRoot {
-        get {
+    public string webApplicationRoot
+    {
+        get
+        {
             return this.webApplicationRootField;
         }
-        set {
+        set
+        {
             this.webApplicationRootField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
@@ -3426,253 +4082,311 @@ public partial class DevelopmentServerType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute("LoadTest", Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class LoadTestType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute("LoadTest", Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class LoadTestType
+{
+
     private LoadTestTypeScenarios[] scenariosField;
-    
+
     private LoadTestTypeCounterSets[] counterSetsField;
-    
+
     private LoadTestTypeRunConfigurations[] runConfigurationsField;
-    
+
     private LoadTestTypeLoadTestPluginsLoadTestPlugin[][] loadTestPluginsField;
-    
+
     private string idField;
-    
+
     private string nameField;
-    
+
     private string descriptionField;
-    
+
     private string ownerField;
-    
+
     private string storageField;
-    
+
     private int priorityField;
-    
+
     private bool priorityFieldSpecified;
-    
+
     private bool enabledField;
-    
+
     private bool enabledFieldSpecified;
-    
+
     private string cssProjectStructureField;
-    
+
     private string cssIterationField;
-    
+
     private string deploymentItemsEditableField;
-    
+
     private string workItemIdsField;
-    
+
     private string traceLevelField;
-    
+
     private string currentRunConfigField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Scenarios")]
-    public LoadTestTypeScenarios[] Scenarios {
-        get {
+    public LoadTestTypeScenarios[] Scenarios
+    {
+        get
+        {
             return this.scenariosField;
         }
-        set {
+        set
+        {
             this.scenariosField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("CounterSets")]
-    public LoadTestTypeCounterSets[] CounterSets {
-        get {
+    public LoadTestTypeCounterSets[] CounterSets
+    {
+        get
+        {
             return this.counterSetsField;
         }
-        set {
+        set
+        {
             this.counterSetsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("RunConfigurations")]
-    public LoadTestTypeRunConfigurations[] RunConfigurations {
-        get {
+    public LoadTestTypeRunConfigurations[] RunConfigurations
+    {
+        get
+        {
             return this.runConfigurationsField;
         }
-        set {
+        set
+        {
             this.runConfigurationsField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("LoadTestPlugin", typeof(LoadTestTypeLoadTestPluginsLoadTestPlugin), IsNullable=false)]
-    public LoadTestTypeLoadTestPluginsLoadTestPlugin[][] LoadTestPlugins {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("LoadTestPlugin", typeof(LoadTestTypeLoadTestPluginsLoadTestPlugin[]), IsNullable = false)]
+    public LoadTestTypeLoadTestPluginsLoadTestPlugin[][] LoadTestPlugins
+    {
+        get
+        {
             return this.loadTestPluginsField;
         }
-        set {
+        set
+        {
             this.loadTestPluginsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Id {
-        get {
+    public string Id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Description {
-        get {
+    public string Description
+    {
+        get
+        {
             return this.descriptionField;
         }
-        set {
+        set
+        {
             this.descriptionField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Owner {
-        get {
+    public string Owner
+    {
+        get
+        {
             return this.ownerField;
         }
-        set {
+        set
+        {
             this.ownerField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string storage {
-        get {
+    public string storage
+    {
+        get
+        {
             return this.storageField;
         }
-        set {
+        set
+        {
             this.storageField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int Priority {
-        get {
+    public int Priority
+    {
+        get
+        {
             return this.priorityField;
         }
-        set {
+        set
+        {
             this.priorityField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool PrioritySpecified {
-        get {
+    public bool PrioritySpecified
+    {
+        get
+        {
             return this.priorityFieldSpecified;
         }
-        set {
+        set
+        {
             this.priorityFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool Enabled {
-        get {
+    public bool Enabled
+    {
+        get
+        {
             return this.enabledField;
         }
-        set {
+        set
+        {
             this.enabledField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool EnabledSpecified {
-        get {
+    public bool EnabledSpecified
+    {
+        get
+        {
             return this.enabledFieldSpecified;
         }
-        set {
+        set
+        {
             this.enabledFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string CssProjectStructure {
-        get {
+    public string CssProjectStructure
+    {
+        get
+        {
             return this.cssProjectStructureField;
         }
-        set {
+        set
+        {
             this.cssProjectStructureField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string CssIteration {
-        get {
+    public string CssIteration
+    {
+        get
+        {
             return this.cssIterationField;
         }
-        set {
+        set
+        {
             this.cssIterationField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string DeploymentItemsEditable {
-        get {
+    public string DeploymentItemsEditable
+    {
+        get
+        {
             return this.deploymentItemsEditableField;
         }
-        set {
+        set
+        {
             this.deploymentItemsEditableField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string WorkItemIds {
-        get {
+    public string WorkItemIds
+    {
+        get
+        {
             return this.workItemIdsField;
         }
-        set {
+        set
+        {
             this.workItemIdsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string TraceLevel {
-        get {
+    public string TraceLevel
+    {
+        get
+        {
             return this.traceLevelField;
         }
-        set {
+        set
+        {
             this.traceLevelField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string CurrentRunConfig {
-        get {
+    public string CurrentRunConfig
+    {
+        get
+        {
             return this.currentRunConfigField;
         }
-        set {
+        set
+        {
             this.currentRunConfigField = value;
         }
     }
@@ -3683,18 +4397,22 @@ public partial class LoadTestType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeScenarios {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeScenarios
+{
+
     private LoadTestTypeScenariosScenario[] scenarioField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Scenario")]
-    public LoadTestTypeScenariosScenario[] Scenario {
-        get {
+    public LoadTestTypeScenariosScenario[] Scenario
+    {
+        get
+        {
             return this.scenarioField;
         }
-        set {
+        set
+        {
             this.scenarioField = value;
         }
     }
@@ -3705,326 +4423,402 @@ public partial class LoadTestTypeScenarios {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeScenariosScenario {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeScenariosScenario
+{
+
     private LoadTestTypeScenariosScenarioThinkProfile thinkProfileField;
-    
+
     private LoadTestTypeScenariosScenarioLoadProfile loadProfileField;
-    
+
     private LoadTestTypeScenariosScenarioTestProfile[] initializeTestField;
-    
+
     private LoadTestTypeScenariosScenarioTestProfile1[] terminateTestField;
-    
+
     private LoadTestTypeScenariosScenarioTestProfile2[] testMixField;
-    
+
     private LoadTestTypeScenariosScenarioBrowserMix browserMixField;
-    
+
     private LoadTestTypeScenariosScenarioNetworkMix networkMixField;
-    
+
     private string nameField;
-    
+
     private string allowedAgentsField;
-    
+
     private bool iPSwitchingField;
-    
+
     private bool iPSwitchingFieldSpecified;
-    
+
     private bool disableDuringWarmupField;
-    
+
     private bool disableDuringWarmupFieldSpecified;
-    
+
     private int delayStartTimeField;
-    
+
     private bool delayStartTimeFieldSpecified;
-    
+
     private int delayBetweenIterationsField;
-    
+
     private bool delayBetweenIterationsFieldSpecified;
-    
+
     private int maxTestIterationsField;
-    
+
     private bool maxTestIterationsFieldSpecified;
-    
+
     private int percentNewUsersField;
-    
+
     private bool percentNewUsersFieldSpecified;
-    
+
     private TestMixType testMixTypeField;
-    
+
     private bool testMixTypeFieldSpecified;
-    
+
     private bool applyDistributionToPacingDelayField;
-    
+
     private bool applyDistributionToPacingDelayFieldSpecified;
-    
+
     /// <remarks/>
-    public LoadTestTypeScenariosScenarioThinkProfile ThinkProfile {
-        get {
+    public LoadTestTypeScenariosScenarioThinkProfile ThinkProfile
+    {
+        get
+        {
             return this.thinkProfileField;
         }
-        set {
+        set
+        {
             this.thinkProfileField = value;
         }
     }
-    
+
     /// <remarks/>
-    public LoadTestTypeScenariosScenarioLoadProfile LoadProfile {
-        get {
+    public LoadTestTypeScenariosScenarioLoadProfile LoadProfile
+    {
+        get
+        {
             return this.loadProfileField;
         }
-        set {
+        set
+        {
             this.loadProfileField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("TestProfile", IsNullable=false)]
-    public LoadTestTypeScenariosScenarioTestProfile[] InitializeTest {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("TestProfile", IsNullable = false)]
+    public LoadTestTypeScenariosScenarioTestProfile[] InitializeTest
+    {
+        get
+        {
             return this.initializeTestField;
         }
-        set {
+        set
+        {
             this.initializeTestField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("TestProfile", IsNullable=false)]
-    public LoadTestTypeScenariosScenarioTestProfile1[] TerminateTest {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("TestProfile", IsNullable = false)]
+    public LoadTestTypeScenariosScenarioTestProfile1[] TerminateTest
+    {
+        get
+        {
             return this.terminateTestField;
         }
-        set {
+        set
+        {
             this.terminateTestField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("TestProfile", IsNullable=false)]
-    public LoadTestTypeScenariosScenarioTestProfile2[] TestMix {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("TestProfile", IsNullable = false)]
+    public LoadTestTypeScenariosScenarioTestProfile2[] TestMix
+    {
+        get
+        {
             return this.testMixField;
         }
-        set {
+        set
+        {
             this.testMixField = value;
         }
     }
-    
+
     /// <remarks/>
-    public LoadTestTypeScenariosScenarioBrowserMix BrowserMix {
-        get {
+    public LoadTestTypeScenariosScenarioBrowserMix BrowserMix
+    {
+        get
+        {
             return this.browserMixField;
         }
-        set {
+        set
+        {
             this.browserMixField = value;
         }
     }
-    
+
     /// <remarks/>
-    public LoadTestTypeScenariosScenarioNetworkMix NetworkMix {
-        get {
+    public LoadTestTypeScenariosScenarioNetworkMix NetworkMix
+    {
+        get
+        {
             return this.networkMixField;
         }
-        set {
+        set
+        {
             this.networkMixField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string AllowedAgents {
-        get {
+    public string AllowedAgents
+    {
+        get
+        {
             return this.allowedAgentsField;
         }
-        set {
+        set
+        {
             this.allowedAgentsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool IPSwitching {
-        get {
+    public bool IPSwitching
+    {
+        get
+        {
             return this.iPSwitchingField;
         }
-        set {
+        set
+        {
             this.iPSwitchingField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool IPSwitchingSpecified {
-        get {
+    public bool IPSwitchingSpecified
+    {
+        get
+        {
             return this.iPSwitchingFieldSpecified;
         }
-        set {
+        set
+        {
             this.iPSwitchingFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool DisableDuringWarmup {
-        get {
+    public bool DisableDuringWarmup
+    {
+        get
+        {
             return this.disableDuringWarmupField;
         }
-        set {
+        set
+        {
             this.disableDuringWarmupField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool DisableDuringWarmupSpecified {
-        get {
+    public bool DisableDuringWarmupSpecified
+    {
+        get
+        {
             return this.disableDuringWarmupFieldSpecified;
         }
-        set {
+        set
+        {
             this.disableDuringWarmupFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int DelayStartTime {
-        get {
+    public int DelayStartTime
+    {
+        get
+        {
             return this.delayStartTimeField;
         }
-        set {
+        set
+        {
             this.delayStartTimeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool DelayStartTimeSpecified {
-        get {
+    public bool DelayStartTimeSpecified
+    {
+        get
+        {
             return this.delayStartTimeFieldSpecified;
         }
-        set {
+        set
+        {
             this.delayStartTimeFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int DelayBetweenIterations {
-        get {
+    public int DelayBetweenIterations
+    {
+        get
+        {
             return this.delayBetweenIterationsField;
         }
-        set {
+        set
+        {
             this.delayBetweenIterationsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool DelayBetweenIterationsSpecified {
-        get {
+    public bool DelayBetweenIterationsSpecified
+    {
+        get
+        {
             return this.delayBetweenIterationsFieldSpecified;
         }
-        set {
+        set
+        {
             this.delayBetweenIterationsFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int MaxTestIterations {
-        get {
+    public int MaxTestIterations
+    {
+        get
+        {
             return this.maxTestIterationsField;
         }
-        set {
+        set
+        {
             this.maxTestIterationsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool MaxTestIterationsSpecified {
-        get {
+    public bool MaxTestIterationsSpecified
+    {
+        get
+        {
             return this.maxTestIterationsFieldSpecified;
         }
-        set {
+        set
+        {
             this.maxTestIterationsFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int PercentNewUsers {
-        get {
+    public int PercentNewUsers
+    {
+        get
+        {
             return this.percentNewUsersField;
         }
-        set {
+        set
+        {
             this.percentNewUsersField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool PercentNewUsersSpecified {
-        get {
+    public bool PercentNewUsersSpecified
+    {
+        get
+        {
             return this.percentNewUsersFieldSpecified;
         }
-        set {
+        set
+        {
             this.percentNewUsersFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public TestMixType TestMixType {
-        get {
+    public TestMixType TestMixType
+    {
+        get
+        {
             return this.testMixTypeField;
         }
-        set {
+        set
+        {
             this.testMixTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool TestMixTypeSpecified {
-        get {
+    public bool TestMixTypeSpecified
+    {
+        get
+        {
             return this.testMixTypeFieldSpecified;
         }
-        set {
+        set
+        {
             this.testMixTypeFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool ApplyDistributionToPacingDelay {
-        get {
+    public bool ApplyDistributionToPacingDelay
+    {
+        get
+        {
             return this.applyDistributionToPacingDelayField;
         }
-        set {
+        set
+        {
             this.applyDistributionToPacingDelayField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool ApplyDistributionToPacingDelaySpecified {
-        get {
+    public bool ApplyDistributionToPacingDelaySpecified
+    {
+        get
+        {
             return this.applyDistributionToPacingDelayFieldSpecified;
         }
-        set {
+        set
+        {
             this.applyDistributionToPacingDelayFieldSpecified = value;
         }
     }
@@ -4035,31 +4829,38 @@ public partial class LoadTestTypeScenariosScenario {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeScenariosScenarioThinkProfile {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeScenariosScenarioThinkProfile
+{
+
     private string patternField;
-    
+
     private float valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Pattern {
-        get {
+    public string Pattern
+    {
+        get
+        {
             return this.patternField;
         }
-        set {
+        set
+        {
             this.patternField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public float Value {
-        get {
+    public float Value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -4070,408 +4871,502 @@ public partial class LoadTestTypeScenariosScenarioThinkProfile {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeScenariosScenarioLoadProfile {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeScenariosScenarioLoadProfile
+{
+
     private string patternField;
-    
+
     private int initialUsersField;
-    
+
     private int maxUsersField;
-    
+
     private bool maxUsersFieldSpecified;
-    
+
     private int stepUsersField;
-    
+
     private bool stepUsersFieldSpecified;
-    
+
     private int stepDurationField;
-    
+
     private bool stepDurationFieldSpecified;
-    
+
     private int stepRampTimeField;
-    
+
     private bool stepRampTimeFieldSpecified;
-    
+
     private string counterPathField;
-    
+
     private string machineNameField;
-    
+
     private string categoryNameField;
-    
+
     private string counterNameField;
-    
+
     private string instanceNameField;
-    
+
     private int minUserCountField;
-    
+
     private bool minUserCountFieldSpecified;
-    
+
     private int maxUserCountField;
-    
+
     private bool maxUserCountFieldSpecified;
-    
+
     private int maxUserCountIncreaseField;
-    
+
     private bool maxUserCountIncreaseFieldSpecified;
-    
+
     private int maxUserCountDecreaseField;
-    
+
     private bool maxUserCountDecreaseFieldSpecified;
-    
+
     private double minTargetValueField;
-    
+
     private bool minTargetValueFieldSpecified;
-    
+
     private double maxTargetValueField;
-    
+
     private bool maxTargetValueFieldSpecified;
-    
+
     private bool higherValuesBetterField;
-    
+
     private bool higherValuesBetterFieldSpecified;
-    
+
     private bool stopAdjustingAtGoalField;
-    
+
     private bool stopAdjustingAtGoalFieldSpecified;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Pattern {
-        get {
+    public string Pattern
+    {
+        get
+        {
             return this.patternField;
         }
-        set {
+        set
+        {
             this.patternField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int InitialUsers {
-        get {
+    public int InitialUsers
+    {
+        get
+        {
             return this.initialUsersField;
         }
-        set {
+        set
+        {
             this.initialUsersField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int MaxUsers {
-        get {
+    public int MaxUsers
+    {
+        get
+        {
             return this.maxUsersField;
         }
-        set {
+        set
+        {
             this.maxUsersField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool MaxUsersSpecified {
-        get {
+    public bool MaxUsersSpecified
+    {
+        get
+        {
             return this.maxUsersFieldSpecified;
         }
-        set {
+        set
+        {
             this.maxUsersFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int StepUsers {
-        get {
+    public int StepUsers
+    {
+        get
+        {
             return this.stepUsersField;
         }
-        set {
+        set
+        {
             this.stepUsersField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool StepUsersSpecified {
-        get {
+    public bool StepUsersSpecified
+    {
+        get
+        {
             return this.stepUsersFieldSpecified;
         }
-        set {
+        set
+        {
             this.stepUsersFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int StepDuration {
-        get {
+    public int StepDuration
+    {
+        get
+        {
             return this.stepDurationField;
         }
-        set {
+        set
+        {
             this.stepDurationField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool StepDurationSpecified {
-        get {
+    public bool StepDurationSpecified
+    {
+        get
+        {
             return this.stepDurationFieldSpecified;
         }
-        set {
+        set
+        {
             this.stepDurationFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int StepRampTime {
-        get {
+    public int StepRampTime
+    {
+        get
+        {
             return this.stepRampTimeField;
         }
-        set {
+        set
+        {
             this.stepRampTimeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool StepRampTimeSpecified {
-        get {
+    public bool StepRampTimeSpecified
+    {
+        get
+        {
             return this.stepRampTimeFieldSpecified;
         }
-        set {
+        set
+        {
             this.stepRampTimeFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string CounterPath {
-        get {
+    public string CounterPath
+    {
+        get
+        {
             return this.counterPathField;
         }
-        set {
+        set
+        {
             this.counterPathField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string MachineName {
-        get {
+    public string MachineName
+    {
+        get
+        {
             return this.machineNameField;
         }
-        set {
+        set
+        {
             this.machineNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string CategoryName {
-        get {
+    public string CategoryName
+    {
+        get
+        {
             return this.categoryNameField;
         }
-        set {
+        set
+        {
             this.categoryNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string CounterName {
-        get {
+    public string CounterName
+    {
+        get
+        {
             return this.counterNameField;
         }
-        set {
+        set
+        {
             this.counterNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string InstanceName {
-        get {
+    public string InstanceName
+    {
+        get
+        {
             return this.instanceNameField;
         }
-        set {
+        set
+        {
             this.instanceNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int MinUserCount {
-        get {
+    public int MinUserCount
+    {
+        get
+        {
             return this.minUserCountField;
         }
-        set {
+        set
+        {
             this.minUserCountField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool MinUserCountSpecified {
-        get {
+    public bool MinUserCountSpecified
+    {
+        get
+        {
             return this.minUserCountFieldSpecified;
         }
-        set {
+        set
+        {
             this.minUserCountFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int MaxUserCount {
-        get {
+    public int MaxUserCount
+    {
+        get
+        {
             return this.maxUserCountField;
         }
-        set {
+        set
+        {
             this.maxUserCountField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool MaxUserCountSpecified {
-        get {
+    public bool MaxUserCountSpecified
+    {
+        get
+        {
             return this.maxUserCountFieldSpecified;
         }
-        set {
+        set
+        {
             this.maxUserCountFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int MaxUserCountIncrease {
-        get {
+    public int MaxUserCountIncrease
+    {
+        get
+        {
             return this.maxUserCountIncreaseField;
         }
-        set {
+        set
+        {
             this.maxUserCountIncreaseField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool MaxUserCountIncreaseSpecified {
-        get {
+    public bool MaxUserCountIncreaseSpecified
+    {
+        get
+        {
             return this.maxUserCountIncreaseFieldSpecified;
         }
-        set {
+        set
+        {
             this.maxUserCountIncreaseFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int MaxUserCountDecrease {
-        get {
+    public int MaxUserCountDecrease
+    {
+        get
+        {
             return this.maxUserCountDecreaseField;
         }
-        set {
+        set
+        {
             this.maxUserCountDecreaseField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool MaxUserCountDecreaseSpecified {
-        get {
+    public bool MaxUserCountDecreaseSpecified
+    {
+        get
+        {
             return this.maxUserCountDecreaseFieldSpecified;
         }
-        set {
+        set
+        {
             this.maxUserCountDecreaseFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public double MinTargetValue {
-        get {
+    public double MinTargetValue
+    {
+        get
+        {
             return this.minTargetValueField;
         }
-        set {
+        set
+        {
             this.minTargetValueField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool MinTargetValueSpecified {
-        get {
+    public bool MinTargetValueSpecified
+    {
+        get
+        {
             return this.minTargetValueFieldSpecified;
         }
-        set {
+        set
+        {
             this.minTargetValueFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public double MaxTargetValue {
-        get {
+    public double MaxTargetValue
+    {
+        get
+        {
             return this.maxTargetValueField;
         }
-        set {
+        set
+        {
             this.maxTargetValueField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool MaxTargetValueSpecified {
-        get {
+    public bool MaxTargetValueSpecified
+    {
+        get
+        {
             return this.maxTargetValueFieldSpecified;
         }
-        set {
+        set
+        {
             this.maxTargetValueFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool HigherValuesBetter {
-        get {
+    public bool HigherValuesBetter
+    {
+        get
+        {
             return this.higherValuesBetterField;
         }
-        set {
+        set
+        {
             this.higherValuesBetterField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool HigherValuesBetterSpecified {
-        get {
+    public bool HigherValuesBetterSpecified
+    {
+        get
+        {
             return this.higherValuesBetterFieldSpecified;
         }
-        set {
+        set
+        {
             this.higherValuesBetterFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool StopAdjustingAtGoal {
-        get {
+    public bool StopAdjustingAtGoal
+    {
+        get
+        {
             return this.stopAdjustingAtGoalField;
         }
-        set {
+        set
+        {
             this.stopAdjustingAtGoalField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool StopAdjustingAtGoalSpecified {
-        get {
+    public bool StopAdjustingAtGoalSpecified
+    {
+        get
+        {
             return this.stopAdjustingAtGoalFieldSpecified;
         }
-        set {
+        set
+        {
             this.stopAdjustingAtGoalFieldSpecified = value;
         }
     }
@@ -4482,70 +5377,86 @@ public partial class LoadTestTypeScenariosScenarioLoadProfile {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeScenariosScenarioTestProfile {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeScenariosScenarioTestProfile
+{
+
     private string nameField;
-    
+
     private string pathField;
-    
+
     private string idField;
-    
+
     private float percentageField;
-    
+
     private string typeField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Path {
-        get {
+    public string Path
+    {
+        get
+        {
             return this.pathField;
         }
-        set {
+        set
+        {
             this.pathField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Id {
-        get {
+    public string Id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public float Percentage {
-        get {
+    public float Percentage
+    {
+        get
+        {
             return this.percentageField;
         }
-        set {
+        set
+        {
             this.percentageField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Type {
-        get {
+    public string Type
+    {
+        get
+        {
             return this.typeField;
         }
-        set {
+        set
+        {
             this.typeField = value;
         }
     }
@@ -4556,70 +5467,86 @@ public partial class LoadTestTypeScenariosScenarioTestProfile {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeScenariosScenarioTestProfile1 {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeScenariosScenarioTestProfile1
+{
+
     private string nameField;
-    
+
     private string pathField;
-    
+
     private string idField;
-    
+
     private float percentageField;
-    
+
     private string typeField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Path {
-        get {
+    public string Path
+    {
+        get
+        {
             return this.pathField;
         }
-        set {
+        set
+        {
             this.pathField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Id {
-        get {
+    public string Id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public float Percentage {
-        get {
+    public float Percentage
+    {
+        get
+        {
             return this.percentageField;
         }
-        set {
+        set
+        {
             this.percentageField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Type {
-        get {
+    public string Type
+    {
+        get
+        {
             return this.typeField;
         }
-        set {
+        set
+        {
             this.typeField = value;
         }
     }
@@ -4630,70 +5557,86 @@ public partial class LoadTestTypeScenariosScenarioTestProfile1 {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeScenariosScenarioTestProfile2 {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeScenariosScenarioTestProfile2
+{
+
     private string nameField;
-    
+
     private string pathField;
-    
+
     private string idField;
-    
+
     private float percentageField;
-    
+
     private string typeField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Path {
-        get {
+    public string Path
+    {
+        get
+        {
             return this.pathField;
         }
-        set {
+        set
+        {
             this.pathField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Id {
-        get {
+    public string Id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public float Percentage {
-        get {
+    public float Percentage
+    {
+        get
+        {
             return this.percentageField;
         }
-        set {
+        set
+        {
             this.percentageField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Type {
-        get {
+    public string Type
+    {
+        get
+        {
             return this.typeField;
         }
-        set {
+        set
+        {
             this.typeField = value;
         }
     }
@@ -4704,18 +5647,22 @@ public partial class LoadTestTypeScenariosScenarioTestProfile2 {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeScenariosScenarioBrowserMix {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeScenariosScenarioBrowserMix
+{
+
     private LoadTestTypeScenariosScenarioBrowserMixBrowserProfile[] browserProfileField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("BrowserProfile")]
-    public LoadTestTypeScenariosScenarioBrowserMixBrowserProfile[] BrowserProfile {
-        get {
+    public LoadTestTypeScenariosScenarioBrowserMixBrowserProfile[] BrowserProfile
+    {
+        get
+        {
             return this.browserProfileField;
         }
-        set {
+        set
+        {
             this.browserProfileField = value;
         }
     }
@@ -4726,30 +5673,37 @@ public partial class LoadTestTypeScenariosScenarioBrowserMix {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeScenariosScenarioBrowserMixBrowserProfile {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeScenariosScenarioBrowserMixBrowserProfile
+{
+
     private LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowser browserField;
-    
+
     private float percentageField;
-    
+
     /// <remarks/>
-    public LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowser Browser {
-        get {
+    public LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowser Browser
+    {
+        get
+        {
             return this.browserField;
         }
-        set {
+        set
+        {
             this.browserField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public float Percentage {
-        get {
+    public float Percentage
+    {
+        get
+        {
             return this.percentageField;
         }
-        set {
+        set
+        {
             this.percentageField = value;
         }
     }
@@ -4760,56 +5714,69 @@ public partial class LoadTestTypeScenariosScenarioBrowserMixBrowserProfile {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowser {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowser
+{
+
     private LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowserHeaders headersField;
-    
+
     private string nameField;
-    
+
     private int maxConnectionsField;
-    
+
     private bool maxConnectionsFieldSpecified;
-    
+
     /// <remarks/>
-    public LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowserHeaders Headers {
-        get {
+    public LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowserHeaders Headers
+    {
+        get
+        {
             return this.headersField;
         }
-        set {
+        set
+        {
             this.headersField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int MaxConnections {
-        get {
+    public int MaxConnections
+    {
+        get
+        {
             return this.maxConnectionsField;
         }
-        set {
+        set
+        {
             this.maxConnectionsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool MaxConnectionsSpecified {
-        get {
+    public bool MaxConnectionsSpecified
+    {
+        get
+        {
             return this.maxConnectionsFieldSpecified;
         }
-        set {
+        set
+        {
             this.maxConnectionsFieldSpecified = value;
         }
     }
@@ -4820,18 +5787,22 @@ public partial class LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowse
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowserHeaders {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowserHeaders
+{
+
     private LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowserHeadersHeader[] headerField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Header")]
-    public LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowserHeadersHeader[] Header {
-        get {
+    public LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowserHeadersHeader[] Header
+    {
+        get
+        {
             return this.headerField;
         }
-        set {
+        set
+        {
             this.headerField = value;
         }
     }
@@ -4842,31 +5813,38 @@ public partial class LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowse
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowserHeadersHeader {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowserHeadersHeader
+{
+
     private string nameField;
-    
+
     private string valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Value {
-        get {
+    public string Value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -4877,18 +5855,22 @@ public partial class LoadTestTypeScenariosScenarioBrowserMixBrowserProfileBrowse
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeScenariosScenarioNetworkMix {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeScenariosScenarioNetworkMix
+{
+
     private LoadTestTypeScenariosScenarioNetworkMixNetworkProfile[] networkProfileField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("NetworkProfile")]
-    public LoadTestTypeScenariosScenarioNetworkMixNetworkProfile[] NetworkProfile {
-        get {
+    public LoadTestTypeScenariosScenarioNetworkMixNetworkProfile[] NetworkProfile
+    {
+        get
+        {
             return this.networkProfileField;
         }
-        set {
+        set
+        {
             this.networkProfileField = value;
         }
     }
@@ -4899,30 +5881,37 @@ public partial class LoadTestTypeScenariosScenarioNetworkMix {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeScenariosScenarioNetworkMixNetworkProfile {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeScenariosScenarioNetworkMixNetworkProfile
+{
+
     private NetworkType networkField;
-    
+
     private float percentageField;
-    
+
     /// <remarks/>
-    public NetworkType Network {
-        get {
+    public NetworkType Network
+    {
+        get
+        {
             return this.networkField;
         }
-        set {
+        set
+        {
             this.networkField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public float Percentage {
-        get {
+    public float Percentage
+    {
+        get
+        {
             return this.percentageField;
         }
-        set {
+        set
+        {
             this.percentageField = value;
         }
     }
@@ -4933,44 +5922,54 @@ public partial class LoadTestTypeScenariosScenarioNetworkMixNetworkProfile {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class NetworkType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class NetworkType
+{
+
     private string nameField;
-    
+
     private float bandwidthInKbpsField;
-    
+
     private string networkProfileConfigurationXmlField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public float BandwidthInKbps {
-        get {
+    public float BandwidthInKbps
+    {
+        get
+        {
             return this.bandwidthInKbpsField;
         }
-        set {
+        set
+        {
             this.bandwidthInKbpsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string NetworkProfileConfigurationXml {
-        get {
+    public string NetworkProfileConfigurationXml
+    {
+        get
+        {
             return this.networkProfileConfigurationXmlField;
         }
-        set {
+        set
+        {
             this.networkProfileConfigurationXmlField = value;
         }
     }
@@ -4979,18 +5978,19 @@ public partial class NetworkType {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum TestMixType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum TestMixType
+{
+
     /// <remarks/>
     Sequential,
-    
+
     /// <remarks/>
     PercentageOfTestsStarted,
-    
+
     /// <remarks/>
     PercentageOfUsersRunning,
-    
+
     /// <remarks/>
     UserPacing,
 }
@@ -5000,18 +6000,22 @@ public enum TestMixType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeCounterSets {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeCounterSets
+{
+
     private LoadTestTypeCounterSetsCounterSet[] counterSetField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("CounterSet")]
-    public LoadTestTypeCounterSetsCounterSet[] CounterSet {
-        get {
+    public LoadTestTypeCounterSetsCounterSet[] CounterSet
+    {
+        get
+        {
             return this.counterSetField;
         }
-        set {
+        set
+        {
             this.counterSetField = value;
         }
     }
@@ -5022,69 +6026,85 @@ public partial class LoadTestTypeCounterSets {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeCounterSetsCounterSet {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeCounterSetsCounterSet
+{
+
     private LoadTestTypeCounterSetsCounterSetCounterCategories counterCategoriesField;
-    
+
     private LoadTestTypeCounterSetsCounterSetDefaultCounter[] defaultCountersForAutomaticGraphsField;
-    
+
     private string nameField;
-    
+
     private string counterSetTypeField;
-    
+
     private string locIdField;
-    
+
     /// <remarks/>
-    public LoadTestTypeCounterSetsCounterSetCounterCategories CounterCategories {
-        get {
+    public LoadTestTypeCounterSetsCounterSetCounterCategories CounterCategories
+    {
+        get
+        {
             return this.counterCategoriesField;
         }
-        set {
+        set
+        {
             this.counterCategoriesField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("DefaultCounter", IsNullable=false)]
-    public LoadTestTypeCounterSetsCounterSetDefaultCounter[] DefaultCountersForAutomaticGraphs {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("DefaultCounter", IsNullable = false)]
+    public LoadTestTypeCounterSetsCounterSetDefaultCounter[] DefaultCountersForAutomaticGraphs
+    {
+        get
+        {
             return this.defaultCountersForAutomaticGraphsField;
         }
-        set {
+        set
+        {
             this.defaultCountersForAutomaticGraphsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string CounterSetType {
-        get {
+    public string CounterSetType
+    {
+        get
+        {
             return this.counterSetTypeField;
         }
-        set {
+        set
+        {
             this.counterSetTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string LocId {
-        get {
+    public string LocId
+    {
+        get
+        {
             return this.locIdField;
         }
-        set {
+        set
+        {
             this.locIdField = value;
         }
     }
@@ -5095,18 +6115,22 @@ public partial class LoadTestTypeCounterSetsCounterSet {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeCounterSetsCounterSetCounterCategories {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeCounterSetsCounterSetCounterCategories
+{
+
     private LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategory[] counterCategoryField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("CounterCategory")]
-    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategory[] CounterCategory {
-        get {
+    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategory[] CounterCategory
+    {
+        get
+        {
             return this.counterCategoryField;
         }
-        set {
+        set
+        {
             this.counterCategoryField = value;
         }
     }
@@ -5117,42 +6141,52 @@ public partial class LoadTestTypeCounterSetsCounterSetCounterCategories {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategory {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategory
+{
+
     private LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCounters countersField;
-    
+
     private LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryInstances instancesField;
-    
+
     private string nameField;
-    
+
     /// <remarks/>
-    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCounters Counters {
-        get {
+    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCounters Counters
+    {
+        get
+        {
             return this.countersField;
         }
-        set {
+        set
+        {
             this.countersField = value;
         }
     }
-    
+
     /// <remarks/>
-    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryInstances Instances {
-        get {
+    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryInstances Instances
+    {
+        get
+        {
             return this.instancesField;
         }
-        set {
+        set
+        {
             this.instancesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
@@ -5163,18 +6197,22 @@ public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCa
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCounters {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCounters
+{
+
     private LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounter[] counterField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Counter")]
-    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounter[] Counter {
-        get {
+    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounter[] Counter
+    {
+        get
+        {
             return this.counterField;
         }
-        set {
+        set
+        {
             this.counterField = value;
         }
     }
@@ -5185,87 +6223,107 @@ public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCa
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounter {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounter
+{
+
     private LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRules thresholdRulesField;
-    
+
     private string nameField;
-    
+
     private int rangeField;
-    
+
     private bool rangeFieldSpecified;
-    
+
     private string rangeGroupField;
-    
+
     private bool higherIsBetterField;
-    
-    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounter() {
+
+    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounter()
+    {
         this.higherIsBetterField = false;
     }
-    
+
     /// <remarks/>
-    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRules ThresholdRules {
-        get {
+    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRules ThresholdRules
+    {
+        get
+        {
             return this.thresholdRulesField;
         }
-        set {
+        set
+        {
             this.thresholdRulesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int Range {
-        get {
+    public int Range
+    {
+        get
+        {
             return this.rangeField;
         }
-        set {
+        set
+        {
             this.rangeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool RangeSpecified {
-        get {
+    public bool RangeSpecified
+    {
+        get
+        {
             return this.rangeFieldSpecified;
         }
-        set {
+        set
+        {
             this.rangeFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string RangeGroup {
-        get {
+    public string RangeGroup
+    {
+        get
+        {
             return this.rangeGroupField;
         }
-        set {
+        set
+        {
             this.rangeGroupField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool HigherIsBetter {
-        get {
+    public bool HigherIsBetter
+    {
+        get
+        {
             return this.higherIsBetterField;
         }
-        set {
+        set
+        {
             this.higherIsBetterField = value;
         }
     }
@@ -5276,18 +6334,22 @@ public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCa
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRules {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRules
+{
+
     private LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRulesThresholdRule[] thresholdRuleField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("ThresholdRule")]
-    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRulesThresholdRule[] ThresholdRule {
-        get {
+    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRulesThresholdRule[] ThresholdRule
+    {
+        get
+        {
             return this.thresholdRuleField;
         }
-        set {
+        set
+        {
             this.thresholdRuleField = value;
         }
     }
@@ -5298,30 +6360,37 @@ public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCa
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRulesThresholdRule {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRulesThresholdRule
+{
+
     private LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRulesThresholdRuleRuleParameters ruleParametersField;
-    
+
     private string classnameField;
-    
+
     /// <remarks/>
-    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRulesThresholdRuleRuleParameters RuleParameters {
-        get {
+    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRulesThresholdRuleRuleParameters RuleParameters
+    {
+        get
+        {
             return this.ruleParametersField;
         }
-        set {
+        set
+        {
             this.ruleParametersField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Classname {
-        get {
+    public string Classname
+    {
+        get
+        {
             return this.classnameField;
         }
-        set {
+        set
+        {
             this.classnameField = value;
         }
     }
@@ -5332,18 +6401,22 @@ public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCa
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRulesThresholdRuleRuleParameters {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRulesThresholdRuleRuleParameters
+{
+
     private LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRulesThresholdRuleRuleParametersRuleParameter[] ruleParameterField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("RuleParameter")]
-    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRulesThresholdRuleRuleParametersRuleParameter[] RuleParameter {
-        get {
+    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRulesThresholdRuleRuleParametersRuleParameter[] RuleParameter
+    {
+        get
+        {
             return this.ruleParameterField;
         }
-        set {
+        set
+        {
             this.ruleParameterField = value;
         }
     }
@@ -5354,31 +6427,38 @@ public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCa
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRulesThresholdRuleRuleParametersRuleParameter {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryCountersCounterThresholdRulesThresholdRuleRuleParametersRuleParameter
+{
+
     private string nameField;
-    
+
     private string valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Value {
-        get {
+    public string Value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -5389,18 +6469,22 @@ public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCa
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryInstances {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryInstances
+{
+
     private LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryInstancesInstance[] instanceField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Instance")]
-    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryInstancesInstance[] Instance {
-        get {
+    public LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryInstancesInstance[] Instance
+    {
+        get
+        {
             return this.instanceField;
         }
-        set {
+        set
+        {
             this.instanceField = value;
         }
     }
@@ -5411,18 +6495,22 @@ public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCa
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryInstancesInstance {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCategoryInstancesInstance
+{
+
     private string nameField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
@@ -5433,96 +6521,118 @@ public partial class LoadTestTypeCounterSetsCounterSetCounterCategoriesCounterCa
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeCounterSetsCounterSetDefaultCounter {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeCounterSetsCounterSetDefaultCounter
+{
+
     private string categoryNameField;
-    
+
     private string counterNameField;
-    
+
     private string instanceNameField;
-    
+
     private string graphNameField;
-    
+
     private int rangeField;
-    
+
     private bool rangeFieldSpecified;
-    
+
     private string runTypeField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string CategoryName {
-        get {
+    public string CategoryName
+    {
+        get
+        {
             return this.categoryNameField;
         }
-        set {
+        set
+        {
             this.categoryNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string CounterName {
-        get {
+    public string CounterName
+    {
+        get
+        {
             return this.counterNameField;
         }
-        set {
+        set
+        {
             this.counterNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string InstanceName {
-        get {
+    public string InstanceName
+    {
+        get
+        {
             return this.instanceNameField;
         }
-        set {
+        set
+        {
             this.instanceNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string GraphName {
-        get {
+    public string GraphName
+    {
+        get
+        {
             return this.graphNameField;
         }
-        set {
+        set
+        {
             this.graphNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int Range {
-        get {
+    public int Range
+    {
+        get
+        {
             return this.rangeField;
         }
-        set {
+        set
+        {
             this.rangeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool RangeSpecified {
-        get {
+    public bool RangeSpecified
+    {
+        get
+        {
             return this.rangeFieldSpecified;
         }
-        set {
+        set
+        {
             this.rangeFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string RunType {
-        get {
+    public string RunType
+    {
+        get
+        {
             return this.runTypeField;
         }
-        set {
+        set
+        {
             this.runTypeField = value;
         }
     }
@@ -5533,18 +6643,22 @@ public partial class LoadTestTypeCounterSetsCounterSetDefaultCounter {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurations {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurations
+{
+
     private LoadTestTypeRunConfigurationsRunConfiguration[] runConfigurationField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("RunConfiguration")]
-    public LoadTestTypeRunConfigurationsRunConfiguration[] RunConfiguration {
-        get {
+    public LoadTestTypeRunConfigurationsRunConfiguration[] RunConfiguration
+    {
+        get
+        {
             return this.runConfigurationField;
         }
-        set {
+        set
+        {
             this.runConfigurationField = value;
         }
     }
@@ -5555,661 +6669,813 @@ public partial class LoadTestTypeRunConfigurations {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfiguration {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfiguration
+{
+
     private LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappings counterSetMappingsField;
-    
+
     private LoadTestTypeRunConfigurationsRunConfigurationApplications applicationsField;
-    
+
     private LoadTestTypeRunConfigurationsRunConfigurationLoadGeneratorLocations loadGeneratorLocationsField;
-    
+
     private LoadTestTypeRunConfigurationsRunConfigurationContextParameter[] contextParametersField;
-    
+
     private string nameField;
-    
+
     private string descriptionField;
-    
+
     private string resultsStoreTypeField;
-    
+
     private string timingDetailsStorageField;
-    
+
     private int maxErrorDetailsField;
-    
+
     private int maxRequestUrlsReportedField;
-    
+
     private int maxErrorsPerTypeField;
-    
+
     private bool maxErrorsPerTypeFieldSpecified;
-    
+
     private int maxThresholdViolationsField;
-    
+
     private bool maxThresholdViolationsFieldSpecified;
-    
+
     private bool useTestIterationsField;
-    
+
     private bool useTestIterationsFieldSpecified;
-    
+
     private int runDurationField;
-    
+
     private int warmupTimeField;
-    
+
     private int coolDownTimeField;
-    
+
     private bool coolDownTimeFieldSpecified;
-    
+
     private int testIterationsField;
-    
+
     private bool testIterationsFieldSpecified;
-    
+
     private WebTestConnectionModel webTestConnectionModelField;
-    
+
     private int webTestConnectionPoolSizeField;
-    
+
     private int sampleRateField;
-    
+
     private LoadTestValidationLevel validationLevelField;
-    
+
     private string sqlTracingConnectStringField;
-    
+
     private string sqlTracingConnectStringDisplayValueField;
-    
+
     private string sqlTracingDirectoryField;
-    
+
     private bool sqlTracingEnabledField;
-    
+
     private bool sqlTracingEnabledFieldSpecified;
-    
+
     private int sqlTracingFileCountField;
-    
+
     private bool sqlTracingFileCountFieldSpecified;
-    
+
     private bool sqlTracingRolloverEnabledField;
-    
+
     private bool sqlTracingRolloverEnabledFieldSpecified;
-    
+
     private int sqlTracingMinimumDurationField;
-    
+
     private bool sqlTracingMinimumDurationFieldSpecified;
-    
+
     private bool runUnitTestsInAppDomainField;
-    
+
     private bool runUnitTestsInAppDomainFieldSpecified;
-    
+
     private bool saveTestLogsOnErrorField;
-    
+
     private bool saveTestLogsOnErrorFieldSpecified;
-    
+
     private int saveTestLogsFrequencyField;
-    
+
     private bool saveTestLogsFrequencyFieldSpecified;
-    
+
     private int coreCountField;
-    
+
     private bool coreCountFieldSpecified;
-    
+
     private bool useMultipleIPsField;
-    
+
     private LoadTestAgentConfiguration testAgentConfigurationField;
-    
+
     private AgentDiagnosticsTraceLevel agentDiagnosticsLevelField;
-    
+
     private int resourcesRetentionTimeInMinutesField;
-    
+
     private bool resourcesRetentionTimeInMinutesFieldSpecified;
-    
-    public LoadTestTypeRunConfigurationsRunConfiguration() {
+
+    public LoadTestTypeRunConfigurationsRunConfiguration()
+    {
         this.useMultipleIPsField = false;
         this.testAgentConfigurationField = LoadTestAgentConfiguration.Default;
         this.agentDiagnosticsLevelField = AgentDiagnosticsTraceLevel.Warning;
     }
-    
+
     /// <remarks/>
-    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappings CounterSetMappings {
-        get {
+    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappings CounterSetMappings
+    {
+        get
+        {
             return this.counterSetMappingsField;
         }
-        set {
+        set
+        {
             this.counterSetMappingsField = value;
         }
     }
-    
+
     /// <remarks/>
-    public LoadTestTypeRunConfigurationsRunConfigurationApplications Applications {
-        get {
+    public LoadTestTypeRunConfigurationsRunConfigurationApplications Applications
+    {
+        get
+        {
             return this.applicationsField;
         }
-        set {
+        set
+        {
             this.applicationsField = value;
         }
     }
-    
+
     /// <remarks/>
-    public LoadTestTypeRunConfigurationsRunConfigurationLoadGeneratorLocations LoadGeneratorLocations {
-        get {
+    public LoadTestTypeRunConfigurationsRunConfigurationLoadGeneratorLocations LoadGeneratorLocations
+    {
+        get
+        {
             return this.loadGeneratorLocationsField;
         }
-        set {
+        set
+        {
             this.loadGeneratorLocationsField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("ContextParameter", IsNullable=false)]
-    public LoadTestTypeRunConfigurationsRunConfigurationContextParameter[] ContextParameters {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("ContextParameter", IsNullable = false)]
+    public LoadTestTypeRunConfigurationsRunConfigurationContextParameter[] ContextParameters
+    {
+        get
+        {
             return this.contextParametersField;
         }
-        set {
+        set
+        {
             this.contextParametersField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Description {
-        get {
+    public string Description
+    {
+        get
+        {
             return this.descriptionField;
         }
-        set {
+        set
+        {
             this.descriptionField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string ResultsStoreType {
-        get {
+    public string ResultsStoreType
+    {
+        get
+        {
             return this.resultsStoreTypeField;
         }
-        set {
+        set
+        {
             this.resultsStoreTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string TimingDetailsStorage {
-        get {
+    public string TimingDetailsStorage
+    {
+        get
+        {
             return this.timingDetailsStorageField;
         }
-        set {
+        set
+        {
             this.timingDetailsStorageField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int MaxErrorDetails {
-        get {
+    public int MaxErrorDetails
+    {
+        get
+        {
             return this.maxErrorDetailsField;
         }
-        set {
+        set
+        {
             this.maxErrorDetailsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int MaxRequestUrlsReported {
-        get {
+    public int MaxRequestUrlsReported
+    {
+        get
+        {
             return this.maxRequestUrlsReportedField;
         }
-        set {
+        set
+        {
             this.maxRequestUrlsReportedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int MaxErrorsPerType {
-        get {
+    public int MaxErrorsPerType
+    {
+        get
+        {
             return this.maxErrorsPerTypeField;
         }
-        set {
+        set
+        {
             this.maxErrorsPerTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool MaxErrorsPerTypeSpecified {
-        get {
+    public bool MaxErrorsPerTypeSpecified
+    {
+        get
+        {
             return this.maxErrorsPerTypeFieldSpecified;
         }
-        set {
+        set
+        {
             this.maxErrorsPerTypeFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int MaxThresholdViolations {
-        get {
+    public int MaxThresholdViolations
+    {
+        get
+        {
             return this.maxThresholdViolationsField;
         }
-        set {
+        set
+        {
             this.maxThresholdViolationsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool MaxThresholdViolationsSpecified {
-        get {
+    public bool MaxThresholdViolationsSpecified
+    {
+        get
+        {
             return this.maxThresholdViolationsFieldSpecified;
         }
-        set {
+        set
+        {
             this.maxThresholdViolationsFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool UseTestIterations {
-        get {
+    public bool UseTestIterations
+    {
+        get
+        {
             return this.useTestIterationsField;
         }
-        set {
+        set
+        {
             this.useTestIterationsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool UseTestIterationsSpecified {
-        get {
+    public bool UseTestIterationsSpecified
+    {
+        get
+        {
             return this.useTestIterationsFieldSpecified;
         }
-        set {
+        set
+        {
             this.useTestIterationsFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int RunDuration {
-        get {
+    public int RunDuration
+    {
+        get
+        {
             return this.runDurationField;
         }
-        set {
+        set
+        {
             this.runDurationField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int WarmupTime {
-        get {
+    public int WarmupTime
+    {
+        get
+        {
             return this.warmupTimeField;
         }
-        set {
+        set
+        {
             this.warmupTimeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int CoolDownTime {
-        get {
+    public int CoolDownTime
+    {
+        get
+        {
             return this.coolDownTimeField;
         }
-        set {
+        set
+        {
             this.coolDownTimeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool CoolDownTimeSpecified {
-        get {
+    public bool CoolDownTimeSpecified
+    {
+        get
+        {
             return this.coolDownTimeFieldSpecified;
         }
-        set {
+        set
+        {
             this.coolDownTimeFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int TestIterations {
-        get {
+    public int TestIterations
+    {
+        get
+        {
             return this.testIterationsField;
         }
-        set {
+        set
+        {
             this.testIterationsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool TestIterationsSpecified {
-        get {
+    public bool TestIterationsSpecified
+    {
+        get
+        {
             return this.testIterationsFieldSpecified;
         }
-        set {
+        set
+        {
             this.testIterationsFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public WebTestConnectionModel WebTestConnectionModel {
-        get {
+    public WebTestConnectionModel WebTestConnectionModel
+    {
+        get
+        {
             return this.webTestConnectionModelField;
         }
-        set {
+        set
+        {
             this.webTestConnectionModelField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int WebTestConnectionPoolSize {
-        get {
+    public int WebTestConnectionPoolSize
+    {
+        get
+        {
             return this.webTestConnectionPoolSizeField;
         }
-        set {
+        set
+        {
             this.webTestConnectionPoolSizeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int SampleRate {
-        get {
+    public int SampleRate
+    {
+        get
+        {
             return this.sampleRateField;
         }
-        set {
+        set
+        {
             this.sampleRateField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public LoadTestValidationLevel ValidationLevel {
-        get {
+    public LoadTestValidationLevel ValidationLevel
+    {
+        get
+        {
             return this.validationLevelField;
         }
-        set {
+        set
+        {
             this.validationLevelField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string SqlTracingConnectString {
-        get {
+    public string SqlTracingConnectString
+    {
+        get
+        {
             return this.sqlTracingConnectStringField;
         }
-        set {
+        set
+        {
             this.sqlTracingConnectStringField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string SqlTracingConnectStringDisplayValue {
-        get {
+    public string SqlTracingConnectStringDisplayValue
+    {
+        get
+        {
             return this.sqlTracingConnectStringDisplayValueField;
         }
-        set {
+        set
+        {
             this.sqlTracingConnectStringDisplayValueField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string SqlTracingDirectory {
-        get {
+    public string SqlTracingDirectory
+    {
+        get
+        {
             return this.sqlTracingDirectoryField;
         }
-        set {
+        set
+        {
             this.sqlTracingDirectoryField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool SqlTracingEnabled {
-        get {
+    public bool SqlTracingEnabled
+    {
+        get
+        {
             return this.sqlTracingEnabledField;
         }
-        set {
+        set
+        {
             this.sqlTracingEnabledField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool SqlTracingEnabledSpecified {
-        get {
+    public bool SqlTracingEnabledSpecified
+    {
+        get
+        {
             return this.sqlTracingEnabledFieldSpecified;
         }
-        set {
+        set
+        {
             this.sqlTracingEnabledFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int SqlTracingFileCount {
-        get {
+    public int SqlTracingFileCount
+    {
+        get
+        {
             return this.sqlTracingFileCountField;
         }
-        set {
+        set
+        {
             this.sqlTracingFileCountField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool SqlTracingFileCountSpecified {
-        get {
+    public bool SqlTracingFileCountSpecified
+    {
+        get
+        {
             return this.sqlTracingFileCountFieldSpecified;
         }
-        set {
+        set
+        {
             this.sqlTracingFileCountFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool SqlTracingRolloverEnabled {
-        get {
+    public bool SqlTracingRolloverEnabled
+    {
+        get
+        {
             return this.sqlTracingRolloverEnabledField;
         }
-        set {
+        set
+        {
             this.sqlTracingRolloverEnabledField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool SqlTracingRolloverEnabledSpecified {
-        get {
+    public bool SqlTracingRolloverEnabledSpecified
+    {
+        get
+        {
             return this.sqlTracingRolloverEnabledFieldSpecified;
         }
-        set {
+        set
+        {
             this.sqlTracingRolloverEnabledFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int SqlTracingMinimumDuration {
-        get {
+    public int SqlTracingMinimumDuration
+    {
+        get
+        {
             return this.sqlTracingMinimumDurationField;
         }
-        set {
+        set
+        {
             this.sqlTracingMinimumDurationField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool SqlTracingMinimumDurationSpecified {
-        get {
+    public bool SqlTracingMinimumDurationSpecified
+    {
+        get
+        {
             return this.sqlTracingMinimumDurationFieldSpecified;
         }
-        set {
+        set
+        {
             this.sqlTracingMinimumDurationFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool RunUnitTestsInAppDomain {
-        get {
+    public bool RunUnitTestsInAppDomain
+    {
+        get
+        {
             return this.runUnitTestsInAppDomainField;
         }
-        set {
+        set
+        {
             this.runUnitTestsInAppDomainField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool RunUnitTestsInAppDomainSpecified {
-        get {
+    public bool RunUnitTestsInAppDomainSpecified
+    {
+        get
+        {
             return this.runUnitTestsInAppDomainFieldSpecified;
         }
-        set {
+        set
+        {
             this.runUnitTestsInAppDomainFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool SaveTestLogsOnError {
-        get {
+    public bool SaveTestLogsOnError
+    {
+        get
+        {
             return this.saveTestLogsOnErrorField;
         }
-        set {
+        set
+        {
             this.saveTestLogsOnErrorField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool SaveTestLogsOnErrorSpecified {
-        get {
+    public bool SaveTestLogsOnErrorSpecified
+    {
+        get
+        {
             return this.saveTestLogsOnErrorFieldSpecified;
         }
-        set {
+        set
+        {
             this.saveTestLogsOnErrorFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int SaveTestLogsFrequency {
-        get {
+    public int SaveTestLogsFrequency
+    {
+        get
+        {
             return this.saveTestLogsFrequencyField;
         }
-        set {
+        set
+        {
             this.saveTestLogsFrequencyField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool SaveTestLogsFrequencySpecified {
-        get {
+    public bool SaveTestLogsFrequencySpecified
+    {
+        get
+        {
             return this.saveTestLogsFrequencyFieldSpecified;
         }
-        set {
+        set
+        {
             this.saveTestLogsFrequencyFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int CoreCount {
-        get {
+    public int CoreCount
+    {
+        get
+        {
             return this.coreCountField;
         }
-        set {
+        set
+        {
             this.coreCountField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool CoreCountSpecified {
-        get {
+    public bool CoreCountSpecified
+    {
+        get
+        {
             return this.coreCountFieldSpecified;
         }
-        set {
+        set
+        {
             this.coreCountFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool UseMultipleIPs {
-        get {
+    public bool UseMultipleIPs
+    {
+        get
+        {
             return this.useMultipleIPsField;
         }
-        set {
+        set
+        {
             this.useMultipleIPsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(LoadTestAgentConfiguration.Default)]
-    public LoadTestAgentConfiguration TestAgentConfiguration {
-        get {
+    public LoadTestAgentConfiguration TestAgentConfiguration
+    {
+        get
+        {
             return this.testAgentConfigurationField;
         }
-        set {
+        set
+        {
             this.testAgentConfigurationField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(AgentDiagnosticsTraceLevel.Warning)]
-    public AgentDiagnosticsTraceLevel AgentDiagnosticsLevel {
-        get {
+    public AgentDiagnosticsTraceLevel AgentDiagnosticsLevel
+    {
+        get
+        {
             return this.agentDiagnosticsLevelField;
         }
-        set {
+        set
+        {
             this.agentDiagnosticsLevelField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int ResourcesRetentionTimeInMinutes {
-        get {
+    public int ResourcesRetentionTimeInMinutes
+    {
+        get
+        {
             return this.resourcesRetentionTimeInMinutesField;
         }
-        set {
+        set
+        {
             this.resourcesRetentionTimeInMinutesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool ResourcesRetentionTimeInMinutesSpecified {
-        get {
+    public bool ResourcesRetentionTimeInMinutesSpecified
+    {
+        get
+        {
             return this.resourcesRetentionTimeInMinutesFieldSpecified;
         }
-        set {
+        set
+        {
             this.resourcesRetentionTimeInMinutesFieldSpecified = value;
         }
     }
@@ -6220,31 +7486,38 @@ public partial class LoadTestTypeRunConfigurationsRunConfiguration {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappings {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappings
+{
+
     private LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsCounterSetMapping[] counterSetMappingField;
-    
+
     private LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettings[] applicationsUnderTestSettingsField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("CounterSetMapping")]
-    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsCounterSetMapping[] CounterSetMapping {
-        get {
+    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsCounterSetMapping[] CounterSetMapping
+    {
+        get
+        {
             return this.counterSetMappingField;
         }
-        set {
+        set
+        {
             this.counterSetMappingField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("ApplicationsUnderTestSettings")]
-    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettings[] ApplicationsUnderTestSettings {
-        get {
+    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettings[] ApplicationsUnderTestSettings
+    {
+        get
+        {
             return this.applicationsUnderTestSettingsField;
         }
-        set {
+        set
+        {
             this.applicationsUnderTestSettingsField = value;
         }
     }
@@ -6255,30 +7528,37 @@ public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMapp
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsCounterSetMapping {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsCounterSetMapping
+{
+
     private LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsCounterSetMappingCounterSetReferences counterSetReferencesField;
-    
+
     private string computerNameField;
-    
+
     /// <remarks/>
-    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsCounterSetMappingCounterSetReferences CounterSetReferences {
-        get {
+    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsCounterSetMappingCounterSetReferences CounterSetReferences
+    {
+        get
+        {
             return this.counterSetReferencesField;
         }
-        set {
+        set
+        {
             this.counterSetReferencesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string ComputerName {
-        get {
+    public string ComputerName
+    {
+        get
+        {
             return this.computerNameField;
         }
-        set {
+        set
+        {
             this.computerNameField = value;
         }
     }
@@ -6289,18 +7569,22 @@ public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMapp
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsCounterSetMappingCounterSetReferences {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsCounterSetMappingCounterSetReferences
+{
+
     private LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsCounterSetMappingCounterSetReferencesCounterSetReference[] counterSetReferenceField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("CounterSetReference")]
-    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsCounterSetMappingCounterSetReferencesCounterSetReference[] CounterSetReference {
-        get {
+    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsCounterSetMappingCounterSetReferencesCounterSetReference[] CounterSetReference
+    {
+        get
+        {
             return this.counterSetReferenceField;
         }
-        set {
+        set
+        {
             this.counterSetReferenceField = value;
         }
     }
@@ -6311,18 +7595,22 @@ public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMapp
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsCounterSetMappingCounterSetReferencesCounterSetReference {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsCounterSetMappingCounterSetReferencesCounterSetReference
+{
+
     private string counterSetNameField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string CounterSetName {
-        get {
+    public string CounterSetName
+    {
+        get
+        {
             return this.counterSetNameField;
         }
-        set {
+        set
+        {
             this.counterSetNameField = value;
         }
     }
@@ -6333,18 +7621,22 @@ public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMapp
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettings {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettings
+{
+
     private LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettingsApplicationUnderTestGroup[] applicationUnderTestGroupField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("ApplicationUnderTestGroup")]
-    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettingsApplicationUnderTestGroup[] ApplicationUnderTestGroup {
-        get {
+    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettingsApplicationUnderTestGroup[] ApplicationUnderTestGroup
+    {
+        get
+        {
             return this.applicationUnderTestGroupField;
         }
-        set {
+        set
+        {
             this.applicationUnderTestGroupField = value;
         }
     }
@@ -6355,43 +7647,53 @@ public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMapp
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettingsApplicationUnderTestGroup {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettingsApplicationUnderTestGroup
+{
+
     private LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettingsApplicationUnderTestGroupApplicationsUnderTest applicationsUnderTestField;
-    
+
     private string typeField;
-    
+
     private string nameField;
-    
+
     /// <remarks/>
-    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettingsApplicationUnderTestGroupApplicationsUnderTest ApplicationsUnderTest {
-        get {
+    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettingsApplicationUnderTestGroupApplicationsUnderTest ApplicationsUnderTest
+    {
+        get
+        {
             return this.applicationsUnderTestField;
         }
-        set {
+        set
+        {
             this.applicationsUnderTestField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Type {
-        get {
+    public string Type
+    {
+        get
+        {
             return this.typeField;
         }
-        set {
+        set
+        {
             this.typeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
@@ -6402,18 +7704,22 @@ public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMapp
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettingsApplicationUnderTestGroupApplicationsUnderTest {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettingsApplicationUnderTestGroupApplicationsUnderTest
+{
+
     private LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettingsApplicationUnderTestGroupApplicationsUnderTestApplicationUnderTest[] applicationUnderTestField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("ApplicationUnderTest")]
-    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettingsApplicationUnderTestGroupApplicationsUnderTestApplicationUnderTest[] ApplicationUnderTest {
-        get {
+    public LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettingsApplicationUnderTestGroupApplicationsUnderTestApplicationUnderTest[] ApplicationUnderTest
+    {
+        get
+        {
             return this.applicationUnderTestField;
         }
-        set {
+        set
+        {
             this.applicationUnderTestField = value;
         }
     }
@@ -6424,44 +7730,54 @@ public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMapp
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettingsApplicationUnderTestGroupApplicationsUnderTestApplicationUnderTest {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMappingsApplicationsUnderTestSettingsApplicationUnderTestGroupApplicationsUnderTestApplicationUnderTest
+{
+
     private NameValuePropertyType[] propertiesField;
-    
+
     private string nameField;
-    
+
     private string pathField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Property", IsNullable=false)]
-    public NameValuePropertyType[] Properties {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Property", IsNullable = false)]
+    public NameValuePropertyType[] Properties
+    {
+        get
+        {
             return this.propertiesField;
         }
-        set {
+        set
+        {
             this.propertiesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Path {
-        get {
+    public string Path
+    {
+        get
+        {
             return this.pathField;
         }
-        set {
+        set
+        {
             this.pathField = value;
         }
     }
@@ -6472,31 +7788,38 @@ public partial class LoadTestTypeRunConfigurationsRunConfigurationCounterSetMapp
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class NameValuePropertyType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class NameValuePropertyType
+{
+
     private string nameField;
-    
+
     private string valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string value {
-        get {
+    public string value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -6507,18 +7830,22 @@ public partial class NameValuePropertyType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfigurationApplications {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfigurationApplications
+{
+
     private LoadTestTypeRunConfigurationsRunConfigurationApplicationsAutComponent[] autComponentField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("AutComponent")]
-    public LoadTestTypeRunConfigurationsRunConfigurationApplicationsAutComponent[] AutComponent {
-        get {
+    public LoadTestTypeRunConfigurationsRunConfigurationApplicationsAutComponent[] AutComponent
+    {
+        get
+        {
             return this.autComponentField;
         }
-        set {
+        set
+        {
             this.autComponentField = value;
         }
     }
@@ -6529,95 +7856,117 @@ public partial class LoadTestTypeRunConfigurationsRunConfigurationApplications {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfigurationApplicationsAutComponent {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfigurationApplicationsAutComponent
+{
+
     private LoadTestTypeRunConfigurationsRunConfigurationApplicationsAutComponentAutCounters autCountersField;
-    
+
     private string descriptionField;
-    
+
     private string idField;
-    
+
     private string nameField;
-    
+
     private string typeField;
-    
+
     private string separatorField;
-    
+
     private string versionField;
-    
+
     /// <remarks/>
-    public LoadTestTypeRunConfigurationsRunConfigurationApplicationsAutComponentAutCounters AutCounters {
-        get {
+    public LoadTestTypeRunConfigurationsRunConfigurationApplicationsAutComponentAutCounters AutCounters
+    {
+        get
+        {
             return this.autCountersField;
         }
-        set {
+        set
+        {
             this.autCountersField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Description {
-        get {
+    public string Description
+    {
+        get
+        {
             return this.descriptionField;
         }
-        set {
+        set
+        {
             this.descriptionField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Id {
-        get {
+    public string Id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Type {
-        get {
+    public string Type
+    {
+        get
+        {
             return this.typeField;
         }
-        set {
+        set
+        {
             this.typeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Separator {
-        get {
+    public string Separator
+    {
+        get
+        {
             return this.separatorField;
         }
-        set {
+        set
+        {
             this.separatorField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Version {
-        get {
+    public string Version
+    {
+        get
+        {
             return this.versionField;
         }
-        set {
+        set
+        {
             this.versionField = value;
         }
     }
@@ -6628,18 +7977,22 @@ public partial class LoadTestTypeRunConfigurationsRunConfigurationApplicationsAu
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfigurationApplicationsAutComponentAutCounters {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfigurationApplicationsAutComponentAutCounters
+{
+
     private LoadTestTypeRunConfigurationsRunConfigurationApplicationsAutComponentAutCountersAutCounter[] autCounterField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("AutCounter")]
-    public LoadTestTypeRunConfigurationsRunConfigurationApplicationsAutComponentAutCountersAutCounter[] AutCounter {
-        get {
+    public LoadTestTypeRunConfigurationsRunConfigurationApplicationsAutComponentAutCountersAutCounter[] AutCounter
+    {
+        get
+        {
             return this.autCounterField;
         }
-        set {
+        set
+        {
             this.autCounterField = value;
         }
     }
@@ -6650,57 +8003,70 @@ public partial class LoadTestTypeRunConfigurationsRunConfigurationApplicationsAu
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfigurationApplicationsAutComponentAutCountersAutCounter {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfigurationApplicationsAutComponentAutCountersAutCounter
+{
+
     private string descriptionField;
-    
+
     private string idField;
-    
+
     private string nameField;
-    
+
     private string pathField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Description {
-        get {
+    public string Description
+    {
+        get
+        {
             return this.descriptionField;
         }
-        set {
+        set
+        {
             this.descriptionField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Id {
-        get {
+    public string Id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Path {
-        get {
+    public string Path
+    {
+        get
+        {
             return this.pathField;
         }
-        set {
+        set
+        {
             this.pathField = value;
         }
     }
@@ -6711,18 +8077,22 @@ public partial class LoadTestTypeRunConfigurationsRunConfigurationApplicationsAu
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfigurationLoadGeneratorLocations {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfigurationLoadGeneratorLocations
+{
+
     private LoadTestTypeRunConfigurationsRunConfigurationLoadGeneratorLocationsGeoLocation[] geoLocationField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("GeoLocation")]
-    public LoadTestTypeRunConfigurationsRunConfigurationLoadGeneratorLocationsGeoLocation[] GeoLocation {
-        get {
+    public LoadTestTypeRunConfigurationsRunConfigurationLoadGeneratorLocationsGeoLocation[] GeoLocation
+    {
+        get
+        {
             return this.geoLocationField;
         }
-        set {
+        set
+        {
             this.geoLocationField = value;
         }
     }
@@ -6733,31 +8103,38 @@ public partial class LoadTestTypeRunConfigurationsRunConfigurationLoadGeneratorL
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfigurationLoadGeneratorLocationsGeoLocation {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfigurationLoadGeneratorLocationsGeoLocation
+{
+
     private string locationField;
-    
+
     private int percentangeField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Location {
-        get {
+    public string Location
+    {
+        get
+        {
             return this.locationField;
         }
-        set {
+        set
+        {
             this.locationField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int Percentange {
-        get {
+    public int Percentange
+    {
+        get
+        {
             return this.percentangeField;
         }
-        set {
+        set
+        {
             this.percentangeField = value;
         }
     }
@@ -6768,44 +8145,54 @@ public partial class LoadTestTypeRunConfigurationsRunConfigurationLoadGeneratorL
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeRunConfigurationsRunConfigurationContextParameter {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeRunConfigurationsRunConfigurationContextParameter
+{
+
     private string nameField;
-    
+
     private string valueField;
-    
+
     private string value1Field;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Value {
-        get {
+    public string Value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlTextAttribute()]
-    public string Value1 {
-        get {
+    public string Value1
+    {
+        get
+        {
             return this.value1Field;
         }
-        set {
+        set
+        {
             this.value1Field = value;
         }
     }
@@ -6814,15 +8201,16 @@ public partial class LoadTestTypeRunConfigurationsRunConfigurationContextParamet
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum WebTestConnectionModel {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum WebTestConnectionModel
+{
+
     /// <remarks/>
     ConnectionPerUser,
-    
+
     /// <remarks/>
     ConnectionPool,
-    
+
     /// <remarks/>
     ConnectionPerTestIteration,
 }
@@ -6830,15 +8218,16 @@ public enum WebTestConnectionModel {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum LoadTestValidationLevel {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum LoadTestValidationLevel
+{
+
     /// <remarks/>
     Low,
-    
+
     /// <remarks/>
     Medium,
-    
+
     /// <remarks/>
     High,
 }
@@ -6846,16 +8235,17 @@ public enum LoadTestValidationLevel {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum LoadTestAgentConfiguration {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum LoadTestAgentConfiguration
+{
+
     /// <remarks/>
     Default,
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Trusted IP")]
     TrustedIP,
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Private Cloud")]
     PrivateCloud,
@@ -6864,21 +8254,22 @@ public enum LoadTestAgentConfiguration {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum AgentDiagnosticsTraceLevel {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum AgentDiagnosticsTraceLevel
+{
+
     /// <remarks/>
     None,
-    
+
     /// <remarks/>
     Error,
-    
+
     /// <remarks/>
     Warning,
-    
+
     /// <remarks/>
     Information,
-    
+
     /// <remarks/>
     Verbose,
 }
@@ -6888,70 +8279,86 @@ public enum AgentDiagnosticsTraceLevel {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeLoadTestPluginsLoadTestPlugin {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeLoadTestPluginsLoadTestPlugin
+{
+
     private LoadTestTypeLoadTestPluginsLoadTestPluginRuleParameter[] ruleParametersField;
-    
+
     private string[] textField;
-    
+
     private string classnameField;
-    
+
     private string displayNameField;
-    
+
     private string descriptionField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("RuleParameter", IsNullable=false)]
-    public LoadTestTypeLoadTestPluginsLoadTestPluginRuleParameter[] RuleParameters {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("RuleParameter", IsNullable = false)]
+    public LoadTestTypeLoadTestPluginsLoadTestPluginRuleParameter[] RuleParameters
+    {
+        get
+        {
             return this.ruleParametersField;
         }
-        set {
+        set
+        {
             this.ruleParametersField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlTextAttribute()]
-    public string[] Text {
-        get {
+    public string[] Text
+    {
+        get
+        {
             return this.textField;
         }
-        set {
+        set
+        {
             this.textField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Classname {
-        get {
+    public string Classname
+    {
+        get
+        {
             return this.classnameField;
         }
-        set {
+        set
+        {
             this.classnameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string DisplayName {
-        get {
+    public string DisplayName
+    {
+        get
+        {
             return this.displayNameField;
         }
-        set {
+        set
+        {
             this.displayNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Description {
-        get {
+    public string Description
+    {
+        get
+        {
             return this.descriptionField;
         }
-        set {
+        set
+        {
             this.descriptionField = value;
         }
     }
@@ -6962,44 +8369,54 @@ public partial class LoadTestTypeLoadTestPluginsLoadTestPlugin {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestTypeLoadTestPluginsLoadTestPluginRuleParameter {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestTypeLoadTestPluginsLoadTestPluginRuleParameter
+{
+
     private string nameField;
-    
+
     private string valueField;
-    
+
     private string value1Field;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
+    public string Name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Value {
-        get {
+    public string Value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlTextAttribute()]
-    public string Value1 {
-        get {
+    public string Value1
+    {
+        get
+        {
             return this.value1Field;
         }
-        set {
+        set
+        {
             this.value1Field = value;
         }
     }
@@ -7010,18 +8427,22 @@ public partial class LoadTestTypeLoadTestPluginsLoadTestPluginRuleParameter {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute("ManualTest", Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class PlainTextManualTestType : BaseTestType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute("ManualTest", Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class PlainTextManualTestType : BaseTestType
+{
+
     private PlainTextManualTestTypeBodyText bodyTextField;
-    
+
     /// <remarks/>
-    public PlainTextManualTestTypeBodyText BodyText {
-        get {
+    public PlainTextManualTestTypeBodyText BodyText
+    {
+        get
+        {
             return this.bodyTextField;
         }
-        set {
+        set
+        {
             this.bodyTextField = value;
         }
     }
@@ -7032,19 +8453,23 @@ public partial class PlainTextManualTestType : BaseTestType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class PlainTextManualTestTypeBodyText {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class PlainTextManualTestTypeBodyText
+{
+
     private System.Xml.XmlNode[] anyField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlTextAttribute()]
     [System.Xml.Serialization.XmlAnyElementAttribute()]
-    public System.Xml.XmlNode[] Any {
-        get {
+    public System.Xml.XmlNode[] Any
+    {
+        get
+        {
             return this.anyField;
         }
-        set {
+        set
+        {
             this.anyField = value;
         }
     }
@@ -7055,37 +8480,45 @@ public partial class PlainTextManualTestTypeBodyText {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute("OrderedTest", Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class OrderedTestType : BaseTestType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute("OrderedTest", Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class OrderedTestType : BaseTestType
+{
+
     private LinkType[] testLinksField;
-    
+
     private bool continueAfterFailureField;
-    
-    public OrderedTestType() {
+
+    public OrderedTestType()
+    {
         this.continueAfterFailureField = false;
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("TestLink", IsNullable=false)]
-    public LinkType[] TestLinks {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("TestLink", IsNullable = false)]
+    public LinkType[] TestLinks
+    {
+        get
+        {
             return this.testLinksField;
         }
-        set {
+        set
+        {
             this.testLinksField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool continueAfterFailure {
-        get {
+    public bool continueAfterFailure
+    {
+        get
+        {
             return this.continueAfterFailureField;
         }
-        set {
+        set
+        {
             this.continueAfterFailureField = value;
         }
     }
@@ -7096,75 +8529,92 @@ public partial class OrderedTestType : BaseTestType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LinkType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LinkType
+{
+
     private string idField;
-    
+
     private string nameField;
-    
+
     private string storageField;
-    
+
     private bool enabledField;
-    
+
     private string typeField;
-    
-    public LinkType() {
+
+    public LinkType()
+    {
         this.enabledField = true;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string id {
-        get {
+    public string id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string storage {
-        get {
+    public string storage
+    {
+        get
+        {
             return this.storageField;
         }
-        set {
+        set
+        {
             this.storageField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool enabled {
-        get {
+    public bool enabled
+    {
+        get
+        {
             return this.enabledField;
         }
-        set {
+        set
+        {
             this.enabledField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string type {
-        get {
+    public string type
+    {
+        get
+        {
             return this.typeField;
         }
-        set {
+        set
+        {
             this.typeField = value;
         }
     }
@@ -7173,34 +8623,35 @@ public partial class LinkType {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IncludeInSchema=false)]
-public enum ItemsChoiceType4 {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IncludeInSchema = false)]
+public enum ItemsChoiceType4
+{
+
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("##any:")]
     Item,
-    
+
     /// <remarks/>
     CodedWebTest,
-    
+
     /// <remarks/>
     GenericTest,
-    
+
     /// <remarks/>
     LoadTest,
-    
+
     /// <remarks/>
     ManualTest,
-    
+
     /// <remarks/>
     OrderedTest,
-    
+
     /// <remarks/>
     UnitTest,
-    
+
     /// <remarks/>
     UnitTestElement,
-    
+
     /// <remarks/>
     WebTest,
 }
@@ -7210,101 +8661,124 @@ public enum ItemsChoiceType4 {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestListType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestListType
+{
+
     private object descriptionField;
-    
+
     private LinkType runConfigurationField;
-    
+
     private LinkType[] testLinksField;
-    
+
     private string idField;
-    
+
     private string nameField;
-    
+
     private bool enabledField;
-    
+
     private string parentListIdField;
-    
-    public TestListType() {
+
+    public TestListType()
+    {
         this.enabledField = true;
         this.parentListIdField = "00000000-0000-0000-0000-000000000000";
     }
-    
+
     /// <remarks/>
-    public object Description {
-        get {
+    public object Description
+    {
+        get
+        {
             return this.descriptionField;
         }
-        set {
+        set
+        {
             this.descriptionField = value;
         }
     }
-    
+
     /// <remarks/>
-    public LinkType RunConfiguration {
-        get {
+    public LinkType RunConfiguration
+    {
+        get
+        {
             return this.runConfigurationField;
         }
-        set {
+        set
+        {
             this.runConfigurationField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("TestLink", IsNullable=false)]
-    public LinkType[] TestLinks {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("TestLink", IsNullable = false)]
+    public LinkType[] TestLinks
+    {
+        get
+        {
             return this.testLinksField;
         }
-        set {
+        set
+        {
             this.testLinksField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string id {
-        get {
+    public string id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool enabled {
-        get {
+    public bool enabled
+    {
+        get
+        {
             return this.enabledField;
         }
-        set {
+        set
+        {
             this.enabledField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute("00000000-0000-0000-0000-000000000000")]
-    public string parentListId {
-        get {
+    public string parentListId
+    {
+        get
+        {
             return this.parentListIdField;
         }
-        set {
+        set
+        {
             this.parentListIdField = value;
         }
     }
@@ -7315,18 +8789,22 @@ public partial class TestListType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName="TestEntriesType", Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestEntriesType1 {
-    
+[System.Xml.Serialization.XmlTypeAttribute(TypeName = "TestEntriesType", Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestEntriesType1
+{
+
     private TestEntryType[] testEntryField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("TestEntry")]
-    public TestEntryType[] TestEntry {
-        get {
+    public TestEntryType[] TestEntry
+    {
+        get
+        {
             return this.testEntryField;
         }
-        set {
+        set
+        {
             this.testEntryField = value;
         }
     }
@@ -7337,102 +8815,125 @@ public partial class TestEntriesType1 {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestEntryType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestEntryType
+{
+
     private TcmInformationType tcmInformationField;
-    
+
     private TestEntryType[] testEntriesField;
-    
+
     private string testIdField;
-    
+
     private string executionIdField;
-    
+
     private string parentExecutionIdField;
-    
+
     private string testListIdField;
-    
+
     private bool isTransparentField;
-    
-    public TestEntryType() {
+
+    public TestEntryType()
+    {
         this.parentExecutionIdField = "00000000-0000-0000-0000-000000000000";
         this.isTransparentField = true;
     }
-    
+
     /// <remarks/>
-    public TcmInformationType TcmInformation {
-        get {
+    public TcmInformationType TcmInformation
+    {
+        get
+        {
             return this.tcmInformationField;
         }
-        set {
+        set
+        {
             this.tcmInformationField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("TestEntry", IsNullable=false)]
-    public TestEntryType[] TestEntries {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("TestEntry", IsNullable = false)]
+    public TestEntryType[] TestEntries
+    {
+        get
+        {
             return this.testEntriesField;
         }
-        set {
+        set
+        {
             this.testEntriesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testId {
-        get {
+    public string testId
+    {
+        get
+        {
             return this.testIdField;
         }
-        set {
+        set
+        {
             this.testIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string executionId {
-        get {
+    public string executionId
+    {
+        get
+        {
             return this.executionIdField;
         }
-        set {
+        set
+        {
             this.executionIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute("00000000-0000-0000-0000-000000000000")]
-    public string parentExecutionId {
-        get {
+    public string parentExecutionId
+    {
+        get
+        {
             return this.parentExecutionIdField;
         }
-        set {
+        set
+        {
             this.parentExecutionIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testListId {
-        get {
+    public string testListId
+    {
+        get
+        {
             return this.testListIdField;
         }
-        set {
+        set
+        {
             this.testListIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool isTransparent {
-        get {
+    public bool isTransparent
+    {
+        get
+        {
             return this.isTransparentField;
         }
-        set {
+        set
+        {
             this.isTransparentField = value;
         }
     }
@@ -7443,38 +8944,40 @@ public partial class TestEntryType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class ScenarioType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class ScenarioType
+{
+
     private ScenarioTypeLoadProfile loadProfileField;
-    
+
     private ScenarioTypeThinkProfile thinkProfileField;
-    
+
     private ScenarioTypeTestProfile[] testMixField;
-    
+
     private ScenarioTypeBrowserProfile[] browserMixField;
-    
+
     private ScenarioTypeNetworkProfile[] networkMixField;
-    
+
     private string testMixTypeField;
-    
+
     private string nameField;
-    
+
     private string allowedAgentsField;
-    
+
     private bool ipSwitchingField;
-    
+
     private bool disableDuringWarmupField;
-    
+
     private int delayBetweenIterationsField;
-    
+
     private int maxTestIterationsField;
-    
+
     private int delayStartTimeField;
-    
+
     private int percentNewUsersField;
-    
-    public ScenarioType() {
+
+    public ScenarioType()
+    {
         this.allowedAgentsField = "";
         this.ipSwitchingField = false;
         this.disableDuringWarmupField = false;
@@ -7483,162 +8986,204 @@ public partial class ScenarioType {
         this.delayStartTimeField = 0;
         this.percentNewUsersField = 100;
     }
-    
+
     /// <remarks/>
-    public ScenarioTypeLoadProfile LoadProfile {
-        get {
+    public ScenarioTypeLoadProfile LoadProfile
+    {
+        get
+        {
             return this.loadProfileField;
         }
-        set {
+        set
+        {
             this.loadProfileField = value;
         }
     }
-    
+
     /// <remarks/>
-    public ScenarioTypeThinkProfile ThinkProfile {
-        get {
+    public ScenarioTypeThinkProfile ThinkProfile
+    {
+        get
+        {
             return this.thinkProfileField;
         }
-        set {
+        set
+        {
             this.thinkProfileField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("TestProfile", IsNullable=false)]
-    public ScenarioTypeTestProfile[] TestMix {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("TestProfile", IsNullable = false)]
+    public ScenarioTypeTestProfile[] TestMix
+    {
+        get
+        {
             return this.testMixField;
         }
-        set {
+        set
+        {
             this.testMixField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("BrowserProfile", IsNullable=false)]
-    public ScenarioTypeBrowserProfile[] BrowserMix {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("BrowserProfile", IsNullable = false)]
+    public ScenarioTypeBrowserProfile[] BrowserMix
+    {
+        get
+        {
             return this.browserMixField;
         }
-        set {
+        set
+        {
             this.browserMixField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("NetworkProfile", IsNullable=false)]
-    public ScenarioTypeNetworkProfile[] NetworkMix {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("NetworkProfile", IsNullable = false)]
+    public ScenarioTypeNetworkProfile[] NetworkMix
+    {
+        get
+        {
             return this.networkMixField;
         }
-        set {
+        set
+        {
             this.networkMixField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testMixType {
-        get {
+    public string testMixType
+    {
+        get
+        {
             return this.testMixTypeField;
         }
-        set {
+        set
+        {
             this.testMixTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute("")]
-    public string allowedAgents {
-        get {
+    public string allowedAgents
+    {
+        get
+        {
             return this.allowedAgentsField;
         }
-        set {
+        set
+        {
             this.allowedAgentsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool ipSwitching {
-        get {
+    public bool ipSwitching
+    {
+        get
+        {
             return this.ipSwitchingField;
         }
-        set {
+        set
+        {
             this.ipSwitchingField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool disableDuringWarmup {
-        get {
+    public bool disableDuringWarmup
+    {
+        get
+        {
             return this.disableDuringWarmupField;
         }
-        set {
+        set
+        {
             this.disableDuringWarmupField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int delayBetweenIterations {
-        get {
+    public int delayBetweenIterations
+    {
+        get
+        {
             return this.delayBetweenIterationsField;
         }
-        set {
+        set
+        {
             this.delayBetweenIterationsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int maxTestIterations {
-        get {
+    public int maxTestIterations
+    {
+        get
+        {
             return this.maxTestIterationsField;
         }
-        set {
+        set
+        {
             this.maxTestIterationsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int delayStartTime {
-        get {
+    public int delayStartTime
+    {
+        get
+        {
             return this.delayStartTimeField;
         }
-        set {
+        set
+        {
             this.delayStartTimeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(100)]
-    public int percentNewUsers {
-        get {
+    public int percentNewUsers
+    {
+        get
+        {
             return this.percentNewUsersField;
         }
-        set {
+        set
+        {
             this.percentNewUsersField = value;
         }
     }
@@ -7649,36 +9194,44 @@ public partial class ScenarioType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class ScenarioTypeLoadProfile {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class ScenarioTypeLoadProfile
+{
+
     private int patternField;
-    
+
     private int initialUsersField;
-    
-    public ScenarioTypeLoadProfile() {
+
+    public ScenarioTypeLoadProfile()
+    {
         this.patternField = 0;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int pattern {
-        get {
+    public int pattern
+    {
+        get
+        {
             return this.patternField;
         }
-        set {
+        set
+        {
             this.patternField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int initialUsers {
-        get {
+    public int initialUsers
+    {
+        get
+        {
             return this.initialUsersField;
         }
-        set {
+        set
+        {
             this.initialUsersField = value;
         }
     }
@@ -7689,38 +9242,46 @@ public partial class ScenarioTypeLoadProfile {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class ScenarioTypeThinkProfile {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class ScenarioTypeThinkProfile
+{
+
     private int patternField;
-    
+
     private double valueField;
-    
-    public ScenarioTypeThinkProfile() {
+
+    public ScenarioTypeThinkProfile()
+    {
         this.patternField = 0;
         this.valueField = 0D;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int pattern {
-        get {
+    public int pattern
+    {
+        get
+        {
             return this.patternField;
         }
-        set {
+        set
+        {
             this.patternField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0D)]
-    public double value {
-        get {
+    public double value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -7731,82 +9292,101 @@ public partial class ScenarioTypeThinkProfile {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class ScenarioTypeTestProfile {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class ScenarioTypeTestProfile
+{
+
     private ScenarioTypeTestProfilePercentage percentageField;
-    
+
     private string percentageField1;
-    
+
     private string nameField;
-    
+
     private string pathField;
-    
+
     private string typeField;
-    
+
     private string idField;
-    
+
     /// <remarks/>
-    public ScenarioTypeTestProfilePercentage Percentage {
-        get {
+    public ScenarioTypeTestProfilePercentage Percentage
+    {
+        get
+        {
             return this.percentageField;
         }
-        set {
+        set
+        {
             this.percentageField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string percentage {
-        get {
+    public string percentage
+    {
+        get
+        {
             return this.percentageField1;
         }
-        set {
+        set
+        {
             this.percentageField1 = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string path {
-        get {
+    public string path
+    {
+        get
+        {
             return this.pathField;
         }
-        set {
+        set
+        {
             this.pathField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string type {
-        get {
+    public string type
+    {
+        get
+        {
             return this.typeField;
         }
-        set {
+        set
+        {
             this.typeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string id {
-        get {
+    public string id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
@@ -7817,68 +9397,82 @@ public partial class ScenarioTypeTestProfile {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class ScenarioTypeTestProfilePercentage {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class ScenarioTypeTestProfilePercentage
+{
+
     private int hiField;
-    
+
     private int loField;
-    
+
     private int midField;
-    
+
     private int flagsField;
-    
-    public ScenarioTypeTestProfilePercentage() {
+
+    public ScenarioTypeTestProfilePercentage()
+    {
         this.hiField = 0;
         this.loField = 0;
         this.midField = 0;
         this.flagsField = 0;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int hi {
-        get {
+    public int hi
+    {
+        get
+        {
             return this.hiField;
         }
-        set {
+        set
+        {
             this.hiField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int lo {
-        get {
+    public int lo
+    {
+        get
+        {
             return this.loField;
         }
-        set {
+        set
+        {
             this.loField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int mid {
-        get {
+    public int mid
+    {
+        get
+        {
             return this.midField;
         }
-        set {
+        set
+        {
             this.midField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int flags {
-        get {
+    public int flags
+    {
+        get
+        {
             return this.flagsField;
         }
-        set {
+        set
+        {
             this.flagsField = value;
         }
     }
@@ -7889,43 +9483,53 @@ public partial class ScenarioTypeTestProfilePercentage {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class ScenarioTypeBrowserProfile {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class ScenarioTypeBrowserProfile
+{
+
     private BrowserType browserField;
-    
+
     private int percentageField;
-    
+
     private bool percentageFieldSpecified;
-    
+
     /// <remarks/>
-    public BrowserType Browser {
-        get {
+    public BrowserType Browser
+    {
+        get
+        {
             return this.browserField;
         }
-        set {
+        set
+        {
             this.browserField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int percentage {
-        get {
+    public int percentage
+    {
+        get
+        {
             return this.percentageField;
         }
-        set {
+        set
+        {
             this.percentageField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool percentageSpecified {
-        get {
+    public bool percentageSpecified
+    {
+        get
+        {
             return this.percentageFieldSpecified;
         }
-        set {
+        set
+        {
             this.percentageFieldSpecified = value;
         }
     }
@@ -7936,57 +9540,70 @@ public partial class ScenarioTypeBrowserProfile {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class BrowserType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class BrowserType
+{
+
     private HeadersTypeHeader[] headersField;
-    
+
     private string nameField;
-    
+
     private int maxConnectionsField;
-    
+
     private bool maxConnectionsFieldSpecified;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Header", IsNullable=false)]
-    public HeadersTypeHeader[] Headers {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Header", IsNullable = false)]
+    public HeadersTypeHeader[] Headers
+    {
+        get
+        {
             return this.headersField;
         }
-        set {
+        set
+        {
             this.headersField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int MaxConnections {
-        get {
+    public int MaxConnections
+    {
+        get
+        {
             return this.maxConnectionsField;
         }
-        set {
+        set
+        {
             this.maxConnectionsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool MaxConnectionsSpecified {
-        get {
+    public bool MaxConnectionsSpecified
+    {
+        get
+        {
             return this.maxConnectionsFieldSpecified;
         }
-        set {
+        set
+        {
             this.maxConnectionsFieldSpecified = value;
         }
     }
@@ -7997,43 +9614,53 @@ public partial class BrowserType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class ScenarioTypeNetworkProfile {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class ScenarioTypeNetworkProfile
+{
+
     private NetworkType networkField;
-    
+
     private int percentageField;
-    
+
     private bool percentageFieldSpecified;
-    
+
     /// <remarks/>
-    public NetworkType Network {
-        get {
+    public NetworkType Network
+    {
+        get
+        {
             return this.networkField;
         }
-        set {
+        set
+        {
             this.networkField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int percentage {
-        get {
+    public int percentage
+    {
+        get
+        {
             return this.percentageField;
         }
-        set {
+        set
+        {
             this.percentageField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool percentageSpecified {
-        get {
+    public bool percentageSpecified
+    {
+        get
+        {
             return this.percentageFieldSpecified;
         }
-        set {
+        set
+        {
             this.percentageFieldSpecified = value;
         }
     }
@@ -8044,17 +9671,21 @@ public partial class ScenarioTypeNetworkProfile {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestResultRedirectedPageType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestResultRedirectedPageType
+{
+
     private WebRequestResultType webRequestResultField;
-    
+
     /// <remarks/>
-    public WebRequestResultType WebRequestResult {
-        get {
+    public WebRequestResultType WebRequestResult
+    {
+        get
+        {
             return this.webRequestResultField;
         }
-        set {
+        set
+        {
             this.webRequestResultField = value;
         }
     }
@@ -8065,452 +9696,556 @@ public partial class WebTestResultRedirectedPageType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebRequestResultType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebRequestResultType
+{
+
     private WebRequestResultTypeRequest requestField;
-    
+
     private WebRequestResultTypeResponse responseField;
-    
+
     private WebRequestResultTypeEntry[] contextField;
-    
+
     private WebRequestResultTypeError[] errorsField;
-    
+
     private WebRequestResultType[] dependantResultsField;
-    
+
     private RuleResultType[] validationRuleResultsField;
-    
+
     private RuleResultType[] extractionRuleResultsField;
-    
+
     private string redirectUrlField;
-    
+
     private string exceptionMessageField;
-    
+
     private int runField;
-    
+
     private bool runFieldSpecified;
-    
+
     private bool submittedField;
-    
+
     private bool submittedFieldSpecified;
-    
+
     private bool cachedField;
-    
+
     private bool cachedFieldSpecified;
-    
+
     private bool isRedirectFollowField;
-    
+
     private bool isRedirectFollowFieldSpecified;
-    
+
     private int requestBodyBytesHandleField;
-    
+
     private bool requestBodyBytesHandleFieldSpecified;
-    
+
     private int responseBytesHandleField;
-    
+
     private bool responseBytesHandleFieldSpecified;
-    
+
     private string resultsUrlField;
-    
+
     private int httpStatusField;
-    
+
     private bool recordResultField;
-    
+
     private string scenarioNameField;
-    
+
     private string testCaseNameField;
-    
+
     private int failedValidationRuleCountField;
-    
+
     private bool failedValidationRuleCountFieldSpecified;
-    
+
     private int successfulExtractionRuleCountField;
-    
+
     private bool successfulExtractionRuleCountFieldSpecified;
-    
+
     private int failedExtractionRuleCountField;
-    
+
     private bool failedExtractionRuleCountFieldSpecified;
-    
+
     private bool requestPassedByCodeField;
-    
+
     private bool requestPassedByCodeFieldSpecified;
-    
-    public WebRequestResultType() {
+
+    public WebRequestResultType()
+    {
         this.httpStatusField = 200;
         this.recordResultField = false;
     }
-    
+
     /// <remarks/>
-    public WebRequestResultTypeRequest Request {
-        get {
+    public WebRequestResultTypeRequest Request
+    {
+        get
+        {
             return this.requestField;
         }
-        set {
+        set
+        {
             this.requestField = value;
         }
     }
-    
+
     /// <remarks/>
-    public WebRequestResultTypeResponse Response {
-        get {
+    public WebRequestResultTypeResponse Response
+    {
+        get
+        {
             return this.responseField;
         }
-        set {
+        set
+        {
             this.responseField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Entry", IsNullable=false)]
-    public WebRequestResultTypeEntry[] Context {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Entry", IsNullable = false)]
+    public WebRequestResultTypeEntry[] Context
+    {
+        get
+        {
             return this.contextField;
         }
-        set {
+        set
+        {
             this.contextField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Error", IsNullable=false)]
-    public WebRequestResultTypeError[] Errors {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Error", IsNullable = false)]
+    public WebRequestResultTypeError[] Errors
+    {
+        get
+        {
             return this.errorsField;
         }
-        set {
+        set
+        {
             this.errorsField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("WebRequestResult", IsNullable=false)]
-    public WebRequestResultType[] DependantResults {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("WebRequestResult", IsNullable = false)]
+    public WebRequestResultType[] DependantResults
+    {
+        get
+        {
             return this.dependantResultsField;
         }
-        set {
+        set
+        {
             this.dependantResultsField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("ValidationRuleResult", IsNullable=false)]
-    public RuleResultType[] ValidationRuleResults {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("ValidationRuleResult", IsNullable = false)]
+    public RuleResultType[] ValidationRuleResults
+    {
+        get
+        {
             return this.validationRuleResultsField;
         }
-        set {
+        set
+        {
             this.validationRuleResultsField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("ExtractionRuleResult", IsNullable=false)]
-    public RuleResultType[] ExtractionRuleResults {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("ExtractionRuleResult", IsNullable = false)]
+    public RuleResultType[] ExtractionRuleResults
+    {
+        get
+        {
             return this.extractionRuleResultsField;
         }
-        set {
+        set
+        {
             this.extractionRuleResultsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string redirectUrl {
-        get {
+    public string redirectUrl
+    {
+        get
+        {
             return this.redirectUrlField;
         }
-        set {
+        set
+        {
             this.redirectUrlField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string exceptionMessage {
-        get {
+    public string exceptionMessage
+    {
+        get
+        {
             return this.exceptionMessageField;
         }
-        set {
+        set
+        {
             this.exceptionMessageField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int run {
-        get {
+    public int run
+    {
+        get
+        {
             return this.runField;
         }
-        set {
+        set
+        {
             this.runField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool runSpecified {
-        get {
+    public bool runSpecified
+    {
+        get
+        {
             return this.runFieldSpecified;
         }
-        set {
+        set
+        {
             this.runFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool submitted {
-        get {
+    public bool submitted
+    {
+        get
+        {
             return this.submittedField;
         }
-        set {
+        set
+        {
             this.submittedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool submittedSpecified {
-        get {
+    public bool submittedSpecified
+    {
+        get
+        {
             return this.submittedFieldSpecified;
         }
-        set {
+        set
+        {
             this.submittedFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool cached {
-        get {
+    public bool cached
+    {
+        get
+        {
             return this.cachedField;
         }
-        set {
+        set
+        {
             this.cachedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool cachedSpecified {
-        get {
+    public bool cachedSpecified
+    {
+        get
+        {
             return this.cachedFieldSpecified;
         }
-        set {
+        set
+        {
             this.cachedFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool isRedirectFollow {
-        get {
+    public bool isRedirectFollow
+    {
+        get
+        {
             return this.isRedirectFollowField;
         }
-        set {
+        set
+        {
             this.isRedirectFollowField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool isRedirectFollowSpecified {
-        get {
+    public bool isRedirectFollowSpecified
+    {
+        get
+        {
             return this.isRedirectFollowFieldSpecified;
         }
-        set {
+        set
+        {
             this.isRedirectFollowFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int requestBodyBytesHandle {
-        get {
+    public int requestBodyBytesHandle
+    {
+        get
+        {
             return this.requestBodyBytesHandleField;
         }
-        set {
+        set
+        {
             this.requestBodyBytesHandleField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool requestBodyBytesHandleSpecified {
-        get {
+    public bool requestBodyBytesHandleSpecified
+    {
+        get
+        {
             return this.requestBodyBytesHandleFieldSpecified;
         }
-        set {
+        set
+        {
             this.requestBodyBytesHandleFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int responseBytesHandle {
-        get {
+    public int responseBytesHandle
+    {
+        get
+        {
             return this.responseBytesHandleField;
         }
-        set {
+        set
+        {
             this.responseBytesHandleField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool responseBytesHandleSpecified {
-        get {
+    public bool responseBytesHandleSpecified
+    {
+        get
+        {
             return this.responseBytesHandleFieldSpecified;
         }
-        set {
+        set
+        {
             this.responseBytesHandleFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string resultsUrl {
-        get {
+    public string resultsUrl
+    {
+        get
+        {
             return this.resultsUrlField;
         }
-        set {
+        set
+        {
             this.resultsUrlField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(200)]
-    public int httpStatus {
-        get {
+    public int httpStatus
+    {
+        get
+        {
             return this.httpStatusField;
         }
-        set {
+        set
+        {
             this.httpStatusField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool recordResult {
-        get {
+    public bool recordResult
+    {
+        get
+        {
             return this.recordResultField;
         }
-        set {
+        set
+        {
             this.recordResultField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string scenarioName {
-        get {
+    public string scenarioName
+    {
+        get
+        {
             return this.scenarioNameField;
         }
-        set {
+        set
+        {
             this.scenarioNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testCaseName {
-        get {
+    public string testCaseName
+    {
+        get
+        {
             return this.testCaseNameField;
         }
-        set {
+        set
+        {
             this.testCaseNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int failedValidationRuleCount {
-        get {
+    public int failedValidationRuleCount
+    {
+        get
+        {
             return this.failedValidationRuleCountField;
         }
-        set {
+        set
+        {
             this.failedValidationRuleCountField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool failedValidationRuleCountSpecified {
-        get {
+    public bool failedValidationRuleCountSpecified
+    {
+        get
+        {
             return this.failedValidationRuleCountFieldSpecified;
         }
-        set {
+        set
+        {
             this.failedValidationRuleCountFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int successfulExtractionRuleCount {
-        get {
+    public int successfulExtractionRuleCount
+    {
+        get
+        {
             return this.successfulExtractionRuleCountField;
         }
-        set {
+        set
+        {
             this.successfulExtractionRuleCountField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool successfulExtractionRuleCountSpecified {
-        get {
+    public bool successfulExtractionRuleCountSpecified
+    {
+        get
+        {
             return this.successfulExtractionRuleCountFieldSpecified;
         }
-        set {
+        set
+        {
             this.successfulExtractionRuleCountFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int failedExtractionRuleCount {
-        get {
+    public int failedExtractionRuleCount
+    {
+        get
+        {
             return this.failedExtractionRuleCountField;
         }
-        set {
+        set
+        {
             this.failedExtractionRuleCountField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool failedExtractionRuleCountSpecified {
-        get {
+    public bool failedExtractionRuleCountSpecified
+    {
+        get
+        {
             return this.failedExtractionRuleCountFieldSpecified;
         }
-        set {
+        set
+        {
             this.failedExtractionRuleCountFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool requestPassedByCode {
-        get {
+    public bool requestPassedByCode
+    {
+        get
+        {
             return this.requestPassedByCodeField;
         }
-        set {
+        set
+        {
             this.requestPassedByCodeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool requestPassedByCodeSpecified {
-        get {
+    public bool requestPassedByCodeSpecified
+    {
+        get
+        {
             return this.requestPassedByCodeFieldSpecified;
         }
-        set {
+        set
+        {
             this.requestPassedByCodeFieldSpecified = value;
         }
     }
@@ -8521,69 +10256,85 @@ public partial class WebRequestResultType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebRequestResultTypeRequest {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebRequestResultTypeRequest
+{
+
     private object headersField;
-    
+
     private string urlField;
-    
+
     private string commandField;
-    
+
     private string contentTypeField;
-    
+
     private string encodingField;
-    
+
     /// <remarks/>
-    public object Headers {
-        get {
+    public object Headers
+    {
+        get
+        {
             return this.headersField;
         }
-        set {
+        set
+        {
             this.headersField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string url {
-        get {
+    public string url
+    {
+        get
+        {
             return this.urlField;
         }
-        set {
+        set
+        {
             this.urlField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string command {
-        get {
+    public string command
+    {
+        get
+        {
             return this.commandField;
         }
-        set {
+        set
+        {
             this.commandField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string contentType {
-        get {
+    public string contentType
+    {
+        get
+        {
             return this.contentTypeField;
         }
-        set {
+        set
+        {
             this.contentTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string encoding {
-        get {
+    public string encoding
+    {
+        get
+        {
             return this.encodingField;
         }
-        set {
+        set
+        {
             this.encodingField = value;
         }
     }
@@ -8594,108 +10345,133 @@ public partial class WebRequestResultTypeRequest {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebRequestResultTypeResponse {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebRequestResultTypeResponse
+{
+
     private object headersField;
-    
+
     private string urlField;
-    
+
     private string contentTypeField;
-    
+
     private string statusLineField;
-    
+
     private string pageTimeField;
-    
+
     private string timeField;
-    
+
     private string statusCodeStringField;
-    
+
     private string contentLengthField;
-    
+
     /// <remarks/>
-    public object Headers {
-        get {
+    public object Headers
+    {
+        get
+        {
             return this.headersField;
         }
-        set {
+        set
+        {
             this.headersField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string url {
-        get {
+    public string url
+    {
+        get
+        {
             return this.urlField;
         }
-        set {
+        set
+        {
             this.urlField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string contentType {
-        get {
+    public string contentType
+    {
+        get
+        {
             return this.contentTypeField;
         }
-        set {
+        set
+        {
             this.contentTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string statusLine {
-        get {
+    public string statusLine
+    {
+        get
+        {
             return this.statusLineField;
         }
-        set {
+        set
+        {
             this.statusLineField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string pageTime {
-        get {
+    public string pageTime
+    {
+        get
+        {
             return this.pageTimeField;
         }
-        set {
+        set
+        {
             this.pageTimeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string time {
-        get {
+    public string time
+    {
+        get
+        {
             return this.timeField;
         }
-        set {
+        set
+        {
             this.timeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string statusCodeString {
-        get {
+    public string statusCodeString
+    {
+        get
+        {
             return this.statusCodeStringField;
         }
-        set {
+        set
+        {
             this.statusCodeStringField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string contentLength {
-        get {
+    public string contentLength
+    {
+        get
+        {
             return this.contentLengthField;
         }
-        set {
+        set
+        {
             this.contentLengthField = value;
         }
     }
@@ -8706,31 +10482,38 @@ public partial class WebRequestResultTypeResponse {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebRequestResultTypeEntry {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebRequestResultTypeEntry
+{
+
     private string nameField;
-    
+
     private string valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string value {
-        get {
+    public string value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -8741,120 +10524,148 @@ public partial class WebRequestResultTypeEntry {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebRequestResultTypeError {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebRequestResultTypeError
+{
+
     private object stackTraceField;
-    
+
     private object exceptionTextField;
-    
+
     private WebTestErrorType typeField;
-    
+
     private bool typeFieldSpecified;
-    
+
     private string subTypeField;
-    
+
     private string textField;
-    
+
     private string stackTraceField1;
-    
+
     private string exceptionTextField1;
-    
+
     private string timeField;
-    
+
     /// <remarks/>
-    public object StackTrace {
-        get {
+    public object StackTrace
+    {
+        get
+        {
             return this.stackTraceField;
         }
-        set {
+        set
+        {
             this.stackTraceField = value;
         }
     }
-    
+
     /// <remarks/>
-    public object ExceptionText {
-        get {
+    public object ExceptionText
+    {
+        get
+        {
             return this.exceptionTextField;
         }
-        set {
+        set
+        {
             this.exceptionTextField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public WebTestErrorType type {
-        get {
+    public WebTestErrorType type
+    {
+        get
+        {
             return this.typeField;
         }
-        set {
+        set
+        {
             this.typeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool typeSpecified {
-        get {
+    public bool typeSpecified
+    {
+        get
+        {
             return this.typeFieldSpecified;
         }
-        set {
+        set
+        {
             this.typeFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string subType {
-        get {
+    public string subType
+    {
+        get
+        {
             return this.subTypeField;
         }
-        set {
+        set
+        {
             this.subTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string text {
-        get {
+    public string text
+    {
+        get
+        {
             return this.textField;
         }
-        set {
+        set
+        {
             this.textField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string stackTrace {
-        get {
+    public string stackTrace
+    {
+        get
+        {
             return this.stackTraceField1;
         }
-        set {
+        set
+        {
             this.stackTraceField1 = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string exceptionText {
-        get {
+    public string exceptionText
+    {
+        get
+        {
             return this.exceptionTextField1;
         }
-        set {
+        set
+        {
             this.exceptionTextField1 = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string time {
-        get {
+    public string time
+    {
+        get
+        {
             return this.timeField;
         }
-        set {
+        set
+        {
             this.timeField = value;
         }
     }
@@ -8863,33 +10674,34 @@ public partial class WebRequestResultTypeError {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum WebTestErrorType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum WebTestErrorType
+{
+
     /// <remarks/>
     TestError,
-    
+
     /// <remarks/>
     Exception,
-    
+
     /// <remarks/>
     HttpError,
-    
+
     /// <remarks/>
     ValidationRuleError,
-    
+
     /// <remarks/>
     ExtractionRuleError,
-    
+
     /// <remarks/>
     ConditionalRuleError,
-    
+
     /// <remarks/>
     Timeout,
-    
+
     /// <remarks/>
     DataCollectionError,
-    
+
     /// <remarks/>
     DataCollectionWarning,
 }
@@ -8899,75 +10711,92 @@ public enum WebTestErrorType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class RuleResultType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class RuleResultType
+{
+
     private RuleResultTypeRuleProperty[] rulePropertiesField;
-    
+
     private string nameField;
-    
+
     private string ruleTypeField;
-    
+
     private bool successField;
-    
+
     private string messageField;
-    
-    public RuleResultType() {
+
+    public RuleResultType()
+    {
         this.successField = false;
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("RuleProperty", IsNullable=false)]
-    public RuleResultTypeRuleProperty[] RuleProperties {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("RuleProperty", IsNullable = false)]
+    public RuleResultTypeRuleProperty[] RuleProperties
+    {
+        get
+        {
             return this.rulePropertiesField;
         }
-        set {
+        set
+        {
             this.rulePropertiesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string ruleType {
-        get {
+    public string ruleType
+    {
+        get
+        {
             return this.ruleTypeField;
         }
-        set {
+        set
+        {
             this.ruleTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool success {
-        get {
+    public bool success
+    {
+        get
+        {
             return this.successField;
         }
-        set {
+        set
+        {
             this.successField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string message {
-        get {
+    public string message
+    {
+        get
+        {
             return this.messageField;
         }
-        set {
+        set
+        {
             this.messageField = value;
         }
     }
@@ -8978,31 +10807,38 @@ public partial class RuleResultType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class RuleResultTypeRuleProperty {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class RuleResultTypeRuleProperty
+{
+
     private string nameField;
-    
+
     private string valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string value {
-        get {
+    public string value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -9013,30 +10849,37 @@ public partial class RuleResultTypeRuleProperty {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestResultPageType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestResultPageType
+{
+
     private WebRequestResultType webRequestResultField;
-    
+
     private WebTestResultRedirectedPageType[] redirectedPagesField;
-    
+
     /// <remarks/>
-    public WebRequestResultType WebRequestResult {
-        get {
+    public WebRequestResultType WebRequestResult
+    {
+        get
+        {
             return this.webRequestResultField;
         }
-        set {
+        set
+        {
             this.webRequestResultField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("RedirectedPage", IsNullable=false)]
-    public WebTestResultRedirectedPageType[] RedirectedPages {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("RedirectedPage", IsNullable = false)]
+    public WebTestResultRedirectedPageType[] RedirectedPages
+    {
+        get
+        {
             return this.redirectedPagesField;
         }
-        set {
+        set
+        {
             this.redirectedPagesField = value;
         }
     }
@@ -9047,72 +10890,88 @@ public partial class WebTestResultPageType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestResultTransactionType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestResultTransactionType
+{
+
     private object[] webTestResultGroupField;
-    
+
     private string nameField;
-    
+
     private bool isIncludedTestField;
-    
+
     private bool isIncludedTestFieldSpecified;
-    
+
     private string responseTimeField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("WebTestResultComment", typeof(WebTestResultCommentType), IsNullable=false)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("WebTestResultPage", typeof(WebTestResultPageType), IsNullable=false)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("WebTestResultTransaction", typeof(WebTestResultTransactionType), IsNullable=false)]
-    public object[] WebTestResultGroup {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("WebTestResultComment", typeof(WebTestResultCommentType), IsNullable = false)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("WebTestResultPage", typeof(WebTestResultPageType), IsNullable = false)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("WebTestResultTransaction", typeof(WebTestResultTransactionType), IsNullable = false)]
+    public object[] WebTestResultGroup
+    {
+        get
+        {
             return this.webTestResultGroupField;
         }
-        set {
+        set
+        {
             this.webTestResultGroupField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool isIncludedTest {
-        get {
+    public bool isIncludedTest
+    {
+        get
+        {
             return this.isIncludedTestField;
         }
-        set {
+        set
+        {
             this.isIncludedTestField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool isIncludedTestSpecified {
-        get {
+    public bool isIncludedTestSpecified
+    {
+        get
+        {
             return this.isIncludedTestFieldSpecified;
         }
-        set {
+        set
+        {
             this.isIncludedTestFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string responseTime {
-        get {
+    public string responseTime
+    {
+        get
+        {
             return this.responseTimeField;
         }
-        set {
+        set
+        {
             this.responseTimeField = value;
         }
     }
@@ -9123,18 +10982,22 @@ public partial class WebTestResultTransactionType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestResultCommentType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestResultCommentType
+{
+
     private string commentField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string comment {
-        get {
+    public string comment
+    {
+        get
+        {
             return this.commentField;
         }
-        set {
+        set
+        {
             this.commentField = value;
         }
     }
@@ -9145,18 +11008,22 @@ public partial class WebTestResultCommentType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestResultDetailsType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestResultDetailsType
+{
+
     private WebTestResultDetailsTypeWebTestResultIteration[] webTestResultIterationsField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("WebTestResultIteration", IsNullable=false)]
-    public WebTestResultDetailsTypeWebTestResultIteration[] WebTestResultIterations {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("WebTestResultIteration", IsNullable = false)]
+    public WebTestResultDetailsTypeWebTestResultIteration[] WebTestResultIterations
+    {
+        get
+        {
             return this.webTestResultIterationsField;
         }
-        set {
+        set
+        {
             this.webTestResultIterationsField = value;
         }
     }
@@ -9167,33 +11034,40 @@ public partial class WebTestResultDetailsType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestResultDetailsTypeWebTestResultIteration {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestResultDetailsTypeWebTestResultIteration
+{
+
     private object[] webTestResultGroupField;
-    
+
     private int iterationNumberField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("WebTestResultComment", typeof(WebTestResultCommentType), IsNullable=false)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("WebTestResultPage", typeof(WebTestResultPageType), IsNullable=false)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("WebTestResultTransaction", typeof(WebTestResultTransactionType), IsNullable=false)]
-    public object[] WebTestResultGroup {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("WebTestResultComment", typeof(WebTestResultCommentType), IsNullable = false)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("WebTestResultPage", typeof(WebTestResultPageType), IsNullable = false)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("WebTestResultTransaction", typeof(WebTestResultTransactionType), IsNullable = false)]
+    public object[] WebTestResultGroup
+    {
+        get
+        {
             return this.webTestResultGroupField;
         }
-        set {
+        set
+        {
             this.webTestResultGroupField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int iterationNumber {
-        get {
+    public int iterationNumber
+    {
+        get
+        {
             return this.iterationNumberField;
         }
-        set {
+        set
+        {
             this.iterationNumberField = value;
         }
     }
@@ -9204,18 +11078,22 @@ public partial class WebTestResultDetailsTypeWebTestResultIteration {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName="WebRequestResultsType", Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebRequestResultsType1 {
-    
+[System.Xml.Serialization.XmlTypeAttribute(TypeName = "WebRequestResultsType", Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebRequestResultsType1
+{
+
     private WebRequestResultType[] webRequestResultField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("WebRequestResult")]
-    public WebRequestResultType[] WebRequestResult {
-        get {
+    public WebRequestResultType[] WebRequestResult
+    {
+        get
+        {
             return this.webRequestResultField;
         }
-        set {
+        set
+        {
             this.webRequestResultField = value;
         }
     }
@@ -9226,36 +11104,44 @@ public partial class WebRequestResultsType1 {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class AgentRuleCollectionType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class AgentRuleCollectionType
+{
+
     private AgentRuleType[] agentRulesField;
-    
+
     private bool enabledField;
-    
-    public AgentRuleCollectionType() {
+
+    public AgentRuleCollectionType()
+    {
         this.enabledField = true;
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("AgentRule", IsNullable=false)]
-    public AgentRuleType[] AgentRules {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("AgentRule", IsNullable = false)]
+    public AgentRuleType[] AgentRules
+    {
+        get
+        {
             return this.agentRulesField;
         }
-        set {
+        set
+        {
             this.agentRulesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool enabled {
-        get {
+    public bool enabled
+    {
+        get
+        {
             return this.enabledField;
         }
-        set {
+        set
+        {
             this.enabledField = value;
         }
     }
@@ -9266,43 +11152,53 @@ public partial class AgentRuleCollectionType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class AgentRuleType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class AgentRuleType
+{
+
     private AgentRuleTypeSelectionCriteria selectionCriteriaField;
-    
+
     private AgentRuleTypeDataCollector[] dataCollectorsField;
-    
+
     private string nameField;
-    
+
     /// <remarks/>
-    public AgentRuleTypeSelectionCriteria SelectionCriteria {
-        get {
+    public AgentRuleTypeSelectionCriteria SelectionCriteria
+    {
+        get
+        {
             return this.selectionCriteriaField;
         }
-        set {
+        set
+        {
             this.selectionCriteriaField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("DataCollector", IsNullable=false)]
-    public AgentRuleTypeDataCollector[] DataCollectors {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("DataCollector", IsNullable = false)]
+    public AgentRuleTypeDataCollector[] DataCollectors
+    {
+        get
+        {
             return this.dataCollectorsField;
         }
-        set {
+        set
+        {
             this.dataCollectorsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
@@ -9313,44 +11209,54 @@ public partial class AgentRuleType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class AgentRuleTypeSelectionCriteria {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class AgentRuleTypeSelectionCriteria
+{
+
     private NameValuePropertyType[] agentPropertyField;
-    
+
     private bool selectAllAgentsField;
-    
+
     private bool selectAllAgentsFieldSpecified;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("AgentProperty")]
-    public NameValuePropertyType[] AgentProperty {
-        get {
+    public NameValuePropertyType[] AgentProperty
+    {
+        get
+        {
             return this.agentPropertyField;
         }
-        set {
+        set
+        {
             this.agentPropertyField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool selectAllAgents {
-        get {
+    public bool selectAllAgents
+    {
+        get
+        {
             return this.selectAllAgentsField;
         }
-        set {
+        set
+        {
             this.selectAllAgentsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool selectAllAgentsSpecified {
-        get {
+    public bool selectAllAgentsSpecified
+    {
+        get
+        {
             return this.selectAllAgentsFieldSpecified;
         }
-        set {
+        set
+        {
             this.selectAllAgentsFieldSpecified = value;
         }
     }
@@ -9361,74 +11267,91 @@ public partial class AgentRuleTypeSelectionCriteria {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class AgentRuleTypeDataCollector {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class AgentRuleTypeDataCollector
+{
+
     private AgentRuleTypeDataCollectorConfiguration configurationField;
-    
+
     private string uriField;
-    
+
     private string friendlyNameField;
-    
+
     private string assemblyQualifiedNameField;
-    
+
     private bool enabledField;
-    
-    public AgentRuleTypeDataCollector() {
+
+    public AgentRuleTypeDataCollector()
+    {
         this.enabledField = true;
     }
-    
+
     /// <remarks/>
-    public AgentRuleTypeDataCollectorConfiguration Configuration {
-        get {
+    public AgentRuleTypeDataCollectorConfiguration Configuration
+    {
+        get
+        {
             return this.configurationField;
         }
-        set {
+        set
+        {
             this.configurationField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string uri {
-        get {
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "anyURI")]
+    public string uri
+    {
+        get
+        {
             return this.uriField;
         }
-        set {
+        set
+        {
             this.uriField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string friendlyName {
-        get {
+    public string friendlyName
+    {
+        get
+        {
             return this.friendlyNameField;
         }
-        set {
+        set
+        {
             this.friendlyNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string assemblyQualifiedName {
-        get {
+    public string assemblyQualifiedName
+    {
+        get
+        {
             return this.assemblyQualifiedNameField;
         }
-        set {
+        set
+        {
             this.assemblyQualifiedNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool enabled {
-        get {
+    public bool enabled
+    {
+        get
+        {
             return this.enabledField;
         }
-        set {
+        set
+        {
             this.enabledField = value;
         }
     }
@@ -9439,18 +11362,22 @@ public partial class AgentRuleTypeDataCollector {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class AgentRuleTypeDataCollectorConfiguration {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class AgentRuleTypeDataCollectorConfiguration
+{
+
     private System.Xml.XmlElement[] anyField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAnyElementAttribute()]
-    public System.Xml.XmlElement[] Any {
-        get {
+    public System.Xml.XmlElement[] Any
+    {
+        get
+        {
             return this.anyField;
         }
-        set {
+        set
+        {
             this.anyField = value;
         }
     }
@@ -9462,31 +11389,38 @@ public partial class AgentRuleTypeDataCollectorConfiguration {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class ResolutionDirectoryType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class ResolutionDirectoryType
+{
+
     private string pathField;
-    
+
     private bool includeSubDirectoriesField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string path {
-        get {
+    public string path
+    {
+        get
+        {
             return this.pathField;
         }
-        set {
+        set
+        {
             this.pathField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool includeSubDirectories {
-        get {
+    public bool includeSubDirectories
+    {
+        get
+        {
             return this.includeSubDirectoriesField;
         }
-        set {
+        set
+        {
             this.includeSubDirectoriesField = value;
         }
     }
@@ -9497,31 +11431,38 @@ public partial class ResolutionDirectoryType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class RuntimeResolutionDirectoryType : ResolutionDirectoryType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class RuntimeResolutionDirectoryType : ResolutionDirectoryType
+{
+
     private bool useLoadContextField;
-    
+
     private bool useLoadContextFieldSpecified;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool useLoadContext {
-        get {
+    public bool useLoadContext
+    {
+        get
+        {
             return this.useLoadContextField;
         }
-        set {
+        set
+        {
             this.useLoadContextField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool useLoadContextSpecified {
-        get {
+    public bool useLoadContextSpecified
+    {
+        get
+        {
             return this.useLoadContextFieldSpecified;
         }
-        set {
+        set
+        {
             this.useLoadContextFieldSpecified = value;
         }
     }
@@ -9532,28 +11473,30 @@ public partial class RuntimeResolutionDirectoryType : ResolutionDirectoryType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestRunConfigurationType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestRunConfigurationType
+{
+
     private BrowserType browserField;
-    
+
     private NetworkType networkField;
-    
+
     private bool simulateThinkTimesField;
-    
+
     private bool useNewCookieDefaultPathField;
-    
+
     private bool automaticallyDecompressResponseField;
-    
+
     private bool steppingField;
-    
+
     private bool runUntilDataExhaustedField;
-    
+
     private int iterationCountField;
-    
+
     private string testTypeIdField;
-    
-    public WebTestRunConfigurationType() {
+
+    public WebTestRunConfigurationType()
+    {
         this.simulateThinkTimesField = false;
         this.useNewCookieDefaultPathField = false;
         this.automaticallyDecompressResponseField = true;
@@ -9561,106 +11504,133 @@ public partial class WebTestRunConfigurationType {
         this.runUntilDataExhaustedField = false;
         this.iterationCountField = 1;
     }
-    
+
     /// <remarks/>
-    public BrowserType Browser {
-        get {
+    public BrowserType Browser
+    {
+        get
+        {
             return this.browserField;
         }
-        set {
+        set
+        {
             this.browserField = value;
         }
     }
-    
+
     /// <remarks/>
-    public NetworkType Network {
-        get {
+    public NetworkType Network
+    {
+        get
+        {
             return this.networkField;
         }
-        set {
+        set
+        {
             this.networkField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool simulateThinkTimes {
-        get {
+    public bool simulateThinkTimes
+    {
+        get
+        {
             return this.simulateThinkTimesField;
         }
-        set {
+        set
+        {
             this.simulateThinkTimesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool UseNewCookieDefaultPath {
-        get {
+    public bool UseNewCookieDefaultPath
+    {
+        get
+        {
             return this.useNewCookieDefaultPathField;
         }
-        set {
+        set
+        {
             this.useNewCookieDefaultPathField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool AutomaticallyDecompressResponse {
-        get {
+    public bool AutomaticallyDecompressResponse
+    {
+        get
+        {
             return this.automaticallyDecompressResponseField;
         }
-        set {
+        set
+        {
             this.automaticallyDecompressResponseField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool stepping {
-        get {
+    public bool stepping
+    {
+        get
+        {
             return this.steppingField;
         }
-        set {
+        set
+        {
             this.steppingField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool runUntilDataExhausted {
-        get {
+    public bool runUntilDataExhausted
+    {
+        get
+        {
             return this.runUntilDataExhaustedField;
         }
-        set {
+        set
+        {
             this.runUntilDataExhaustedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(1)]
-    public int iterationCount {
-        get {
+    public int iterationCount
+    {
+        get
+        {
             return this.iterationCountField;
         }
-        set {
+        set
+        {
             this.iterationCountField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testTypeId {
-        get {
+    public string testTypeId
+    {
+        get
+        {
             return this.testTypeIdField;
         }
-        set {
+        set
+        {
             this.testTypeIdField = value;
         }
     }
@@ -9676,51 +11646,53 @@ public partial class WebTestRunConfigurationType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestResultType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestResultType
+{
+
     private object[] itemsField;
-    
+
     private string testNameField;
-    
+
     private string testTypeField;
-    
+
     private string testIdField;
-    
+
     private string executionIdField;
-    
+
     private string parentExecutionIdField;
-    
+
     private string testListIdField;
-    
+
     private string outcomeField;
-    
+
     private string computerNameField;
-    
+
     private string relativeResultsDirectoryField;
-    
+
     private string startTimeField;
-    
+
     private string endTimeField;
-    
+
     private string durationField;
-    
+
     private bool spoolMessageField;
-    
+
     private int processExitCodeField;
-    
+
     private bool processExitCodeFieldSpecified;
-    
+
     private bool isAbortedField;
-    
+
     private bool isAbortedFieldSpecified;
-    
+
     private string relativeTestOutputDirectoryField;
-    
-    public TestResultType() {
+
+    public TestResultType()
+    {
         this.spoolMessageField = true;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("CollectorDataEntries", typeof(CollectorDataEntriesType))]
     [System.Xml.Serialization.XmlElementAttribute("DataCollectorMessages", typeof(DataCollectorMessagesType))]
@@ -9730,210 +11702,267 @@ public partial class TestResultType {
     [System.Xml.Serialization.XmlElementAttribute("TcmInformation", typeof(TcmInformationType))]
     [System.Xml.Serialization.XmlElementAttribute("Timers", typeof(TestResultTypeTimers))]
     [System.Xml.Serialization.XmlElementAttribute("WorkItems", typeof(WorkItemIDsType))]
-    public object[] Items {
-        get {
+    public object[] Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testName {
-        get {
+    public string testName
+    {
+        get
+        {
             return this.testNameField;
         }
-        set {
+        set
+        {
             this.testNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testType {
-        get {
+    public string testType
+    {
+        get
+        {
             return this.testTypeField;
         }
-        set {
+        set
+        {
             this.testTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testId {
-        get {
+    public string testId
+    {
+        get
+        {
             return this.testIdField;
         }
-        set {
+        set
+        {
             this.testIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string executionId {
-        get {
+    public string executionId
+    {
+        get
+        {
             return this.executionIdField;
         }
-        set {
+        set
+        {
             this.executionIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string parentExecutionId {
-        get {
+    public string parentExecutionId
+    {
+        get
+        {
             return this.parentExecutionIdField;
         }
-        set {
+        set
+        {
             this.parentExecutionIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testListId {
-        get {
+    public string testListId
+    {
+        get
+        {
             return this.testListIdField;
         }
-        set {
+        set
+        {
             this.testListIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string outcome {
-        get {
+    public string outcome
+    {
+        get
+        {
             return this.outcomeField;
         }
-        set {
+        set
+        {
             this.outcomeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string computerName {
-        get {
+    public string computerName
+    {
+        get
+        {
             return this.computerNameField;
         }
-        set {
+        set
+        {
             this.computerNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string relativeResultsDirectory {
-        get {
+    public string relativeResultsDirectory
+    {
+        get
+        {
             return this.relativeResultsDirectoryField;
         }
-        set {
+        set
+        {
             this.relativeResultsDirectoryField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string startTime {
-        get {
+    public string startTime
+    {
+        get
+        {
             return this.startTimeField;
         }
-        set {
+        set
+        {
             this.startTimeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string endTime {
-        get {
+    public string endTime
+    {
+        get
+        {
             return this.endTimeField;
         }
-        set {
+        set
+        {
             this.endTimeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string duration {
-        get {
+    public string duration
+    {
+        get
+        {
             return this.durationField;
         }
-        set {
+        set
+        {
             this.durationField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool spoolMessage {
-        get {
+    public bool spoolMessage
+    {
+        get
+        {
             return this.spoolMessageField;
         }
-        set {
+        set
+        {
             this.spoolMessageField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int processExitCode {
-        get {
+    public int processExitCode
+    {
+        get
+        {
             return this.processExitCodeField;
         }
-        set {
+        set
+        {
             this.processExitCodeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool processExitCodeSpecified {
-        get {
+    public bool processExitCodeSpecified
+    {
+        get
+        {
             return this.processExitCodeFieldSpecified;
         }
-        set {
+        set
+        {
             this.processExitCodeFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool isAborted {
-        get {
+    public bool isAborted
+    {
+        get
+        {
             return this.isAbortedField;
         }
-        set {
+        set
+        {
             this.isAbortedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool isAbortedSpecified {
-        get {
+    public bool isAbortedSpecified
+    {
+        get
+        {
             return this.isAbortedFieldSpecified;
         }
-        set {
+        set
+        {
             this.isAbortedFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string relativeTestOutputDirectory {
-        get {
+    public string relativeTestOutputDirectory
+    {
+        get
+        {
             return this.relativeTestOutputDirectoryField;
         }
-        set {
+        set
+        {
             this.relativeTestOutputDirectoryField = value;
         }
     }
@@ -9944,18 +11973,22 @@ public partial class TestResultType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class CollectorDataEntriesType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class CollectorDataEntriesType
+{
+
     private CollectorType[] collectorField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Collector")]
-    public CollectorType[] Collector {
-        get {
+    public CollectorType[] Collector
+    {
+        get
+        {
             return this.collectorField;
         }
-        set {
+        set
+        {
             this.collectorField = value;
         }
     }
@@ -9966,88 +11999,108 @@ public partial class CollectorDataEntriesType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class CollectorType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class CollectorType
+{
+
     private UriAttachmentType[] uriAttachmentsField;
-    
+
     private string agentNameField;
-    
+
     private string agentDisplayNameField;
-    
+
     private string collectorDisplayNameField;
-    
+
     private bool isFromRemoteAgentField;
-    
+
     private string uriField;
-    
-    public CollectorType() {
+
+    public CollectorType()
+    {
         this.isFromRemoteAgentField = false;
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("UriAttachment", IsNullable=false)]
-    public UriAttachmentType[] UriAttachments {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("UriAttachment", IsNullable = false)]
+    public UriAttachmentType[] UriAttachments
+    {
+        get
+        {
             return this.uriAttachmentsField;
         }
-        set {
+        set
+        {
             this.uriAttachmentsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string agentName {
-        get {
+    public string agentName
+    {
+        get
+        {
             return this.agentNameField;
         }
-        set {
+        set
+        {
             this.agentNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string agentDisplayName {
-        get {
+    public string agentDisplayName
+    {
+        get
+        {
             return this.agentDisplayNameField;
         }
-        set {
+        set
+        {
             this.agentDisplayNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string collectorDisplayName {
-        get {
+    public string collectorDisplayName
+    {
+        get
+        {
             return this.collectorDisplayNameField;
         }
-        set {
+        set
+        {
             this.collectorDisplayNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool isFromRemoteAgent {
-        get {
+    public bool isFromRemoteAgent
+    {
+        get
+        {
             return this.isFromRemoteAgentField;
         }
-        set {
+        set
+        {
             this.isFromRemoteAgentField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string uri {
-        get {
+    public string uri
+    {
+        get
+        {
             return this.uriField;
         }
-        set {
+        set
+        {
             this.uriField = value;
         }
     }
@@ -10058,17 +12111,21 @@ public partial class CollectorType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class UriAttachmentType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class UriAttachmentType
+{
+
     private UriAttachmentTypeA aField;
-    
+
     /// <remarks/>
-    public UriAttachmentTypeA A {
-        get {
+    public UriAttachmentTypeA A
+    {
+        get
+        {
             return this.aField;
         }
-        set {
+        set
+        {
             this.aField = value;
         }
     }
@@ -10079,31 +12136,38 @@ public partial class UriAttachmentType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class UriAttachmentTypeA {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class UriAttachmentTypeA
+{
+
     private string hrefField;
-    
+
     private string valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string href {
-        get {
+    public string href
+    {
+        get
+        {
             return this.hrefField;
         }
-        set {
+        set
+        {
             this.hrefField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlTextAttribute()]
-    public string Value {
-        get {
+    public string Value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -10114,19 +12178,23 @@ public partial class UriAttachmentTypeA {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DataCollectorMessagesType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DataCollectorMessagesType
+{
+
     private DataCollectorMessageType[] itemsField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("DataCollectorExceptionMessage", typeof(DataCollectorExceptionMessageType))]
     [System.Xml.Serialization.XmlElementAttribute("DataCollectorMessage", typeof(DataCollectorMessageType))]
-    public DataCollectorMessageType[] Items {
-        get {
+    public DataCollectorMessageType[] Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
         }
     }
@@ -10137,41 +12205,51 @@ public partial class DataCollectorMessagesType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DataCollectorExceptionMessageType : DataCollectorMessageType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DataCollectorExceptionMessageType : DataCollectorMessageType
+{
+
     private string exceptionTypeField;
-    
+
     private string exceptionMessageField;
-    
+
     private string stackTraceField;
-    
+
     /// <remarks/>
-    public string ExceptionType {
-        get {
+    public string ExceptionType
+    {
+        get
+        {
             return this.exceptionTypeField;
         }
-        set {
+        set
+        {
             this.exceptionTypeField = value;
         }
     }
-    
+
     /// <remarks/>
-    public string ExceptionMessage {
-        get {
+    public string ExceptionMessage
+    {
+        get
+        {
             return this.exceptionMessageField;
         }
-        set {
+        set
+        {
             this.exceptionMessageField = value;
         }
     }
-    
+
     /// <remarks/>
-    public string StackTrace {
-        get {
+    public string StackTrace
+    {
+        get
+        {
             return this.stackTraceField;
         }
-        set {
+        set
+        {
             this.stackTraceField = value;
         }
     }
@@ -10183,82 +12261,101 @@ public partial class DataCollectorExceptionMessageType : DataCollectorMessageTyp
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DataCollectorMessageType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DataCollectorMessageType
+{
+
     private string textField;
-    
+
     private DataCollectorMessageLevelType levelField;
-    
+
     private string agentNameField;
-    
+
     private string timestampField;
-    
+
     private string dataCollectorUriField;
-    
+
     private string dataCollectorFriendlyNameField;
-    
+
     /// <remarks/>
-    public string Text {
-        get {
+    public string Text
+    {
+        get
+        {
             return this.textField;
         }
-        set {
+        set
+        {
             this.textField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public DataCollectorMessageLevelType level {
-        get {
+    public DataCollectorMessageLevelType level
+    {
+        get
+        {
             return this.levelField;
         }
-        set {
+        set
+        {
             this.levelField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string agentName {
-        get {
+    public string agentName
+    {
+        get
+        {
             return this.agentNameField;
         }
-        set {
+        set
+        {
             this.agentNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string timestamp {
-        get {
+    public string timestamp
+    {
+        get
+        {
             return this.timestampField;
         }
-        set {
+        set
+        {
             this.timestampField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string dataCollectorUri {
-        get {
+    public string dataCollectorUri
+    {
+        get
+        {
             return this.dataCollectorUriField;
         }
-        set {
+        set
+        {
             this.dataCollectorUriField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string dataCollectorFriendlyName {
-        get {
+    public string dataCollectorFriendlyName
+    {
+        get
+        {
             return this.dataCollectorFriendlyNameField;
         }
-        set {
+        set
+        {
             this.dataCollectorFriendlyNameField = value;
         }
     }
@@ -10267,12 +12364,13 @@ public partial class DataCollectorMessageType {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum DataCollectorMessageLevelType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum DataCollectorMessageLevelType
+{
+
     /// <remarks/>
     Error,
-    
+
     /// <remarks/>
     Warning,
 }
@@ -10282,18 +12380,22 @@ public enum DataCollectorMessageLevelType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class FileUrisType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class FileUrisType
+{
+
     private FileUriType[] fileUriField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("FileUri")]
-    public FileUriType[] FileUri {
-        get {
+    public FileUriType[] FileUri
+    {
+        get
+        {
             return this.fileUriField;
         }
-        set {
+        set
+        {
             this.fileUriField = value;
         }
     }
@@ -10304,31 +12406,38 @@ public partial class FileUrisType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class FileUriType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class FileUriType
+{
+
     private string fileField;
-    
+
     private string uriField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string file {
-        get {
+    public string file
+    {
+        get
+        {
             return this.fileField;
         }
-        set {
+        set
+        {
             this.fileField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string uri {
-        get {
+    public string uri
+    {
+        get
+        {
             return this.uriField;
         }
-        set {
+        set
+        {
             this.uriField = value;
         }
     }
@@ -10339,90 +12448,112 @@ public partial class FileUriType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class OutputType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class OutputType
+{
+
     private object stdOutField;
-    
+
     private object stdErrField;
-    
+
     private object debugTraceField;
-    
+
     private object traceInfoField;
-    
+
     private OutputTypeErrorInfo errorInfoField;
-    
+
     private object exceptionField;
-    
+
     private object[] textMessagesField;
-    
+
     /// <remarks/>
-    public object StdOut {
-        get {
+    public object StdOut
+    {
+        get
+        {
             return this.stdOutField;
         }
-        set {
+        set
+        {
             this.stdOutField = value;
         }
     }
-    
+
     /// <remarks/>
-    public object StdErr {
-        get {
+    public object StdErr
+    {
+        get
+        {
             return this.stdErrField;
         }
-        set {
+        set
+        {
             this.stdErrField = value;
         }
     }
-    
+
     /// <remarks/>
-    public object DebugTrace {
-        get {
+    public object DebugTrace
+    {
+        get
+        {
             return this.debugTraceField;
         }
-        set {
+        set
+        {
             this.debugTraceField = value;
         }
     }
-    
+
     /// <remarks/>
-    public object TraceInfo {
-        get {
+    public object TraceInfo
+    {
+        get
+        {
             return this.traceInfoField;
         }
-        set {
+        set
+        {
             this.traceInfoField = value;
         }
     }
-    
+
     /// <remarks/>
-    public OutputTypeErrorInfo ErrorInfo {
-        get {
+    public OutputTypeErrorInfo ErrorInfo
+    {
+        get
+        {
             return this.errorInfoField;
         }
-        set {
+        set
+        {
             this.errorInfoField = value;
         }
     }
-    
+
     /// <remarks/>
-    public object Exception {
-        get {
+    public object Exception
+    {
+        get
+        {
             return this.exceptionField;
         }
-        set {
+        set
+        {
             this.exceptionField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Message", IsNullable=false)]
-    public object[] TextMessages {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Message", IsNullable = false)]
+    public object[] TextMessages
+    {
+        get
+        {
             return this.textMessagesField;
         }
-        set {
+        set
+        {
             this.textMessagesField = value;
         }
     }
@@ -10433,29 +12564,36 @@ public partial class OutputType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class OutputTypeErrorInfo {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class OutputTypeErrorInfo
+{
+
     private object messageField;
-    
+
     private object stackTraceField;
-    
+
     /// <remarks/>
-    public object Message {
-        get {
+    public object Message
+    {
+        get
+        {
             return this.messageField;
         }
-        set {
+        set
+        {
             this.messageField = value;
         }
     }
-    
+
     /// <remarks/>
-    public object StackTrace {
-        get {
+    public object StackTrace
+    {
+        get
+        {
             return this.stackTraceField;
         }
-        set {
+        set
+        {
             this.stackTraceField = value;
         }
     }
@@ -10466,18 +12604,22 @@ public partial class OutputTypeErrorInfo {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class ResultFilesType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class ResultFilesType
+{
+
     private ResultFilesTypeResultFile[] resultFileField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("ResultFile")]
-    public ResultFilesTypeResultFile[] ResultFile {
-        get {
+    public ResultFilesTypeResultFile[] ResultFile
+    {
+        get
+        {
             return this.resultFileField;
         }
-        set {
+        set
+        {
             this.resultFileField = value;
         }
     }
@@ -10488,18 +12630,22 @@ public partial class ResultFilesType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class ResultFilesTypeResultFile {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class ResultFilesTypeResultFile
+{
+
     private string pathField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string path {
-        get {
+    public string path
+    {
+        get
+        {
             return this.pathField;
         }
-        set {
+        set
+        {
             this.pathField = value;
         }
     }
@@ -10510,18 +12656,22 @@ public partial class ResultFilesTypeResultFile {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestResultTypeTimers {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestResultTypeTimers
+{
+
     private TestResultTypeTimersTimer[] timerField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Timer")]
-    public TestResultTypeTimersTimer[] Timer {
-        get {
+    public TestResultTypeTimersTimer[] Timer
+    {
+        get
+        {
             return this.timerField;
         }
-        set {
+        set
+        {
             this.timerField = value;
         }
     }
@@ -10532,57 +12682,70 @@ public partial class TestResultTypeTimers {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestResultTypeTimersTimer {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestResultTypeTimersTimer
+{
+
     private string nameField;
-    
+
     private string startTimeField;
-    
+
     private int durationField;
-    
+
     private bool durationFieldSpecified;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string startTime {
-        get {
+    public string startTime
+    {
+        get
+        {
             return this.startTimeField;
         }
-        set {
+        set
+        {
             this.startTimeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int duration {
-        get {
+    public int duration
+    {
+        get
+        {
             return this.durationField;
         }
-        set {
+        set
+        {
             this.durationField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool durationSpecified {
-        get {
+    public bool durationSpecified
+    {
+        get
+        {
             return this.durationFieldSpecified;
         }
-        set {
+        set
+        {
             this.durationFieldSpecified = value;
         }
     }
@@ -10593,19 +12756,21 @@ public partial class TestResultTypeTimersTimer {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestResultType : TestResultType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestResultType : TestResultType
+{
+
     private object[] items1Field;
-    
+
     private Items1ChoiceType[] items1ElementNameField;
-    
+
     private uint dataRowCountField;
-    
-    public WebTestResultType() {
+
+    public WebTestResultType()
+    {
         this.dataRowCountField = ((uint)(0));
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("ByteArrayCache", typeof(WebTestResultTypeByteArrayCache))]
     [System.Xml.Serialization.XmlElementAttribute("TestRunConfiguration", typeof(TestRunConfiguration))]
@@ -10615,35 +12780,44 @@ public partial class WebTestResultType : TestResultType {
     [System.Xml.Serialization.XmlElementAttribute("WebTestResultDetails", typeof(WebTestResultDetailsType))]
     [System.Xml.Serialization.XmlElementAttribute("WebTestResultFilePath", typeof(string))]
     [System.Xml.Serialization.XmlChoiceIdentifierAttribute("Items1ElementName")]
-    public object[] Items1 {
-        get {
+    public object[] Items1
+    {
+        get
+        {
             return this.items1Field;
         }
-        set {
+        set
+        {
             this.items1Field = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Items1ElementName")]
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public Items1ChoiceType[] Items1ElementName {
-        get {
+    public Items1ChoiceType[] Items1ElementName
+    {
+        get
+        {
             return this.items1ElementNameField;
         }
-        set {
+        set
+        {
             this.items1ElementNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(typeof(uint), "0")]
-    public uint dataRowCount {
-        get {
+    public uint dataRowCount
+    {
+        get
+        {
             return this.dataRowCountField;
         }
-        set {
+        set
+        {
             this.dataRowCountField = value;
         }
     }
@@ -10654,36 +12828,44 @@ public partial class WebTestResultType : TestResultType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestResultTypeByteArrayCache {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestResultTypeByteArrayCache
+{
+
     private WebTestResultTypeByteArrayCacheEntry[] entryField;
-    
+
     private int nextHandleField;
-    
-    public WebTestResultTypeByteArrayCache() {
+
+    public WebTestResultTypeByteArrayCache()
+    {
         this.nextHandleField = 0;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Entry")]
-    public WebTestResultTypeByteArrayCacheEntry[] Entry {
-        get {
+    public WebTestResultTypeByteArrayCacheEntry[] Entry
+    {
+        get
+        {
             return this.entryField;
         }
-        set {
+        set
+        {
             this.entryField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int nextHandle {
-        get {
+    public int nextHandle
+    {
+        get
+        {
             return this.nextHandleField;
         }
-        set {
+        set
+        {
             this.nextHandleField = value;
         }
     }
@@ -10694,31 +12876,38 @@ public partial class WebTestResultTypeByteArrayCache {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class WebTestResultTypeByteArrayCacheEntry {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class WebTestResultTypeByteArrayCacheEntry
+{
+
     private int handleField;
-    
+
     private string bytesField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int handle {
-        get {
+    public int handle
+    {
+        get
+        {
             return this.handleField;
         }
-        set {
+        set
+        {
             this.handleField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string bytes {
-        get {
+    public string bytes
+    {
+        get
+        {
             return this.bytesField;
         }
-        set {
+        set
+        {
             this.bytesField = value;
         }
     }
@@ -10729,36 +12918,38 @@ public partial class WebTestResultTypeByteArrayCacheEntry {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class TestRunConfiguration {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class TestRunConfiguration
+{
+
     private object[] itemsField;
-    
+
     private ItemsChoiceType1[] itemsElementNameField;
-    
+
     private string idField;
-    
+
     private string nameField;
-    
+
     private bool isExecutedRemotelyField;
-    
+
     private bool abortRunOnErrorField;
-    
+
     private bool autoSaveResultsField;
-    
+
     private bool mapIPAddressesField;
-    
+
     private bool traceExecutionSequenceField;
-    
-    public TestRunConfiguration() {
+
+    public TestRunConfiguration()
+    {
         this.isExecutedRemotelyField = false;
         this.abortRunOnErrorField = false;
         this.autoSaveResultsField = true;
         this.mapIPAddressesField = false;
         this.traceExecutionSequenceField = false;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Buckets", typeof(TestRunConfigurationBuckets))]
     [System.Xml.Serialization.XmlElementAttribute("CodeCoverage", typeof(TestRunConfigurationCodeCoverage))]
@@ -10775,105 +12966,132 @@ public partial class TestRunConfiguration {
     [System.Xml.Serialization.XmlElementAttribute("TestTypeSpecific", typeof(TestRunConfigurationTestTypeSpecific))]
     [System.Xml.Serialization.XmlElementAttribute("Timeouts", typeof(TestRunConfigurationTimeouts))]
     [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
-    public object[] Items {
-        get {
+    public object[] Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemsChoiceType1[] ItemsElementName {
-        get {
+    public ItemsChoiceType1[] ItemsElementName
+    {
+        get
+        {
             return this.itemsElementNameField;
         }
-        set {
+        set
+        {
             this.itemsElementNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string id {
-        get {
+    public string id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool isExecutedRemotely {
-        get {
+    public bool isExecutedRemotely
+    {
+        get
+        {
             return this.isExecutedRemotelyField;
         }
-        set {
+        set
+        {
             this.isExecutedRemotelyField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool abortRunOnError {
-        get {
+    public bool abortRunOnError
+    {
+        get
+        {
             return this.abortRunOnErrorField;
         }
-        set {
+        set
+        {
             this.abortRunOnErrorField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool autoSaveResults {
-        get {
+    public bool autoSaveResults
+    {
+        get
+        {
             return this.autoSaveResultsField;
         }
-        set {
+        set
+        {
             this.autoSaveResultsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool mapIPAddresses {
-        get {
+    public bool mapIPAddresses
+    {
+        get
+        {
             return this.mapIPAddressesField;
         }
-        set {
+        set
+        {
             this.mapIPAddressesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool traceExecutionSequence {
-        get {
+    public bool traceExecutionSequence
+    {
+        get
+        {
             return this.traceExecutionSequenceField;
         }
-        set {
+        set
+        {
             this.traceExecutionSequenceField = value;
         }
     }
@@ -10884,23 +13102,28 @@ public partial class TestRunConfiguration {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationBuckets {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationBuckets
+{
+
     private int sizeField;
-    
-    public TestRunConfigurationBuckets() {
+
+    public TestRunConfigurationBuckets()
+    {
         this.sizeField = 200;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(200)]
-    public int size {
-        get {
+    public int size
+    {
+        get
+        {
             return this.sizeField;
         }
-        set {
+        set
+        {
             this.sizeField = value;
         }
     }
@@ -10911,92 +13134,112 @@ public partial class TestRunConfigurationBuckets {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationCodeCoverage {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationCodeCoverage
+{
+
     private TestRunConfigurationCodeCoverageCodeCoverageItem[] regularField;
-    
+
     private TestRunConfigurationCodeCoverageAspNetCodeCoverageItem[] aspNetField;
-    
+
     private bool enabledField;
-    
+
     private bool perTestField;
-    
+
     private bool instrumentInPlaceField;
-    
+
     private string keyFileField;
-    
-    public TestRunConfigurationCodeCoverage() {
+
+    public TestRunConfigurationCodeCoverage()
+    {
         this.enabledField = false;
         this.perTestField = false;
         this.instrumentInPlaceField = true;
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("CodeCoverageItem", IsNullable=false)]
-    public TestRunConfigurationCodeCoverageCodeCoverageItem[] Regular {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("CodeCoverageItem", IsNullable = false)]
+    public TestRunConfigurationCodeCoverageCodeCoverageItem[] Regular
+    {
+        get
+        {
             return this.regularField;
         }
-        set {
+        set
+        {
             this.regularField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("AspNetCodeCoverageItem", IsNullable=false)]
-    public TestRunConfigurationCodeCoverageAspNetCodeCoverageItem[] AspNet {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("AspNetCodeCoverageItem", IsNullable = false)]
+    public TestRunConfigurationCodeCoverageAspNetCodeCoverageItem[] AspNet
+    {
+        get
+        {
             return this.aspNetField;
         }
-        set {
+        set
+        {
             this.aspNetField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool enabled {
-        get {
+    public bool enabled
+    {
+        get
+        {
             return this.enabledField;
         }
-        set {
+        set
+        {
             this.enabledField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool perTest {
-        get {
+    public bool perTest
+    {
+        get
+        {
             return this.perTestField;
         }
-        set {
+        set
+        {
             this.perTestField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool instrumentInPlace {
-        get {
+    public bool instrumentInPlace
+    {
+        get
+        {
             return this.instrumentInPlaceField;
         }
-        set {
+        set
+        {
             this.instrumentInPlaceField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string keyFile {
-        get {
+    public string keyFile
+    {
+        get
+        {
             return this.keyFileField;
         }
-        set {
+        set
+        {
             this.keyFileField = value;
         }
     }
@@ -11007,75 +13250,92 @@ public partial class TestRunConfigurationCodeCoverage {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationCodeCoverageCodeCoverageItem {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationCodeCoverageCodeCoverageItem
+{
+
     private TestRunConfigurationCodeCoverageCodeCoverageItemKeyFile[] keyFileField;
-    
+
     private string binaryFileField;
-    
+
     private string pdbFileField;
-    
+
     private string outputDirectoryField;
-    
+
     private bool instrumentInPlaceField;
-    
-    public TestRunConfigurationCodeCoverageCodeCoverageItem() {
+
+    public TestRunConfigurationCodeCoverageCodeCoverageItem()
+    {
         this.instrumentInPlaceField = false;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("KeyFile")]
-    public TestRunConfigurationCodeCoverageCodeCoverageItemKeyFile[] KeyFile {
-        get {
+    public TestRunConfigurationCodeCoverageCodeCoverageItemKeyFile[] KeyFile
+    {
+        get
+        {
             return this.keyFileField;
         }
-        set {
+        set
+        {
             this.keyFileField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string binaryFile {
-        get {
+    public string binaryFile
+    {
+        get
+        {
             return this.binaryFileField;
         }
-        set {
+        set
+        {
             this.binaryFileField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string pdbFile {
-        get {
+    public string pdbFile
+    {
+        get
+        {
             return this.pdbFileField;
         }
-        set {
+        set
+        {
             this.pdbFileField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string outputDirectory {
-        get {
+    public string outputDirectory
+    {
+        get
+        {
             return this.outputDirectoryField;
         }
-        set {
+        set
+        {
             this.outputDirectoryField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool instrumentInPlace {
-        get {
+    public bool instrumentInPlace
+    {
+        get
+        {
             return this.instrumentInPlaceField;
         }
-        set {
+        set
+        {
             this.instrumentInPlaceField = value;
         }
     }
@@ -11086,36 +13346,44 @@ public partial class TestRunConfigurationCodeCoverageCodeCoverageItem {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationCodeCoverageCodeCoverageItemKeyFile {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationCodeCoverageCodeCoverageItemKeyFile
+{
+
     private string pathField;
-    
+
     private bool isPublicKeyField;
-    
-    public TestRunConfigurationCodeCoverageCodeCoverageItemKeyFile() {
+
+    public TestRunConfigurationCodeCoverageCodeCoverageItemKeyFile()
+    {
         this.isPublicKeyField = false;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string path {
-        get {
+    public string path
+    {
+        get
+        {
             return this.pathField;
         }
-        set {
+        set
+        {
             this.pathField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool isPublicKey {
-        get {
+    public bool isPublicKey
+    {
+        get
+        {
             return this.isPublicKeyField;
         }
-        set {
+        set
+        {
             this.isPublicKeyField = value;
         }
     }
@@ -11126,83 +13394,102 @@ public partial class TestRunConfigurationCodeCoverageCodeCoverageItemKeyFile {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationCodeCoverageAspNetCodeCoverageItem {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationCodeCoverageAspNetCodeCoverageItem
+{
+
     private string idField;
-    
+
     private string nameField;
-    
+
     private string applicationRootField;
-    
+
     private string urlField;
-    
+
     private bool isIISField;
-    
+
     private bool isIISFieldSpecified;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string id {
-        get {
+    public string id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string applicationRoot {
-        get {
+    public string applicationRoot
+    {
+        get
+        {
             return this.applicationRootField;
         }
-        set {
+        set
+        {
             this.applicationRootField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string url {
-        get {
+    public string url
+    {
+        get
+        {
             return this.urlField;
         }
-        set {
+        set
+        {
             this.urlField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool isIIS {
-        get {
+    public bool isIIS
+    {
+        get
+        {
             return this.isIISField;
         }
-        set {
+        set
+        {
             this.isIISField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool isIISSpecified {
-        get {
+    public bool isIISSpecified
+    {
+        get
+        {
             return this.isIISFieldSpecified;
         }
-        set {
+        set
+        {
             this.isIISFieldSpecified = value;
         }
     }
@@ -11213,18 +13500,22 @@ public partial class TestRunConfigurationCodeCoverageAspNetCodeCoverageItem {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationConstraints {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationConstraints
+{
+
     private object[] agentField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Agent")]
-    public object[] Agent {
-        get {
+    public object[] Agent
+    {
+        get
+        {
             return this.agentField;
         }
-        set {
+        set
+        {
             this.agentField = value;
         }
     }
@@ -11235,107 +13526,130 @@ public partial class TestRunConfigurationConstraints {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationDeployment : DeploymentItemsType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationDeployment : DeploymentItemsType
+{
+
     private bool deploySatelliteAssembliesField;
-    
+
     private string ignoredDependentAssembliesField;
-    
+
     private string userDeploymentRootField;
-    
+
     private string runDeploymentRootField;
-    
+
     private bool useDefaultDeploymentRootField;
-    
+
     private bool enabledField;
-    
+
     private bool uploadDeploymentItemsField;
-    
-    public TestRunConfigurationDeployment() {
+
+    public TestRunConfigurationDeployment()
+    {
         this.deploySatelliteAssembliesField = false;
         this.useDefaultDeploymentRootField = true;
         this.enabledField = true;
         this.uploadDeploymentItemsField = false;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool deploySatelliteAssemblies {
-        get {
+    public bool deploySatelliteAssemblies
+    {
+        get
+        {
             return this.deploySatelliteAssembliesField;
         }
-        set {
+        set
+        {
             this.deploySatelliteAssembliesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string ignoredDependentAssemblies {
-        get {
+    public string ignoredDependentAssemblies
+    {
+        get
+        {
             return this.ignoredDependentAssembliesField;
         }
-        set {
+        set
+        {
             this.ignoredDependentAssembliesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string userDeploymentRoot {
-        get {
+    public string userDeploymentRoot
+    {
+        get
+        {
             return this.userDeploymentRootField;
         }
-        set {
+        set
+        {
             this.userDeploymentRootField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string runDeploymentRoot {
-        get {
+    public string runDeploymentRoot
+    {
+        get
+        {
             return this.runDeploymentRootField;
         }
-        set {
+        set
+        {
             this.runDeploymentRootField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool useDefaultDeploymentRoot {
-        get {
+    public bool useDefaultDeploymentRoot
+    {
+        get
+        {
             return this.useDefaultDeploymentRootField;
         }
-        set {
+        set
+        {
             this.useDefaultDeploymentRootField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool enabled {
-        get {
+    public bool enabled
+    {
+        get
+        {
             return this.enabledField;
         }
-        set {
+        set
+        {
             this.enabledField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool uploadDeploymentItems {
-        get {
+    public bool uploadDeploymentItems
+    {
+        get
+        {
             return this.uploadDeploymentItemsField;
         }
-        set {
+        set
+        {
             this.uploadDeploymentItemsField = value;
         }
     }
@@ -11346,23 +13660,28 @@ public partial class TestRunConfigurationDeployment : DeploymentItemsType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationExecution {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationExecution
+{
+
     private int parallelTestCountField;
-    
-    public TestRunConfigurationExecution() {
+
+    public TestRunConfigurationExecution()
+    {
         this.parallelTestCountField = 1;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(1)]
-    public int parallelTestCount {
-        get {
+    public int parallelTestCount
+    {
+        get
+        {
             return this.parallelTestCountField;
         }
-        set {
+        set
+        {
             this.parallelTestCountField = value;
         }
     }
@@ -11373,23 +13692,28 @@ public partial class TestRunConfigurationExecution {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationExecutionThread {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationExecutionThread
+{
+
     private string apartmentStateField;
-    
-    public TestRunConfigurationExecutionThread() {
+
+    public TestRunConfigurationExecutionThread()
+    {
         this.apartmentStateField = "0";
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute("0")]
-    public string apartmentState {
-        get {
+    public string apartmentState
+    {
+        get
+        {
             return this.apartmentStateField;
         }
-        set {
+        set
+        {
             this.apartmentStateField = value;
         }
     }
@@ -11400,51 +13724,62 @@ public partial class TestRunConfigurationExecutionThread {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationHosts {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationHosts
+{
+
     private object[] itemsField;
-    
+
     private string typeField;
-    
+
     private bool skipUnhostableTestsField;
-    
-    public TestRunConfigurationHosts() {
+
+    public TestRunConfigurationHosts()
+    {
         this.skipUnhostableTestsField = true;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAnyElementAttribute()]
     [System.Xml.Serialization.XmlElementAttribute("AspNet", typeof(TestRunConfigurationHostsAspNet))]
     [System.Xml.Serialization.XmlElementAttribute("DeviceHostRunConfigData", typeof(TestRunConfigurationHostsDeviceHostRunConfigData))]
-    public object[] Items {
-        get {
+    public object[] Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string type {
-        get {
+    public string type
+    {
+        get
+        {
             return this.typeField;
         }
-        set {
+        set
+        {
             this.typeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool skipUnhostableTests {
-        get {
+    public bool skipUnhostableTests
+    {
+        get
+        {
             return this.skipUnhostableTestsField;
         }
-        set {
+        set
+        {
             this.skipUnhostableTestsField = value;
         }
     }
@@ -11455,56 +13790,69 @@ public partial class TestRunConfigurationHosts {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationHostsAspNet {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationHostsAspNet
+{
+
     private DevelopmentServerType developmentServerField;
-    
+
     private string nameField;
-    
+
     private string urlToTestField;
-    
+
     private string executionTypeField;
-    
+
     /// <remarks/>
-    public DevelopmentServerType DevelopmentServer {
-        get {
+    public DevelopmentServerType DevelopmentServer
+    {
+        get
+        {
             return this.developmentServerField;
         }
-        set {
+        set
+        {
             this.developmentServerField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string urlToTest {
-        get {
+    public string urlToTest
+    {
+        get
+        {
             return this.urlToTestField;
         }
-        set {
+        set
+        {
             this.urlToTestField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string executionType {
-        get {
+    public string executionType
+    {
+        get
+        {
             return this.executionTypeField;
         }
-        set {
+        set
+        {
             this.executionTypeField = value;
         }
     }
@@ -11515,83 +13863,102 @@ public partial class TestRunConfigurationHostsAspNet {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationHostsDeviceHostRunConfigData {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationHostsDeviceHostRunConfigData
+{
+
     private string nameField;
-    
+
     private string deviceIdField;
-    
+
     private string deviceNameField;
-    
+
     private string platformIdField;
-    
+
     private string platformNameField;
-    
+
     private string uiPlatformIdField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string deviceId {
-        get {
+    public string deviceId
+    {
+        get
+        {
             return this.deviceIdField;
         }
-        set {
+        set
+        {
             this.deviceIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string deviceName {
-        get {
+    public string deviceName
+    {
+        get
+        {
             return this.deviceNameField;
         }
-        set {
+        set
+        {
             this.deviceNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string platformId {
-        get {
+    public string platformId
+    {
+        get
+        {
             return this.platformIdField;
         }
-        set {
+        set
+        {
             this.platformIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string platformName {
-        get {
+    public string platformName
+    {
+        get
+        {
             return this.platformNameField;
         }
-        set {
+        set
+        {
             this.platformNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string uiPlatformId {
-        get {
+    public string uiPlatformId
+    {
+        get
+        {
             return this.uiPlatformIdField;
         }
-        set {
+        set
+        {
             this.uiPlatformIdField = value;
         }
     }
@@ -11602,51 +13969,62 @@ public partial class TestRunConfigurationHostsDeviceHostRunConfigData {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationNamingScheme {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationNamingScheme
+{
+
     private string baseNameField;
-    
+
     private bool appendTimeStampField;
-    
+
     private bool useDefaultField;
-    
-    public TestRunConfigurationNamingScheme() {
+
+    public TestRunConfigurationNamingScheme()
+    {
         this.appendTimeStampField = true;
         this.useDefaultField = true;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string baseName {
-        get {
+    public string baseName
+    {
+        get
+        {
             return this.baseNameField;
         }
-        set {
+        set
+        {
             this.baseNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool appendTimeStamp {
-        get {
+    public bool appendTimeStamp
+    {
+        get
+        {
             return this.appendTimeStampField;
         }
-        set {
+        set
+        {
             this.appendTimeStampField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool useDefault {
-        get {
+    public bool useDefault
+    {
+        get
+        {
             return this.useDefaultField;
         }
-        set {
+        set
+        {
             this.useDefaultField = value;
         }
     }
@@ -11657,18 +14035,22 @@ public partial class TestRunConfigurationNamingScheme {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationPlugins {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationPlugins
+{
+
     private object[] pluginField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Plugin")]
-    public object[] Plugin {
-        get {
+    public object[] Plugin
+    {
+        get
+        {
             return this.pluginField;
         }
-        set {
+        set
+        {
             this.pluginField = value;
         }
     }
@@ -11679,30 +14061,37 @@ public partial class TestRunConfigurationPlugins {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationRemote {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationRemote
+{
+
     private TestRunConfigurationRemoteAgent agentField;
-    
+
     private string controllerNameField;
-    
+
     /// <remarks/>
-    public TestRunConfigurationRemoteAgent Agent {
-        get {
+    public TestRunConfigurationRemoteAgent Agent
+    {
+        get
+        {
             return this.agentField;
         }
-        set {
+        set
+        {
             this.agentField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string controllerName {
-        get {
+    public string controllerName
+    {
+        get
+        {
             return this.controllerNameField;
         }
-        set {
+        set
+        {
             this.controllerNameField = value;
         }
     }
@@ -11713,18 +14102,22 @@ public partial class TestRunConfigurationRemote {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationRemoteAgent {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationRemoteAgent
+{
+
     private NameValuePropertyType[] requiredPropertiesField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Property", IsNullable=false)]
-    public NameValuePropertyType[] RequiredProperties {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Property", IsNullable = false)]
+    public NameValuePropertyType[] RequiredProperties
+    {
+        get
+        {
             return this.requiredPropertiesField;
         }
-        set {
+        set
+        {
             this.requiredPropertiesField = value;
         }
     }
@@ -11735,31 +14128,38 @@ public partial class TestRunConfigurationRemoteAgent {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationScripts {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationScripts
+{
+
     private string cleanupScriptField;
-    
+
     private string setupScriptField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string cleanupScript {
-        get {
+    public string cleanupScript
+    {
+        get
+        {
             return this.cleanupScriptField;
         }
-        set {
+        set
+        {
             this.cleanupScriptField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string setupScript {
-        get {
+    public string setupScript
+    {
+        get
+        {
             return this.setupScriptField;
         }
-        set {
+        set
+        {
             this.setupScriptField = value;
         }
     }
@@ -11770,35 +14170,42 @@ public partial class TestRunConfigurationScripts {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationTestTypeSpecific {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationTestTypeSpecific
+{
+
     private object[] itemsField;
-    
+
     private ItemsChoiceType[] itemsElementNameField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAnyElementAttribute()]
     [System.Xml.Serialization.XmlElementAttribute("WebTestRunConfig", typeof(WebTestRunConfigurationType))]
     [System.Xml.Serialization.XmlElementAttribute("WebTestRunConfiguration", typeof(WebTestRunConfigurationType))]
     [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
-    public object[] Items {
-        get {
+    public object[] Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemsChoiceType[] ItemsElementName {
-        get {
+    public ItemsChoiceType[] ItemsElementName
+    {
+        get
+        {
             return this.itemsElementNameField;
         }
-        set {
+        set
+        {
             this.itemsElementNameField = value;
         }
     }
@@ -11807,16 +14214,17 @@ public partial class TestRunConfigurationTestTypeSpecific {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IncludeInSchema=false)]
-public enum ItemsChoiceType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IncludeInSchema = false)]
+public enum ItemsChoiceType
+{
+
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("##any:")]
     Item,
-    
+
     /// <remarks/>
     WebTestRunConfig,
-    
+
     /// <remarks/>
     WebTestRunConfiguration,
 }
@@ -11826,83 +14234,100 @@ public enum ItemsChoiceType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunConfigurationTimeouts {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunConfigurationTimeouts
+{
+
     private int runTimeoutField;
-    
+
     private int testTimeoutField;
-    
+
     private int agentNotRespondingTimeoutField;
-    
+
     private int deploymentTimeoutField;
-    
+
     private int scriptTimeoutField;
-    
-    public TestRunConfigurationTimeouts() {
+
+    public TestRunConfigurationTimeouts()
+    {
         this.runTimeoutField = 0;
         this.testTimeoutField = 1800000;
         this.agentNotRespondingTimeoutField = 300000;
         this.deploymentTimeoutField = 300000;
         this.scriptTimeoutField = 300000;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int runTimeout {
-        get {
+    public int runTimeout
+    {
+        get
+        {
             return this.runTimeoutField;
         }
-        set {
+        set
+        {
             this.runTimeoutField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(1800000)]
-    public int testTimeout {
-        get {
+    public int testTimeout
+    {
+        get
+        {
             return this.testTimeoutField;
         }
-        set {
+        set
+        {
             this.testTimeoutField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(300000)]
-    public int agentNotRespondingTimeout {
-        get {
+    public int agentNotRespondingTimeout
+    {
+        get
+        {
             return this.agentNotRespondingTimeoutField;
         }
-        set {
+        set
+        {
             this.agentNotRespondingTimeoutField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(300000)]
-    public int deploymentTimeout {
-        get {
+    public int deploymentTimeout
+    {
+        get
+        {
             return this.deploymentTimeoutField;
         }
-        set {
+        set
+        {
             this.deploymentTimeoutField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(300000)]
-    public int scriptTimeout {
-        get {
+    public int scriptTimeout
+    {
+        get
+        {
             return this.scriptTimeoutField;
         }
-        set {
+        set
+        {
             this.scriptTimeoutField = value;
         }
     }
@@ -11911,48 +14336,49 @@ public partial class TestRunConfigurationTimeouts {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IncludeInSchema=false)]
-public enum ItemsChoiceType1 {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IncludeInSchema = false)]
+public enum ItemsChoiceType1
+{
+
     /// <remarks/>
     Buckets,
-    
+
     /// <remarks/>
     CodeCoverage,
-    
+
     /// <remarks/>
     Constraints,
-    
+
     /// <remarks/>
     Deployment,
-    
+
     /// <remarks/>
     Description,
-    
+
     /// <remarks/>
     Execution,
-    
+
     /// <remarks/>
     ExecutionThread,
-    
+
     /// <remarks/>
     Hosts,
-    
+
     /// <remarks/>
     NamingScheme,
-    
+
     /// <remarks/>
     Plugins,
-    
+
     /// <remarks/>
     Remote,
-    
+
     /// <remarks/>
     Scripts,
-    
+
     /// <remarks/>
     TestTypeSpecific,
-    
+
     /// <remarks/>
     Timeouts,
 }
@@ -11962,220 +14388,270 @@ public enum ItemsChoiceType1 {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute("TestSettings", Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class TestSettingsType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute("TestSettings", Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class TestSettingsType
+{
+
     private object descriptionField;
-    
+
     private TestSettingsTypeDeployment deploymentField;
-    
+
     private NameValuePropertyType[] propertiesField;
-    
+
     private TestSettingsTypeNamingScheme namingSchemeField;
-    
+
     private TestSettingsTypeScripts scriptsField;
-    
+
     private object[] constraintsField;
-    
+
     private TestSettingsTypeRemoteController remoteControllerField;
-    
+
     private TestSettingsTypeExecution executionField;
-    
+
     private AgentRuleCollectionType collectionOnlyAgentsField;
-    
+
     private string idField;
-    
+
     private string nameField;
-    
+
     private bool abortRunOnErrorField;
-    
+
     private bool autoSaveResultsField;
-    
+
     private bool mapIPAddressesField;
-    
+
     private bool traceExecutionSequenceField;
-    
+
     private bool enableDefaultDataCollectorsField;
-    
-    public TestSettingsType() {
+
+    public TestSettingsType()
+    {
         this.abortRunOnErrorField = false;
         this.autoSaveResultsField = true;
         this.mapIPAddressesField = false;
         this.traceExecutionSequenceField = false;
         this.enableDefaultDataCollectorsField = false;
     }
-    
+
     /// <remarks/>
-    public object Description {
-        get {
+    public object Description
+    {
+        get
+        {
             return this.descriptionField;
         }
-        set {
+        set
+        {
             this.descriptionField = value;
         }
     }
-    
+
     /// <remarks/>
-    public TestSettingsTypeDeployment Deployment {
-        get {
+    public TestSettingsTypeDeployment Deployment
+    {
+        get
+        {
             return this.deploymentField;
         }
-        set {
+        set
+        {
             this.deploymentField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Property", IsNullable=false)]
-    public NameValuePropertyType[] Properties {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Property", IsNullable = false)]
+    public NameValuePropertyType[] Properties
+    {
+        get
+        {
             return this.propertiesField;
         }
-        set {
+        set
+        {
             this.propertiesField = value;
         }
     }
-    
+
     /// <remarks/>
-    public TestSettingsTypeNamingScheme NamingScheme {
-        get {
+    public TestSettingsTypeNamingScheme NamingScheme
+    {
+        get
+        {
             return this.namingSchemeField;
         }
-        set {
+        set
+        {
             this.namingSchemeField = value;
         }
     }
-    
+
     /// <remarks/>
-    public TestSettingsTypeScripts Scripts {
-        get {
+    public TestSettingsTypeScripts Scripts
+    {
+        get
+        {
             return this.scriptsField;
         }
-        set {
+        set
+        {
             this.scriptsField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Agent", IsNullable=false)]
-    public object[] Constraints {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Agent", IsNullable = false)]
+    public object[] Constraints
+    {
+        get
+        {
             return this.constraintsField;
         }
-        set {
+        set
+        {
             this.constraintsField = value;
         }
     }
-    
+
     /// <remarks/>
-    public TestSettingsTypeRemoteController RemoteController {
-        get {
+    public TestSettingsTypeRemoteController RemoteController
+    {
+        get
+        {
             return this.remoteControllerField;
         }
-        set {
+        set
+        {
             this.remoteControllerField = value;
         }
     }
-    
+
     /// <remarks/>
-    public TestSettingsTypeExecution Execution {
-        get {
+    public TestSettingsTypeExecution Execution
+    {
+        get
+        {
             return this.executionField;
         }
-        set {
+        set
+        {
             this.executionField = value;
         }
     }
-    
+
     /// <remarks/>
-    public AgentRuleCollectionType CollectionOnlyAgents {
-        get {
+    public AgentRuleCollectionType CollectionOnlyAgents
+    {
+        get
+        {
             return this.collectionOnlyAgentsField;
         }
-        set {
+        set
+        {
             this.collectionOnlyAgentsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string id {
-        get {
+    public string id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool abortRunOnError {
-        get {
+    public bool abortRunOnError
+    {
+        get
+        {
             return this.abortRunOnErrorField;
         }
-        set {
+        set
+        {
             this.abortRunOnErrorField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool autoSaveResults {
-        get {
+    public bool autoSaveResults
+    {
+        get
+        {
             return this.autoSaveResultsField;
         }
-        set {
+        set
+        {
             this.autoSaveResultsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool mapIPAddresses {
-        get {
+    public bool mapIPAddresses
+    {
+        get
+        {
             return this.mapIPAddressesField;
         }
-        set {
+        set
+        {
             this.mapIPAddressesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool traceExecutionSequence {
-        get {
+    public bool traceExecutionSequence
+    {
+        get
+        {
             return this.traceExecutionSequenceField;
         }
-        set {
+        set
+        {
             this.traceExecutionSequenceField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool enableDefaultDataCollectors {
-        get {
+    public bool enableDefaultDataCollectors
+    {
+        get
+        {
             return this.enableDefaultDataCollectorsField;
         }
-        set {
+        set
+        {
             this.enableDefaultDataCollectorsField = value;
         }
     }
@@ -12186,107 +14662,130 @@ public partial class TestSettingsType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestSettingsTypeDeployment : DeploymentItemsType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestSettingsTypeDeployment : DeploymentItemsType
+{
+
     private bool deploySatelliteAssembliesField;
-    
+
     private string ignoredDependentAssembliesField;
-    
+
     private string userDeploymentRootField;
-    
+
     private string runDeploymentRootField;
-    
+
     private bool useDefaultDeploymentRootField;
-    
+
     private bool enabledField;
-    
+
     private bool uploadDeploymentItemsField;
-    
-    public TestSettingsTypeDeployment() {
+
+    public TestSettingsTypeDeployment()
+    {
         this.deploySatelliteAssembliesField = false;
         this.useDefaultDeploymentRootField = true;
         this.enabledField = true;
         this.uploadDeploymentItemsField = false;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool deploySatelliteAssemblies {
-        get {
+    public bool deploySatelliteAssemblies
+    {
+        get
+        {
             return this.deploySatelliteAssembliesField;
         }
-        set {
+        set
+        {
             this.deploySatelliteAssembliesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string ignoredDependentAssemblies {
-        get {
+    public string ignoredDependentAssemblies
+    {
+        get
+        {
             return this.ignoredDependentAssembliesField;
         }
-        set {
+        set
+        {
             this.ignoredDependentAssembliesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string userDeploymentRoot {
-        get {
+    public string userDeploymentRoot
+    {
+        get
+        {
             return this.userDeploymentRootField;
         }
-        set {
+        set
+        {
             this.userDeploymentRootField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string runDeploymentRoot {
-        get {
+    public string runDeploymentRoot
+    {
+        get
+        {
             return this.runDeploymentRootField;
         }
-        set {
+        set
+        {
             this.runDeploymentRootField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool useDefaultDeploymentRoot {
-        get {
+    public bool useDefaultDeploymentRoot
+    {
+        get
+        {
             return this.useDefaultDeploymentRootField;
         }
-        set {
+        set
+        {
             this.useDefaultDeploymentRootField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool enabled {
-        get {
+    public bool enabled
+    {
+        get
+        {
             return this.enabledField;
         }
-        set {
+        set
+        {
             this.enabledField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool uploadDeploymentItems {
-        get {
+    public bool uploadDeploymentItems
+    {
+        get
+        {
             return this.uploadDeploymentItemsField;
         }
-        set {
+        set
+        {
             this.uploadDeploymentItemsField = value;
         }
     }
@@ -12297,51 +14796,62 @@ public partial class TestSettingsTypeDeployment : DeploymentItemsType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestSettingsTypeNamingScheme {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestSettingsTypeNamingScheme
+{
+
     private string baseNameField;
-    
+
     private bool appendTimeStampField;
-    
+
     private bool useDefaultField;
-    
-    public TestSettingsTypeNamingScheme() {
+
+    public TestSettingsTypeNamingScheme()
+    {
         this.appendTimeStampField = true;
         this.useDefaultField = true;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string baseName {
-        get {
+    public string baseName
+    {
+        get
+        {
             return this.baseNameField;
         }
-        set {
+        set
+        {
             this.baseNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool appendTimeStamp {
-        get {
+    public bool appendTimeStamp
+    {
+        get
+        {
             return this.appendTimeStampField;
         }
-        set {
+        set
+        {
             this.appendTimeStampField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool useDefault {
-        get {
+    public bool useDefault
+    {
+        get
+        {
             return this.useDefaultField;
         }
-        set {
+        set
+        {
             this.useDefaultField = value;
         }
     }
@@ -12352,31 +14862,38 @@ public partial class TestSettingsTypeNamingScheme {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestSettingsTypeScripts {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestSettingsTypeScripts
+{
+
     private string cleanupScriptField;
-    
+
     private string setupScriptField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string cleanupScript {
-        get {
+    public string cleanupScript
+    {
+        get
+        {
             return this.cleanupScriptField;
         }
-        set {
+        set
+        {
             this.cleanupScriptField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string setupScript {
-        get {
+    public string setupScript
+    {
+        get
+        {
             return this.setupScriptField;
         }
-        set {
+        set
+        {
             this.setupScriptField = value;
         }
     }
@@ -12387,18 +14904,22 @@ public partial class TestSettingsTypeScripts {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestSettingsTypeRemoteController {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestSettingsTypeRemoteController
+{
+
     private string nameField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
@@ -12409,125 +14930,154 @@ public partial class TestSettingsTypeRemoteController {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestSettingsTypeExecution {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestSettingsTypeExecution
+{
+
     private TestSettingsTypeExecutionBuckets bucketsField;
-    
+
     private TestSettingsTypeExecutionExecutionThread executionThreadField;
-    
+
     private TestSettingsTypeExecutionHosts hostsField;
-    
+
     private TestSettingsTypeExecutionTestTypeSpecific testTypeSpecificField;
-    
+
     private TestSettingsTypeExecutionTimeouts timeoutsField;
-    
+
     private AgentRuleType agentRuleField;
-    
+
     private TestSettingsTypeExecutionLocation locationField;
-    
+
     private HostProcessPlatformTypeEnum hostProcessPlatformField;
-    
+
     private int parallelTestCountField;
-    
-    public TestSettingsTypeExecution() {
+
+    public TestSettingsTypeExecution()
+    {
         this.locationField = TestSettingsTypeExecutionLocation.Local;
         this.hostProcessPlatformField = HostProcessPlatformTypeEnum.X86;
         this.parallelTestCountField = 1;
     }
-    
+
     /// <remarks/>
-    public TestSettingsTypeExecutionBuckets Buckets {
-        get {
+    public TestSettingsTypeExecutionBuckets Buckets
+    {
+        get
+        {
             return this.bucketsField;
         }
-        set {
+        set
+        {
             this.bucketsField = value;
         }
     }
-    
+
     /// <remarks/>
-    public TestSettingsTypeExecutionExecutionThread ExecutionThread {
-        get {
+    public TestSettingsTypeExecutionExecutionThread ExecutionThread
+    {
+        get
+        {
             return this.executionThreadField;
         }
-        set {
+        set
+        {
             this.executionThreadField = value;
         }
     }
-    
+
     /// <remarks/>
-    public TestSettingsTypeExecutionHosts Hosts {
-        get {
+    public TestSettingsTypeExecutionHosts Hosts
+    {
+        get
+        {
             return this.hostsField;
         }
-        set {
+        set
+        {
             this.hostsField = value;
         }
     }
-    
+
     /// <remarks/>
-    public TestSettingsTypeExecutionTestTypeSpecific TestTypeSpecific {
-        get {
+    public TestSettingsTypeExecutionTestTypeSpecific TestTypeSpecific
+    {
+        get
+        {
             return this.testTypeSpecificField;
         }
-        set {
+        set
+        {
             this.testTypeSpecificField = value;
         }
     }
-    
+
     /// <remarks/>
-    public TestSettingsTypeExecutionTimeouts Timeouts {
-        get {
+    public TestSettingsTypeExecutionTimeouts Timeouts
+    {
+        get
+        {
             return this.timeoutsField;
         }
-        set {
+        set
+        {
             this.timeoutsField = value;
         }
     }
-    
+
     /// <remarks/>
-    public AgentRuleType AgentRule {
-        get {
+    public AgentRuleType AgentRule
+    {
+        get
+        {
             return this.agentRuleField;
         }
-        set {
+        set
+        {
             this.agentRuleField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(TestSettingsTypeExecutionLocation.Local)]
-    public TestSettingsTypeExecutionLocation location {
-        get {
+    public TestSettingsTypeExecutionLocation location
+    {
+        get
+        {
             return this.locationField;
         }
-        set {
+        set
+        {
             this.locationField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(HostProcessPlatformTypeEnum.X86)]
-    public HostProcessPlatformTypeEnum hostProcessPlatform {
-        get {
+    public HostProcessPlatformTypeEnum hostProcessPlatform
+    {
+        get
+        {
             return this.hostProcessPlatformField;
         }
-        set {
+        set
+        {
             this.hostProcessPlatformField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(1)]
-    public int parallelTestCount {
-        get {
+    public int parallelTestCount
+    {
+        get
+        {
             return this.parallelTestCountField;
         }
-        set {
+        set
+        {
             this.parallelTestCountField = value;
         }
     }
@@ -12538,38 +15088,46 @@ public partial class TestSettingsTypeExecution {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestSettingsTypeExecutionBuckets {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestSettingsTypeExecutionBuckets
+{
+
     private int thresholdField;
-    
+
     private int sizeField;
-    
-    public TestSettingsTypeExecutionBuckets() {
+
+    public TestSettingsTypeExecutionBuckets()
+    {
         this.thresholdField = 1000;
         this.sizeField = 200;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(1000)]
-    public int threshold {
-        get {
+    public int threshold
+    {
+        get
+        {
             return this.thresholdField;
         }
-        set {
+        set
+        {
             this.thresholdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(200)]
-    public int size {
-        get {
+    public int size
+    {
+        get
+        {
             return this.sizeField;
         }
-        set {
+        set
+        {
             this.sizeField = value;
         }
     }
@@ -12580,23 +15138,28 @@ public partial class TestSettingsTypeExecutionBuckets {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestSettingsTypeExecutionExecutionThread {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestSettingsTypeExecutionExecutionThread
+{
+
     private string apartmentStateField;
-    
-    public TestSettingsTypeExecutionExecutionThread() {
+
+    public TestSettingsTypeExecutionExecutionThread()
+    {
         this.apartmentStateField = "0";
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute("0")]
-    public string apartmentState {
-        get {
+    public string apartmentState
+    {
+        get
+        {
             return this.apartmentStateField;
         }
-        set {
+        set
+        {
             this.apartmentStateField = value;
         }
     }
@@ -12607,51 +15170,62 @@ public partial class TestSettingsTypeExecutionExecutionThread {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestSettingsTypeExecutionHosts {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestSettingsTypeExecutionHosts
+{
+
     private object[] itemsField;
-    
+
     private string typeField;
-    
+
     private bool skipUnhostableTestsField;
-    
-    public TestSettingsTypeExecutionHosts() {
+
+    public TestSettingsTypeExecutionHosts()
+    {
         this.skipUnhostableTestsField = true;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAnyElementAttribute()]
     [System.Xml.Serialization.XmlElementAttribute("AspNet", typeof(TestSettingsTypeExecutionHostsAspNet))]
     [System.Xml.Serialization.XmlElementAttribute("DeviceHostRunConfigData", typeof(TestSettingsTypeExecutionHostsDeviceHostRunConfigData))]
-    public object[] Items {
-        get {
+    public object[] Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string type {
-        get {
+    public string type
+    {
+        get
+        {
             return this.typeField;
         }
-        set {
+        set
+        {
             this.typeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool skipUnhostableTests {
-        get {
+    public bool skipUnhostableTests
+    {
+        get
+        {
             return this.skipUnhostableTestsField;
         }
-        set {
+        set
+        {
             this.skipUnhostableTestsField = value;
         }
     }
@@ -12662,56 +15236,69 @@ public partial class TestSettingsTypeExecutionHosts {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestSettingsTypeExecutionHostsAspNet {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestSettingsTypeExecutionHostsAspNet
+{
+
     private DevelopmentServerType developmentServerField;
-    
+
     private string nameField;
-    
+
     private string urlToTestField;
-    
+
     private string executionTypeField;
-    
+
     /// <remarks/>
-    public DevelopmentServerType DevelopmentServer {
-        get {
+    public DevelopmentServerType DevelopmentServer
+    {
+        get
+        {
             return this.developmentServerField;
         }
-        set {
+        set
+        {
             this.developmentServerField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string urlToTest {
-        get {
+    public string urlToTest
+    {
+        get
+        {
             return this.urlToTestField;
         }
-        set {
+        set
+        {
             this.urlToTestField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string executionType {
-        get {
+    public string executionType
+    {
+        get
+        {
             return this.executionTypeField;
         }
-        set {
+        set
+        {
             this.executionTypeField = value;
         }
     }
@@ -12722,83 +15309,102 @@ public partial class TestSettingsTypeExecutionHostsAspNet {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestSettingsTypeExecutionHostsDeviceHostRunConfigData {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestSettingsTypeExecutionHostsDeviceHostRunConfigData
+{
+
     private string nameField;
-    
+
     private string deviceIdField;
-    
+
     private string deviceNameField;
-    
+
     private string platformIdField;
-    
+
     private string platformNameField;
-    
+
     private string uiPlatformIdField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string deviceId {
-        get {
+    public string deviceId
+    {
+        get
+        {
             return this.deviceIdField;
         }
-        set {
+        set
+        {
             this.deviceIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string deviceName {
-        get {
+    public string deviceName
+    {
+        get
+        {
             return this.deviceNameField;
         }
-        set {
+        set
+        {
             this.deviceNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string platformId {
-        get {
+    public string platformId
+    {
+        get
+        {
             return this.platformIdField;
         }
-        set {
+        set
+        {
             this.platformIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string platformName {
-        get {
+    public string platformName
+    {
+        get
+        {
             return this.platformNameField;
         }
-        set {
+        set
+        {
             this.platformNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string uiPlatformId {
-        get {
+    public string uiPlatformId
+    {
+        get
+        {
             return this.uiPlatformIdField;
         }
-        set {
+        set
+        {
             this.uiPlatformIdField = value;
         }
     }
@@ -12809,36 +15415,43 @@ public partial class TestSettingsTypeExecutionHostsDeviceHostRunConfigData {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestSettingsTypeExecutionTestTypeSpecific {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestSettingsTypeExecutionTestTypeSpecific
+{
+
     private object[] itemsField;
-    
+
     private ItemsChoiceType2[] itemsElementNameField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAnyElementAttribute()]
     [System.Xml.Serialization.XmlElementAttribute("UnitTestRunConfig", typeof(AssemblyResolutionSettingsType))]
     [System.Xml.Serialization.XmlElementAttribute("WebTestRunConfig", typeof(WebTestRunConfigurationType))]
     [System.Xml.Serialization.XmlElementAttribute("WebTestRunConfiguration", typeof(WebTestRunConfigurationType))]
     [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
-    public object[] Items {
-        get {
+    public object[] Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemsChoiceType2[] ItemsElementName {
-        get {
+    public ItemsChoiceType2[] ItemsElementName
+    {
+        get
+        {
             return this.itemsElementNameField;
         }
-        set {
+        set
+        {
             this.itemsElementNameField = value;
         }
     }
@@ -12849,31 +15462,38 @@ public partial class TestSettingsTypeExecutionTestTypeSpecific {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute("TestExecution", Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class AssemblyResolutionSettingsType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute("TestExecution", Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class AssemblyResolutionSettingsType
+{
+
     private AssemblyResolutionSettingsTypeAssemblyResolution assemblyResolutionField;
-    
+
     private string testTypeIdField;
-    
+
     /// <remarks/>
-    public AssemblyResolutionSettingsTypeAssemblyResolution AssemblyResolution {
-        get {
+    public AssemblyResolutionSettingsTypeAssemblyResolution AssemblyResolution
+    {
+        get
+        {
             return this.assemblyResolutionField;
         }
-        set {
+        set
+        {
             this.assemblyResolutionField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testTypeId {
-        get {
+    public string testTypeId
+    {
+        get
+        {
             return this.testTypeIdField;
         }
-        set {
+        set
+        {
             this.testTypeIdField = value;
         }
     }
@@ -12884,56 +15504,69 @@ public partial class AssemblyResolutionSettingsType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class AssemblyResolutionSettingsTypeAssemblyResolution {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class AssemblyResolutionSettingsTypeAssemblyResolution
+{
+
     private AssemblyResolutionSettingsTypeAssemblyResolutionTestDirectory testDirectoryField;
-    
+
     private RuntimeResolutionDirectoryType[] runtimeResolutionField;
-    
+
     private ResolutionDirectoryType[] discoveryResolutionField;
-    
+
     private string applicationBaseDirectoryField;
-    
+
     /// <remarks/>
-    public AssemblyResolutionSettingsTypeAssemblyResolutionTestDirectory TestDirectory {
-        get {
+    public AssemblyResolutionSettingsTypeAssemblyResolutionTestDirectory TestDirectory
+    {
+        get
+        {
             return this.testDirectoryField;
         }
-        set {
+        set
+        {
             this.testDirectoryField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Directory", IsNullable=false)]
-    public RuntimeResolutionDirectoryType[] RuntimeResolution {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Directory", IsNullable = false)]
+    public RuntimeResolutionDirectoryType[] RuntimeResolution
+    {
+        get
+        {
             return this.runtimeResolutionField;
         }
-        set {
+        set
+        {
             this.runtimeResolutionField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Directory", IsNullable=false)]
-    public ResolutionDirectoryType[] DiscoveryResolution {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Directory", IsNullable = false)]
+    public ResolutionDirectoryType[] DiscoveryResolution
+    {
+        get
+        {
             return this.discoveryResolutionField;
         }
-        set {
+        set
+        {
             this.discoveryResolutionField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string applicationBaseDirectory {
-        get {
+    public string applicationBaseDirectory
+    {
+        get
+        {
             return this.applicationBaseDirectoryField;
         }
-        set {
+        set
+        {
             this.applicationBaseDirectoryField = value;
         }
     }
@@ -12944,18 +15577,22 @@ public partial class AssemblyResolutionSettingsTypeAssemblyResolution {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class AssemblyResolutionSettingsTypeAssemblyResolutionTestDirectory {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class AssemblyResolutionSettingsTypeAssemblyResolutionTestDirectory
+{
+
     private bool useLoadContextField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool useLoadContext {
-        get {
+    public bool useLoadContext
+    {
+        get
+        {
             return this.useLoadContextField;
         }
-        set {
+        set
+        {
             this.useLoadContextField = value;
         }
     }
@@ -12964,19 +15601,20 @@ public partial class AssemblyResolutionSettingsTypeAssemblyResolutionTestDirecto
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IncludeInSchema=false)]
-public enum ItemsChoiceType2 {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IncludeInSchema = false)]
+public enum ItemsChoiceType2
+{
+
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("##any:")]
     Item,
-    
+
     /// <remarks/>
     UnitTestRunConfig,
-    
+
     /// <remarks/>
     WebTestRunConfig,
-    
+
     /// <remarks/>
     WebTestRunConfiguration,
 }
@@ -12986,83 +15624,100 @@ public enum ItemsChoiceType2 {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestSettingsTypeExecutionTimeouts {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestSettingsTypeExecutionTimeouts
+{
+
     private int runTimeoutField;
-    
+
     private int testTimeoutField;
-    
+
     private int agentNotRespondingTimeoutField;
-    
+
     private int deploymentTimeoutField;
-    
+
     private int scriptTimeoutField;
-    
-    public TestSettingsTypeExecutionTimeouts() {
+
+    public TestSettingsTypeExecutionTimeouts()
+    {
         this.runTimeoutField = 0;
         this.testTimeoutField = 1800000;
         this.agentNotRespondingTimeoutField = 300000;
         this.deploymentTimeoutField = 300000;
         this.scriptTimeoutField = 300000;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int runTimeout {
-        get {
+    public int runTimeout
+    {
+        get
+        {
             return this.runTimeoutField;
         }
-        set {
+        set
+        {
             this.runTimeoutField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(1800000)]
-    public int testTimeout {
-        get {
+    public int testTimeout
+    {
+        get
+        {
             return this.testTimeoutField;
         }
-        set {
+        set
+        {
             this.testTimeoutField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(300000)]
-    public int agentNotRespondingTimeout {
-        get {
+    public int agentNotRespondingTimeout
+    {
+        get
+        {
             return this.agentNotRespondingTimeoutField;
         }
-        set {
+        set
+        {
             this.agentNotRespondingTimeoutField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(300000)]
-    public int deploymentTimeout {
-        get {
+    public int deploymentTimeout
+    {
+        get
+        {
             return this.deploymentTimeoutField;
         }
-        set {
+        set
+        {
             this.deploymentTimeoutField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(300000)]
-    public int scriptTimeout {
-        get {
+    public int scriptTimeout
+    {
+        get
+        {
             return this.scriptTimeoutField;
         }
-        set {
+        set
+        {
             this.scriptTimeoutField = value;
         }
     }
@@ -13071,12 +15726,13 @@ public partial class TestSettingsTypeExecutionTimeouts {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum TestSettingsTypeExecutionLocation {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum TestSettingsTypeExecutionLocation
+{
+
     /// <remarks/>
     Local,
-    
+
     /// <remarks/>
     Remote,
 }
@@ -13084,12 +15740,13 @@ public enum TestSettingsTypeExecutionLocation {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum HostProcessPlatformTypeEnum {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum HostProcessPlatformTypeEnum
+{
+
     /// <remarks/>
     MSIL,
-    
+
     /// <remarks/>
     X86,
 }
@@ -13097,27 +15754,28 @@ public enum HostProcessPlatformTypeEnum {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IncludeInSchema=false)]
-public enum Items1ChoiceType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IncludeInSchema = false)]
+public enum Items1ChoiceType
+{
+
     /// <remarks/>
     ByteArrayCache,
-    
+
     /// <remarks/>
     TestRunConfiguration,
-    
+
     /// <remarks/>
     TestSettings,
-    
+
     /// <remarks/>
     WebRequestResults,
-    
+
     /// <remarks/>
     WebTestRecordedResultFilePath,
-    
+
     /// <remarks/>
     WebTestResultDetails,
-    
+
     /// <remarks/>
     WebTestResultFilePath,
 }
@@ -13129,29 +15787,36 @@ public enum Items1ChoiceType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestResultAggregationType : TestResultType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestResultAggregationType : TestResultType
+{
+
     private CountersType countersField;
-    
+
     private ResultsType innerResultsField;
-    
+
     /// <remarks/>
-    public CountersType Counters {
-        get {
+    public CountersType Counters
+    {
+        get
+        {
             return this.countersField;
         }
-        set {
+        set
+        {
             this.countersField = value;
         }
     }
-    
+
     /// <remarks/>
-    public ResultsType InnerResults {
-        get {
+    public ResultsType InnerResults
+    {
+        get
+        {
             return this.innerResultsField;
         }
-        set {
+        set
+        {
             this.innerResultsField = value;
         }
     }
@@ -13162,46 +15827,48 @@ public partial class TestResultAggregationType : TestResultType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class CountersType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class CountersType
+{
+
     private int totalField;
-    
+
     private bool totalFieldSpecified;
-    
+
     private int errorField;
-    
+
     private int failedField;
-    
+
     private int timeoutField;
-    
+
     private int abortedField;
-    
+
     private int inconclusiveField;
-    
+
     private int passedButRunAbortedField;
-    
+
     private int notRunnableField;
-    
+
     private int notExecutedField;
-    
+
     private int executedField;
-    
+
     private int disconnectedField;
-    
+
     private int warningField;
-    
+
     private int passedField;
-    
+
     private int completedField;
-    
+
     private int inProgressField;
-    
+
     private int pendingField;
-    
+
     private string valueField;
-    
-    public CountersType() {
+
+    public CountersType()
+    {
         this.errorField = 0;
         this.failedField = 0;
         this.timeoutField = 0;
@@ -13218,216 +15885,270 @@ public partial class CountersType {
         this.inProgressField = 0;
         this.pendingField = 0;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int total {
-        get {
+    public int total
+    {
+        get
+        {
             return this.totalField;
         }
-        set {
+        set
+        {
             this.totalField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool totalSpecified {
-        get {
+    public bool totalSpecified
+    {
+        get
+        {
             return this.totalFieldSpecified;
         }
-        set {
+        set
+        {
             this.totalFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int error {
-        get {
+    public int error
+    {
+        get
+        {
             return this.errorField;
         }
-        set {
+        set
+        {
             this.errorField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int failed {
-        get {
+    public int failed
+    {
+        get
+        {
             return this.failedField;
         }
-        set {
+        set
+        {
             this.failedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int timeout {
-        get {
+    public int timeout
+    {
+        get
+        {
             return this.timeoutField;
         }
-        set {
+        set
+        {
             this.timeoutField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int aborted {
-        get {
+    public int aborted
+    {
+        get
+        {
             return this.abortedField;
         }
-        set {
+        set
+        {
             this.abortedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int inconclusive {
-        get {
+    public int inconclusive
+    {
+        get
+        {
             return this.inconclusiveField;
         }
-        set {
+        set
+        {
             this.inconclusiveField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int passedButRunAborted {
-        get {
+    public int passedButRunAborted
+    {
+        get
+        {
             return this.passedButRunAbortedField;
         }
-        set {
+        set
+        {
             this.passedButRunAbortedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int notRunnable {
-        get {
+    public int notRunnable
+    {
+        get
+        {
             return this.notRunnableField;
         }
-        set {
+        set
+        {
             this.notRunnableField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int notExecuted {
-        get {
+    public int notExecuted
+    {
+        get
+        {
             return this.notExecutedField;
         }
-        set {
+        set
+        {
             this.notExecutedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int executed {
-        get {
+    public int executed
+    {
+        get
+        {
             return this.executedField;
         }
-        set {
+        set
+        {
             this.executedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int disconnected {
-        get {
+    public int disconnected
+    {
+        get
+        {
             return this.disconnectedField;
         }
-        set {
+        set
+        {
             this.disconnectedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int warning {
-        get {
+    public int warning
+    {
+        get
+        {
             return this.warningField;
         }
-        set {
+        set
+        {
             this.warningField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int passed {
-        get {
+    public int passed
+    {
+        get
+        {
             return this.passedField;
         }
-        set {
+        set
+        {
             this.passedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int completed {
-        get {
+    public int completed
+    {
+        get
+        {
             return this.completedField;
         }
-        set {
+        set
+        {
             this.completedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int inProgress {
-        get {
+    public int inProgress
+    {
+        get
+        {
             return this.inProgressField;
         }
-        set {
+        set
+        {
             this.inProgressField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int pending {
-        get {
+    public int pending
+    {
+        get
+        {
             return this.pendingField;
         }
-        set {
+        set
+        {
             this.pendingField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string value {
-        get {
+    public string value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -13438,15 +16159,15 @@ public partial class CountersType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class ResultsType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class ResultsType
+{
+
     private object[] itemsField;
-    
-    private ItemsChoiceType3[] itemsElementNameField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAnyElementAttribute()]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("Items")]
     [System.Xml.Serialization.XmlElementAttribute("GenericTestResult", typeof(TestResultAggregationType))]
     [System.Xml.Serialization.XmlElementAttribute("LoadTestResult", typeof(LoadTestResultType))]
     [System.Xml.Serialization.XmlElementAttribute("ManualTestResult", typeof(ManualTestResultType))]
@@ -13454,25 +16175,15 @@ public partial class ResultsType {
     [System.Xml.Serialization.XmlElementAttribute("TestResultAggregation", typeof(TestResultAggregationType))]
     [System.Xml.Serialization.XmlElementAttribute("UnitTestResult", typeof(UnitTestResultType))]
     [System.Xml.Serialization.XmlElementAttribute("WebTestResult", typeof(WebTestResultType))]
-    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
-    public object[] Items {
-        get {
+    public object[] Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemsChoiceType3[] ItemsElementName {
-        get {
-            return this.itemsElementNameField;
-        }
-        set {
-            this.itemsElementNameField = value;
         }
     }
 }
@@ -13482,179 +16193,220 @@ public partial class ResultsType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestResultType : TestResultAggregationType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestResultType : TestResultAggregationType
+{
+
     private LoadTestResultTypeAnalyzerViewState analyzerViewStateField;
-    
+
     private LoadTestResultTypeSummary summaryField;
-    
+
     private LoadTestRunStatusType runStatusField;
-    
+
     private int runIdField;
-    
+
     private string controllerStartTimeField;
-    
+
     private int loadTestDurationField;
-    
+
     private bool loadTestDurationFieldSpecified;
-    
+
     private int loadTestWarmupTimeField;
-    
+
     private bool loadTestWarmupTimeFieldSpecified;
-    
+
     private bool previouslyViewedField;
-    
+
     private string resultsRepositoryConnectStringField;
-    
+
     private LoadTestResultStoreType resultsStoreTypeField;
-    
+
     private bool resultsStoreTypeFieldSpecified;
-    
-    public LoadTestResultType() {
+
+    public LoadTestResultType()
+    {
         this.runStatusField = LoadTestRunStatusType.NotStarted;
         this.previouslyViewedField = false;
     }
-    
+
     /// <remarks/>
-    public LoadTestResultTypeAnalyzerViewState AnalyzerViewState {
-        get {
+    public LoadTestResultTypeAnalyzerViewState AnalyzerViewState
+    {
+        get
+        {
             return this.analyzerViewStateField;
         }
-        set {
+        set
+        {
             this.analyzerViewStateField = value;
         }
     }
-    
+
     /// <remarks/>
-    public LoadTestResultTypeSummary Summary {
-        get {
+    public LoadTestResultTypeSummary Summary
+    {
+        get
+        {
             return this.summaryField;
         }
-        set {
+        set
+        {
             this.summaryField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(LoadTestRunStatusType.NotStarted)]
-    public LoadTestRunStatusType runStatus {
-        get {
+    public LoadTestRunStatusType runStatus
+    {
+        get
+        {
             return this.runStatusField;
         }
-        set {
+        set
+        {
             this.runStatusField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int runId {
-        get {
+    public int runId
+    {
+        get
+        {
             return this.runIdField;
         }
-        set {
+        set
+        {
             this.runIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string controllerStartTime {
-        get {
+    public string controllerStartTime
+    {
+        get
+        {
             return this.controllerStartTimeField;
         }
-        set {
+        set
+        {
             this.controllerStartTimeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int loadTestDuration {
-        get {
+    public int loadTestDuration
+    {
+        get
+        {
             return this.loadTestDurationField;
         }
-        set {
+        set
+        {
             this.loadTestDurationField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool loadTestDurationSpecified {
-        get {
+    public bool loadTestDurationSpecified
+    {
+        get
+        {
             return this.loadTestDurationFieldSpecified;
         }
-        set {
+        set
+        {
             this.loadTestDurationFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int loadTestWarmupTime {
-        get {
+    public int loadTestWarmupTime
+    {
+        get
+        {
             return this.loadTestWarmupTimeField;
         }
-        set {
+        set
+        {
             this.loadTestWarmupTimeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool loadTestWarmupTimeSpecified {
-        get {
+    public bool loadTestWarmupTimeSpecified
+    {
+        get
+        {
             return this.loadTestWarmupTimeFieldSpecified;
         }
-        set {
+        set
+        {
             this.loadTestWarmupTimeFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool previouslyViewed {
-        get {
+    public bool previouslyViewed
+    {
+        get
+        {
             return this.previouslyViewedField;
         }
-        set {
+        set
+        {
             this.previouslyViewedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string resultsRepositoryConnectString {
-        get {
+    public string resultsRepositoryConnectString
+    {
+        get
+        {
             return this.resultsRepositoryConnectStringField;
         }
-        set {
+        set
+        {
             this.resultsRepositoryConnectStringField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public LoadTestResultStoreType resultsStoreType {
-        get {
+    public LoadTestResultStoreType resultsStoreType
+    {
+        get
+        {
             return this.resultsStoreTypeField;
         }
-        set {
+        set
+        {
             this.resultsStoreTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool resultsStoreTypeSpecified {
-        get {
+    public bool resultsStoreTypeSpecified
+    {
+        get
+        {
             return this.resultsStoreTypeFieldSpecified;
         }
-        set {
+        set
+        {
             this.resultsStoreTypeFieldSpecified = value;
         }
     }
@@ -13665,17 +16417,21 @@ public partial class LoadTestResultType : TestResultAggregationType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestResultTypeAnalyzerViewState {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestResultTypeAnalyzerViewState
+{
+
     private LoadTestRunDescriptorType loadTestRunDescriptorField;
-    
+
     /// <remarks/>
-    public LoadTestRunDescriptorType LoadTestRunDescriptor {
-        get {
+    public LoadTestRunDescriptorType LoadTestRunDescriptor
+    {
+        get
+        {
             return this.loadTestRunDescriptorField;
         }
-        set {
+        set
+        {
             this.loadTestRunDescriptorField = value;
         }
     }
@@ -13686,62 +16442,64 @@ public partial class LoadTestResultTypeAnalyzerViewState {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestRunDescriptorType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestRunDescriptorType
+{
+
     private GraphDescriptorType[] graphDescriptorsField;
-    
+
     private bool isLegendPanelVisibleField;
-    
+
     private bool isOverviewPanelVisibleField;
-    
+
     private bool isCounterPanelVisibleField;
-    
+
     private bool scrollingGraphField;
-    
+
     private bool minMaxGraphField;
-    
+
     private bool showHorizontalGridOnGraphField;
-    
+
     private bool showThresholdsOnGraphField;
-    
+
     private bool showComparisonField;
-    
+
     private bool showZoomField;
-    
+
     private bool lockZoomField;
-    
+
     private LoadTestRunDescriptorViewType activeConsoleViewField;
-    
+
     private string selectedGraphPanel1Field;
-    
+
     private string selectedGraphPanel2Field;
-    
+
     private string selectedGraphPanel3Field;
-    
+
     private string selectedGraphPanel4Field;
-    
+
     private PanelLayoutType graphPanelLayoutField;
-    
+
     private PanelLayoutType tablePanelLayoutField;
-    
+
     private string selectedTablePanel1Field;
-    
+
     private string selectedTablePanel2Field;
-    
+
     private string selectedTablePanel3Field;
-    
+
     private string selectedTablePanel4Field;
-    
+
     private string controllerNameField;
-    
+
     private bool isLocalRunField;
-    
+
     private string testRunIdField;
-    
+
     private int repositoryRunIdField;
-    
-    public LoadTestRunDescriptorType() {
+
+    public LoadTestRunDescriptorType()
+    {
         this.isLegendPanelVisibleField = true;
         this.isOverviewPanelVisibleField = true;
         this.isCounterPanelVisibleField = true;
@@ -13762,308 +16520,386 @@ public partial class LoadTestRunDescriptorType {
         this.isLocalRunField = true;
         this.repositoryRunIdField = 0;
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("GraphDescriptor", IsNullable=false)]
-    public GraphDescriptorType[] GraphDescriptors {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("GraphDescriptor", IsNullable = false)]
+    public GraphDescriptorType[] GraphDescriptors
+    {
+        get
+        {
             return this.graphDescriptorsField;
         }
-        set {
+        set
+        {
             this.graphDescriptorsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool isLegendPanelVisible {
-        get {
+    public bool isLegendPanelVisible
+    {
+        get
+        {
             return this.isLegendPanelVisibleField;
         }
-        set {
+        set
+        {
             this.isLegendPanelVisibleField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool isOverviewPanelVisible {
-        get {
+    public bool isOverviewPanelVisible
+    {
+        get
+        {
             return this.isOverviewPanelVisibleField;
         }
-        set {
+        set
+        {
             this.isOverviewPanelVisibleField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool isCounterPanelVisible {
-        get {
+    public bool isCounterPanelVisible
+    {
+        get
+        {
             return this.isCounterPanelVisibleField;
         }
-        set {
+        set
+        {
             this.isCounterPanelVisibleField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool scrollingGraph {
-        get {
+    public bool scrollingGraph
+    {
+        get
+        {
             return this.scrollingGraphField;
         }
-        set {
+        set
+        {
             this.scrollingGraphField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool minMaxGraph {
-        get {
+    public bool minMaxGraph
+    {
+        get
+        {
             return this.minMaxGraphField;
         }
-        set {
+        set
+        {
             this.minMaxGraphField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool showHorizontalGridOnGraph {
-        get {
+    public bool showHorizontalGridOnGraph
+    {
+        get
+        {
             return this.showHorizontalGridOnGraphField;
         }
-        set {
+        set
+        {
             this.showHorizontalGridOnGraphField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool showThresholdsOnGraph {
-        get {
+    public bool showThresholdsOnGraph
+    {
+        get
+        {
             return this.showThresholdsOnGraphField;
         }
-        set {
+        set
+        {
             this.showThresholdsOnGraphField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool showComparison {
-        get {
+    public bool showComparison
+    {
+        get
+        {
             return this.showComparisonField;
         }
-        set {
+        set
+        {
             this.showComparisonField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool showZoom {
-        get {
+    public bool showZoom
+    {
+        get
+        {
             return this.showZoomField;
         }
-        set {
+        set
+        {
             this.showZoomField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool lockZoom {
-        get {
+    public bool lockZoom
+    {
+        get
+        {
             return this.lockZoomField;
         }
-        set {
+        set
+        {
             this.lockZoomField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(LoadTestRunDescriptorViewType.Graph)]
-    public LoadTestRunDescriptorViewType activeConsoleView {
-        get {
+    public LoadTestRunDescriptorViewType activeConsoleView
+    {
+        get
+        {
             return this.activeConsoleViewField;
         }
-        set {
+        set
+        {
             this.activeConsoleViewField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string selectedGraphPanel1 {
-        get {
+    public string selectedGraphPanel1
+    {
+        get
+        {
             return this.selectedGraphPanel1Field;
         }
-        set {
+        set
+        {
             this.selectedGraphPanel1Field = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string selectedGraphPanel2 {
-        get {
+    public string selectedGraphPanel2
+    {
+        get
+        {
             return this.selectedGraphPanel2Field;
         }
-        set {
+        set
+        {
             this.selectedGraphPanel2Field = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string selectedGraphPanel3 {
-        get {
+    public string selectedGraphPanel3
+    {
+        get
+        {
             return this.selectedGraphPanel3Field;
         }
-        set {
+        set
+        {
             this.selectedGraphPanel3Field = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string selectedGraphPanel4 {
-        get {
+    public string selectedGraphPanel4
+    {
+        get
+        {
             return this.selectedGraphPanel4Field;
         }
-        set {
+        set
+        {
             this.selectedGraphPanel4Field = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(PanelLayoutType.FourGrid)]
-    public PanelLayoutType graphPanelLayout {
-        get {
+    public PanelLayoutType graphPanelLayout
+    {
+        get
+        {
             return this.graphPanelLayoutField;
         }
-        set {
+        set
+        {
             this.graphPanelLayoutField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(PanelLayoutType.TwoHorizontal)]
-    public PanelLayoutType tablePanelLayout {
-        get {
+    public PanelLayoutType tablePanelLayout
+    {
+        get
+        {
             return this.tablePanelLayoutField;
         }
-        set {
+        set
+        {
             this.tablePanelLayoutField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute("Tests")]
-    public string selectedTablePanel1 {
-        get {
+    public string selectedTablePanel1
+    {
+        get
+        {
             return this.selectedTablePanel1Field;
         }
-        set {
+        set
+        {
             this.selectedTablePanel1Field = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute("Errors")]
-    public string selectedTablePanel2 {
-        get {
+    public string selectedTablePanel2
+    {
+        get
+        {
             return this.selectedTablePanel2Field;
         }
-        set {
+        set
+        {
             this.selectedTablePanel2Field = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute("Thresholds")]
-    public string selectedTablePanel3 {
-        get {
+    public string selectedTablePanel3
+    {
+        get
+        {
             return this.selectedTablePanel3Field;
         }
-        set {
+        set
+        {
             this.selectedTablePanel3Field = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute("Transactions")]
-    public string selectedTablePanel4 {
-        get {
+    public string selectedTablePanel4
+    {
+        get
+        {
             return this.selectedTablePanel4Field;
         }
-        set {
+        set
+        {
             this.selectedTablePanel4Field = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string controllerName {
-        get {
+    public string controllerName
+    {
+        get
+        {
             return this.controllerNameField;
         }
-        set {
+        set
+        {
             this.controllerNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool isLocalRun {
-        get {
+    public bool isLocalRun
+    {
+        get
+        {
             return this.isLocalRunField;
         }
-        set {
+        set
+        {
             this.isLocalRunField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testRunId {
-        get {
+    public string testRunId
+    {
+        get
+        {
             return this.testRunIdField;
         }
-        set {
+        set
+        {
             this.testRunIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int repositoryRunId {
-        get {
+    public int repositoryRunId
+    {
+        get
+        {
             return this.repositoryRunIdField;
         }
-        set {
+        set
+        {
             this.repositoryRunIdField = value;
         }
     }
@@ -14074,55 +16910,68 @@ public partial class LoadTestRunDescriptorType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class GraphDescriptorType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class GraphDescriptorType
+{
+
     private RangeType horizontalZoomRangeField;
-    
+
     private RangeType verticalZoomRangeField;
-    
+
     private PlotDescriptorType[] plotDescriptorsField;
-    
+
     private string graphNameField;
-    
+
     /// <remarks/>
-    public RangeType HorizontalZoomRange {
-        get {
+    public RangeType HorizontalZoomRange
+    {
+        get
+        {
             return this.horizontalZoomRangeField;
         }
-        set {
+        set
+        {
             this.horizontalZoomRangeField = value;
         }
     }
-    
+
     /// <remarks/>
-    public RangeType VerticalZoomRange {
-        get {
+    public RangeType VerticalZoomRange
+    {
+        get
+        {
             return this.verticalZoomRangeField;
         }
-        set {
+        set
+        {
             this.verticalZoomRangeField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("PlotDescriptor", IsNullable=false)]
-    public PlotDescriptorType[] PlotDescriptors {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("PlotDescriptor", IsNullable = false)]
+    public PlotDescriptorType[] PlotDescriptors
+    {
+        get
+        {
             return this.plotDescriptorsField;
         }
-        set {
+        set
+        {
             this.plotDescriptorsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string graphName {
-        get {
+    public string graphName
+    {
+        get
+        {
             return this.graphNameField;
         }
-        set {
+        set
+        {
             this.graphNameField = value;
         }
     }
@@ -14133,31 +16982,38 @@ public partial class GraphDescriptorType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class RangeType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class RangeType
+{
+
     private string lowerField;
-    
+
     private string upperField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string lower {
-        get {
+    public string lower
+    {
+        get
+        {
             return this.lowerField;
         }
-        set {
+        set
+        {
             this.lowerField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string upper {
-        get {
+    public string upper
+    {
+        get
+        {
             return this.upperField;
         }
-        set {
+        set
+        {
             this.upperField = value;
         }
     }
@@ -14168,115 +17024,141 @@ public partial class RangeType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class PlotDescriptorType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class PlotDescriptorType
+{
+
     private CounterDescriptorType counterDescriptorField;
-    
+
     private int colorArgbField;
-    
+
     private int lineStyleField;
-    
+
     private double fixedRangeField;
-    
+
     private bool showOnGraphField;
-    
+
     private bool isSelectedField;
-    
+
     private string counterMetadataField;
-    
+
     private string rangeGroupField;
-    
-    public PlotDescriptorType() {
+
+    public PlotDescriptorType()
+    {
         this.showOnGraphField = true;
         this.isSelectedField = false;
     }
-    
+
     /// <remarks/>
-    public CounterDescriptorType CounterDescriptor {
-        get {
+    public CounterDescriptorType CounterDescriptor
+    {
+        get
+        {
             return this.counterDescriptorField;
         }
-        set {
+        set
+        {
             this.counterDescriptorField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int colorArgb {
-        get {
+    public int colorArgb
+    {
+        get
+        {
             return this.colorArgbField;
         }
-        set {
+        set
+        {
             this.colorArgbField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int lineStyle {
-        get {
+    public int lineStyle
+    {
+        get
+        {
             return this.lineStyleField;
         }
-        set {
+        set
+        {
             this.lineStyleField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public double fixedRange {
-        get {
+    public double fixedRange
+    {
+        get
+        {
             return this.fixedRangeField;
         }
-        set {
+        set
+        {
             this.fixedRangeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool showOnGraph {
-        get {
+    public bool showOnGraph
+    {
+        get
+        {
             return this.showOnGraphField;
         }
-        set {
+        set
+        {
             this.showOnGraphField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool isSelected {
-        get {
+    public bool isSelected
+    {
+        get
+        {
             return this.isSelectedField;
         }
-        set {
+        set
+        {
             this.isSelectedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string counterMetadata {
-        get {
+    public string counterMetadata
+    {
+        get
+        {
             return this.counterMetadataField;
         }
-        set {
+        set
+        {
             this.counterMetadataField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string rangeGroup {
-        get {
+    public string rangeGroup
+    {
+        get
+        {
             return this.rangeGroupField;
         }
-        set {
+        set
+        {
             this.rangeGroupField = value;
         }
     }
@@ -14287,88 +17169,108 @@ public partial class PlotDescriptorType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class CounterDescriptorType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class CounterDescriptorType
+{
+
     private string machineNameField;
-    
+
     private string categoryNameField;
-    
+
     private string counterNameField;
-    
+
     private string instanceNameField;
-    
+
     private string baseInstanceNameField;
-    
+
     private int loadTestItemIdField;
-    
-    public CounterDescriptorType() {
+
+    public CounterDescriptorType()
+    {
         this.loadTestItemIdField = -1;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string machineName {
-        get {
+    public string machineName
+    {
+        get
+        {
             return this.machineNameField;
         }
-        set {
+        set
+        {
             this.machineNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string categoryName {
-        get {
+    public string categoryName
+    {
+        get
+        {
             return this.categoryNameField;
         }
-        set {
+        set
+        {
             this.categoryNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string counterName {
-        get {
+    public string counterName
+    {
+        get
+        {
             return this.counterNameField;
         }
-        set {
+        set
+        {
             this.counterNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string instanceName {
-        get {
+    public string instanceName
+    {
+        get
+        {
             return this.instanceNameField;
         }
-        set {
+        set
+        {
             this.instanceNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string baseInstanceName {
-        get {
+    public string baseInstanceName
+    {
+        get
+        {
             return this.baseInstanceNameField;
         }
-        set {
+        set
+        {
             this.baseInstanceNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(-1)]
-    public int loadTestItemId {
-        get {
+    public int loadTestItemId
+    {
+        get
+        {
             return this.loadTestItemIdField;
         }
-        set {
+        set
+        {
             this.loadTestItemIdField = value;
         }
     }
@@ -14377,18 +17279,19 @@ public partial class CounterDescriptorType {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum LoadTestRunDescriptorViewType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum LoadTestRunDescriptorViewType
+{
+
     /// <remarks/>
     None,
-    
+
     /// <remarks/>
     Graph,
-    
+
     /// <remarks/>
     Summary,
-    
+
     /// <remarks/>
     Table,
 }
@@ -14396,42 +17299,43 @@ public enum LoadTestRunDescriptorViewType {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum PanelLayoutType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum PanelLayoutType
+{
+
     /// <remarks/>
     One,
-    
+
     /// <remarks/>
     TwoHorizontal,
-    
+
     /// <remarks/>
     TwoVertical,
-    
+
     /// <remarks/>
     ThreeLeft,
-    
+
     /// <remarks/>
     ThreeRight,
-    
+
     /// <remarks/>
     ThreeTop,
-    
+
     /// <remarks/>
     ThreeBottom,
-    
+
     /// <remarks/>
     ThreeHorizontal,
-    
+
     /// <remarks/>
     ThreeVertical,
-    
+
     /// <remarks/>
     FourHorizontal,
-    
+
     /// <remarks/>
     FourVertical,
-    
+
     /// <remarks/>
     FourGrid,
 }
@@ -14441,57 +17345,70 @@ public enum PanelLayoutType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestResultTypeSummary {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestResultTypeSummary
+{
+
     private LoadTestResultTypeSummaryPerformanceCounterResult[] performanceCounterResultsField;
-    
+
     private LoadTestResultTypeSummaryPageSummary[] pageSummariesField;
-    
+
     private LoadTestResultTypeSummaryTestSummary[] testSummariesField;
-    
+
     private LoadTestResultTypeSummaryTransactionSummary[] transactionSummariesField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("PerformanceCounterResult", IsNullable=false)]
-    public LoadTestResultTypeSummaryPerformanceCounterResult[] PerformanceCounterResults {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("PerformanceCounterResult", IsNullable = false)]
+    public LoadTestResultTypeSummaryPerformanceCounterResult[] PerformanceCounterResults
+    {
+        get
+        {
             return this.performanceCounterResultsField;
         }
-        set {
+        set
+        {
             this.performanceCounterResultsField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("PageSummary", IsNullable=false)]
-    public LoadTestResultTypeSummaryPageSummary[] PageSummaries {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("PageSummary", IsNullable = false)]
+    public LoadTestResultTypeSummaryPageSummary[] PageSummaries
+    {
+        get
+        {
             return this.pageSummariesField;
         }
-        set {
+        set
+        {
             this.pageSummariesField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("TestSummary", IsNullable=false)]
-    public LoadTestResultTypeSummaryTestSummary[] TestSummaries {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("TestSummary", IsNullable = false)]
+    public LoadTestResultTypeSummaryTestSummary[] TestSummaries
+    {
+        get
+        {
             return this.testSummariesField;
         }
-        set {
+        set
+        {
             this.testSummariesField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("TransactionSummary", IsNullable=false)]
-    public LoadTestResultTypeSummaryTransactionSummary[] TransactionSummaries {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("TransactionSummary", IsNullable = false)]
+    public LoadTestResultTypeSummaryTransactionSummary[] TransactionSummaries
+    {
+        get
+        {
             return this.transactionSummariesField;
         }
-        set {
+        set
+        {
             this.transactionSummariesField = value;
         }
     }
@@ -14502,103 +17419,126 @@ public partial class LoadTestResultTypeSummary {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestResultTypeSummaryPerformanceCounterResult {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestResultTypeSummaryPerformanceCounterResult
+{
+
     private string machineNameField;
-    
+
     private string categoryNameField;
-    
+
     private string instanceNameField;
-    
+
     private string counterNameField;
-    
+
     private double valueField;
-    
+
     private bool isOverallResultCounterField;
-    
+
     private bool higherIsBetterField;
-    
-    public LoadTestResultTypeSummaryPerformanceCounterResult() {
+
+    public LoadTestResultTypeSummaryPerformanceCounterResult()
+    {
         this.isOverallResultCounterField = true;
         this.higherIsBetterField = true;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string machineName {
-        get {
+    public string machineName
+    {
+        get
+        {
             return this.machineNameField;
         }
-        set {
+        set
+        {
             this.machineNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string categoryName {
-        get {
+    public string categoryName
+    {
+        get
+        {
             return this.categoryNameField;
         }
-        set {
+        set
+        {
             this.categoryNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string instanceName {
-        get {
+    public string instanceName
+    {
+        get
+        {
             return this.instanceNameField;
         }
-        set {
+        set
+        {
             this.instanceNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string counterName {
-        get {
+    public string counterName
+    {
+        get
+        {
             return this.counterNameField;
         }
-        set {
+        set
+        {
             this.counterNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public double value {
-        get {
+    public double value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool isOverallResultCounter {
-        get {
+    public bool isOverallResultCounter
+    {
+        get
+        {
             return this.isOverallResultCounterField;
         }
-        set {
+        set
+        {
             this.isOverallResultCounterField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool higherIsBetter {
-        get {
+    public bool higherIsBetter
+    {
+        get
+        {
             return this.higherIsBetterField;
         }
-        set {
+        set
+        {
             this.higherIsBetterField = value;
         }
     }
@@ -14609,70 +17549,86 @@ public partial class LoadTestResultTypeSummaryPerformanceCounterResult {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestResultTypeSummaryPageSummary {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestResultTypeSummaryPageSummary
+{
+
     private string scenarioNameField;
-    
+
     private string testNameField;
-    
+
     private string urlField;
-    
+
     private int pageCountField;
-    
+
     private int responseTimeField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string scenarioName {
-        get {
+    public string scenarioName
+    {
+        get
+        {
             return this.scenarioNameField;
         }
-        set {
+        set
+        {
             this.scenarioNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testName {
-        get {
+    public string testName
+    {
+        get
+        {
             return this.testNameField;
         }
-        set {
+        set
+        {
             this.testNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string url {
-        get {
+    public string url
+    {
+        get
+        {
             return this.urlField;
         }
-        set {
+        set
+        {
             this.urlField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int pageCount {
-        get {
+    public int pageCount
+    {
+        get
+        {
             return this.pageCountField;
         }
-        set {
+        set
+        {
             this.pageCountField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int responseTime {
-        get {
+    public int responseTime
+    {
+        get
+        {
             return this.responseTimeField;
         }
-        set {
+        set
+        {
             this.responseTimeField = value;
         }
     }
@@ -14683,70 +17639,86 @@ public partial class LoadTestResultTypeSummaryPageSummary {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestResultTypeSummaryTestSummary {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestResultTypeSummaryTestSummary
+{
+
     private string scenarioNameField;
-    
+
     private string testNameField;
-    
+
     private int totalTestsField;
-    
+
     private int testsFailedField;
-    
+
     private int averageDurationField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string scenarioName {
-        get {
+    public string scenarioName
+    {
+        get
+        {
             return this.scenarioNameField;
         }
-        set {
+        set
+        {
             this.scenarioNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testName {
-        get {
+    public string testName
+    {
+        get
+        {
             return this.testNameField;
         }
-        set {
+        set
+        {
             this.testNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int totalTests {
-        get {
+    public int totalTests
+    {
+        get
+        {
             return this.totalTestsField;
         }
-        set {
+        set
+        {
             this.totalTestsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int testsFailed {
-        get {
+    public int testsFailed
+    {
+        get
+        {
             return this.testsFailedField;
         }
-        set {
+        set
+        {
             this.testsFailedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int averageDuration {
-        get {
+    public int averageDuration
+    {
+        get
+        {
             return this.averageDurationField;
         }
-        set {
+        set
+        {
             this.averageDurationField = value;
         }
     }
@@ -14757,83 +17729,102 @@ public partial class LoadTestResultTypeSummaryTestSummary {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadTestResultTypeSummaryTransactionSummary {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadTestResultTypeSummaryTransactionSummary
+{
+
     private string scenarioNameField;
-    
+
     private string testNameField;
-    
+
     private string transactionNameField;
-    
+
     private int transactionCountField;
-    
+
     private string elapsedTimeField;
-    
+
     private string responseTimeField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string scenarioName {
-        get {
+    public string scenarioName
+    {
+        get
+        {
             return this.scenarioNameField;
         }
-        set {
+        set
+        {
             this.scenarioNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testName {
-        get {
+    public string testName
+    {
+        get
+        {
             return this.testNameField;
         }
-        set {
+        set
+        {
             this.testNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string transactionName {
-        get {
+    public string transactionName
+    {
+        get
+        {
             return this.transactionNameField;
         }
-        set {
+        set
+        {
             this.transactionNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int transactionCount {
-        get {
+    public int transactionCount
+    {
+        get
+        {
             return this.transactionCountField;
         }
-        set {
+        set
+        {
             this.transactionCountField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string elapsedTime {
-        get {
+    public string elapsedTime
+    {
+        get
+        {
             return this.elapsedTimeField;
         }
-        set {
+        set
+        {
             this.elapsedTimeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string responseTime {
-        get {
+    public string responseTime
+    {
+        get
+        {
             return this.responseTimeField;
         }
-        set {
+        set
+        {
             this.responseTimeField = value;
         }
     }
@@ -14842,33 +17833,34 @@ public partial class LoadTestResultTypeSummaryTransactionSummary {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum LoadTestRunStatusType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum LoadTestRunStatusType
+{
+
     /// <remarks/>
     Connecting,
-    
+
     /// <remarks/>
     InitializingResultsCollection,
-    
+
     /// <remarks/>
     NotStarted,
-    
+
     /// <remarks/>
     Queued,
-    
+
     /// <remarks/>
     Starting,
-    
+
     /// <remarks/>
     Stopping,
-    
+
     /// <remarks/>
     Stopped,
-    
+
     /// <remarks/>
     WarmingUp,
-    
+
     /// <remarks/>
     WritingResults,
 }
@@ -14876,15 +17868,16 @@ public enum LoadTestRunStatusType {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum LoadTestResultStoreType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum LoadTestResultStoreType
+{
+
     /// <remarks/>
     None,
-    
+
     /// <remarks/>
     Database,
-    
+
     /// <remarks/>
     XmlResultFile,
 }
@@ -14894,30 +17887,37 @@ public enum LoadTestResultStoreType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class ManualTestResultType : TestResultType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class ManualTestResultType : TestResultType
+{
+
     private object commentsField;
-    
+
     private string testFileField;
-    
+
     /// <remarks/>
-    public object Comments {
-        get {
+    public object Comments
+    {
+        get
+        {
             return this.commentsField;
         }
-        set {
+        set
+        {
             this.commentsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string testFile {
-        get {
+    public string testFile
+    {
+        get
+        {
             return this.testFileField;
         }
-        set {
+        set
+        {
             this.testFileField = value;
         }
     }
@@ -14928,61 +17928,75 @@ public partial class ManualTestResultType : TestResultType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class UnitTestResultType : TestResultAggregationType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class UnitTestResultType : TestResultAggregationType
+{
+
     private System.Xml.XmlNode extensionResultField;
-    
+
     private string resultTypeField;
-    
+
     private string dataRowInfoField;
-    
+
     private bool hasSufficientAccessField;
-    
-    public UnitTestResultType() {
+
+    public UnitTestResultType()
+    {
         this.hasSufficientAccessField = true;
     }
-    
+
     /// <remarks/>
-    public System.Xml.XmlNode ExtensionResult {
-        get {
+    public System.Xml.XmlNode ExtensionResult
+    {
+        get
+        {
             return this.extensionResultField;
         }
-        set {
+        set
+        {
             this.extensionResultField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string resultType {
-        get {
+    public string resultType
+    {
+        get
+        {
             return this.resultTypeField;
         }
-        set {
+        set
+        {
             this.resultTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string dataRowInfo {
-        get {
+    public string dataRowInfo
+    {
+        get
+        {
             return this.dataRowInfoField;
         }
-        set {
+        set
+        {
             this.dataRowInfoField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(true)]
-    public bool hasSufficientAccess {
-        get {
+    public bool hasSufficientAccess
+    {
+        get
+        {
             return this.hasSufficientAccessField;
         }
-        set {
+        set
+        {
             this.hasSufficientAccessField = value;
         }
     }
@@ -14991,87 +18005,68 @@ public partial class UnitTestResultType : TestResultAggregationType {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IncludeInSchema=false)]
-public enum ItemsChoiceType3 {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("##any:")]
-    Item,
-    
-    /// <remarks/>
-    GenericTestResult,
-    
-    /// <remarks/>
-    LoadTestResult,
-    
-    /// <remarks/>
-    ManualTestResult,
-    
-    /// <remarks/>
-    TestResult,
-    
-    /// <remarks/>
-    TestResultAggregation,
-    
-    /// <remarks/>
-    UnitTestResult,
-    
-    /// <remarks/>
-    WebTestResult,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
-[System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunOutputType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunOutputType
+{
+
     private object stdOutField;
-    
+
     private object stdErrField;
-    
+
     private object debugTraceField;
-    
+
     private object traceInfoField;
-    
+
     /// <remarks/>
-    public object StdOut {
-        get {
+    public object StdOut
+    {
+        get
+        {
             return this.stdOutField;
         }
-        set {
+        set
+        {
             this.stdOutField = value;
         }
     }
-    
+
     /// <remarks/>
-    public object StdErr {
-        get {
+    public object StdErr
+    {
+        get
+        {
             return this.stdErrField;
         }
-        set {
+        set
+        {
             this.stdErrField = value;
         }
     }
-    
+
     /// <remarks/>
-    public object DebugTrace {
-        get {
+    public object DebugTrace
+    {
+        get
+        {
             return this.debugTraceField;
         }
-        set {
+        set
+        {
             this.debugTraceField = value;
         }
     }
-    
+
     /// <remarks/>
-    public object TraceInfo {
-        get {
+    public object TraceInfo
+    {
+        get
+        {
             return this.traceInfoField;
         }
-        set {
+        set
+        {
             this.traceInfoField = value;
         }
     }
@@ -15082,94 +18077,96 @@ public partial class TestRunOutputType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadRunConfigurationType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadRunConfigurationType
+{
+
     private LoadRunConfigurationTypeCounterSetMapping[] counterSetMappingsField;
-    
+
     private object contextParametersField;
-    
+
     private object applicationsUnderTestField;
-    
+
     private string nameField;
-    
+
     private string descriptionField;
-    
+
     private int timingDetailsStorageField;
-    
+
     private bool timingDetailsStorageFieldSpecified;
-    
+
     private int resultsStoreTypeField;
-    
+
     private bool saveTestLogsOnErrorField;
-    
+
     private bool saveTestLogsOnErrorFieldSpecified;
-    
+
     private int saveTestLogsFrequencyField;
-    
+
     private int maxErrorDetailsField;
-    
+
     private int maxErrorsPerTypeField;
-    
+
     private int maxThresholdViolationsField;
-    
+
     private int maxRequestUrlsReportedField;
-    
+
     private bool useTestIterationsField;
-    
+
     private bool useTestIterationsFieldSpecified;
-    
+
     private int runDurationField;
-    
+
     private int warmupTimeField;
-    
+
     private int coolDownTimeField;
-    
+
     private bool coolDownTimeFieldSpecified;
-    
+
     private int testIterationsField;
-    
+
     private bool testIterationsFieldSpecified;
-    
+
     private string webTestConnectionModelField;
-    
+
     private int webTestConnectionPoolSizeField;
-    
+
     private bool webTestConnectionPoolSizeFieldSpecified;
-    
+
     private int sampleRateField;
-    
+
     private int validationLevelField;
-    
+
     private string sqlTracingConnectStringField;
-    
+
     private string sqlTracingConnectStringDisplayValueField;
-    
+
     private string sqlTracingDirectoryField;
-    
+
     private bool sqlTracingEnabledField;
-    
+
     private bool sqlTracingEnabledFieldSpecified;
-    
+
     private int sqlTracingFileCountField;
-    
+
     private bool sqlTracingFileCountFieldSpecified;
-    
+
     private bool sqlTracingRolloverEnabledField;
-    
+
     private bool sqlTracingRolloverEnabledFieldSpecified;
-    
+
     private int sqlTracingMinimumDurationField;
-    
+
     private bool sqlTracingMinimumDurationFieldSpecified;
-    
+
     private bool runUnitTestsInAppDomainField;
-    
+
     private bool runUnitTestsInAppDomainFieldSpecified;
-    
+
     private int resourcesRetentionTimeInMinutesField;
-    
-    public LoadRunConfigurationType() {
+
+    public LoadRunConfigurationType()
+    {
         this.resultsStoreTypeField = 1;
         this.saveTestLogsFrequencyField = 0;
         this.maxErrorDetailsField = 100;
@@ -15177,469 +18174,595 @@ public partial class LoadRunConfigurationType {
         this.maxThresholdViolationsField = 1000;
         this.resourcesRetentionTimeInMinutesField = 0;
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("CounterSetMapping", IsNullable=false)]
-    public LoadRunConfigurationTypeCounterSetMapping[] CounterSetMappings {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("CounterSetMapping", IsNullable = false)]
+    public LoadRunConfigurationTypeCounterSetMapping[] CounterSetMappings
+    {
+        get
+        {
             return this.counterSetMappingsField;
         }
-        set {
+        set
+        {
             this.counterSetMappingsField = value;
         }
     }
-    
+
     /// <remarks/>
-    public object ContextParameters {
-        get {
+    public object ContextParameters
+    {
+        get
+        {
             return this.contextParametersField;
         }
-        set {
+        set
+        {
             this.contextParametersField = value;
         }
     }
-    
+
     /// <remarks/>
-    public object ApplicationsUnderTest {
-        get {
+    public object ApplicationsUnderTest
+    {
+        get
+        {
             return this.applicationsUnderTestField;
         }
-        set {
+        set
+        {
             this.applicationsUnderTestField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string description {
-        get {
+    public string description
+    {
+        get
+        {
             return this.descriptionField;
         }
-        set {
+        set
+        {
             this.descriptionField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int timingDetailsStorage {
-        get {
+    public int timingDetailsStorage
+    {
+        get
+        {
             return this.timingDetailsStorageField;
         }
-        set {
+        set
+        {
             this.timingDetailsStorageField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool timingDetailsStorageSpecified {
-        get {
+    public bool timingDetailsStorageSpecified
+    {
+        get
+        {
             return this.timingDetailsStorageFieldSpecified;
         }
-        set {
+        set
+        {
             this.timingDetailsStorageFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(1)]
-    public int resultsStoreType {
-        get {
+    public int resultsStoreType
+    {
+        get
+        {
             return this.resultsStoreTypeField;
         }
-        set {
+        set
+        {
             this.resultsStoreTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool saveTestLogsOnError {
-        get {
+    public bool saveTestLogsOnError
+    {
+        get
+        {
             return this.saveTestLogsOnErrorField;
         }
-        set {
+        set
+        {
             this.saveTestLogsOnErrorField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool saveTestLogsOnErrorSpecified {
-        get {
+    public bool saveTestLogsOnErrorSpecified
+    {
+        get
+        {
             return this.saveTestLogsOnErrorFieldSpecified;
         }
-        set {
+        set
+        {
             this.saveTestLogsOnErrorFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int saveTestLogsFrequency {
-        get {
+    public int saveTestLogsFrequency
+    {
+        get
+        {
             return this.saveTestLogsFrequencyField;
         }
-        set {
+        set
+        {
             this.saveTestLogsFrequencyField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(100)]
-    public int maxErrorDetails {
-        get {
+    public int maxErrorDetails
+    {
+        get
+        {
             return this.maxErrorDetailsField;
         }
-        set {
+        set
+        {
             this.maxErrorDetailsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(1000)]
-    public int maxErrorsPerType {
-        get {
+    public int maxErrorsPerType
+    {
+        get
+        {
             return this.maxErrorsPerTypeField;
         }
-        set {
+        set
+        {
             this.maxErrorsPerTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(1000)]
-    public int maxThresholdViolations {
-        get {
+    public int maxThresholdViolations
+    {
+        get
+        {
             return this.maxThresholdViolationsField;
         }
-        set {
+        set
+        {
             this.maxThresholdViolationsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int maxRequestUrlsReported {
-        get {
+    public int maxRequestUrlsReported
+    {
+        get
+        {
             return this.maxRequestUrlsReportedField;
         }
-        set {
+        set
+        {
             this.maxRequestUrlsReportedField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool useTestIterations {
-        get {
+    public bool useTestIterations
+    {
+        get
+        {
             return this.useTestIterationsField;
         }
-        set {
+        set
+        {
             this.useTestIterationsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool useTestIterationsSpecified {
-        get {
+    public bool useTestIterationsSpecified
+    {
+        get
+        {
             return this.useTestIterationsFieldSpecified;
         }
-        set {
+        set
+        {
             this.useTestIterationsFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int runDuration {
-        get {
+    public int runDuration
+    {
+        get
+        {
             return this.runDurationField;
         }
-        set {
+        set
+        {
             this.runDurationField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int warmupTime {
-        get {
+    public int warmupTime
+    {
+        get
+        {
             return this.warmupTimeField;
         }
-        set {
+        set
+        {
             this.warmupTimeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int coolDownTime {
-        get {
+    public int coolDownTime
+    {
+        get
+        {
             return this.coolDownTimeField;
         }
-        set {
+        set
+        {
             this.coolDownTimeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool coolDownTimeSpecified {
-        get {
+    public bool coolDownTimeSpecified
+    {
+        get
+        {
             return this.coolDownTimeFieldSpecified;
         }
-        set {
+        set
+        {
             this.coolDownTimeFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int testIterations {
-        get {
+    public int testIterations
+    {
+        get
+        {
             return this.testIterationsField;
         }
-        set {
+        set
+        {
             this.testIterationsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool testIterationsSpecified {
-        get {
+    public bool testIterationsSpecified
+    {
+        get
+        {
             return this.testIterationsFieldSpecified;
         }
-        set {
+        set
+        {
             this.testIterationsFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string webTestConnectionModel {
-        get {
+    public string webTestConnectionModel
+    {
+        get
+        {
             return this.webTestConnectionModelField;
         }
-        set {
+        set
+        {
             this.webTestConnectionModelField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int webTestConnectionPoolSize {
-        get {
+    public int webTestConnectionPoolSize
+    {
+        get
+        {
             return this.webTestConnectionPoolSizeField;
         }
-        set {
+        set
+        {
             this.webTestConnectionPoolSizeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool webTestConnectionPoolSizeSpecified {
-        get {
+    public bool webTestConnectionPoolSizeSpecified
+    {
+        get
+        {
             return this.webTestConnectionPoolSizeFieldSpecified;
         }
-        set {
+        set
+        {
             this.webTestConnectionPoolSizeFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int sampleRate {
-        get {
+    public int sampleRate
+    {
+        get
+        {
             return this.sampleRateField;
         }
-        set {
+        set
+        {
             this.sampleRateField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int validationLevel {
-        get {
+    public int validationLevel
+    {
+        get
+        {
             return this.validationLevelField;
         }
-        set {
+        set
+        {
             this.validationLevelField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string sqlTracingConnectString {
-        get {
+    public string sqlTracingConnectString
+    {
+        get
+        {
             return this.sqlTracingConnectStringField;
         }
-        set {
+        set
+        {
             this.sqlTracingConnectStringField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string sqlTracingConnectStringDisplayValue {
-        get {
+    public string sqlTracingConnectStringDisplayValue
+    {
+        get
+        {
             return this.sqlTracingConnectStringDisplayValueField;
         }
-        set {
+        set
+        {
             this.sqlTracingConnectStringDisplayValueField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string sqlTracingDirectory {
-        get {
+    public string sqlTracingDirectory
+    {
+        get
+        {
             return this.sqlTracingDirectoryField;
         }
-        set {
+        set
+        {
             this.sqlTracingDirectoryField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool sqlTracingEnabled {
-        get {
+    public bool sqlTracingEnabled
+    {
+        get
+        {
             return this.sqlTracingEnabledField;
         }
-        set {
+        set
+        {
             this.sqlTracingEnabledField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool sqlTracingEnabledSpecified {
-        get {
+    public bool sqlTracingEnabledSpecified
+    {
+        get
+        {
             return this.sqlTracingEnabledFieldSpecified;
         }
-        set {
+        set
+        {
             this.sqlTracingEnabledFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int sqlTracingFileCount {
-        get {
+    public int sqlTracingFileCount
+    {
+        get
+        {
             return this.sqlTracingFileCountField;
         }
-        set {
+        set
+        {
             this.sqlTracingFileCountField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool sqlTracingFileCountSpecified {
-        get {
+    public bool sqlTracingFileCountSpecified
+    {
+        get
+        {
             return this.sqlTracingFileCountFieldSpecified;
         }
-        set {
+        set
+        {
             this.sqlTracingFileCountFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool sqlTracingRolloverEnabled {
-        get {
+    public bool sqlTracingRolloverEnabled
+    {
+        get
+        {
             return this.sqlTracingRolloverEnabledField;
         }
-        set {
+        set
+        {
             this.sqlTracingRolloverEnabledField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool sqlTracingRolloverEnabledSpecified {
-        get {
+    public bool sqlTracingRolloverEnabledSpecified
+    {
+        get
+        {
             return this.sqlTracingRolloverEnabledFieldSpecified;
         }
-        set {
+        set
+        {
             this.sqlTracingRolloverEnabledFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int sqlTracingMinimumDuration {
-        get {
+    public int sqlTracingMinimumDuration
+    {
+        get
+        {
             return this.sqlTracingMinimumDurationField;
         }
-        set {
+        set
+        {
             this.sqlTracingMinimumDurationField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool sqlTracingMinimumDurationSpecified {
-        get {
+    public bool sqlTracingMinimumDurationSpecified
+    {
+        get
+        {
             return this.sqlTracingMinimumDurationFieldSpecified;
         }
-        set {
+        set
+        {
             this.sqlTracingMinimumDurationFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public bool runUnitTestsInAppDomain {
-        get {
+    public bool runUnitTestsInAppDomain
+    {
+        get
+        {
             return this.runUnitTestsInAppDomainField;
         }
-        set {
+        set
+        {
             this.runUnitTestsInAppDomainField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool runUnitTestsInAppDomainSpecified {
-        get {
+    public bool runUnitTestsInAppDomainSpecified
+    {
+        get
+        {
             return this.runUnitTestsInAppDomainFieldSpecified;
         }
-        set {
+        set
+        {
             this.runUnitTestsInAppDomainFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(0)]
-    public int resourcesRetentionTimeInMinutes {
-        get {
+    public int resourcesRetentionTimeInMinutes
+    {
+        get
+        {
             return this.resourcesRetentionTimeInMinutesField;
         }
-        set {
+        set
+        {
             this.resourcesRetentionTimeInMinutesField = value;
         }
     }
@@ -15650,30 +18773,37 @@ public partial class LoadRunConfigurationType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadRunConfigurationTypeCounterSetMapping {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadRunConfigurationTypeCounterSetMapping
+{
+
     private LoadRunConfigurationTypeCounterSetMappingCounterSetReferences counterSetReferencesField;
-    
+
     private string computerNameField;
-    
+
     /// <remarks/>
-    public LoadRunConfigurationTypeCounterSetMappingCounterSetReferences CounterSetReferences {
-        get {
+    public LoadRunConfigurationTypeCounterSetMappingCounterSetReferences CounterSetReferences
+    {
+        get
+        {
             return this.counterSetReferencesField;
         }
-        set {
+        set
+        {
             this.counterSetReferencesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string computerName {
-        get {
+    public string computerName
+    {
+        get
+        {
             return this.computerNameField;
         }
-        set {
+        set
+        {
             this.computerNameField = value;
         }
     }
@@ -15684,17 +18814,21 @@ public partial class LoadRunConfigurationTypeCounterSetMapping {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadRunConfigurationTypeCounterSetMappingCounterSetReferences {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadRunConfigurationTypeCounterSetMappingCounterSetReferences
+{
+
     private LoadRunConfigurationTypeCounterSetMappingCounterSetReferencesCounterSetReference counterSetReferenceField;
-    
+
     /// <remarks/>
-    public LoadRunConfigurationTypeCounterSetMappingCounterSetReferencesCounterSetReference CounterSetReference {
-        get {
+    public LoadRunConfigurationTypeCounterSetMappingCounterSetReferencesCounterSetReference CounterSetReference
+    {
+        get
+        {
             return this.counterSetReferenceField;
         }
-        set {
+        set
+        {
             this.counterSetReferenceField = value;
         }
     }
@@ -15705,18 +18839,22 @@ public partial class LoadRunConfigurationTypeCounterSetMappingCounterSetReferenc
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class LoadRunConfigurationTypeCounterSetMappingCounterSetReferencesCounterSetReference {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class LoadRunConfigurationTypeCounterSetMappingCounterSetReferencesCounterSetReference
+{
+
     private string counterSetNameField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string counterSetName {
-        get {
+    public string counterSetName
+    {
+        get
+        {
             return this.counterSetNameField;
         }
-        set {
+        set
+        {
             this.counterSetNameField = value;
         }
     }
@@ -15727,31 +18865,38 @@ public partial class LoadRunConfigurationTypeCounterSetMappingCounterSetReferenc
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class CounterType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class CounterType
+{
+
     private CounterTypeThresholdRule[] thresholdRulesField;
-    
+
     private string nameField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("ThresholdRule", IsNullable=false)]
-    public CounterTypeThresholdRule[] ThresholdRules {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("ThresholdRule", IsNullable = false)]
+    public CounterTypeThresholdRule[] ThresholdRules
+    {
+        get
+        {
             return this.thresholdRulesField;
         }
-        set {
+        set
+        {
             this.thresholdRulesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
@@ -15762,31 +18907,38 @@ public partial class CounterType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class CounterTypeThresholdRule {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class CounterTypeThresholdRule
+{
+
     private CounterTypeThresholdRuleRuleParameter[] parametersField;
-    
+
     private string classNameField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("RuleParameter", IsNullable=false)]
-    public CounterTypeThresholdRuleRuleParameter[] Parameters {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("RuleParameter", IsNullable = false)]
+    public CounterTypeThresholdRuleRuleParameter[] Parameters
+    {
+        get
+        {
             return this.parametersField;
         }
-        set {
+        set
+        {
             this.parametersField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string className {
-        get {
+    public string className
+    {
+        get
+        {
             return this.classNameField;
         }
-        set {
+        set
+        {
             this.classNameField = value;
         }
     }
@@ -15797,31 +18949,38 @@ public partial class CounterTypeThresholdRule {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class CounterTypeThresholdRuleRuleParameter {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class CounterTypeThresholdRuleRuleParameter
+{
+
     private string nameField;
-    
+
     private string valueField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string value {
-        get {
+    public string value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
@@ -15832,44 +18991,54 @@ public partial class CounterTypeThresholdRuleRuleParameter {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class CounterSetType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class CounterSetType
+{
+
     private CounterSetTypeCounterCategory[] counterCategoriesField;
-    
+
     private string nameField;
-    
+
     private string counterSetTypeField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("CounterCategory", IsNullable=false)]
-    public CounterSetTypeCounterCategory[] CounterCategories {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("CounterCategory", IsNullable = false)]
+    public CounterSetTypeCounterCategory[] CounterCategories
+    {
+        get
+        {
             return this.counterCategoriesField;
         }
-        set {
+        set
+        {
             this.counterCategoriesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string counterSetType {
-        get {
+    public string counterSetType
+    {
+        get
+        {
             return this.counterSetTypeField;
         }
-        set {
+        set
+        {
             this.counterSetTypeField = value;
         }
     }
@@ -15880,43 +19049,53 @@ public partial class CounterSetType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class CounterSetTypeCounterCategory {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class CounterSetTypeCounterCategory
+{
+
     private CounterType[] countersField;
-    
+
     private object instancesField;
-    
+
     private string nameField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Counter", IsNullable=false)]
-    public CounterType[] Counters {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Counter", IsNullable = false)]
+    public CounterType[] Counters
+    {
+        get
+        {
             return this.countersField;
         }
-        set {
+        set
+        {
             this.countersField = value;
         }
     }
-    
+
     /// <remarks/>
-    public object Instances {
-        get {
+    public object Instances
+    {
+        get
+        {
             return this.instancesField;
         }
-        set {
+        set
+        {
             this.instancesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
@@ -15927,36 +19106,44 @@ public partial class CounterSetTypeCounterCategory {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class GenericTestTypeSummaryXmlFile {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class GenericTestTypeSummaryXmlFile
+{
+
     private string pathField;
-    
+
     private bool enabledField;
-    
-    public GenericTestTypeSummaryXmlFile() {
+
+    public GenericTestTypeSummaryXmlFile()
+    {
         this.enabledField = false;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string path {
-        get {
+    public string path
+    {
+        get
+        {
             return this.pathField;
         }
-        set {
+        set
+        {
             this.pathField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool enabled {
-        get {
+    public bool enabled
+    {
+        get
+        {
             return this.enabledField;
         }
-        set {
+        set
+        {
             this.enabledField = value;
         }
     }
@@ -15967,19 +19154,23 @@ public partial class GenericTestTypeSummaryXmlFile {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class TestLists {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class TestLists
+{
+
     private TestListType[] testListField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("TestList")]
-    public TestListType[] TestList {
-        get {
+    public TestListType[] TestList
+    {
+        get
+        {
             return this.testListField;
         }
-        set {
+        set
+        {
             this.testListField = value;
         }
     }
@@ -15990,19 +19181,23 @@ public partial class TestLists {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute("DataCollectorConfiguration", Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class DataCollectorConfigurationSection {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute("DataCollectorConfiguration", Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class DataCollectorConfigurationSection
+{
+
     private DataCollectorConfigurationSectionDataCollector[] dataCollectorField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("DataCollector")]
-    public DataCollectorConfigurationSectionDataCollector[] DataCollector {
-        get {
+    public DataCollectorConfigurationSectionDataCollector[] DataCollector
+    {
+        get
+        {
             return this.dataCollectorField;
         }
-        set {
+        set
+        {
             this.dataCollectorField = value;
         }
     }
@@ -16013,30 +19208,37 @@ public partial class DataCollectorConfigurationSection {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DataCollectorConfigurationSectionDataCollector {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DataCollectorConfigurationSectionDataCollector
+{
+
     private DataCollectorConfigurationSectionDataCollectorDefaultConfiguration defaultConfigurationField;
-    
+
     private string typeUriField;
-    
+
     /// <remarks/>
-    public DataCollectorConfigurationSectionDataCollectorDefaultConfiguration DefaultConfiguration {
-        get {
+    public DataCollectorConfigurationSectionDataCollectorDefaultConfiguration DefaultConfiguration
+    {
+        get
+        {
             return this.defaultConfigurationField;
         }
-        set {
+        set
+        {
             this.defaultConfigurationField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string typeUri {
-        get {
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "anyURI")]
+    public string typeUri
+    {
+        get
+        {
             return this.typeUriField;
         }
-        set {
+        set
+        {
             this.typeUriField = value;
         }
     }
@@ -16047,18 +19249,22 @@ public partial class DataCollectorConfigurationSectionDataCollector {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DataCollectorConfigurationSectionDataCollectorDefaultConfiguration {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DataCollectorConfigurationSectionDataCollectorDefaultConfiguration
+{
+
     private System.Xml.XmlElement[] anyField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAnyElementAttribute()]
-    public System.Xml.XmlElement[] Any {
-        get {
+    public System.Xml.XmlElement[] Any
+    {
+        get
+        {
             return this.anyField;
         }
-        set {
+        set
+        {
             this.anyField = value;
         }
     }
@@ -16069,44 +19275,54 @@ public partial class DataCollectorConfigurationSectionDataCollectorDefaultConfig
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute("NetworkEmulationProfile", Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class NetworkEmulationProfileType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute("NetworkEmulationProfile", Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class NetworkEmulationProfileType
+{
+
     private NetworkEmulationProfileTypeEmulation emulationField;
-    
+
     private string nameField;
-    
+
     private string bandwidthInKbpsField;
-    
+
     /// <remarks/>
-    public NetworkEmulationProfileTypeEmulation Emulation {
-        get {
+    public NetworkEmulationProfileTypeEmulation Emulation
+    {
+        get
+        {
             return this.emulationField;
         }
-        set {
+        set
+        {
             this.emulationField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string bandwidthInKbps {
-        get {
+    public string bandwidthInKbps
+    {
+        get
+        {
             return this.bandwidthInKbpsField;
         }
-        set {
+        set
+        {
             this.bandwidthInKbpsField = value;
         }
     }
@@ -16117,18 +19333,22 @@ public partial class NetworkEmulationProfileType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class NetworkEmulationProfileTypeEmulation {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class NetworkEmulationProfileTypeEmulation
+{
+
     private System.Xml.XmlElement[] anyField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAnyElementAttribute()]
-    public System.Xml.XmlElement[] Any {
-        get {
+    public System.Xml.XmlElement[] Any
+    {
+        get
+        {
             return this.anyField;
         }
-        set {
+        set
+        {
             this.anyField = value;
         }
     }
@@ -16139,22 +19359,23 @@ public partial class NetworkEmulationProfileTypeEmulation {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute("TestRun", Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class TestRunType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute("TestRun", Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class TestRunType
+{
+
     private object[] itemsField;
-    
+
     private string idField;
-    
+
     private string nameField;
-    
+
     private string runUserField;
-    
+
     private int tcmPassIdField;
-    
+
     private bool tcmPassIdFieldSpecified;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Build", typeof(TestRunTypeBuild))]
     [System.Xml.Serialization.XmlElementAttribute("ResultSummary", typeof(TestRunTypeResultSummary))]
@@ -16166,66 +19387,84 @@ public partial class TestRunType {
     [System.Xml.Serialization.XmlElementAttribute("TestSettings", typeof(TestSettingsType))]
     [System.Xml.Serialization.XmlElementAttribute("Times", typeof(TestRunTypeTimes))]
     [System.Xml.Serialization.XmlElementAttribute("UserData", typeof(System.Xml.XmlElement))]
-    public object[] Items {
-        get {
+    public object[] Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string id {
-        get {
+    public string id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string runUser {
-        get {
+    public string runUser
+    {
+        get
+        {
             return this.runUserField;
         }
-        set {
+        set
+        {
             this.runUserField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int tcmPassId {
-        get {
+    public int tcmPassId
+    {
+        get
+        {
             return this.tcmPassIdField;
         }
-        set {
+        set
+        {
             this.tcmPassIdField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool tcmPassIdSpecified {
-        get {
+    public bool tcmPassIdSpecified
+    {
+        get
+        {
             return this.tcmPassIdFieldSpecified;
         }
-        set {
+        set
+        {
             this.tcmPassIdFieldSpecified = value;
         }
     }
@@ -16236,31 +19475,38 @@ public partial class TestRunType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunTypeBuild {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunTypeBuild
+{
+
     private string flavorField;
-    
+
     private string platformField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string flavor {
-        get {
+    public string flavor
+    {
+        get
+        {
             return this.flavorField;
         }
-        set {
+        set
+        {
             this.flavorField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string platform {
-        get {
+    public string platform
+    {
+        get
+        {
             return this.platformField;
         }
-        set {
+        set
+        {
             this.platformField = value;
         }
     }
@@ -16271,104 +19517,127 @@ public partial class TestRunTypeBuild {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunTypeResultSummary {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunTypeResultSummary
+{
+
     private object[] itemsField;
-    
+
     private ResultFilesTypeResultFile[] resultFilesField;
-    
+
     private FileUriType[] fileUrisField;
-    
+
     private CollectorType[] collectorDataEntriesField;
-    
+
     private DataCollectorMessageType[] dataCollectorMessagesField;
-    
+
     private string outcomeField;
-    
+
     private bool isPartialRunField;
-    
-    public TestRunTypeResultSummary() {
+
+    public TestRunTypeResultSummary()
+    {
         this.isPartialRunField = false;
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Counters", typeof(CountersType))]
     [System.Xml.Serialization.XmlElementAttribute("Output", typeof(TestRunOutputType))]
     [System.Xml.Serialization.XmlElementAttribute("RunInfos", typeof(TestRunTypeResultSummaryRunInfos))]
-    public object[] Items {
-        get {
+    public object[] Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("ResultFile", IsNullable=false)]
-    public ResultFilesTypeResultFile[] ResultFiles {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("ResultFile", IsNullable = false)]
+    public ResultFilesTypeResultFile[] ResultFiles
+    {
+        get
+        {
             return this.resultFilesField;
         }
-        set {
+        set
+        {
             this.resultFilesField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("FileUri", IsNullable=false)]
-    public FileUriType[] FileUris {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("FileUri", IsNullable = false)]
+    public FileUriType[] FileUris
+    {
+        get
+        {
             return this.fileUrisField;
         }
-        set {
+        set
+        {
             this.fileUrisField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Collector", IsNullable=false)]
-    public CollectorType[] CollectorDataEntries {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Collector", IsNullable = false)]
+    public CollectorType[] CollectorDataEntries
+    {
+        get
+        {
             return this.collectorDataEntriesField;
         }
-        set {
+        set
+        {
             this.collectorDataEntriesField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("DataCollectorExceptionMessage", typeof(DataCollectorExceptionMessageType), IsNullable=false)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("DataCollectorMessage", IsNullable=false)]
-    public DataCollectorMessageType[] DataCollectorMessages {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("DataCollectorExceptionMessage", typeof(DataCollectorExceptionMessageType), IsNullable = false)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("DataCollectorMessage", IsNullable = false)]
+    public DataCollectorMessageType[] DataCollectorMessages
+    {
+        get
+        {
             return this.dataCollectorMessagesField;
         }
-        set {
+        set
+        {
             this.dataCollectorMessagesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string outcome {
-        get {
+    public string outcome
+    {
+        get
+        {
             return this.outcomeField;
         }
-        set {
+        set
+        {
             this.outcomeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool isPartialRun {
-        get {
+    public bool isPartialRun
+    {
+        get
+        {
             return this.isPartialRunField;
         }
-        set {
+        set
+        {
             this.isPartialRunField = value;
         }
     }
@@ -16379,18 +19648,22 @@ public partial class TestRunTypeResultSummary {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunTypeResultSummaryRunInfos {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunTypeResultSummaryRunInfos
+{
+
     private TestRunTypeResultSummaryRunInfosRunInfo[] runInfoField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("RunInfo")]
-    public TestRunTypeResultSummaryRunInfosRunInfo[] RunInfo {
-        get {
+    public TestRunTypeResultSummaryRunInfosRunInfo[] RunInfo
+    {
+        get
+        {
             return this.runInfoField;
         }
-        set {
+        set
+        {
             this.runInfoField = value;
         }
     }
@@ -16401,68 +19674,84 @@ public partial class TestRunTypeResultSummaryRunInfos {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunTypeResultSummaryRunInfosRunInfo {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunTypeResultSummaryRunInfosRunInfo
+{
+
     private object textField;
-    
+
     private object exceptionField;
-    
+
     private string computerNameField;
-    
+
     private TestOutcome outcomeField;
-    
+
     private string timestampField;
-    
+
     /// <remarks/>
-    public object Text {
-        get {
+    public object Text
+    {
+        get
+        {
             return this.textField;
         }
-        set {
+        set
+        {
             this.textField = value;
         }
     }
-    
+
     /// <remarks/>
-    public object Exception {
-        get {
+    public object Exception
+    {
+        get
+        {
             return this.exceptionField;
         }
-        set {
+        set
+        {
             this.exceptionField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string computerName {
-        get {
+    public string computerName
+    {
+        get
+        {
             return this.computerNameField;
         }
-        set {
+        set
+        {
             this.computerNameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public TestOutcome outcome {
-        get {
+    public TestOutcome outcome
+    {
+        get
+        {
             return this.outcomeField;
         }
-        set {
+        set
+        {
             this.outcomeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string timestamp {
-        get {
+    public string timestamp
+    {
+        get
+        {
             return this.timestampField;
         }
-        set {
+        set
+        {
             this.timestampField = value;
         }
     }
@@ -16471,48 +19760,49 @@ public partial class TestRunTypeResultSummaryRunInfosRunInfo {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum TestOutcome {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum TestOutcome
+{
+
     /// <remarks/>
     Error,
-    
+
     /// <remarks/>
     Failed,
-    
+
     /// <remarks/>
     Timeout,
-    
+
     /// <remarks/>
     Aborted,
-    
+
     /// <remarks/>
     Inconclusive,
-    
+
     /// <remarks/>
     PassedButRunAborted,
-    
+
     /// <remarks/>
     NotRunnable,
-    
+
     /// <remarks/>
     NotExecuted,
-    
+
     /// <remarks/>
     Disconnected,
-    
+
     /// <remarks/>
     Warning,
-    
+
     /// <remarks/>
     Passed,
-    
+
     /// <remarks/>
     Completed,
-    
+
     /// <remarks/>
     InProgress,
-    
+
     /// <remarks/>
     Pending,
 }
@@ -16522,18 +19812,22 @@ public enum TestOutcome {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunTypeTestLists {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunTypeTestLists
+{
+
     private TestListType[] testListField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("TestList")]
-    public TestListType[] TestList {
-        get {
+    public TestListType[] TestList
+    {
+        get
+        {
             return this.testListField;
         }
-        set {
+        set
+        {
             this.testListField = value;
         }
     }
@@ -16544,57 +19838,70 @@ public partial class TestRunTypeTestLists {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class TestRunTypeTimes {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class TestRunTypeTimes
+{
+
     private string creationField;
-    
+
     private string queuingField;
-    
+
     private string startField;
-    
+
     private string finishField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string creation {
-        get {
+    public string creation
+    {
+        get
+        {
             return this.creationField;
         }
-        set {
+        set
+        {
             this.creationField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string queuing {
-        get {
+    public string queuing
+    {
+        get
+        {
             return this.queuingField;
         }
-        set {
+        set
+        {
             this.queuingField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string start {
-        get {
+    public string start
+    {
+        get
+        {
             return this.startField;
         }
-        set {
+        set
+        {
             this.startField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string finish {
-        get {
+    public string finish
+    {
+        get
+        {
             return this.finishField;
         }
-        set {
+        set
+        {
             this.finishField = value;
         }
     }
@@ -16605,43 +19912,53 @@ public partial class TestRunTypeTimes {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute("TestResultDetail", Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class TestResultDetailType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute("TestResultDetail", Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class TestResultDetailType
+{
+
     private TestDefinitionType testDefinitionsField;
-    
+
     private ResultsType resultField;
-    
+
     private string runIdField;
-    
+
     /// <remarks/>
-    public TestDefinitionType TestDefinitions {
-        get {
+    public TestDefinitionType TestDefinitions
+    {
+        get
+        {
             return this.testDefinitionsField;
         }
-        set {
+        set
+        {
             this.testDefinitionsField = value;
         }
     }
-    
+
     /// <remarks/>
-    public ResultsType Result {
-        get {
+    public ResultsType Result
+    {
+        get
+        {
             return this.resultField;
         }
-        set {
+        set
+        {
             this.resultField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string runId {
-        get {
+    public string runId
+    {
+        get
+        {
             return this.runIdField;
         }
-        set {
+        set
+        {
             this.runIdField = value;
         }
     }
@@ -16652,19 +19969,23 @@ public partial class TestResultDetailType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute("DiscoveryCache", Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class DiscoveryCacheType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute("DiscoveryCache", Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class DiscoveryCacheType
+{
+
     private DiscoveryCacheTypeController[] remoteAgentsField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Controller", IsNullable=false)]
-    public DiscoveryCacheTypeController[] RemoteAgents {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Controller", IsNullable = false)]
+    public DiscoveryCacheTypeController[] RemoteAgents
+    {
+        get
+        {
             return this.remoteAgentsField;
         }
-        set {
+        set
+        {
             this.remoteAgentsField = value;
         }
     }
@@ -16675,31 +19996,38 @@ public partial class DiscoveryCacheType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DiscoveryCacheTypeController {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DiscoveryCacheTypeController
+{
+
     private DiscoveryCacheTypeControllerAgent[] agentField;
-    
+
     private string nameField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Agent")]
-    public DiscoveryCacheTypeControllerAgent[] Agent {
-        get {
+    public DiscoveryCacheTypeControllerAgent[] Agent
+    {
+        get
+        {
             return this.agentField;
         }
-        set {
+        set
+        {
             this.agentField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
@@ -16710,43 +20038,53 @@ public partial class DiscoveryCacheTypeController {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class DiscoveryCacheTypeControllerAgent {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class DiscoveryCacheTypeControllerAgent
+{
+
     private DataCollectorInformationType dataCollectorInformationField;
-    
+
     private NameValuePropertyType[] agentPropertiesField;
-    
+
     private string nameField;
-    
+
     /// <remarks/>
-    public DataCollectorInformationType DataCollectorInformation {
-        get {
+    public DataCollectorInformationType DataCollectorInformation
+    {
+        get
+        {
             return this.dataCollectorInformationField;
         }
-        set {
+        set
+        {
             this.dataCollectorInformationField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Property", IsNullable=false)]
-    public NameValuePropertyType[] AgentProperties {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Property", IsNullable = false)]
+    public NameValuePropertyType[] AgentProperties
+    {
+        get
+        {
             return this.agentPropertiesField;
         }
-        set {
+        set
+        {
             this.agentPropertiesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
@@ -16757,31 +20095,38 @@ public partial class DiscoveryCacheTypeControllerAgent {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class Emulation {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class Emulation
+{
+
     private VirtualChannel virtualChannelField;
-    
+
     private Timestamp[] timestampField;
-    
+
     /// <remarks/>
-    public VirtualChannel VirtualChannel {
-        get {
+    public VirtualChannel VirtualChannel
+    {
+        get
+        {
             return this.virtualChannelField;
         }
-        set {
+        set
+        {
             this.virtualChannelField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Timestamp")]
-    public Timestamp[] Timestamp {
-        get {
+    public Timestamp[] Timestamp
+    {
+        get
+        {
             return this.timestampField;
         }
-        set {
+        set
+        {
             this.timestampField = value;
         }
     }
@@ -16792,70 +20137,86 @@ public partial class Emulation {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class VirtualChannel {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class VirtualChannel
+{
+
     private FilterList filterListField;
-    
+
     private VirtualLink[] virtualLinkField;
-    
+
     private string nameField;
-    
+
     private VirtualChannelDispatchType dispatchTypeField;
-    
+
     private bool dispatchTypeFieldSpecified;
-    
+
     /// <remarks/>
-    public FilterList FilterList {
-        get {
+    public FilterList FilterList
+    {
+        get
+        {
             return this.filterListField;
         }
-        set {
+        set
+        {
             this.filterListField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("VirtualLink")]
-    public VirtualLink[] VirtualLink {
-        get {
+    public VirtualLink[] VirtualLink
+    {
+        get
+        {
             return this.virtualLinkField;
         }
-        set {
+        set
+        {
             this.virtualLinkField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
-    public string name {
-        get {
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "ID")]
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public VirtualChannelDispatchType DispatchType {
-        get {
+    public VirtualChannelDispatchType DispatchType
+    {
+        get
+        {
             return this.dispatchTypeField;
         }
-        set {
+        set
+        {
             this.dispatchTypeField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool DispatchTypeSpecified {
-        get {
+    public bool DispatchTypeSpecified
+    {
+        get
+        {
             return this.dispatchTypeFieldSpecified;
         }
-        set {
+        set
+        {
             this.dispatchTypeFieldSpecified = value;
         }
     }
@@ -16866,19 +20227,23 @@ public partial class VirtualChannel {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class FilterList {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class FilterList
+{
+
     private Filter[] itemsField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Filter")]
-    public Filter[] Items {
-        get {
+    public Filter[] Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
         }
     }
@@ -16889,124 +20254,153 @@ public partial class FilterList {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class Filter {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class Filter
+{
+
     private IpVersion ipVersionField;
-    
+
     private bool ipVersionFieldSpecified;
-    
+
     private Protocol protocolField;
-    
+
     private bool protocolFieldSpecified;
-    
+
     private string physicalAddressField;
-    
+
     private AddressType localField;
-    
+
     private AddressType remoteField;
-    
+
     private string nameField;
-    
+
     private bool notField;
-    
-    public Filter() {
+
+    public Filter()
+    {
         this.notField = false;
     }
-    
+
     /// <remarks/>
-    public IpVersion IpVersion {
-        get {
+    public IpVersion IpVersion
+    {
+        get
+        {
             return this.ipVersionField;
         }
-        set {
+        set
+        {
             this.ipVersionField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool IpVersionSpecified {
-        get {
+    public bool IpVersionSpecified
+    {
+        get
+        {
             return this.ipVersionFieldSpecified;
         }
-        set {
+        set
+        {
             this.ipVersionFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
-    public Protocol Protocol {
-        get {
+    public Protocol Protocol
+    {
+        get
+        {
             return this.protocolField;
         }
-        set {
+        set
+        {
             this.protocolField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool ProtocolSpecified {
-        get {
+    public bool ProtocolSpecified
+    {
+        get
+        {
             return this.protocolFieldSpecified;
         }
-        set {
+        set
+        {
             this.protocolFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="token")]
-    public string PhysicalAddress {
-        get {
+    [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+    public string PhysicalAddress
+    {
+        get
+        {
             return this.physicalAddressField;
         }
-        set {
+        set
+        {
             this.physicalAddressField = value;
         }
     }
-    
+
     /// <remarks/>
-    public AddressType Local {
-        get {
+    public AddressType Local
+    {
+        get
+        {
             return this.localField;
         }
-        set {
+        set
+        {
             this.localField = value;
         }
     }
-    
+
     /// <remarks/>
-    public AddressType Remote {
-        get {
+    public AddressType Remote
+    {
+        get
+        {
             return this.remoteField;
         }
-        set {
+        set
+        {
             this.remoteField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
-    public string name {
-        get {
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "ID")]
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute(false)]
-    public bool not {
-        get {
+    public bool not
+    {
+        get
+        {
             return this.notField;
         }
-        set {
+        set
+        {
             this.notField = value;
         }
     }
@@ -17015,13 +20409,14 @@ public partial class Filter {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public enum IpVersion {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public enum IpVersion
+{
+
     /// <remarks/>
     IPv4,
-    
+
     /// <remarks/>
     IPv6,
 }
@@ -17029,28 +20424,29 @@ public enum IpVersion {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public enum Protocol {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public enum Protocol
+{
+
     /// <remarks/>
     ICMP,
-    
+
     /// <remarks/>
     TCP,
-    
+
     /// <remarks/>
     UDP,
-    
+
     /// <remarks/>
     ECP,
-    
+
     /// <remarks/>
     ICMPv6,
-    
+
     /// <remarks/>
     HTTP,
-    
+
     /// <remarks/>
     FTP,
 }
@@ -17060,58 +20456,71 @@ public enum Protocol {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class VirtualLink {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class VirtualLink
+{
+
     private LinkRule[] linkRuleField;
-    
+
     private string nameField;
-    
+
     private ushort instancesField;
-    
+
     private bool instancesFieldSpecified;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("LinkRule")]
-    public LinkRule[] LinkRule {
-        get {
+    public LinkRule[] LinkRule
+    {
+        get
+        {
             return this.linkRuleField;
         }
-        set {
+        set
+        {
             this.linkRuleField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
-    public string name {
-        get {
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType = "ID")]
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort instances {
-        get {
+    public ushort instances
+    {
+        get
+        {
             return this.instancesField;
         }
-        set {
+        set
+        {
             this.instancesField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool instancesSpecified {
-        get {
+    public bool instancesSpecified
+    {
+        get
+        {
             return this.instancesFieldSpecified;
         }
-        set {
+        set
+        {
             this.instancesFieldSpecified = value;
         }
     }
@@ -17122,103 +20531,128 @@ public partial class VirtualLink {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class LinkRule {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class LinkRule
+{
+
     private Latency latencyField;
-    
+
     private Error errorField;
-    
+
     private Loss lossField;
-    
+
     private Bandwidth bandwidthField;
-    
+
     private BackgroundTraffic backgroundTrafficField;
-    
+
     private Reorder reorderField;
-    
+
     private Disconnection disconnectionField;
-    
+
     private LinkRuleDir dirField;
-    
+
     /// <remarks/>
-    public Latency Latency {
-        get {
+    public Latency Latency
+    {
+        get
+        {
             return this.latencyField;
         }
-        set {
+        set
+        {
             this.latencyField = value;
         }
     }
-    
+
     /// <remarks/>
-    public Error Error {
-        get {
+    public Error Error
+    {
+        get
+        {
             return this.errorField;
         }
-        set {
+        set
+        {
             this.errorField = value;
         }
     }
-    
+
     /// <remarks/>
-    public Loss Loss {
-        get {
+    public Loss Loss
+    {
+        get
+        {
             return this.lossField;
         }
-        set {
+        set
+        {
             this.lossField = value;
         }
     }
-    
+
     /// <remarks/>
-    public Bandwidth Bandwidth {
-        get {
+    public Bandwidth Bandwidth
+    {
+        get
+        {
             return this.bandwidthField;
         }
-        set {
+        set
+        {
             this.bandwidthField = value;
         }
     }
-    
+
     /// <remarks/>
-    public BackgroundTraffic BackgroundTraffic {
-        get {
+    public BackgroundTraffic BackgroundTraffic
+    {
+        get
+        {
             return this.backgroundTrafficField;
         }
-        set {
+        set
+        {
             this.backgroundTrafficField = value;
         }
     }
-    
+
     /// <remarks/>
-    public Reorder Reorder {
-        get {
+    public Reorder Reorder
+    {
+        get
+        {
             return this.reorderField;
         }
-        set {
+        set
+        {
             this.reorderField = value;
         }
     }
-    
+
     /// <remarks/>
-    public Disconnection Disconnection {
-        get {
+    public Disconnection Disconnection
+    {
+        get
+        {
             return this.disconnectionField;
         }
-        set {
+        set
+        {
             this.disconnectionField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public LinkRuleDir dir {
-        get {
+    public LinkRuleDir dir
+    {
+        get
+        {
             return this.dirField;
         }
-        set {
+        set
+        {
             this.dirField = value;
         }
     }
@@ -17229,23 +20663,27 @@ public partial class LinkRule {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class Latency {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class Latency
+{
+
     private object itemField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Burst", typeof(BurstLatencyType))]
     [System.Xml.Serialization.XmlElementAttribute("Fixed", typeof(FixedLatencyType))]
     [System.Xml.Serialization.XmlElementAttribute("Linear", typeof(LinearLatencyType))]
     [System.Xml.Serialization.XmlElementAttribute("Normal", typeof(NormalLatencyType))]
     [System.Xml.Serialization.XmlElementAttribute("Uniform", typeof(UniformLatencyType))]
-    public object Item {
-        get {
+    public object Item
+    {
+        get
+        {
             return this.itemField;
         }
-        set {
+        set
+        {
             this.itemField = value;
         }
     }
@@ -17256,20 +20694,24 @@ public partial class Latency {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class Error {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class Error
+{
+
     private object itemField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Random", typeof(RandomErrorType))]
     [System.Xml.Serialization.XmlElementAttribute("Statistical", typeof(StatisticalErrorType))]
-    public object Item {
-        get {
+    public object Item
+    {
+        get
+        {
             return this.itemField;
         }
-        set {
+        set
+        {
             this.itemField = value;
         }
     }
@@ -17280,22 +20722,26 @@ public partial class Error {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class Loss {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class Loss
+{
+
     private object itemField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Burst", typeof(BurstLossType))]
     [System.Xml.Serialization.XmlElementAttribute("Periodic", typeof(PeriodicLossType))]
     [System.Xml.Serialization.XmlElementAttribute("Random", typeof(RandomLossType))]
     [System.Xml.Serialization.XmlElementAttribute("Statistical", typeof(StatisticalType))]
-    public object Item {
-        get {
+    public object Item
+    {
+        get
+        {
             return this.itemField;
         }
-        set {
+        set
+        {
             this.itemField = value;
         }
     }
@@ -17306,30 +20752,37 @@ public partial class Loss {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class Bandwidth {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class Bandwidth
+{
+
     private SpeedType speedField;
-    
+
     private BandwidthQueueManagement queueManagementField;
-    
+
     /// <remarks/>
-    public SpeedType Speed {
-        get {
+    public SpeedType Speed
+    {
+        get
+        {
             return this.speedField;
         }
-        set {
+        set
+        {
             this.speedField = value;
         }
     }
-    
+
     /// <remarks/>
-    public BandwidthQueueManagement QueueManagement {
-        get {
+    public BandwidthQueueManagement QueueManagement
+    {
+        get
+        {
             return this.queueManagementField;
         }
-        set {
+        set
+        {
             this.queueManagementField = value;
         }
     }
@@ -17340,19 +20793,23 @@ public partial class Bandwidth {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public partial class BandwidthQueueManagement {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public partial class BandwidthQueueManagement
+{
+
     private object itemField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("NormalQueue", typeof(NormalQueueType))]
     [System.Xml.Serialization.XmlElementAttribute("RedQueue", typeof(RedQueueType))]
-    public object Item {
-        get {
+    public object Item
+    {
+        get
+        {
             return this.itemField;
         }
-        set {
+        set
+        {
             this.itemField = value;
         }
     }
@@ -17363,21 +20820,25 @@ public partial class BandwidthQueueManagement {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class BackgroundTraffic {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class BackgroundTraffic
+{
+
     private ConstantTrafficType itemField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Constant", typeof(ConstantTrafficType))]
     [System.Xml.Serialization.XmlElementAttribute("Exponential", typeof(ExponentialTrafficType))]
     [System.Xml.Serialization.XmlElementAttribute("Pareto", typeof(ParetoTrafficType))]
-    public ConstantTrafficType Item {
-        get {
+    public ConstantTrafficType Item
+    {
+        get
+        {
             return this.itemField;
         }
-        set {
+        set
+        {
             this.itemField = value;
         }
     }
@@ -17388,21 +20849,25 @@ public partial class BackgroundTraffic {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class Reorder {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class Reorder
+{
+
     private object itemField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Empirical1", typeof(Empirical1Type))]
     [System.Xml.Serialization.XmlElementAttribute("Empirical2", typeof(Empirical2Type))]
     [System.Xml.Serialization.XmlElementAttribute("Normal", typeof(NormalReorderType))]
-    public object Item {
-        get {
+    public object Item
+    {
+        get
+        {
             return this.itemField;
         }
-        set {
+        set
+        {
             this.itemField = value;
         }
     }
@@ -17413,19 +20878,23 @@ public partial class Reorder {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class Disconnection {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class Disconnection
+{
+
     private PeriodicDisconnectionType itemField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Periodic")]
-    public PeriodicDisconnectionType Item {
-        get {
+    public PeriodicDisconnectionType Item
+    {
+        get
+        {
             return this.itemField;
         }
-        set {
+        set
+        {
             this.itemField = value;
         }
     }
@@ -17434,12 +20903,13 @@ public partial class Disconnection {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum LinkRuleDir {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum LinkRuleDir
+{
+
     /// <remarks/>
     upstream,
-    
+
     /// <remarks/>
     downstream,
 }
@@ -17447,12 +20917,13 @@ public enum LinkRuleDir {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum VirtualChannelDispatchType {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum VirtualChannelDispatchType
+{
+
     /// <remarks/>
     packet,
-    
+
     /// <remarks/>
     connection,
 }
@@ -17462,45 +20933,55 @@ public enum VirtualChannelDispatchType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable=false)]
-public partial class Timestamp {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010", IsNullable = false)]
+public partial class Timestamp
+{
+
     private VirtualChannel[] virtualChannelField;
-    
+
     private uint valueField;
-    
+
     private TimestampOperation operationField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("VirtualChannel")]
-    public VirtualChannel[] VirtualChannel {
-        get {
+    public VirtualChannel[] VirtualChannel
+    {
+        get
+        {
             return this.virtualChannelField;
         }
-        set {
+        set
+        {
             this.virtualChannelField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public uint value {
-        get {
+    public uint value
+    {
+        get
+        {
             return this.valueField;
         }
-        set {
+        set
+        {
             this.valueField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public TimestampOperation operation {
-        get {
+    public TimestampOperation operation
+    {
+        get
+        {
             return this.operationField;
         }
-        set {
+        set
+        {
             this.operationField = value;
         }
     }
@@ -17509,15 +20990,16 @@ public partial class Timestamp {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
-public enum TimestampOperation {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010")]
+public enum TimestampOperation
+{
+
     /// <remarks/>
     Add,
-    
+
     /// <remarks/>
     Modify,
-    
+
     /// <remarks/>
     Delete,
 }

@@ -31,6 +31,8 @@ namespace Cama.Core.Models.Mutation
 
         public IList<string> Tests => _tests.Select(t => t.TestName).ToList();
 
+        public string MutationName => $"{ProjectName}.{FileName}({MutationInfo.Location.Where} - {MutationInfo.Location.Line})";
+
         public Document CreateMutatedDocument()
         {
             var editor = DocumentEditor.CreateAsync(_orginalDocument).Result;

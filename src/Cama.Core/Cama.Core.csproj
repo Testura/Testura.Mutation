@@ -77,7 +77,8 @@
     <Compile Include="Models\MutationLocationInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\HtmlReport.cs" />
-    <Compile Include="Report\Vsts\Vstst.cs" />
+    <Compile Include="Report\RtxReport.cs" />
+    <Compile Include="Report\Rtx\Rtx.cs" />
     <Compile Include="Services\DependencyFilesHandler.cs" />
     <Compile Include="Services\MutatedDocumentCompiler.cs" />
     <Compile Include="Services\Project\ICreateProjectService.cs" />

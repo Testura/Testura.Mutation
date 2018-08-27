@@ -6,8 +6,8 @@ namespace Cama.Core.Models.Project
     {
         public string SolutionPath { get; set; }
 
-        public IList<string> TestProjectNames { get; set; }
+        public IList<string> TestProjects { get; set; }
 
-        public IList<string> MutationProjectNames { get; set; }
+        public IList<string> MutationProjects { get; set; }
     }
 }

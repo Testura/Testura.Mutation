@@ -100,9 +100,9 @@ namespace Cama.Module.Start.Sections.NewProject
 
             var config = new CamaLocalConfig
             {
-                MutationProjectNames = SelectedProjectsInSolution.Where(s => s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
+                MutationProjects = SelectedProjectsInSolution.Where(s => s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
                 SolutionPath = SolutionPath,
-                TestProjectNames = SelectedTestProjectInSolution.Where(s => s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
+                TestProjects = SelectedTestProjectInSolution.Where(s => s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
             };
 
 

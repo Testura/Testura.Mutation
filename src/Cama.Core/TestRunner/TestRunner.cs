@@ -40,6 +40,7 @@ namespace Cama.Core.TestRunner
                     {
                         if (result.InnerText.Contains("System.IO.FileLoadException : Could not load file or assembly "))
                         {
+                            LogTo.Error($"Problem with loading file or assembly formation. Make sure that we have all required dependencies: \"{result.InnerText}\"");
                         }
 
                         runner.Unload();

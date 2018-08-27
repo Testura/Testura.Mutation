@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Anotar.Log4Net;
 using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
 using Cama.Core.Models.Project;
@@ -26,6 +27,8 @@ namespace Cama.Core.Services
 
         public async Task<MutationDocumentResult> RunTestAsync(CamaRunConfig config, MutatedDocument document)
         {
+            LogTo.Info($"Running mutation: \"{document.MutationName}\"");
+
             var results = new List<TestSuiteResult>();
             var basePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestRun", document.Id.ToString());
             var mainFilePath = Path.Combine(basePath, config.MutationProjects.FirstOrDefault(m => m.MutationProjectName == document.ProjectName).MutationProjectOutputFileName);
@@ -57,6 +60,7 @@ namespace Cama.Core.Services
             }
 
             var final = CombineResult(document.FileName, results);
+            LogTo.Info($"\"{document.MutationName}\" done.");
             return new MutationDocumentResult { Survived = final.IsSuccess, CompilerResult = compilerResult, TestResult = final, Document = document };
         }
 
