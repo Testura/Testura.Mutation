@@ -29,6 +29,8 @@ namespace Cama.Core.Report
 
             var testRunType = new TestRunType
             {
+                id = Guid.NewGuid().ToString(),
+                name = "mutation",
                 Items = new object[]
                 {
                     new TestRunTypeTimes
@@ -39,6 +41,7 @@ namespace Cama.Core.Report
                     },
                     new TestRunTypeResultSummary
                     {
+                        outcome = mutations.All(m => !m.Survived) ? "Passed" : "Failed",
                         Items = new object[]
                         {
                             new CountersType
@@ -50,23 +53,91 @@ namespace Cama.Core.Report
                             }
                         }
                     },
-                    results
+                    results,
+                    CreateTestDefinitions(results),
+                    CreateTestEntries(results),
+                    new TestRunTypeTestLists()
+                    {
+                        TestList = new TestListType[] { new TestListType() { id = ((UnitTestResultType)results.Items[0]).testListId, name = "All Loaded Results" } }
+                    }
                 }
             };
 
-            var ser = new XmlSerializer(typeof(TestRunType));
-            using (var writer = new StreamWriter(path))
+            var xmlSerializer = new XmlSerializer(typeof(TestRunType));
+            using (var textWriter = new StringWriter())
             {
-                ser.Serialize(writer, testRunType);
-                writer.Close();
+                xmlSerializer.Serialize(textWriter, testRunType);
+                var xml = textWriter
+                    .ToString()
+                    .Replace(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", string.Empty)
+                    .Replace(" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"", string.Empty)
+                    .Replace(" xsi:type=\"xsd:string\"", string.Empty);
+
+                File.WriteAllText(path, xml);
             }
 
             LogTo.Info("..RTX report saved.");
         }
 
+        private static TestEntriesType1 CreateTestEntries(ResultsType results)
+        {
+            var entries = new TestEntryType[results.Items.Length];
+            for (int n = 0; n < entries.Length; n++)
+            {
+                var r = results.Items[n] as UnitTestResultType;
+                entries[n] = new TestEntryType
+                {
+                    executionId = r.executionId,
+                    testId = r.testId,
+                    testListId = r.testListId
+                };
+            }
+
+            return new TestEntriesType1
+            {
+                TestEntry = entries
+            };
+        }
+
+        private static TestDefinitionType CreateTestDefinitions(ResultsType results)
+        {
+            var unitTestDefinitions = new List<UnitTestType>();
+            foreach (var result in results.Items)
+            {
+                var r = result as UnitTestResultType;
+
+                unitTestDefinitions.Add(new UnitTestType
+                {
+                    id = r.testId,
+                    name = r.testName,
+                    Items = new object[]
+                    {
+                        new BaseTestTypeExecution
+                        {
+                            id = r.executionId
+                        },
+                    },
+                    TestMethod = new UnitTestTypeTestMethod
+                    {
+                        codeBase = "...",
+                        adapterTypeName = "Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter",
+                        className = r.testName
+                    }
+                });
+            }
+
+            return new TestDefinitionType
+            {
+                Items = unitTestDefinitions.ToArray(),
+                ItemsElementName = unitTestDefinitions.Select(u => ItemsChoiceType4.UnitTest).ToArray()
+            };
+        }
+
         private static UnitTestResultType[] CreateUnitTestResults(IList<MutationDocumentResult> mutations)
         {
             var unitTestResults = new List<UnitTestResultType>();
+            var testListId = Guid.NewGuid().ToString();
+
             foreach (var mutation in mutations)
             {
                 string error = string.Empty;
@@ -100,8 +171,13 @@ namespace Cama.Core.Report
 
                 unitTestResults.Add(new UnitTestResultType
                 {
+                    testType = "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
                     testName = mutation.Document.MutationName,
-                    outcome = mutation.Survived ? "Failed" : "Passed",
+                    outcome = !mutation.CompilerResult.IsSuccess ? "Ignored" : mutation.Survived ? "Failed" : "Passed",
+                    testId = Guid.NewGuid().ToString(),
+                    testListId = testListId,
+                    executionId = Guid.NewGuid().ToString(),
+                    computerName = "mutation",
                     Items = new object[]
                     {
                         new OutputType
