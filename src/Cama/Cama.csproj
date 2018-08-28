@@ -109,6 +109,7 @@
     </EmbeddedResource>
     <None Include="..\Cama.Core\Log4Net.Config">
       <Link>Log4Net.Config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
