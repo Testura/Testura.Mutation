@@ -9,11 +9,11 @@ using ConsoleTables;
 
 namespace Cama.Core.Report
 {
-    public class RtxReport
+    public class TrxReport
     {
         public static void SaveReport(IList<MutationDocumentResult> mutations, string path)
         {
-            LogTo.Info("Saving RTX report..");
+            LogTo.Info("Saving TRX report..");
             var unitTestResults = CreateUnitTestResults(mutations);
 
             var results = new ResultsType
@@ -76,7 +76,7 @@ namespace Cama.Core.Report
                 File.WriteAllText(path, xml);
             }
 
-            LogTo.Info("..RTX report saved.");
+            LogTo.Info("..TRX report saved.");
         }
 
         private static TestEntriesType1 CreateTestEntries(ResultsType results)

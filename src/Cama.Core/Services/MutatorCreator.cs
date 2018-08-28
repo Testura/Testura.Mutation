@@ -56,6 +56,15 @@ namespace Cama.Core.Services
                             var documentId = documents[n];
                             var document = currentProject.GetDocument(documentId);
 
+                            if (config.Filter.Any())
+                            {
+                                if (!config.Filter.Any(f => f.EndsWith(document.Name)))
+                                {
+                                    LogTo.Info($"Could not find {document.Name} in filter.. ignoring it.");
+                                    continue;
+                                }
+                            }
+
                             LogTo.Info($"Creating mutation for {document.Name}..");
 
                             var root = document.GetSyntaxRootAsync().Result;

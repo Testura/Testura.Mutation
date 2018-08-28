@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Cama.Core.Models.Mutation;
@@ -113,34 +114,19 @@ namespace Cama.Module.Mutation.Sections.TestRun
         private async void RunTestsAsync()
         {
             TestNotStarted = false;
-            var runs = RunningDocuments.Select((d) => new Task(async () =>
+            var semaphoreSlim = new SemaphoreSlim(4, 4);
+
+            await Task.WhenAll(RunningDocuments.Select((d) => Task.Run(async () =>
             {
+                semaphoreSlim.Wait();
+                MutationsInQueueCount--;
 
                 d.Status = TestRunDocument.TestRunStatusEnum.Running;
                 var testResult = await _testRunnerService.RunTestAsync(_config, d.Document);
                 MoveDocumentToCompleted(d, testResult);
 
-            }));
-
-            MutationsInQueueCount = runs.Count();
-            var queue = new Queue<Task>(runs);
-            var runList = new List<Task>();
-
-            while (queue.Any())
-            {
-                if (runList.Count > 4)
-                {
-                    var finishedTask = await Task.WhenAny(runList.ToArray());
-                    runList.Remove(finishedTask);
-                }
-                else
-                {
-                    MutationsInQueueCount--;
-                    var newOne = queue.Dequeue();
-                    newOne.Start();
-                    runList.Add(newOne);
-                }
-            }
+                semaphoreSlim.Release();
+            })).ToArray());
         }
 
         private void MoveDocumentToCompleted(TestRunDocument runDocument, MutationDocumentResult result)

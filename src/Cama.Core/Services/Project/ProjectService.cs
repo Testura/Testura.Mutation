@@ -23,7 +23,7 @@ namespace Cama.Core.Services.Project
             LogTo.Info($"Opening project at {path}");
 
             var localConfig = JsonConvert.DeserializeObject<CamaLocalConfig>(File.ReadAllText(path));
-            var runConfig = new CamaRunConfig { SolutionPath = localConfig.SolutionPath };
+            var runConfig = new CamaRunConfig { SolutionPath = localConfig.SolutionPath, Filter = localConfig.Filter ?? new List<string>() };
 
             MSBuildLocator.RegisterDefaults();
             var props = new Dictionary<string, string> { ["Platform"] = "AnyCPU" };

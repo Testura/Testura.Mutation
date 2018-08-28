@@ -8,6 +8,7 @@ namespace Cama.Core.Models.Project
         {
             MutationProjects = new List<MutationProjectInfo>();
             TestProjects = new List<TestProjectInfo>();
+            Filter = new List<string>();
         }
 
         public string SolutionPath { get; set; }
@@ -15,5 +16,7 @@ namespace Cama.Core.Models.Project
         public IList<MutationProjectInfo> MutationProjects { get; set; }
 
         public IList<TestProjectInfo> TestProjects { get; set; }
+
+        public IList<string> Filter { get; set; }
     }
 }
