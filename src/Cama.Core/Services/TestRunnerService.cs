@@ -25,7 +25,7 @@ namespace Cama.Core.Services
             _testRunner = testRunner;
         }
 
-        public async Task<MutationDocumentResult> RunTestAsync(CamaRunConfig config, MutatedDocument document)
+        public async Task<MutationDocumentResult> RunTestAsync(CamaConfig config, MutatedDocument document)
         {
             LogTo.Info($"Running mutation: \"{document.MutationName}\"");
 
@@ -42,26 +42,32 @@ namespace Cama.Core.Services
 
             foreach (var testProject in config.TestProjects)
             {
-                var baseTestPath = Path.Combine(basePath, Guid.NewGuid().ToString());
-                var mainTestFilePath = Path.Combine(baseTestPath, testProject.TestProjectOutputFileName);
-                Directory.CreateDirectory(baseTestPath);
-
-                _dependencyFilesHandler.CopyDependencies(testProject.TestProjectOutputPath, baseTestPath);
-                File.Copy(mainFilePath, Path.Combine(baseTestPath, Path.GetFileName(mainFilePath)), true);
-                results.Add(_testRunner.RunTests(mainTestFilePath, /* document.Document.Tests */ new List<string>()));
+                RunTest(results, basePath, mainFilePath, testProject);
             }
 
             try
             {
                 Directory.Delete(basePath, true);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogTo.Error($"Failed to delete test directory: {ex.Message}");
             }
 
             var final = CombineResult(document.FileName, results);
             LogTo.Info($"\"{document.MutationName}\" done.");
             return new MutationDocumentResult { Survived = final.IsSuccess, CompilerResult = compilerResult, TestResult = final, Document = document };
+        }
+
+        private void RunTest(List<TestSuiteResult> results, string basePath, string mainFilePath, TestProjectInfo testProject)
+        {
+            var baseTestPath = Path.Combine(basePath, Guid.NewGuid().ToString());
+            var mainTestFilePath = Path.Combine(baseTestPath, testProject.TestProjectOutputFileName);
+            Directory.CreateDirectory(baseTestPath);
+
+            _dependencyFilesHandler.CopyDependencies(testProject.TestProjectOutputPath, baseTestPath);
+            File.Copy(mainFilePath, Path.Combine(baseTestPath, Path.GetFileName(mainFilePath)), true);
+            results.Add(_testRunner.RunTests(mainTestFilePath, /* document.Document.Tests */ new List<string>()));
         }
 
         private TestSuiteResult CombineResult(string name, IList<TestSuiteResult> testResult)

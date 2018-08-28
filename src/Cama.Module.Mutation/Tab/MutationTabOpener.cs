@@ -19,18 +19,18 @@ namespace Cama.Module.Mutation.Tab
             _mainTabContainer = mainTabContainer;
         }
 
-        public void OpenOverviewTab(CamaRunConfig config)
+        public void OpenOverviewTab(CamaConfig config)
         {
             _mainTabContainer.RemoveAllTabs();
             _mainTabContainer.AddTab(new MutationOverviewView(config));
         }
 
-        public void OpenDocumentDetailsTab(MutatedDocument document, CamaRunConfig config)
+        public void OpenDocumentDetailsTab(MutatedDocument document, CamaConfig config)
         {
             _mainTabContainer.AddTab(new MutationDetailsView(document, config));
         }
 
-        public void OpenTestRunTab(IList<MutatedDocument> documents, CamaRunConfig config)
+        public void OpenTestRunTab(IList<MutatedDocument> documents, CamaConfig config)
         {
             _mainTabContainer.AddTab(new TestRunView(documents, config));
         }
@@ -40,7 +40,7 @@ namespace Cama.Module.Mutation.Tab
             _mainTabContainer.AddTab(new MutationDocumentTestResultView(result));
         }
 
-        public void OpenFileDetailsTab(MFile file, CamaRunConfig config)
+        public void OpenFileDetailsTab(MFile file, CamaConfig config)
         {
             _mainTabContainer.AddTab(new FileDetailsView(file, config));
         }

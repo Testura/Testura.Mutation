@@ -9,7 +9,7 @@ namespace Cama.Module.Mutation.Sections.Details
     /// </summary>
     public partial class MutationDetailsView : TabItem
     {
-        public MutationDetailsView(MutatedDocument document, CamaRunConfig config)
+        public MutationDetailsView(MutatedDocument document, CamaConfig config)
         {
             InitializeComponent();
 

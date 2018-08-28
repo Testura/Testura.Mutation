@@ -10,7 +10,7 @@ namespace Cama.Module.Mutation.Sections.Details
     /// </summary>
     public partial class FileDetailsView : TabItem
     {
-        public FileDetailsView(MFile file, CamaRunConfig config)
+        public FileDetailsView(MFile file, CamaConfig config)
         {
             InitializeComponent();
 

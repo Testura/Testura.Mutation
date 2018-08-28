@@ -2,9 +2,9 @@
 
 namespace Cama.Core.Models.Project
 {
-    public class CamaRunConfig
+    public class CamaConfig
     {
-        public CamaRunConfig()
+        public CamaConfig()
         {
             MutationProjects = new List<MutationProjectInfo>();
             TestProjects = new List<TestProjectInfo>();

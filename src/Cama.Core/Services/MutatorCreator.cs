@@ -8,6 +8,7 @@ using Cama.Core.Models.Mutation;
 using Cama.Core.Models.Project;
 using Cama.Core.Mutation.Analyzer;
 using Cama.Core.Mutation.Mutators;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.MSBuild;
 using MutatedDocument = Cama.Core.Models.Mutation.MutatedDocument;
@@ -23,7 +24,7 @@ namespace Cama.Core.Services
             _unitTestAnalyzer = unitTestAnalyzer;
         }
 
-        public async Task<IList<MFile>> CreateMutatorsAsync(CamaRunConfig config, IList<IMutator> mutationOperators)
+        public async Task<IList<MFile>> CreateMutatorsAsync(CamaConfig config, IList<IMutator> mutationOperators)
         {
             try
             {
@@ -46,14 +47,20 @@ namespace Cama.Core.Services
                 foreach (var mutationprojectInfo in config.MutationProjects)
                 {
                     var currentProject = solution.Projects.FirstOrDefault(p => p.Name == mutationprojectInfo.MutationProjectName);
-                    var documents = currentProject.DocumentIds;
+
+                    if (currentProject == null)
+                    {
+                        LogTo.Error($"Could not find any project with the name {mutationprojectInfo.MutationProjectName}");
+                        continue;
+                    }
+
+                    var documentIds = currentProject.DocumentIds;
 
                     LogTo.Info("Starting to create mutations..");
-                    for (int n = 0; n < documents.Count; n++)
+                    foreach (var documentId in documentIds)
                     {
                         try
                         {
-                            var documentId = documents[n];
                             var document = currentProject.GetDocument(documentId);
 
                             if (config.Filter.Any())
@@ -77,6 +84,7 @@ namespace Cama.Core.Services
                                 ? testInformations.Where(t => t.ReferencedClasses.Contains(className)).ToList()
                                 : new List<UnitTestInformation>();
                                 */
+
                             var tests = new List<UnitTestInformation>();
                             var mutatedDocuments = new List<MutatedDocument>();
 

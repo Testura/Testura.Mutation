@@ -20,7 +20,7 @@ namespace Cama.Module.Mutation.Sections.Overview
         private readonly MutatorCreator _mutatorCreator;
         private readonly IMutationModuleTabOpener _tabOpener;
         private readonly ILoadingDisplayer _loadingDisplayer;
-        private CamaRunConfig _config;
+        private CamaConfig _config;
 
         public MutationOverviewViewModel(MutatorCreator mutatorCreator, IMutationModuleTabOpener tabOpener, ILoadingDisplayer loadingDisplayer)
         {
@@ -66,7 +66,7 @@ namespace Cama.Module.Mutation.Sections.Overview
             _loadingDisplayer.HideLoading();
         }
 
-        public void Initialize(CamaRunConfig config)
+        public void Initialize(CamaConfig config)
         {
             _config = config;
         }

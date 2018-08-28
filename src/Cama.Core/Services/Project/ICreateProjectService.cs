@@ -4,6 +4,6 @@ namespace Cama.Core.Services.Project
 {
     public interface ICreateProjectService
     {
-        void CreateProject(string savePath, CamaLocalConfig config);
+        void CreateProject(string savePath, CamaFileConfig config);
     }
 }

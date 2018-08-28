@@ -51,7 +51,7 @@ namespace Cama.Console
         }
 
 
-        private static async Task<IList<MutationDocumentResult>> RunTests(IList<MFile> files, CamaRunConfig config)
+        private static async Task<IList<MutationDocumentResult>> RunTests(IList<MFile> files, CamaConfig config)
         {
             var semaphoreSlim = new SemaphoreSlim(4, 4);
             var testRunner = new TestRunnerService(new MutatedDocumentCompiler(), new DependencyFilesHandler(), new TestRunner());

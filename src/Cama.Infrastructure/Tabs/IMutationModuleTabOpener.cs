@@ -7,15 +7,15 @@ namespace Cama.Infrastructure.Tabs
 {
     public interface IMutationModuleTabOpener
     {
-        void OpenOverviewTab(CamaRunConfig config);
+        void OpenOverviewTab(CamaConfig config);
 
-        void OpenDocumentDetailsTab(MutatedDocument document, CamaRunConfig config);
+        void OpenDocumentDetailsTab(MutatedDocument document, CamaConfig config);
 
-        void OpenTestRunTab(IList<MutatedDocument> documents, CamaRunConfig config);
+        void OpenTestRunTab(IList<MutatedDocument> documents, CamaConfig config);
 
         void OpenDocumentResultTab(MutationDocumentResult result);
 
-        void OpenFileDetailsTab(MFile file, CamaRunConfig config);
+        void OpenFileDetailsTab(MFile file, CamaConfig config);
 
         void OpenFaildToCompileTab(IList<MutationDocumentResult> mutantsFailedToCompile);
 

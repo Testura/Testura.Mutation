@@ -15,7 +15,7 @@ namespace Cama.Module.Mutation.Sections.Details
     {
         private readonly IMutationModuleTabOpener _tabOpener;
         private MutatedDocument _document;
-        private CamaRunConfig _config;
+        private CamaConfig _config;
 
         public MutationDetailsViewModel(IMutationModuleTabOpener tabOpener)
         {
@@ -40,7 +40,7 @@ namespace Cama.Module.Mutation.Sections.Details
 
         public string Title { get; set; }
 
-        public void Initialize(MutatedDocument document, CamaRunConfig config)
+        public void Initialize(MutatedDocument document, CamaConfig config)
         {
             _config = config;
             _document = document;

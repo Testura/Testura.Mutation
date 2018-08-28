@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Anotar.Log4Net;
 using Microsoft.CodeAnalysis;
 using CompilationError = Cama.Core.Models.CompilationError;
 using CompilationResult = Cama.Core.Models.CompilationResult;
@@ -15,9 +16,13 @@ namespace Cama.Core.Services
     {
         public async Task<CompilationResult> CompileAsync(string path, MutatedDocument document)
         {
+            LogTo.Info($"Compiling mutation {document.MutationName} to {path}");
+
             var mutatedDocument = document.CreateMutatedDocument();
             var compilation = await mutatedDocument.Project.GetCompilationAsync();
             var result = compilation.Emit(path, manifestResources: GetEmbeddedResources(mutatedDocument.Project.AssemblyName, mutatedDocument.Project.FilePath));
+
+            LogTo.Info("Compiling {0} was a {1}.", document.MutationName, result.Success ? "success" : "failture");
 
             return new CompilationResult
             {

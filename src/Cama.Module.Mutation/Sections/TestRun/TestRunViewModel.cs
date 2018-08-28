@@ -28,7 +28,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
         private readonly SaveReportService _saveReportService;
         private readonly ILoadingDisplayer _loadingDisplayer;
         private List<MutationDocumentResult> _mutantsFailedToCompile;
-        private CamaRunConfig _config;
+        private CamaConfig _config;
 
         public TestRunViewModel(TestRunnerService testRunnerService, IMutationModuleTabOpener mutationModuleTabOpener, SaveReportService saveReportService, ILoadingDisplayer loadingDisplayer)
         {
@@ -104,7 +104,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
 
         public DelegateCommand SeeAllMutationsCommand { get; set; }
 
-        public void SetDocuments(IList<MutatedDocument> documents, CamaRunConfig config)
+        public void SetDocuments(IList<MutatedDocument> documents, CamaConfig config)
         {
             _config = config;
             RunningDocuments.AddRange(documents.Select(d => new TestRunDocument { Document = d, Status = TestRunDocument.TestRunStatusEnum.Waiting }));

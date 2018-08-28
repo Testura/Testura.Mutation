@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\CompilationException.cs" />
+    <Compile Include="Exceptions\ProjectSetUpException.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Logs\LogWatcher.cs" />
     <Compile Include="Logs\MemoryAppenderWithEvents.cs" />
@@ -52,8 +53,8 @@
     <Compile Include="Models\CompilationResult.cs" />
     <Compile Include="Models\CreateMutationDocumentStatus.cs" />
     <Compile Include="Models\MFile.cs" />
-    <Compile Include="Models\Project\CamaLocalConfig.cs" />
-    <Compile Include="Models\Project\CamaRunConfig.cs" />
+    <Compile Include="Models\Project\CamaFileConfig.cs" />
+    <Compile Include="Models\Project\CamaConfig.cs" />
     <Compile Include="Models\Mutation\MutatedDocument.cs" />
     <Compile Include="Models\Mutation\MutationDocumentResult.cs" />
     <Compile Include="Models\Mutation\MutationInfo.cs" />

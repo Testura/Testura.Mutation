@@ -2,7 +2,7 @@
 
 namespace Cama.Core.Models.Project
 {
-    public class CamaLocalConfig
+    public class CamaFileConfig
     {
         public string SolutionPath { get; set; }
 

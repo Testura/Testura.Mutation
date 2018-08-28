@@ -9,7 +9,7 @@ namespace Cama.Module.Mutation.Sections.Overview
     /// </summary>
     public partial class MutationOverviewView : TabItem
     {
-        public MutationOverviewView(CamaRunConfig config)
+        public MutationOverviewView(CamaConfig config)
         {
             InitializeComponent();
 

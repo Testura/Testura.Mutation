@@ -10,7 +10,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
     /// </summary>
     public partial class TestRunView : TabItem
     {
-        public TestRunView(IList<MutatedDocument> documents, CamaRunConfig config)
+        public TestRunView(IList<MutatedDocument> documents, CamaConfig config)
         {
             InitializeComponent();
 
