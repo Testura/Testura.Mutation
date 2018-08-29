@@ -8,7 +8,6 @@ using Cama.Core.Models.Mutation;
 using Cama.Core.Models.Project;
 using Cama.Core.Mutation.Analyzer;
 using Cama.Core.Mutation.Mutators;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.MSBuild;
 using MutatedDocument = Cama.Core.Models.Mutation.MutatedDocument;

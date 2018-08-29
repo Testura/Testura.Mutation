@@ -39,6 +39,7 @@ namespace Cama.Core.Services.Project
             var config = new CamaConfig { SolutionPath = fileConfig.SolutionPath, Filter = fileConfig.Filter ?? new List<string>() };
 
             MSBuildLocator.RegisterDefaults();
+
             var props = new Dictionary<string, string> { ["Platform"] = "AnyCPU" };
 
             using (var workspace = MSBuildWorkspace.Create(props))
@@ -52,7 +53,7 @@ namespace Cama.Core.Services.Project
 
                 var solution = await workspace.OpenSolutionAsync(config.SolutionPath);
 
-                if (workspace.Diagnostics.Any(w => w.Kind == WorkspaceDiagnosticKind.Failure))
+                if (workspace.Diagnostics.Any(w => w.Kind == WorkspaceDiagnosticKind.Failure && ContainsProjectName(w.Message, config.MutationProjects, config.TestProjects)))
                 {
                     foreach (var workspaceDiagnostic in workspace.Diagnostics.Where(d => d.Kind == WorkspaceDiagnosticKind.Failure))
                     {
@@ -72,7 +73,28 @@ namespace Cama.Core.Services.Project
             return config;
         }
 
-        private static void InitializeMutationProjects(CamaFileConfig fileConfig, CamaConfig config, Microsoft.CodeAnalysis.Solution solution)
+        private bool ContainsProjectName(string message, IList<MutationProjectInfo> configMutationProjects, IList<TestProjectInfo> configTestProjects)
+        {
+            foreach (var configMutationProject in configMutationProjects)
+            {
+                if (message.Contains(configMutationProject.MutationProjectName))
+                {
+                    return true;
+                }
+            }
+
+            foreach (var configMutationProject in configTestProjects)
+            {
+                if (message.Contains(Path.GetFileNameWithoutExtension(configMutationProject.TestProjectOutputFileName)))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void InitializeMutationProjects(CamaFileConfig fileConfig, CamaConfig config, Microsoft.CodeAnalysis.Solution solution)
         {
             LogTo.Info("Setting up mutation projects.");
             foreach (var localConfigMutationProjectName in fileConfig.MutationProjects)
@@ -92,7 +114,7 @@ namespace Cama.Core.Services.Project
             }
         }
 
-        private static void InitializeTestProjects(CamaFileConfig fileConfig, CamaConfig config, Microsoft.CodeAnalysis.Solution solution)
+        private void InitializeTestProjects(CamaFileConfig fileConfig, CamaConfig config, Microsoft.CodeAnalysis.Solution solution)
         {
             LogTo.Info("Setting up test projects.");
             foreach (var testProjectName in fileConfig.TestProjects)
