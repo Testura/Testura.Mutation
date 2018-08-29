@@ -7,6 +7,7 @@ using Anotar.Log4Net;
 using Cama.Core.Exceptions;
 using Cama.Core.Models.Project;
 using Microsoft.Build.Locator;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.MSBuild;
 using Newtonsoft.Json;
 
@@ -50,6 +51,16 @@ namespace Cama.Core.Services.Project
                 }
 
                 var solution = await workspace.OpenSolutionAsync(config.SolutionPath);
+
+                if (workspace.Diagnostics.Any(w => w.Kind == WorkspaceDiagnosticKind.Failure))
+                {
+                    foreach (var workspaceDiagnostic in workspace.Diagnostics.Where(d => d.Kind == WorkspaceDiagnosticKind.Failure))
+                    {
+                        LogTo.Error($"Workspace error: {workspaceDiagnostic.Message}");
+                    }
+
+                    throw new ProjectSetUpException("Failed to open solution. View log for details.");
+                }
 
                 InitializeTestProjects(fileConfig, config, solution);
                 InitializeMutationProjects(fileConfig, config, solution);
