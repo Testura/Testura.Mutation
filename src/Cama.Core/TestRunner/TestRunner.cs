@@ -35,6 +35,7 @@ namespace Cama.Core.TestRunner
                 using (NUnit.Engine.ITestRunner runner = engine.GetRunner(package))
                 {
                     var filter = CreateFilter(testNames, engine.Services.GetService<ITestFilterService>().GetTestFilterBuilder());
+
                     var result = runner.Run(new TestEventDispatcher(), filter);
                     try
                     {
@@ -44,7 +45,16 @@ namespace Cama.Core.TestRunner
                         }
 
                         runner.Unload();
-                        return CreateResult(result);
+                        var parsedResults = CreateResult(result);
+
+                        if (!parsedResults.TestResults.Any())
+                        {
+                            LogTo.Info("Didn't run any test. Please check the inner xml: ");
+                            LogTo.Info(result.InnerXml);
+                            LogTo.Info(result.InnerText);
+                        }
+
+                        return parsedResults;
                     }
                     catch (Exception ex)
                     {

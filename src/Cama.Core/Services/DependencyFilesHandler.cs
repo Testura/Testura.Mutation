@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using Anotar.Log4Net;
 
 namespace Cama.Core.Services
 {
@@ -21,6 +22,7 @@ namespace Cama.Core.Services
                         Directory.CreateDirectory(toSubFolder);
                     }
 
+                    LogTo.Info($"Copying from \"{from}\" to \"{to}\"");
                     File.Copy(from, to, true);
                 });
         }

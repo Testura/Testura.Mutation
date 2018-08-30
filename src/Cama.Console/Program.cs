@@ -28,10 +28,17 @@ namespace Cama.Console
             if(args.Length < 2)
                 throw new ArgumentException("Output path is required.");
 
-            await ExecuteCama(args[0], args[1]);
+            var success = await ExecuteCama(args[0], args[1]);
+
+            if (!success)
+            {
+                Environment.Exit(-1);
+            }
+
+            Environment.Exit(0);
         }
 
-        private static async Task ExecuteCama(string configPath, string savePath)
+        private static async Task<bool> ExecuteCama(string configPath, string savePath)
         {
             var projectLoader = new ProjectService();
             var mutatorCreator = new MutatorCreator(new UnitTestAnalyzer());
@@ -48,6 +55,8 @@ namespace Cama.Console
 
             var results = await RunTests(files, config);
             TrxReport.SaveReport(results, savePath);
+
+            return !results.Any(r => r.Survived);
         }
 
 

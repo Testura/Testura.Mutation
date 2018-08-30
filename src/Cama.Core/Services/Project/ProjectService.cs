@@ -106,6 +106,8 @@ namespace Cama.Core.Services.Project
                     throw new ProjectSetUpException($"Could not find any project with the name {localConfigMutationProjectName} in the solution.");
                 }
 
+                LogTo.Info($"Found the mutation project {localConfigMutationProjectName}. Grabbing output info.");
+
                 config.MutationProjects.Add(new MutationProjectInfo
                 {
                     MutationProjectName = localConfigMutationProjectName,
@@ -125,6 +127,8 @@ namespace Cama.Core.Services.Project
                 {
                     throw new ProjectSetUpException($"Could not find any project with the name {testProjectName} in the solution.");
                 }
+
+                LogTo.Info($"Found the test project {testProjectName}. Grabbing output info.");
 
                 var testProjectOutput = testProject.OutputFilePath;
                 config.TestProjects.Add(new TestProjectInfo
