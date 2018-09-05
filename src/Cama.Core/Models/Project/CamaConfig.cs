@@ -18,5 +18,9 @@ namespace Cama.Core.Models.Project
         public IList<TestProjectInfo> TestProjects { get; set; }
 
         public IList<string> Filter { get; set; }
+
+        public int TestRunInstancesCount { get; set; }
+
+        public string BuildConfiguration { get; set; }
     }
 }

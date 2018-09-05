@@ -55,7 +55,7 @@ namespace Cama.Core.Services
             }
 
             var final = CombineResult(document.FileName, results);
-            LogTo.Info($"\"{document.MutationName}\" done.");
+            LogTo.Info($"\"{document.MutationName}\" done. Run {final.TestResults.Count} tests and {final.TestResults.Count(t => !t.IsSuccess)} failed.");
             return new MutationDocumentResult { Survived = final.IsSuccess, CompilerResult = compilerResult, TestResult = final, Document = document };
         }
 

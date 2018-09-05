@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -55,6 +56,7 @@ namespace Cama.Console
 
             var results = await RunTests(files, config);
             TrxReport.SaveReport(results, savePath);
+            HtmlReport.SaveReport(results, Path.ChangeExtension(savePath, ".html"));
 
             return !results.Any(r => r.Survived);
         }
@@ -65,6 +67,7 @@ namespace Cama.Console
             var semaphoreSlim = new SemaphoreSlim(4, 4);
             var testRunner = new TestRunnerService(new MutatedDocumentCompiler(), new DependencyFilesHandler(), new TestRunner());
             var results = new List<MutationDocumentResult>();
+            var numberOfMutationsLeft = files.SelectMany(f => f.MutatedDocuments).Count();
 
             await Task.WhenAll(files.SelectMany(f => f.MutatedDocuments).Select((d) => Task.Run(async () =>
             {
@@ -74,6 +77,10 @@ namespace Cama.Console
                 {
                     results.Add(result);
                 }
+
+                Interlocked.Decrement(ref numberOfMutationsLeft);
+
+                System.Console.WriteLine($"Number of mutations left: {numberOfMutationsLeft}");
 
                 semaphoreSlim.Release();
             })).ToArray());

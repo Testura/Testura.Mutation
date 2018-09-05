@@ -8,6 +8,9 @@ namespace Cama.Core.Services
     {
         public void CopyDependencies(string path, string targetPath)
         {
+            LogTo.Info("Copying all dependecies..");
+            var files = 0;
+
             Directory
                 .EnumerateFiles(path, "*.*", SearchOption.AllDirectories)
                 .AsParallel()
@@ -22,9 +25,11 @@ namespace Cama.Core.Services
                         Directory.CreateDirectory(toSubFolder);
                     }
 
-                    LogTo.Info($"Copying from \"{from}\" to \"{to}\"");
+                    files++;
                     File.Copy(from, to, true);
                 });
+
+            LogTo.Info($"..copying done ({files} files)");
         }
     }
 }

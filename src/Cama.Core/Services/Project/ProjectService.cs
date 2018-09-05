@@ -36,7 +36,13 @@ namespace Cama.Core.Services.Project
             LogTo.Info($"Opening project at {path}");
 
             var fileConfig = JsonConvert.DeserializeObject<CamaFileConfig>(File.ReadAllText(path));
-            var config = new CamaConfig { SolutionPath = fileConfig.SolutionPath, Filter = fileConfig.Filter ?? new List<string>() };
+            var config = new CamaConfig
+            {
+                SolutionPath = fileConfig.SolutionPath,
+                Filter = fileConfig.Filter ?? new List<string>(),
+                TestRunInstancesCount = fileConfig.TestRunInstancesCount,
+                BuildConfiguration = fileConfig.BuildConfiguration
+            };
 
             MSBuildLocator.RegisterDefaults();
 
@@ -131,6 +137,18 @@ namespace Cama.Core.Services.Project
                 LogTo.Info($"Found the test project {testProjectName}. Grabbing output info.");
 
                 var testProjectOutput = testProject.OutputFilePath;
+
+                // We replace in path just to make sure...
+                if (config.BuildConfiguration != null && config.BuildConfiguration.Equals("release", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    testProjectOutput = testProjectOutput.Replace("/debug/", "/release/");
+                }
+                else
+                {
+                    testProjectOutput = testProjectOutput.Replace("/release/", "/debug/");
+                }
+
+                LogTo.Info($"Wanted build configuration is \"{config.BuildConfiguration}\". Setting test project output to \"{testProjectOutput}\"");
                 config.TestProjects.Add(new TestProjectInfo
                 {
                     TestProjectOutputPath = Path.GetDirectoryName(testProjectOutput),
