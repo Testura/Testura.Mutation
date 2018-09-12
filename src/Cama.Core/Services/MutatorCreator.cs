@@ -27,8 +27,7 @@ namespace Cama.Core.Services
         {
             try
             {
-                var props = new Dictionary<string, string> { ["Platform"] = "AnyCPU" };
-                var workspace = MSBuildWorkspace.Create(props);
+                var workspace = MSBuildWorkspace.Create();
 
                 LogTo.Info("Opening solution..");
                 var solution = await workspace.OpenSolutionAsync(config.SolutionPath);

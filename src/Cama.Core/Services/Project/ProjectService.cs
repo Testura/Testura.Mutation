@@ -46,9 +46,7 @@ namespace Cama.Core.Services.Project
 
             MSBuildLocator.RegisterDefaults();
 
-            var props = new Dictionary<string, string> { ["Platform"] = "AnyCPU" };
-
-            using (var workspace = MSBuildWorkspace.Create(props))
+            using (var workspace = MSBuildWorkspace.Create())
             {
                 LogTo.Info("Opening solution..");
 
@@ -102,28 +100,36 @@ namespace Cama.Core.Services.Project
 
         private void InitializeMutationProjects(CamaFileConfig fileConfig, CamaConfig config, Microsoft.CodeAnalysis.Solution solution)
         {
-            LogTo.Info("Setting up mutation projects.");
-            foreach (var localConfigMutationProjectName in fileConfig.MutationProjects)
+            if (fileConfig.IgnoredProjects == null)
             {
-                var mutationProject = solution.Projects.FirstOrDefault(p => p.Name == localConfigMutationProjectName);
+                fileConfig.IgnoredProjects = new List<string>();
+            }
 
-                if (mutationProject == null)
+            LogTo.Info("Setting up mutation projects.");
+            foreach (var solutionProject in solution.Projects)
+            {
+                if (fileConfig.IgnoredProjects.Contains(solutionProject.Name) || fileConfig.TestProjects.Contains(solutionProject.Name))
                 {
-                    throw new ProjectSetUpException($"Could not find any project with the name {localConfigMutationProjectName} in the solution.");
+                    continue;
                 }
 
-                LogTo.Info($"Found the mutation project {localConfigMutationProjectName}. Grabbing output info.");
+                LogTo.Info($"Grabbing output info for {solutionProject.Name}.");
 
                 config.MutationProjects.Add(new MutationProjectInfo
                 {
-                    MutationProjectName = localConfigMutationProjectName,
-                    MutationProjectOutputFileName = Path.GetFileName(mutationProject.OutputFilePath)
+                    MutationProjectName = solutionProject.Name,
+                    MutationProjectOutputFileName = Path.GetFileName(solutionProject.OutputFilePath)
                 });
             }
         }
 
         private void InitializeTestProjects(CamaFileConfig fileConfig, CamaConfig config, Microsoft.CodeAnalysis.Solution solution)
         {
+            if (fileConfig.TestProjects == null || !fileConfig.TestProjects.Any())
+            {
+                throw new ProjectSetUpException("Test project list is null or empty");
+            }
+
             LogTo.Info("Setting up test projects.");
             foreach (var testProjectName in fileConfig.TestProjects)
             {

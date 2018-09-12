@@ -61,7 +61,7 @@ namespace Cama.Core.Services
 
         private void RunTest(List<TestSuiteResult> results, string basePath, string mainFilePath, TestProjectInfo testProject)
         {
-            LogTo.Info($"Starting to run tests for {testProject.TestProjectOutputFileName}");
+            LogTo.Info($"Starting to run tests in {testProject.TestProjectOutputFileName}");
             var baseTestPath = Path.Combine(basePath, Guid.NewGuid().ToString());
             var mainTestFilePath = Path.Combine(baseTestPath, testProject.TestProjectOutputFileName);
             Directory.CreateDirectory(baseTestPath);

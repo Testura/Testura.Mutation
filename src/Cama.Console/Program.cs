@@ -56,7 +56,7 @@ namespace Cama.Console
 
             var results = await RunTests(files, config);
             TrxReport.SaveReport(results, savePath);
-            HtmlReport.SaveReport(results, Path.ChangeExtension(savePath, ".html"));
+            MarkdownReport.SaveReport(results, Path.ChangeExtension(savePath, ".md"));
 
             return !results.Any(r => r.Survived);
         }

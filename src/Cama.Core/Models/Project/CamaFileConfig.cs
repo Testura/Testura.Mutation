@@ -14,7 +14,7 @@ namespace Cama.Core.Models.Project
 
         public IList<string> TestProjects { get; set; }
 
-        public IList<string> MutationProjects { get; set; }
+        public IList<string> IgnoredProjects { get; set; }
 
         public IList<string> Filter { get; set; }
 

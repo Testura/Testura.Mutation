@@ -14,6 +14,13 @@ namespace Cama.Core.Report
         public static void SaveReport(IList<MutationDocumentResult> mutations, string path)
         {
             LogTo.Info("Saving TRX report..");
+
+            if (!mutations.Any())
+            {
+                LogTo.Info("No mutations to report.");
+                return;
+            }
+
             var unitTestResults = CreateUnitTestResults(mutations);
 
             var results = new ResultsType
