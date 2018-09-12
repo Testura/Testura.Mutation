@@ -65,7 +65,7 @@ namespace Cama.Core.Services
                             {
                                 if (!config.Filter.Any(f => f.EndsWith(document.Name)))
                                 {
-                                    LogTo.Info($"Could not find {document.Name} in filter.. ignoring it.");
+                                    LogTo.Info($"Ignoring {document.Name} (not in filter).");
                                     continue;
                                 }
                             }

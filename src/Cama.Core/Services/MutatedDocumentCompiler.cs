@@ -22,7 +22,7 @@ namespace Cama.Core.Services
             var compilation = await mutatedDocument.Project.GetCompilationAsync();
             var result = compilation.Emit(path, manifestResources: GetEmbeddedResources(mutatedDocument.Project.AssemblyName, mutatedDocument.Project.FilePath));
 
-            LogTo.Info("Compiling {0} was a {1}.", document.MutationName, result.Success ? "success" : "failture");
+            LogTo.Info(result.Success ? $"Compiled {document.MutationName} successfully." : $"Failed to Compile {document.MutationName}.");
 
             return new CompilationResult
             {

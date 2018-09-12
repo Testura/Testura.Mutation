@@ -15,7 +15,7 @@ namespace Cama.Core.Report
         {
             LogTo.Info("Saving HTML report..");
 
-            if (!mutations.Any())
+            if (!mutations.Any(m => m.Survived))
             {
                 LogTo.Info("No mutations to report.");
                 return;
