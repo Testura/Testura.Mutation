@@ -11,6 +11,8 @@ using Cama.Core.Mutation.Analyzer;
 using Cama.Core.Mutation.Mutators;
 using Cama.Core.Mutation.Mutators.BinaryExpressionMutators;
 using Cama.Core.Report;
+using Cama.Core.Report.Markdown;
+using Cama.Core.Report.Trx;
 using Cama.Core.Services;
 using Cama.Core.Services.Project;
 using Cama.Core.TestRunner;
@@ -55,8 +57,9 @@ namespace Cama.Console
                 });
 
             var results = await RunTests(files, config);
-            TrxReport.SaveReport(results, savePath);
-            MarkdownReport.SaveReport(results, Path.ChangeExtension(savePath, ".md"));
+
+            new TrxReportCreator(savePath).SaveReport(results);
+            new MarkdownReportCreator(Path.ChangeExtension(savePath, ".md")).SaveReport(results);
 
             return !results.Any(r => r.Survived);
         }

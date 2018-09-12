@@ -5,11 +5,16 @@ using System.Text;
 using Anotar.Log4Net;
 using Cama.Core.Models.Mutation;
 
-namespace Cama.Core.Report
+namespace Cama.Core.Report.Markdown
 {
-    public static class MarkdownReport
+    public class MarkdownReportCreator : ReportCreator
     {
-        public static void SaveReport(IList<MutationDocumentResult> mutations, string path)
+        public MarkdownReportCreator(string savePath)
+            : base(savePath)
+        {
+        }
+
+        public override void SaveReport(IList<MutationDocumentResult> mutations)
         {
             LogTo.Info("Saving markdown report..");
 
@@ -19,6 +24,23 @@ namespace Cama.Core.Report
                 return;
             }
 
+            var markdown = CreateMarkdown(mutations);
+
+            try
+            {
+                File.WriteAllText(SavePath, markdown.ToString());
+            }
+            catch (IOException ex)
+            {
+                LogTo.ErrorException("Failed to save markdown report", ex);
+                throw;
+            }
+
+            LogTo.Info("Markdown report saved successfully.");
+        }
+
+        private static StringBuilder CreateMarkdown(IList<MutationDocumentResult> mutations)
+        {
             var surivedMutations = mutations.Where(m => m.Survived);
             var markdown = new StringBuilder();
 
@@ -33,9 +55,7 @@ namespace Cama.Core.Report
                                 $" `{mutation.Document.MutationInfo.Mutation}`\n");
             }
 
-            File.WriteAllText(path, markdown.ToString());
-
-            LogTo.Info("Saving done.");
+            return markdown;
         }
     }
 }

@@ -7,11 +7,16 @@ using Anotar.Log4Net;
 using Cama.Core.Models.Mutation;
 using ConsoleTables;
 
-namespace Cama.Core.Report
+namespace Cama.Core.Report.Trx
 {
-    public class TrxReport
+    public class TrxReportCreator : ReportCreator
     {
-        public static void SaveReport(IList<MutationDocumentResult> mutations, string path)
+        public TrxReportCreator(string savePath)
+            : base(savePath)
+        {
+        }
+
+        public override void SaveReport(IList<MutationDocumentResult> mutations)
         {
             LogTo.Info("Saving TRX report..");
 
@@ -21,72 +26,87 @@ namespace Cama.Core.Report
                 return;
             }
 
-            var unitTestResults = CreateUnitTestResults(mutations);
-
-            var results = new ResultsType
+            try
             {
-                Items = new List<UnitTestResultType>(unitTestResults).ToArray(),
-            };
+                var unitTestResults = CreateUnitTestResults(mutations);
 
-            results.ItemsElementName = new ItemsChoiceType3[results.Items.Length];
-            for (int n = 0; n < results.Items.Length; n++)
-            {
-                results.ItemsElementName[n] = ItemsChoiceType3.UnitTestResult;
-            }
-
-            var testRunType = new TestRunType
-            {
-                id = Guid.NewGuid().ToString(),
-                name = "mutation",
-                Items = new object[]
+                var results = new ResultsType
                 {
-                    new TestRunTypeTimes
+                    Items = new List<UnitTestResultType>(unitTestResults).ToArray(),
+                };
+
+                results.ItemsElementName = new ItemsChoiceType3[results.Items.Length];
+                for (int n = 0; n < results.Items.Length; n++)
+                {
+                    results.ItemsElementName[n] = ItemsChoiceType3.UnitTestResult;
+                }
+
+                var testRunType = new TestRunType
+                {
+                    id = Guid.NewGuid().ToString(),
+                    name = "mutation",
+                    Items = new object[]
                     {
-                        creation = DateTime.Now.ToString(),
-                        finish = DateTime.Now.ToString(),
-                        start = DateTime.Now.ToString()
-                    },
-                    new TestRunTypeResultSummary
-                    {
-                        outcome = mutations.All(m => !m.Survived) ? "Passed" : "Failed",
-                        Items = new object[]
+                        new TestRunTypeTimes
                         {
-                            new CountersType
+                            creation = DateTime.Now.ToString(),
+                            finish = DateTime.Now.ToString(),
+                            start = DateTime.Now.ToString()
+                        },
+                        new TestRunTypeResultSummary
+                        {
+                            outcome = mutations.All(m => !m.Survived) ? "Passed" : "Failed",
+                            Items = new object[]
                             {
-                                passed = mutations.Count(s => !s.Survived && s.CompilerResult.IsSuccess),
-                                failed = mutations.Count(s => s.Survived && s.CompilerResult.IsSuccess),
-                                completed = mutations.Count(s => s.CompilerResult.IsSuccess),
-                                error = mutations.Count(s => !s.CompilerResult.IsSuccess)
+                                new CountersType
+                                {
+                                    passed = mutations.Count(s => !s.Survived && s.CompilerResult.IsSuccess),
+                                    failed = mutations.Count(s => s.Survived && s.CompilerResult.IsSuccess),
+                                    completed = mutations.Count(s => s.CompilerResult.IsSuccess),
+                                    error = mutations.Count(s => !s.CompilerResult.IsSuccess)
+                                }
+                            }
+                        },
+                        results,
+                        CreateTestDefinitions(results),
+                        CreateTestEntries(results),
+                        new TestRunTypeTestLists()
+                        {
+                            TestList = new TestListType[]
+                            {
+                                new TestListType()
+                                {
+                                    id = ((UnitTestResultType)results.Items[0]).testListId,
+                                    name = "All Loaded Results"
+                                }
                             }
                         }
-                    },
-                    results,
-                    CreateTestDefinitions(results),
-                    CreateTestEntries(results),
-                    new TestRunTypeTestLists()
-                    {
-                        TestList = new TestListType[] { new TestListType() { id = ((UnitTestResultType)results.Items[0]).testListId, name = "All Loaded Results" } }
                     }
+                };
+
+                var xmlSerializer = new XmlSerializer(typeof(TestRunType));
+                using (var textWriter = new StringWriter())
+                {
+                    xmlSerializer.Serialize(textWriter, testRunType);
+                    var xml = textWriter
+                        .ToString()
+                        .Replace(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", string.Empty)
+                        .Replace(" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"", string.Empty)
+                        .Replace(" xsi:type=\"xsd:string\"", string.Empty);
+
+                    File.WriteAllText(SavePath, xml);
                 }
-            };
-
-            var xmlSerializer = new XmlSerializer(typeof(TestRunType));
-            using (var textWriter = new StringWriter())
+            }
+            catch (Exception ex)
             {
-                xmlSerializer.Serialize(textWriter, testRunType);
-                var xml = textWriter
-                    .ToString()
-                    .Replace(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", string.Empty)
-                    .Replace(" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"", string.Empty)
-                    .Replace(" xsi:type=\"xsd:string\"", string.Empty);
-
-                File.WriteAllText(path, xml);
+                LogTo.ErrorException("Failed to save TRX report", ex);
+                throw;
             }
 
-            LogTo.Info("..TRX report saved.");
+            LogTo.Info("TRX report saved successfully.");
         }
 
-        private static TestEntriesType1 CreateTestEntries(ResultsType results)
+        private TestEntriesType1 CreateTestEntries(ResultsType results)
         {
             var entries = new TestEntryType[results.Items.Length];
             for (int n = 0; n < entries.Length; n++)
@@ -106,7 +126,7 @@ namespace Cama.Core.Report
             };
         }
 
-        private static TestDefinitionType CreateTestDefinitions(ResultsType results)
+        private TestDefinitionType CreateTestDefinitions(ResultsType results)
         {
             var unitTestDefinitions = new List<UnitTestType>();
             foreach (var result in results.Items)
@@ -140,7 +160,7 @@ namespace Cama.Core.Report
             };
         }
 
-        private static UnitTestResultType[] CreateUnitTestResults(IList<MutationDocumentResult> mutations)
+        private UnitTestResultType[] CreateUnitTestResults(IList<MutationDocumentResult> mutations)
         {
             var unitTestResults = new List<UnitTestResultType>();
             var testListId = Guid.NewGuid().ToString();
