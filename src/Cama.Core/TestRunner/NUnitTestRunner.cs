@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml;
 using Anotar.Log4Net;
 using Cama.Core.Models;
@@ -13,9 +14,9 @@ using TestSuiteResult = Cama.Core.Models.TestSuiteResult;
 
 namespace Cama.Core.TestRunner
 {
-    public class TestRunner : ITestRunner
+    public class NUnitTestRunner : ITestRunner
     {
-        public TestSuiteResult RunTests(string dllPath, IList<string> testNames)
+        public async Task<TestSuiteResult> RunTestsAsync(string dllPath, IList<string> testNames, TimeSpan maxTime)
         {
             var package = new TestPackage(dllPath);
 
@@ -34,14 +35,33 @@ namespace Cama.Core.TestRunner
 
                 using (NUnit.Engine.ITestRunner runner = engine.GetRunner(package))
                 {
-                    var filter = CreateFilter(testNames, engine.Services.GetService<ITestFilterService>().GetTestFilterBuilder());
-
-                    var result = runner.Run(new TestEventDispatcher(), filter);
                     try
                     {
+                        var filter = CreateFilter(testNames, engine.Services.GetService<ITestFilterService>().GetTestFilterBuilder());
+
+                        var maxTimeTask = Task.Run(async () => await Task.Delay(maxTime));
+                        var resultTask = Task.Run(() => RunTests(runner, filter));
+
+                        var finishedTask = await Task.WhenAny(maxTimeTask, resultTask);
+
+                        if (finishedTask == maxTimeTask)
+                        {
+                            LogTo.Info("Test canceled. The mutation probably created an infinite loop.");
+                            runner.StopRun(true);
+                            return new TestSuiteResult("TIMEOUT", new List<TestResult>(), "NULL");
+                        }
+
+                        var result = resultTask.Result;
+
+                        if (result == null)
+                        {
+                            return new TestSuiteResult("ERROR", new List<TestResult>(), "NULL");
+                        }
+
                         if (result.InnerText.Contains("System.IO.FileLoadException : Could not load file or assembly "))
                         {
-                            LogTo.Error($"Problem with loading file or assembly formation. Make sure that we have all required dependencies: \"{result.InnerText}\"");
+                            LogTo.Error(
+                                $"Problem with loading file or assembly formation. Make sure that we have all required dependencies: \"{result.InnerText}\"");
                         }
 
                         runner.Unload();
@@ -60,13 +80,26 @@ namespace Cama.Core.TestRunner
                     {
                         LogTo.ErrorException("Failed to unload test runner", ex);
                     }
-
-                    return new TestSuiteResult("ERROR", new List<TestResult>(), "NULL");
                 }
+
+                return new TestSuiteResult("ERROR", new List<TestResult>(), "NULL");
             }
         }
 
-        public TestFilter CreateFilter(IList<string> testNames, ITestFilterBuilder builder)
+        private XmlNode RunTests(NUnit.Engine.ITestRunner runner, TestFilter filter)
+        {
+            try
+            {
+                return runner.Run(new TestEventDispatcher(), filter);
+            }
+            catch (Exception ex)
+            {
+                LogTo.ErrorException("Failed to unload test runner", ex);
+                return null;
+            }
+        }
+
+        private TestFilter CreateFilter(IList<string> testNames, ITestFilterBuilder builder)
         {
             if (!testNames.Any())
             {
@@ -81,7 +114,7 @@ namespace Cama.Core.TestRunner
             return builder.GetFilter();
         }
 
-        private static TestSuiteResult CreateResult(XmlNode result)
+        private TestSuiteResult CreateResult(XmlNode result)
         {
             var nUnitTestCaseResultMaker = new NUnitTestCaseResultMaker();
             if (result.Name != "test-run")

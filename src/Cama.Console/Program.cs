@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Anotar.Log4Net;
 using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
 using Cama.Core.Models.Project;
@@ -23,7 +24,15 @@ namespace Cama.Console
     {
         public static async Task Main(string[] args)
         {
-            System.Console.WriteLine("Starting mutation testing");
+            System.Console.WriteLine("");
+            System.Console.WriteLine("   ____    _    __  __    _  ");
+            System.Console.WriteLine("  / ___|  / \\  |  \\/  |  / \\");
+            System.Console.WriteLine(" | |     / _ \\ | |\\/| | / _ \\ ");
+            System.Console.WriteLine(" | |___ / ___ \\| |  | |/ ___ \\ ");
+            System.Console.WriteLine("  \\____/_/   \\_\\_|  |_/_/   \\_\\");
+            System.Console.WriteLine("");
+
+            LogTo.Info("Starting mutation testing");
 
             if(args.Length < 1)
                 throw new ArgumentException("Path to cama config is required.");
@@ -68,7 +77,7 @@ namespace Cama.Console
         private static async Task<IList<MutationDocumentResult>> RunTests(IList<MFile> files, CamaConfig config)
         {
             var semaphoreSlim = new SemaphoreSlim(4, 4);
-            var testRunner = new TestRunnerService(new MutatedDocumentCompiler(), new DependencyFilesHandler(), new TestRunner());
+            var testRunner = new TestRunnerService(new MutatedDocumentCompiler(), new DependencyFilesHandler(), new NUnitTestRunner());
             var results = new List<MutationDocumentResult>();
             var numberOfMutationsLeft = files.SelectMany(f => f.MutatedDocuments).Count();
 
@@ -85,18 +94,12 @@ namespace Cama.Console
                 }
                 catch (Exception ex)
                 {
-                    System.Console.WriteLine($"Unexpected exception: {ex.Message} for {d.MutationName}");
+                    LogTo.WarnException("Unexpected exception", ex);
                 }
                 finally
                 {
                     Interlocked.Decrement(ref numberOfMutationsLeft);
-                    System.Console.WriteLine($"Number of mutations left: {numberOfMutationsLeft}");
-
-                    if (numberOfMutationsLeft == 1)
-                    {
-                        var i = 0;
-                    }
-
+                    LogTo.Info($"Number of mutations left: {numberOfMutationsLeft}");
                     semaphoreSlim.Release();
                 }
             })).ToArray();

@@ -16,9 +16,9 @@ namespace Cama.Core.Services
     {
         private readonly MutatedDocumentCompiler _compiler;
         private readonly DependencyFilesHandler _dependencyFilesHandler;
-        private readonly TestRunner.TestRunner _testRunner;
+        private readonly TestRunner.NUnitTestRunner _testRunner;
 
-        public TestRunnerService(MutatedDocumentCompiler compiler, DependencyFilesHandler dependencyFilesHandler, TestRunner.TestRunner testRunner)
+        public TestRunnerService(MutatedDocumentCompiler compiler, DependencyFilesHandler dependencyFilesHandler, TestRunner.NUnitTestRunner testRunner)
         {
             _compiler = compiler;
             _dependencyFilesHandler = dependencyFilesHandler;
@@ -42,7 +42,12 @@ namespace Cama.Core.Services
 
             foreach (var testProject in config.TestProjects)
             {
-                RunTest(results, basePath, mainFilePath, testProject);
+                await RunTestAsync(results, basePath, mainFilePath, testProject, config.MaxTestTimeMin);
+
+                if (results.Any(r => !r.IsSuccess))
+                {
+                    break;
+                }
             }
 
             try
@@ -55,11 +60,11 @@ namespace Cama.Core.Services
             }
 
             var final = CombineResult(document.FileName, results);
-            LogTo.Info($"\"{document.MutationName}\" done. Run {final.TestResults.Count} tests and {final.TestResults.Count(t => !t.IsSuccess)} failed.");
+            LogTo.Info($"\"{document.MutationName}\" done. Ran {final.TestResults.Count} tests and {final.TestResults.Count(t => !t.IsSuccess)} failed.");
             return new MutationDocumentResult { Survived = final.IsSuccess, CompilerResult = compilerResult, TestResult = final, Document = document };
         }
 
-        private void RunTest(List<TestSuiteResult> results, string basePath, string mainFilePath, TestProjectInfo testProject)
+        private async Task RunTestAsync(List<TestSuiteResult> results, string basePath, string mainFilePath, TestProjectInfo testProject, int maxTestTimeMin)
         {
             LogTo.Info($"Starting to run tests in {testProject.TestProjectOutputFileName}");
             var baseTestPath = Path.Combine(basePath, Guid.NewGuid().ToString());
@@ -68,7 +73,7 @@ namespace Cama.Core.Services
 
             _dependencyFilesHandler.CopyDependencies(testProject.TestProjectOutputPath, baseTestPath);
             File.Copy(mainFilePath, Path.Combine(baseTestPath, Path.GetFileName(mainFilePath)), true);
-            results.Add(_testRunner.RunTests(mainTestFilePath, /* document.Document.Tests */ new List<string>()));
+            results.Add(await _testRunner.RunTestsAsync(mainTestFilePath, /* document.Document.Tests */ new List<string>(), TimeSpan.FromMinutes(maxTestTimeMin)));
         }
 
         private TestSuiteResult CombineResult(string name, IList<TestSuiteResult> testResult)

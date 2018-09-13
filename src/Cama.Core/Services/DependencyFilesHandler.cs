@@ -8,7 +8,6 @@ namespace Cama.Core.Services
     {
         public void CopyDependencies(string path, string targetPath)
         {
-            LogTo.Info("Copying all dependecies..");
             var files = 0;
 
             Directory
@@ -29,7 +28,10 @@ namespace Cama.Core.Services
                     File.Copy(from, to, true);
                 });
 
-            LogTo.Info($"..copying done ({files} files)");
+            if (files == 0)
+            {
+                LogTo.Warn($"Did not find any files to copy at \"{path}\". Make sure that you built the solution before running mutation tests.");
+            }
         }
     }
 }

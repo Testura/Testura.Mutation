@@ -94,7 +94,7 @@
     <Compile Include="TestRunner\Result\Maker\INUnitTestCaseResultMaker.cs" />
     <Compile Include="TestRunner\Result\Maker\NUnitTestCaseResultMaker.cs" />
     <Compile Include="TestRunner\TestCaseRunData.cs" />
-    <Compile Include="TestRunner\TestRunner.cs" />
+    <Compile Include="TestRunner\NUnitTestRunner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

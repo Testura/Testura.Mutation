@@ -39,8 +39,14 @@
     <ApplicationIcon>icon_Inx_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Anotar.Log4Net, Version=4.6.2.0, Culture=neutral, PublicKeyToken=9d5b24f0733c26f7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Anotar.Log4Net.Fody.4.6.2\lib\net452\Anotar.Log4Net.dll</HintPath>
+    </Reference>
     <Reference Include="Costura, Version=3.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Costura.Fody.3.1.0\lib\net46\Costura.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build.Locator, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9dff12846e04bfbd, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Build.Locator.1.0.18\lib\net46\Microsoft.Build.Locator.dll</HintPath>
@@ -180,6 +186,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Cama.Core\Log4Net.Config">
+      <Link>Log4Net.Config</Link>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>

@@ -41,7 +41,8 @@ namespace Cama.Core.Services.Project
                 SolutionPath = fileConfig.SolutionPath,
                 Filter = fileConfig.Filter ?? new List<string>(),
                 TestRunInstancesCount = fileConfig.TestRunInstancesCount,
-                BuildConfiguration = fileConfig.BuildConfiguration
+                BuildConfiguration = fileConfig.BuildConfiguration,
+                MaxTestTimeMin = fileConfig.MaxTestTimeMin
             };
 
             MSBuildLocator.RegisterDefaults();

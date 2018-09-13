@@ -30,7 +30,7 @@ namespace Cama.Core.Services
             else
             {
                 var errors = result.Diagnostics.Where(d => d.Severity == DiagnosticSeverity.Error).Select(e => new { Location = e.Location.SourceTree.FilePath, Message = e.GetMessage() });
-                LogTo.Info($"Failed to Compile {document.MutationName}: {JObject.FromObject(new { errors })}");
+                LogTo.Info($"Failed to Compile {document.MutationName}: {JObject.FromObject(new { orginal = document.MutationInfo.Orginal.ToString(), mutation = document.MutationInfo.Mutation.ToString(), errors })}");
             }
 
             return new CompilationResult

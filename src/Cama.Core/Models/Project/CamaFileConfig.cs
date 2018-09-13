@@ -7,6 +7,7 @@ namespace Cama.Core.Models.Project
         public CamaFileConfig()
         {
             TestRunInstancesCount = 3;
+            MaxTestTimeMin = 5;
             BuildConfiguration = "debug";
         }
 
@@ -21,5 +22,7 @@ namespace Cama.Core.Models.Project
         public int TestRunInstancesCount { get; set; }
 
         public string BuildConfiguration { get; set; }
+
+        public int MaxTestTimeMin { get; set; }
     }
 }
