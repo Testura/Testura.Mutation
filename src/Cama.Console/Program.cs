@@ -72,21 +72,36 @@ namespace Cama.Console
             var results = new List<MutationDocumentResult>();
             var numberOfMutationsLeft = files.SelectMany(f => f.MutatedDocuments).Count();
 
-            await Task.WhenAll(files.SelectMany(f => f.MutatedDocuments).Select((d) => Task.Run(async () =>
+            var tasks = files.SelectMany(f => f.MutatedDocuments).Select((d) => Task.Run(async () =>
             {
-                semaphoreSlim.Wait();
-                var result = await testRunner.RunTestAsync(config, d);
-                lock (results)
+                try
                 {
-                    results.Add(result);
+                    semaphoreSlim.Wait();
+                    var result = await testRunner.RunTestAsync(config, d);
+                    lock (results)
+                    {
+                        results.Add(result);
+                    }
                 }
+                catch (Exception ex)
+                {
+                    System.Console.WriteLine($"Unexpected exception: {ex.Message} for {d.MutationName}");
+                }
+                finally
+                {
+                    Interlocked.Decrement(ref numberOfMutationsLeft);
+                    System.Console.WriteLine($"Number of mutations left: {numberOfMutationsLeft}");
 
-                Interlocked.Decrement(ref numberOfMutationsLeft);
+                    if (numberOfMutationsLeft == 1)
+                    {
+                        var i = 0;
+                    }
 
-                System.Console.WriteLine($"Number of mutations left: {numberOfMutationsLeft}");
+                    semaphoreSlim.Release();
+                }
+            })).ToArray();
 
-                semaphoreSlim.Release();
-            })).ToArray());
+            await Task.WhenAll(tasks);
             
             return results;
         }

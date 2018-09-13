@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Anotar.Log4Net;
 using Microsoft.CodeAnalysis;
+using Newtonsoft.Json.Linq;
 using CompilationError = Cama.Core.Models.CompilationError;
 using CompilationResult = Cama.Core.Models.CompilationResult;
 using MutatedDocument = Cama.Core.Models.Mutation.MutatedDocument;
@@ -22,7 +23,15 @@ namespace Cama.Core.Services
             var compilation = await mutatedDocument.Project.GetCompilationAsync();
             var result = compilation.Emit(path, manifestResources: GetEmbeddedResources(mutatedDocument.Project.AssemblyName, mutatedDocument.Project.FilePath));
 
-            LogTo.Info(result.Success ? $"Compiled {document.MutationName} successfully." : $"Failed to Compile {document.MutationName}.");
+            if (result.Success)
+            {
+                LogTo.Info($"Compiled {document.MutationName} successfully.");
+            }
+            else
+            {
+                var errors = result.Diagnostics.Where(d => d.Severity == DiagnosticSeverity.Error).Select(e => new { Location = e.Location.SourceTree.FilePath, Message = e.GetMessage() });
+                LogTo.Info($"Failed to Compile {document.MutationName}: {JObject.FromObject(new { errors })}");
+            }
 
             return new CompilationResult
             {
