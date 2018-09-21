@@ -67,8 +67,8 @@ namespace Cama.Console
 
             var results = await RunTests(files, config);
 
-            new TrxReportCreator(savePath).SaveReport(results);
-            new MarkdownReportCreator(Path.ChangeExtension(savePath, ".md")).SaveReport(results);
+            new TrxReportCreator().SaveReport(savePath, results);
+            new MarkdownReportCreator().SaveReport(Path.ChangeExtension(savePath, ".md"), results);
 
             return !results.Any(r => r.Survived);
         }
@@ -94,7 +94,7 @@ namespace Cama.Console
                 }
                 catch (Exception ex)
                 {
-                    LogTo.WarnException("Unexpected exception", ex);
+                    LogTo.WarnException($"Unexpected exception when running {d.MutationName}", ex);
                 }
                 finally
                 {

@@ -9,18 +9,13 @@ using ConsoleTables;
 
 namespace Cama.Core.Report.Trx
 {
-    public class TrxReportCreator : ReportCreator
+    public class TrxReportCreator : IReportCreator
     {
-        public TrxReportCreator(string savePath)
-            : base(savePath)
-        {
-        }
-
-        public override void SaveReport(IList<MutationDocumentResult> mutations)
+        public void SaveReport(string saveReport, IList<MutationDocumentResult> mutations)
         {
             LogTo.Info("Saving TRX report..");
 
-            if (!mutations.Any(m => m.Survived))
+            if (!mutations.Any())
             {
                 LogTo.Info("No mutations to report.");
                 return;
@@ -94,7 +89,7 @@ namespace Cama.Core.Report.Trx
                         .Replace(" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"", string.Empty)
                         .Replace(" xsi:type=\"xsd:string\"", string.Empty);
 
-                    File.WriteAllText(SavePath, xml);
+                    File.WriteAllText(saveReport, xml);
                 }
             }
             catch (Exception ex)

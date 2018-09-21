@@ -7,14 +7,9 @@ using Cama.Core.Models.Mutation;
 
 namespace Cama.Core.Report.Markdown
 {
-    public class MarkdownReportCreator : ReportCreator
+    public class MarkdownReportCreator : IReportCreator
     {
-        public MarkdownReportCreator(string savePath)
-            : base(savePath)
-        {
-        }
-
-        public override void SaveReport(IList<MutationDocumentResult> mutations)
+        public void SaveReport(string savePath, IList<MutationDocumentResult> mutations)
         {
             LogTo.Info("Saving markdown report..");
 
@@ -28,7 +23,7 @@ namespace Cama.Core.Report.Markdown
 
             try
             {
-                File.WriteAllText(SavePath, markdown.ToString());
+                File.WriteAllText(savePath, markdown.ToString());
             }
             catch (IOException ex)
             {

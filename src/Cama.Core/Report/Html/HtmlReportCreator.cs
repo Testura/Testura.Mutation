@@ -10,16 +10,11 @@ using RazorEngine.Templating;
 
 namespace Cama.Core.Report.Html
 {
-    public class HtmlReportCreator : ReportCreator
+    public class HtmlReportCreator : IReportCreator
     {
-        public HtmlReportCreator(string savePath)
-            : base(savePath)
-        {
-        }
-
         private string TemplatePath => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Report", "Html", "ReportTemplate.cshtml");
 
-        public override void SaveReport(IList<MutationDocumentResult> mutations)
+        public void SaveReport(string savePath, IList<MutationDocumentResult> mutations)
         {
             LogTo.Info("Saving HTML report..");
 
@@ -34,7 +29,7 @@ namespace Cama.Core.Report.Html
                 var text = File.ReadAllText(TemplatePath);
                 var renderedText = Engine.Razor.RunCompile(text, "report", null, mutations.Where(m => m.Survived));
 
-                File.WriteAllText(SavePath, renderedText);
+                File.WriteAllText(savePath, renderedText);
             }
             catch (Exception ex)
             {
