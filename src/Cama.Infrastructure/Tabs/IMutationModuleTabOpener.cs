@@ -2,6 +2,7 @@
 using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
 using Cama.Core.Models.Project;
+using Cama.Core.Report.Cama;
 
 namespace Cama.Infrastructure.Tabs
 {
@@ -12,6 +13,8 @@ namespace Cama.Infrastructure.Tabs
         void OpenDocumentDetailsTab(MutatedDocument document, CamaConfig config);
 
         void OpenTestRunTab(IList<MutatedDocument> documents, CamaConfig config);
+
+        void OpenTestRunTab(CamaReport report);
 
         void OpenDocumentResultTab(MutationDocumentResult result);
 

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Cama.Core.Models.Mutation;
 using Cama.Core.Models.Project;
+using Cama.Core.Report.Cama;
 using Cama.Core.Services;
 using Cama.Infrastructure;
 using Cama.Infrastructure.Tabs;
@@ -111,6 +112,16 @@ namespace Cama.Module.Mutation.Sections.TestRun
             MutationCount = documents.Count;
         }
 
+        public void SetReport(CamaReport report)
+        {
+            FinishedMutationsCount = report.TotalNumberOfMutations;
+            MutationCount = report.TotalNumberOfMutations;
+            MutationsSurvivedCount.Value = report.NumberOfSurvivedMutations;
+            MutationsKilledCount.Value = report.TotalNumberOfMutations - report.NumberOfSurvivedMutations;
+            FailedToCompileMutationsCount = report.Mutations.Count(m => !m.CompileResult.IsSuccess);
+            MutationScore = $"{Math.Round((MutationsKilledCount.Value / (MutationsKilledCount.Value + MutationsSurvivedCount.Value)) * 100)}%";
+        }
+
         private async void RunTestsAsync()
         {
             TestNotStarted = false;
@@ -178,6 +189,6 @@ namespace Cama.Module.Mutation.Sections.TestRun
         private void SeeAllMutations()
         {
             _mutationModuleTabOpener.OpenAllMutationResultTab(CompletedDocuments.ToList());
-        }
+        } 
     }
 }

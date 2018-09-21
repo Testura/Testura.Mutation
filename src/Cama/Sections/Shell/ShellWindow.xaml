@@ -16,7 +16,9 @@
         TextOptions.TextRenderingMode="Auto"
         Background="#424242"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Cama">
+        Title="Cama"
+        AllowDrop="True"
+        Drop="OnDrop">
     <Grid>
         <Grid Margin="10">
             <Grid.RowDefinitions>

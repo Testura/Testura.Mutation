@@ -2,6 +2,7 @@
 using Cama.Core.Models;
 using Cama.Core.Models.Mutation;
 using Cama.Core.Models.Project;
+using Cama.Core.Report.Cama;
 using Cama.Infrastructure.Tabs;
 using Cama.Module.Mutation.Sections.Details;
 using Cama.Module.Mutation.Sections.Overview;
@@ -33,6 +34,11 @@ namespace Cama.Module.Mutation.Tab
         public void OpenTestRunTab(IList<MutatedDocument> documents, CamaConfig config)
         {
             _mainTabContainer.AddTab(new TestRunView(documents, config));
+        }
+
+        public void OpenTestRunTab(CamaReport report)
+        {
+            _mainTabContainer.AddTab(new TestRunView(report));
         }
 
         public void OpenDocumentResultTab(MutationDocumentResult result)

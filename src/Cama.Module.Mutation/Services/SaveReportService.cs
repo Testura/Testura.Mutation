@@ -13,7 +13,7 @@ namespace Cama.Module.Mutation.Services
             saveFileDialog.Filter = "Html file (*.html)|*.html";
             if (saveFileDialog.ShowDialog() == true)
             {
-                new HtmlReportCreator(saveFileDialog.FileName).SaveReport(mutations);
+                new HtmlReportCreator().SaveReport(saveFileDialog.FileName, mutations);
             }
         }
     }

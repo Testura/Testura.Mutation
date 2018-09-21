@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Cama.Sections.Shell
@@ -34,6 +35,13 @@ namespace Cama.Sections.Shell
         public void RemoveAllTabs()
         {
             MyTabControl.Items.Clear();
+        }
+
+        private void OnDrop(object sender, DragEventArgs e)
+        {
+            var files = ((string[]) e.Data.GetData(DataFormats.FileDrop)).Where(p => p.EndsWith(".cama"));
+            var viewModel = DataContext as ShellViewModel;
+            viewModel?.OpenReport(files);
         }
     }
 }

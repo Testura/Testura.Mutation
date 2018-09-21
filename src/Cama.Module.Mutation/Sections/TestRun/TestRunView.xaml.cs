@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Cama.Core.Models.Mutation;
 using Cama.Core.Models.Project;
+using Cama.Core.Report.Cama;
 
 namespace Cama.Module.Mutation.Sections.TestRun
 {
@@ -15,7 +16,15 @@ namespace Cama.Module.Mutation.Sections.TestRun
             InitializeComponent();
 
             var dataContext = DataContext as TestRunViewModel;
-            dataContext.SetDocuments(documents, config);
+            dataContext?.SetDocuments(documents, config);
+        }
+
+        public TestRunView(CamaReport report)
+        {
+            InitializeComponent();
+
+            var dataContext = DataContext as TestRunViewModel;
+            dataContext?.SetReport(report);
         }
     }
 }
