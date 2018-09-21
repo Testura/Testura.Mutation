@@ -41,7 +41,7 @@ namespace Cama.Module.Mutation.Tab
             _mainTabContainer.AddTab(new TestRunView(report));
         }
 
-        public void OpenDocumentResultTab(MutationDocumentResult result)
+        public void OpenDocumentResultTab(CamaReportMutationItem result)
         {
             _mainTabContainer.AddTab(new MutationDocumentTestResultView(result));
         }
@@ -51,12 +51,12 @@ namespace Cama.Module.Mutation.Tab
             _mainTabContainer.AddTab(new FileDetailsView(file, config));
         }
 
-        public void OpenFaildToCompileTab(IList<MutationDocumentResult> mutantsFailedToCompile)
+        public void OpenFaildToCompileTab(IList<CamaReportMutationItem> mutantsFailedToCompile)
         {
             _mainTabContainer.AddTab(new FailedToCompileMutationDocumentsView(mutantsFailedToCompile));
         }
 
-        public void OpenAllMutationResultTab(List<MutationDocumentResult> completedMutations)
+        public void OpenAllMutationResultTab(List<CamaReportMutationItem> completedMutations)
         {
             _mainTabContainer.AddTab(new AllCompletedMutationDocumentTestResultView(completedMutations));
         }

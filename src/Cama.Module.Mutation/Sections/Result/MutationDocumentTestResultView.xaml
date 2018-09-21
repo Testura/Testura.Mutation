@@ -25,10 +25,10 @@
                     <Label.Style>
                         <Style TargetType="{x:Type Label}">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Result.TestResult.IsSuccess}" Value="True">
+                                <DataTrigger Binding="{Binding Result.Survived}" Value="True">
                                     <Setter Property="Content" Value="Mutation test was unsuccessful. We expected one or more tests to fail which mean you lack tests for this logic."></Setter>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Result.TestResult.IsSuccess}" Value="False">
+                                <DataTrigger Binding="{Binding Result.Survived}" Value="False">
                                     <Setter Property="Content" Value="Mutation test was successful. One or more test fails which mean you have test for this logic"></Setter>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -80,14 +80,14 @@
             </Grid>
             <GroupBox 
                 Grid.Row="3"
-                Header="Test results"
+                Header="Failed tests"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
                 Margin="16">
                 <DataGrid
                     SelectionUnit="FullRow"
                     AutoGenerateColumns="False"
                     IsReadOnly="False"
-                    ItemsSource="{Binding Result.TestResult.TestResults}"
+                    ItemsSource="{Binding Result.FailedTests}"
                     CanUserAddRows="false"
                     Grid.Row="1">
                     <DataGrid.Columns>

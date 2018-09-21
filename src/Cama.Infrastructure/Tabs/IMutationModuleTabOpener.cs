@@ -16,12 +16,12 @@ namespace Cama.Infrastructure.Tabs
 
         void OpenTestRunTab(CamaReport report);
 
-        void OpenDocumentResultTab(MutationDocumentResult result);
+        void OpenDocumentResultTab(CamaReportMutationItem result);
 
         void OpenFileDetailsTab(MFile file, CamaConfig config);
 
-        void OpenFaildToCompileTab(IList<MutationDocumentResult> mutantsFailedToCompile);
+        void OpenFaildToCompileTab(IList<CamaReportMutationItem> mutantsFailedToCompile);
 
-        void OpenAllMutationResultTab(List<MutationDocumentResult> completedMutations);
+        void OpenAllMutationResultTab(List<CamaReportMutationItem> completedMutations);
     }
 }

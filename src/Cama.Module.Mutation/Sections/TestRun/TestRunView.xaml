@@ -277,7 +277,7 @@
 
         <Grid Grid.Row="2" Grid.Column="1">
             <GroupBox
-                Header="Survived"
+                Header="Survived mutations"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
                 Margin="16">
                 <ScrollViewer>
@@ -294,29 +294,9 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="File" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Where" Binding="{Binding Document.MutationInfo.Location.Where}" Width="*" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Line" Binding="{Binding Document.MutationInfo.Location.Line}" Width="*" IsReadOnly="True"/>
-                            <DataGridTemplateColumn Header="Result" Width="*" IsReadOnly="True">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Label>
-                                            <Label.Style>
-                                                <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Survived}" Value="True">
-                                                            <Setter Property="Content" Value="Survived"/>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding Survived}" Value="False">
-                                                            <Setter Property="Content" Value="Killed"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Label.Style>
-                                        </Label>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="File" Binding="{Binding FileName}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Where" Binding="{Binding FileLocation.Where}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Line" Binding="{Binding FileLocation.Line}" Width="*" IsReadOnly="True"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     </ScrollViewer>

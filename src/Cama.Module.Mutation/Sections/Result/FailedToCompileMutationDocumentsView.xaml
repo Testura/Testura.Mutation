@@ -21,15 +21,16 @@
                     ItemsSource="{Binding MutantsFailedToCompile}"
                     CanUserAddRows="false">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="File" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Where" Binding="{Binding Document.MutationInfo.Location.Where}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Line" Binding="{Binding Document.MutationInfo.Location.Line}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Orginal" Binding="{Binding Document.MutationInfo.Orginal}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Mutation" Binding="{Binding Document.MutationInfo.Mutation}" Width="*" IsReadOnly="True"/>
-                    <DataGridTemplateColumn Header="Errors" IsReadOnly="True" MinWidth="200">
+                    <DataGridTextColumn Header="Project" Binding="{Binding ProjectName }" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="File" Binding="{Binding FileName}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Where" Binding="{Binding FileLocation.Where}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Line" Binding="{Binding FileLocation.Line}" Width="120" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Orginal" Binding="{Binding Orginal}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Mutation" Binding="{Binding Mutation}" Width="*" IsReadOnly="True"/>
+                    <DataGridTemplateColumn Header="Errors" IsReadOnly="True" MinWidth="400">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <ItemsControl ItemsSource="{Binding CompilerResult.Errors}">
+                                <ItemsControl ItemsSource="{Binding CompileResult.Errors}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <TextBox Text="{Binding Message, Mode=OneWay}" />

@@ -28,7 +28,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
         private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
         private readonly SaveReportService _saveReportService;
         private readonly ILoadingDisplayer _loadingDisplayer;
-        private List<MutationDocumentResult> _mutantsFailedToCompile;
+        private List<CamaReportMutationItem> _mutantsFailedToCompile;
         private CamaConfig _config;
 
         public TestRunViewModel(TestRunnerService testRunnerService, IMutationModuleTabOpener mutationModuleTabOpener, SaveReportService saveReportService, ILoadingDisplayer loadingDisplayer)
@@ -38,17 +38,17 @@ namespace Cama.Module.Mutation.Sections.TestRun
             _saveReportService = saveReportService;
             _loadingDisplayer = loadingDisplayer;
             RunningDocuments = new ObservableCollection<TestRunDocument>();
-            CompletedDocuments = new ObservableCollection<MutationDocumentResult>();
-            SurvivedDocuments = new ObservableCollection<MutationDocumentResult>();
+            CompletedDocuments = new ObservableCollection<CamaReportMutationItem>();
+            SurvivedDocuments = new ObservableCollection<CamaReportMutationItem>();
             RunCommand = new DelegateCommand(RunTestsAsync);
-            CompletedDocumentSelectedCommand = new DelegateCommand<MutationDocumentResult>(OpenCompleteDocumentTab);
+            CompletedDocumentSelectedCommand = new DelegateCommand<CamaReportMutationItem>(OpenCompleteDocumentTab);
             SaveReportCommand = new DelegateCommand(SaveReportAsync);
             FailedToCompileCommand = new DelegateCommand(FailedToCompile);
             SeeAllMutationsCommand = new DelegateCommand(SeeAllMutations);
             MutationScore = "0%";
             MutationsSurvivedCount = new ObservableValue(0);
             MutationsKilledCount = new ObservableValue(0);
-            _mutantsFailedToCompile = new List<MutationDocumentResult>();
+            _mutantsFailedToCompile = new List<CamaReportMutationItem>();
 
             MutationStatistics = new SeriesCollection
             {
@@ -91,13 +91,13 @@ namespace Cama.Module.Mutation.Sections.TestRun
 
         public ObservableCollection<TestRunDocument> RunningDocuments { get; set; }
 
-        public ObservableCollection<MutationDocumentResult> CompletedDocuments { get; set; }
+        public ObservableCollection<CamaReportMutationItem> CompletedDocuments { get; set; }
 
-        public ObservableCollection<MutationDocumentResult> SurvivedDocuments { get; set; }
+        public ObservableCollection<CamaReportMutationItem> SurvivedDocuments { get; set; }
 
         public DelegateCommand RunCommand { get; set; }
 
-        public DelegateCommand<MutationDocumentResult> CompletedDocumentSelectedCommand { get; set; }
+        public DelegateCommand<CamaReportMutationItem> CompletedDocumentSelectedCommand { get; set; }
 
         public DelegateCommand SaveReportCommand { get; set; }
 
@@ -120,6 +120,9 @@ namespace Cama.Module.Mutation.Sections.TestRun
             MutationsKilledCount.Value = report.TotalNumberOfMutations - report.NumberOfSurvivedMutations;
             FailedToCompileMutationsCount = report.Mutations.Count(m => !m.CompileResult.IsSuccess);
             MutationScore = $"{Math.Round((MutationsKilledCount.Value / (MutationsKilledCount.Value + MutationsSurvivedCount.Value)) * 100)}%";
+            CompletedDocuments.AddRange(report.Mutations);
+            SurvivedDocuments.AddRange(report.Mutations.Where(m => m.Survived));
+            _mutantsFailedToCompile = new List<CamaReportMutationItem>(report.Mutations.Where(m => !m.CompileResult.IsSuccess));
         }
 
         private async void RunTestsAsync()
@@ -144,21 +147,23 @@ namespace Cama.Module.Mutation.Sections.TestRun
         {
             lock (RunningDocuments)
             {
+                var reportItem = new CamaReportMutationItem(result);
+
                 Application.Current.Dispatcher.BeginInvoke(new Action(() => RunningDocuments.Remove(runDocument)));
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => CompletedDocuments.Add(result)));
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => CompletedDocuments.Add(reportItem)));
                 FinishedMutationsCount++;
 
                 if (!result.CompilerResult.IsSuccess)
                 {
                     FailedToCompileMutationsCount++;
-                    _mutantsFailedToCompile.Add(result);
+                    _mutantsFailedToCompile.Add(reportItem);
                     return;
                 }
 
                 if (result.Survived)
                 {
                     MutationsSurvivedCount.Value++;
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() => SurvivedDocuments.Add(result)));
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() => SurvivedDocuments.Add(reportItem)));
                 }
                 else
                 {
@@ -169,16 +174,18 @@ namespace Cama.Module.Mutation.Sections.TestRun
             }
         }
 
-        private void OpenCompleteDocumentTab(MutationDocumentResult obj)
+        private void OpenCompleteDocumentTab(CamaReportMutationItem obj)
         {
             _mutationModuleTabOpener.OpenDocumentResultTab(obj);
         }
 
         private async void SaveReportAsync()
         {
+            /*
             _loadingDisplayer.ShowLoading("Saving report..");
             await Task.Run(() => _saveReportService.SaveReport(SurvivedDocuments));
             _loadingDisplayer.HideLoading();
+            */
         }
 
         private void FailedToCompile()
@@ -189,6 +196,6 @@ namespace Cama.Module.Mutation.Sections.TestRun
         private void SeeAllMutations()
         {
             _mutationModuleTabOpener.OpenAllMutationResultTab(CompletedDocuments.ToList());
-        } 
+        }
     }
 }

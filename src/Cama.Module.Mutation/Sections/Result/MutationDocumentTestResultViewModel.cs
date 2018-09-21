@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using Cama.Core.Models.Mutation;
+using Cama.Core.Report.Cama;
 using DiffPlex;
 using DiffPlex.DiffBuilder;
 using DiffPlex.DiffBuilder.Model;
@@ -15,7 +16,7 @@ namespace Cama.Module.Mutation.Sections.Result
             ShowFullCodeCommand = new DelegateCommand<bool?>(ShowFullCode);
         }
 
-        public MutationDocumentResult Result { get; set; }
+        public CamaReportMutationItem Result { get; set; }
 
         public string CodeAfterMutation { get; set; }
 
@@ -27,17 +28,17 @@ namespace Cama.Module.Mutation.Sections.Result
 
         public DelegateCommand<bool?> ShowFullCodeCommand { get; set; }
 
-        public void SetMutationDocumentTestResult(MutationDocumentResult result)
+        public void SetMutationDocumentTestResult(CamaReportMutationItem result)
         {
             Result = result;
-            Title = $"Test results for {result.Document.FileName} - {result.Document.MutationInfo.Location}";
+            Title = $"Test results for {result.FileName} - {result.FileLocation}";
             ShowFullCode(false);
         }
 
         private void ShowFullCode(bool? showFullCode)
         {
-            CodeBeforeMutation = showFullCode.Value ? Result.Document.MutationInfo.FullOrginal.ToFullString() : Result.Document.MutationInfo.Orginal.ToFullString();
-            CodeAfterMutation = showFullCode.Value ? Result.Document.MutationInfo.FullMutation.ToFullString() : Result.Document.MutationInfo.Mutation.ToFullString();
+            CodeBeforeMutation = showFullCode.Value ? Result.FullOrginal : Result.Orginal;
+            CodeAfterMutation = showFullCode.Value ? Result.FullMutation : Result.Mutation;
             var diffBuilder = new SideBySideDiffBuilder(new Differ());
             Diff = diffBuilder.BuildDiffModel(CodeBeforeMutation, CodeAfterMutation);
         }

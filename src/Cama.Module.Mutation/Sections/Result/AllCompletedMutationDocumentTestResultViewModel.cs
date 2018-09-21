@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Cama.Core.Models.Mutation;
+using Cama.Core.Report.Cama;
 using Cama.Infrastructure.Tabs;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -15,20 +16,20 @@ namespace Cama.Module.Mutation.Sections.Result
         public AllCompletedMutationDocumentTestResultViewModel(IMutationModuleTabOpener mutationModuleTabOpener)
         {
             _mutationModuleTabOpener = mutationModuleTabOpener;
-            CompletedMutations = new ObservableCollection<MutationDocumentResult>();
-            CompletedDocumentSelectedCommand = new DelegateCommand<MutationDocumentResult>(OpenCompleteDocumentTab);
+            CompletedMutations = new ObservableCollection<CamaReportMutationItem>();
+            CompletedDocumentSelectedCommand = new DelegateCommand<CamaReportMutationItem>(OpenCompleteDocumentTab);
         }
 
-        public ObservableCollection<MutationDocumentResult> CompletedMutations { get; set; }
+        public ObservableCollection<CamaReportMutationItem> CompletedMutations { get; set; }
 
-        public DelegateCommand<MutationDocumentResult> CompletedDocumentSelectedCommand { get; set; }
+        public DelegateCommand<CamaReportMutationItem> CompletedDocumentSelectedCommand { get; set; }
 
-        public void Initialize(IList<MutationDocumentResult> completedMutations)
+        public void Initialize(IList<CamaReportMutationItem> completedMutations)
         {
-            CompletedMutations = new ObservableCollection<MutationDocumentResult>(completedMutations);
+            CompletedMutations = new ObservableCollection<CamaReportMutationItem>(completedMutations);
         }
 
-        private void OpenCompleteDocumentTab(MutationDocumentResult obj)
+        private void OpenCompleteDocumentTab(CamaReportMutationItem obj)
         {
             _mutationModuleTabOpener.OpenDocumentResultTab(obj);
         }

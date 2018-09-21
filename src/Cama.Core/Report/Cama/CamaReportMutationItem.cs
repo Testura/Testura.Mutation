@@ -16,6 +16,7 @@ namespace Cama.Core.Report.Cama
             var document = mutation.Document;
             ProjectName = document.ProjectName;
             FileName = document.FileName;
+            FileLocation = document.MutationInfo.Location;
             Orginal = document.MutationInfo.Orginal.ToFullString();
             FullOrginal = document.MutationInfo.FullOrginal.ToFullString();
             Mutation = document.MutationInfo.Mutation.ToFullString();
@@ -45,5 +46,7 @@ namespace Cama.Core.Report.Cama
         public int TestsRun { get; set; }
 
         public IList<TestResult> FailedTests { get; set; }
+
+        public MutationLocationInfo FileLocation { get; set; }
     }
 }
