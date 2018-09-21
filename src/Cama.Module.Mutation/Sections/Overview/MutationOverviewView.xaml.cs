@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
-using Cama.Core.Models.Mutation;
-using Cama.Core.Models.Project;
+using Cama.Core.Config;
 
 namespace Cama.Module.Mutation.Sections.Overview
 {

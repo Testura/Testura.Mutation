@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TestSuiteResult = Cama.Core.Models.TestSuiteResult;
+using TestSuiteResult = Cama.Core.TestRunner.Result.TestSuiteResult;
 
 namespace Cama.Core.TestRunner
 {

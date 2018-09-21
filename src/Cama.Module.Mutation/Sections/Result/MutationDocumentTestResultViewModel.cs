@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using Cama.Core.Models.Mutation;
+using Cama.Core.Mutation.Models;
 using Cama.Core.Report.Cama;
 using DiffPlex;
 using DiffPlex.DiffBuilder;
@@ -16,7 +16,7 @@ namespace Cama.Module.Mutation.Sections.Result
             ShowFullCodeCommand = new DelegateCommand<bool?>(ShowFullCode);
         }
 
-        public CamaReportMutationItem Result { get; set; }
+        public MutationDocumentResult Result { get; set; }
 
         public string CodeAfterMutation { get; set; }
 
@@ -28,10 +28,10 @@ namespace Cama.Module.Mutation.Sections.Result
 
         public DelegateCommand<bool?> ShowFullCodeCommand { get; set; }
 
-        public void SetMutationDocumentTestResult(CamaReportMutationItem result)
+        public void SetMutationDocumentTestResult(MutationDocumentResult result)
         {
             Result = result;
-            Title = $"Test results for {result.FileName} - {result.FileLocation}";
+            Title = $"Test results for {result.FileName} - {result.Location}";
             ShowFullCode(false);
         }
 

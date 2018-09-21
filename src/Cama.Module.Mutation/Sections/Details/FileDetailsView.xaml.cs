@@ -1,7 +1,6 @@
 ﻿using System.Windows.Controls;
-using Cama.Core.Models;
-using Cama.Core.Models.Mutation;
-using Cama.Core.Models.Project;
+using Cama.Core.Config;
+using Cama.Infrastructure.Models;
 
 namespace Cama.Module.Mutation.Sections.Details
 {
@@ -10,7 +9,7 @@ namespace Cama.Module.Mutation.Sections.Details
     /// </summary>
     public partial class FileDetailsView : TabItem
     {
-        public FileDetailsView(MFile file, CamaConfig config)
+        public FileDetailsView(FileMutationsModel file, CamaConfig config)
         {
             InitializeComponent();
 

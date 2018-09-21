@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
-using Cama.Core.Models;
-using Cama.Core.Models.Mutation;
-using Cama.Core.Models.Project;
+using Cama.Core.Config;
+using Cama.Core.Mutation.Models;
+using Cama.Infrastructure.Models;
 using Cama.Infrastructure.Tabs;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -18,18 +18,18 @@ namespace Cama.Module.Mutation.Sections.Details
         {
             _tabOpener = tabOpener;
             ExecuteTestsCommand = new DelegateCommand(ExecuteTests);
-            MutationSelectedCommand = new DelegateCommand<MutatedDocument>(MutationSelected);
+            MutationSelectedCommand = new DelegateCommand<MutationDocument>(MutationSelected);
         }
 
         public string FileName { get; set; }
 
-        public MFile File { get; set; }
+        public FileMutationsModel File { get; set; }
 
         public DelegateCommand ExecuteTestsCommand { get; set; }
 
-        public DelegateCommand<MutatedDocument> MutationSelectedCommand { get; set; }
+        public DelegateCommand<MutationDocument> MutationSelectedCommand { get; set; }
 
-        public void Initialize(MFile file, CamaConfig config)
+        public void Initialize(FileMutationsModel file, CamaConfig config)
         {
             _config = config;
             File = file;
@@ -41,7 +41,7 @@ namespace Cama.Module.Mutation.Sections.Details
             _tabOpener.OpenTestRunTab(File.MutatedDocuments, _config);
         }
 
-        private void MutationSelected(MutatedDocument obj)
+        private void MutationSelected(MutationDocument obj)
         {
             _tabOpener.OpenDocumentDetailsTab(obj, _config);
         }

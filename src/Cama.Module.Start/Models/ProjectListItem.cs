@@ -1,4 +1,4 @@
-﻿using Cama.Core.Models.Solution;
+﻿using Cama.Core.Solution;
 
 namespace Cama.Module.Start.Models
 {

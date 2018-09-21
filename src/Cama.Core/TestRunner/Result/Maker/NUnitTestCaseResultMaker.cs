@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
 using NUnit;
-using TestResult = Cama.Core.Models.TestResult;
 
 namespace Cama.Core.TestRunner.Result.Maker
 {

@@ -3,11 +3,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Cama.Core;
+using Cama.Core.Config;
 using Cama.Core.Extensions;
-using Cama.Core.Models.Project;
-using Cama.Core.Mutation.Mutators;
+using Cama.Core.Mutation;
+using Cama.Core.Mutators;
 using Cama.Core.Services;
 using Cama.Infrastructure;
+using Cama.Infrastructure.Models;
 using Cama.Infrastructure.Tabs;
 using Cama.Module.Mutation.Models;
 using Prism.Commands;
@@ -17,12 +19,12 @@ namespace Cama.Module.Mutation.Sections.Overview
 {
     public class MutationOverviewViewModel : BindableBase
     {
-        private readonly MutatorCreator _mutatorCreator;
+        private readonly MutationDocumentCreator _mutatorCreator;
         private readonly IMutationModuleTabOpener _tabOpener;
         private readonly ILoadingDisplayer _loadingDisplayer;
         private CamaConfig _config;
 
-        public MutationOverviewViewModel(MutatorCreator mutatorCreator, IMutationModuleTabOpener tabOpener, ILoadingDisplayer loadingDisplayer)
+        public MutationOverviewViewModel(MutationDocumentCreator mutatorCreator, IMutationModuleTabOpener tabOpener, ILoadingDisplayer loadingDisplayer)
         {
             _mutatorCreator = mutatorCreator;
             _tabOpener = tabOpener;
@@ -57,10 +59,12 @@ namespace Cama.Module.Mutation.Sections.Overview
         {
             _loadingDisplayer.ShowLoading("Creating mutation documents..");
             var settings = MutationOperatorGridItems.Where(m => m.IsSelected).Select(m => m.MutationOperator);
-            var result = await Task.Run(() => _mutatorCreator.CreateMutatorsAsync(_config, settings.Select(MutationOperatorFactory.GetMutationOperator).ToList()));
-            foreach (var mutatedDocument in result)
+            var mutationDocuments = await Task.Run(() => _mutatorCreator.CreateMutatorsAsync(_config, settings.Select(MutationOperatorFactory.GetMutationOperator).ToList()));
+            var fileNames = mutationDocuments.Select(r => r.FileName).Distinct();
+
+            foreach (var fileName in fileNames)
             {
-                Documents.Add(new DocumentRowModel { MFile = mutatedDocument });
+                Documents.Add(new DocumentRowModel { MFile = new FileMutationsModel(fileName, mutationDocuments.Where(m => m.FileName == fileName).ToList() )});
             }
 
             _loadingDisplayer.HideLoading();

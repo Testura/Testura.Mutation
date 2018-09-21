@@ -5,19 +5,18 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
-using Cama.Core.Models;
-using Cama.Core.Models.Mutation;
-using Cama.Core.Models.Project;
-using Cama.Core.Mutation.Analyzer;
-using Cama.Core.Mutation.Mutators;
-using Cama.Core.Mutation.Mutators.BinaryExpressionMutators;
-using Cama.Core.Report;
+using Cama.Core.Config;
+using Cama.Core.Mutation;
+using Cama.Core.Mutation.Models;
+using Cama.Core.Mutators;
+using Cama.Core.Mutators.BinaryExpressionMutators;
 using Cama.Core.Report.Cama;
 using Cama.Core.Report.Markdown;
 using Cama.Core.Report.Trx;
 using Cama.Core.Services;
 using Cama.Core.Services.Project;
 using Cama.Core.TestRunner;
+using Cama.Core.TestRunner.Runners;
 
 namespace Cama.Console
 {
@@ -53,11 +52,11 @@ namespace Cama.Console
 
         private static async Task<bool> ExecuteCama(string configPath, string savePath)
         {
-            var projectLoader = new ProjectService();
-            var mutatorCreator = new MutatorCreator(new UnitTestAnalyzer());
+            var projectLoader = new CamaProjectService();
+            var mutatorCreator = new MutationDocumentCreator();
 
             var config = await projectLoader.OpenProjectAsync(configPath);
-            var files = await mutatorCreator.CreateMutatorsAsync(config,
+            var mutationDocuments = await mutatorCreator.CreateMutatorsAsync(config,
                 new List<IMutator>
                 {
                     new MathMutator(),
@@ -66,7 +65,7 @@ namespace Cama.Console
                     new ReturnValueMutator()
                 });
 
-            var results = await RunTests(files, config);
+            var results = await RunTests(mutationDocuments, config);
 
             new TrxReportCreator().SaveReport(savePath, results);
             new MarkdownReportCreator().SaveReport(Path.ChangeExtension(savePath, ".md"), results);
@@ -76,14 +75,14 @@ namespace Cama.Console
         }
 
 
-        private static async Task<IList<MutationDocumentResult>> RunTests(IList<MFile> files, CamaConfig config)
+        private static async Task<IList<MutationDocumentResult>> RunTests(IList<MutationDocument> mutationDocuments, CamaConfig config)
         {
             var semaphoreSlim = new SemaphoreSlim(4, 4);
-            var testRunner = new TestRunnerService(new MutatedDocumentCompiler(), new DependencyFilesHandler(), new NUnitTestRunner());
+            var testRunner = new TestRunnerFacade(new MutatedDocumentCompiler(), new TestRunnerDependencyFilesHandler(), new NUnitTestRunner());
             var results = new List<MutationDocumentResult>();
-            var numberOfMutationsLeft = files.SelectMany(f => f.MutatedDocuments).Count();
+            var numberOfMutationsLeft = mutationDocuments.Count;
 
-            var tasks = files.SelectMany(f => f.MutatedDocuments).Select((d) => Task.Run(async () =>
+            var tasks = mutationDocuments.Select((d) => Task.Run(async () =>
             {
                 try
                 {

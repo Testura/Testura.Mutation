@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Cama.Core.Config;
 using Cama.Core.Models;
-using Cama.Core.Models.Mutation;
-using Cama.Core.Models.Project;
+using Cama.Core.Mutation.Models;
 using Cama.Core.Report.Cama;
+using Cama.Infrastructure.Models;
 
 namespace Cama.Infrastructure.Tabs
 {
@@ -10,18 +11,18 @@ namespace Cama.Infrastructure.Tabs
     {
         void OpenOverviewTab(CamaConfig config);
 
-        void OpenDocumentDetailsTab(MutatedDocument document, CamaConfig config);
+        void OpenDocumentDetailsTab(MutationDocument document, CamaConfig config);
 
-        void OpenTestRunTab(IList<MutatedDocument> documents, CamaConfig config);
+        void OpenTestRunTab(IList<MutationDocument> documents, CamaConfig config);
 
         void OpenTestRunTab(CamaReport report);
 
-        void OpenDocumentResultTab(CamaReportMutationItem result);
+        void OpenDocumentResultTab(MutationDocumentResult result);
 
-        void OpenFileDetailsTab(MFile file, CamaConfig config);
+        void OpenFileDetailsTab(FileMutationsModel file, CamaConfig config);
 
-        void OpenFaildToCompileTab(IList<CamaReportMutationItem> mutantsFailedToCompile);
+        void OpenFaildToCompileTab(IList<MutationDocumentResult> mutantsFailedToCompile);
 
-        void OpenAllMutationResultTab(List<CamaReportMutationItem> completedMutations);
+        void OpenAllMutationResultTab(List<MutationDocumentResult> completedMutations);
     }
 }

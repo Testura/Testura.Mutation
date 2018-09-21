@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using Anotar.Log4Net;
-using Cama.Core.Models.Mutation;
+using Cama.Core.Mutation.Models;
 using Newtonsoft.Json;
 
 namespace Cama.Core.Report.Cama

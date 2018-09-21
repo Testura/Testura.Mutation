@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using Cama.Core.Models.Mutation;
+using Cama.Core.Mutation.Models;
 using Cama.Core.Report.Cama;
 
 namespace Cama.Module.Mutation.Sections.Result
@@ -9,7 +9,7 @@ namespace Cama.Module.Mutation.Sections.Result
     /// </summary>
     public partial class MutationDocumentTestResultView : TabItem
     {
-        public MutationDocumentTestResultView(CamaReportMutationItem result)
+        public MutationDocumentTestResultView(MutationDocumentResult result)
         {
             InitializeComponent();
 

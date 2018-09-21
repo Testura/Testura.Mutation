@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Anotar.Log4Net;
-using Cama.Core.Models.Mutation;
+using Cama.Core.Mutation.Models;
 using RazorEngine;
 using RazorEngine.Templating;
 

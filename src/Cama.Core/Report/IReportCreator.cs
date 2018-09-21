@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Cama.Core.Models.Mutation;
+using Cama.Core.Mutation.Models;
 
 namespace Cama.Core.Report
 {

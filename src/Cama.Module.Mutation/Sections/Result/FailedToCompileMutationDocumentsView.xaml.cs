@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
-using Cama.Core.Models.Mutation;
+using Cama.Core.Mutation.Models;
 using Cama.Core.Report.Cama;
 
 namespace Cama.Module.Mutation.Sections.Result
@@ -10,7 +10,7 @@ namespace Cama.Module.Mutation.Sections.Result
     /// </summary>
     public partial class FailedToCompileMutationDocumentsView : TabItem
     {
-        public FailedToCompileMutationDocumentsView(IList<CamaReportMutationItem> mutantsFailedToCompile)
+        public FailedToCompileMutationDocumentsView(IList<MutationDocumentResult> mutantsFailedToCompile)
         {
             InitializeComponent();
 

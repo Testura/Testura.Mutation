@@ -1,4 +1,4 @@
-﻿using Cama.Core.Mutation.Mutators;
+﻿using Cama.Core.Mutators;
 using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
 
@@ -16,9 +16,9 @@ namespace Cama.Tests.Core.Mutation.Mutators
             var root = tree.GetRoot();
 
             var ifConditionalMutationOperator = new NegateTypeCompabilityMutator();
-            var doc = ifConditionalMutationOperator.GetMutatedDocument(root, null, null);
+            var doc = ifConditionalMutationOperator.GetMutatedDocument(root, null);
 
-            Assert.AreEqual(postMutation, doc[0].MutationInfo.Mutation.ToString());
+            Assert.AreEqual(postMutation, doc[0].MutationDetails.Mutation.ToString());
         }
     }
 }

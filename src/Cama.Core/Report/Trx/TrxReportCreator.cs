@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using Anotar.Log4Net;
-using Cama.Core.Models.Mutation;
+using Cama.Core.Mutation.Models;
 using ConsoleTables;
 
 namespace Cama.Core.Report.Trx
@@ -175,26 +175,26 @@ namespace Cama.Core.Report.Trx
                     error = $"\n{errorTable.ToStringAlternative()}\n";
                 }
 
-                var fileLoadException = mutation.TestResult?.TestResults.FirstOrDefault(t => t.InnerText != null && t.InnerText.Contains("System.IO.FileLoadException : Could not load file or assembly"));
+                var fileLoadException = mutation.FailedTests.FirstOrDefault(t => t.InnerText != null && t.InnerText.Contains("System.IO.FileLoadException : Could not load file or assembly"));
                 if (fileLoadException != null)
                 {
                     error += $"\nWARNING: It seems like we can't find a file so this result may be invalid: {fileLoadException}";
                 }
 
                 var table = new ConsoleTable(" ", " ");
-                table.AddRow("Project", mutation.Document.ProjectName);
-                table.AddRow("File", mutation.Document.FileName);
-                table.AddRow("Where", mutation.Document.MutationInfo.Location.Where);
-                table.AddRow("Line", mutation.Document.MutationInfo.Location.Line);
-                table.AddRow("Orginal", mutation.Document.MutationInfo.Orginal);
-                table.AddRow("Mutation", mutation.Document.MutationInfo.Mutation);
-                table.AddRow("Tests run", mutation.TestResult?.TestResults.Count ?? 0);
-                table.AddRow("Failed tests", mutation.TestResult?.TestResults.Count(t => !t.IsSuccess) ?? 0);
+                table.AddRow("Project", mutation.ProjectName);
+                table.AddRow("File", mutation.FileName);
+                table.AddRow("Where", mutation.Location.Where);
+                table.AddRow("Line", mutation.Location.Line);
+                table.AddRow("Orginal", mutation.Orginal);
+                table.AddRow("Mutation", mutation.Mutation);
+                table.AddRow("Tests run", mutation.TestsRunCount);
+                table.AddRow("Failed tests", mutation.FailedTests.Count);
 
                 unitTestResults.Add(new UnitTestResultType
                 {
                     testType = "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
-                    testName = mutation.Document.MutationName,
+                    testName = mutation.MutationName,
                     outcome = !mutation.CompilerResult.IsSuccess ? "Ignored" : mutation.Survived ? "Failed" : "Passed",
                     testId = Guid.NewGuid().ToString(),
                     testListId = testListId,

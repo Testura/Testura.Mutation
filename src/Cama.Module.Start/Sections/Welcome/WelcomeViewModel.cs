@@ -17,20 +17,20 @@ namespace Cama.Module.Start.Sections.Welcome
         private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
         private readonly IStartModuleTabOpener _startModuleTabOpener;
         private readonly ProjectHistoryService _projectHistoryService;
-        private readonly IOpenProjectService _openProjectService;
+        private readonly IOpenCamaProjectService _openCamaProjectService;
         private readonly ILoadingDisplayer _loadingDisplayer;
 
         public WelcomeViewModel(
             IMutationModuleTabOpener mutationModuleTabOpener,
             IStartModuleTabOpener startModuleTabOpener,
             ProjectHistoryService projectHistoryService, 
-            IOpenProjectService openProjectService,
+            IOpenCamaProjectService openCamaProjectService,
             ILoadingDisplayer loadingDisplayer)
         {
             _mutationModuleTabOpener = mutationModuleTabOpener;
             _startModuleTabOpener = startModuleTabOpener;
             _projectHistoryService = projectHistoryService;
-            _openProjectService = openProjectService;
+            _openCamaProjectService = openCamaProjectService;
             _loadingDisplayer = loadingDisplayer;
             ClickMeCommand = new DelegateCommand(ClickMe);
             OpenHistoryProjectCommand = new DelegateCommand<string>(OpenHistoryProjectAsync);
@@ -58,7 +58,7 @@ namespace Cama.Module.Start.Sections.Welcome
         private async void OpenHistoryProjectAsync(string path)
         {
             _loadingDisplayer.ShowLoading($"Opening {Path.GetFileName(path)}");
-            var config = await Task.Run(() => _openProjectService.OpenProjectAsync(path));
+            var config = await Task.Run(() => _openCamaProjectService.OpenProjectAsync(path));
             _loadingDisplayer.HideLoading();
 
             _mutationModuleTabOpener.OpenOverviewTab(config);

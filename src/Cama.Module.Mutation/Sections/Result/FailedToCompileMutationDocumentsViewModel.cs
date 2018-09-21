@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using Cama.Core.Models.Mutation;
+using Cama.Core.Mutation.Models;
 using Cama.Core.Report.Cama;
 using Prism.Mvvm;
 
@@ -11,14 +11,14 @@ namespace Cama.Module.Mutation.Sections.Result
     {
         public FailedToCompileMutationDocumentsViewModel()
         {
-            MutantsFailedToCompile = new ObservableCollection<CamaReportMutationItem>();
+            MutantsFailedToCompile = new ObservableCollection<MutationDocumentResult>();
         }
 
-        public ObservableCollection<CamaReportMutationItem> MutantsFailedToCompile { get; set; }
+        public ObservableCollection<MutationDocumentResult> MutantsFailedToCompile { get; set; }
 
-        public void InitializeMutants(IList<CamaReportMutationItem> mutantsFailedToCompile)
+        public void InitializeMutants(IList<MutationDocumentResult> mutantsFailedToCompile)
         {
-            MutantsFailedToCompile = new ObservableCollection<CamaReportMutationItem>(mutantsFailedToCompile);
+            MutantsFailedToCompile = new ObservableCollection<MutationDocumentResult>(mutantsFailedToCompile);
         }
     }
 }

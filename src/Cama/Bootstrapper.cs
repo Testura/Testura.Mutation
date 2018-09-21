@@ -82,8 +82,8 @@ namespace Cama
             Container.RegisterType<IMainTabContainer, TabContainer>();
             Container.RegisterType<IMutationModuleTabOpener, MutationTabOpener>();
             Container.RegisterType<IStartModuleTabOpener, StartModuleTabOpener>();
-            Container.RegisterType<ICreateProjectService, ProjectService>();
-            Container.RegisterType<IOpenProjectService, ProjectService>();
+            Container.RegisterType<ICreateCamaProjectService, CamaProjectService>();
+            Container.RegisterType<IOpenCamaProjectService, CamaProjectService>();
 
             // Ugly, should be in the loading module...
             Container.RegisterType<LoadingViewModel>(new ContainerControlledLifetimeManager());

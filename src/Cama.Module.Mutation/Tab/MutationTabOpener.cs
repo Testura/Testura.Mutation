@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Cama.Core.Models;
-using Cama.Core.Models.Mutation;
-using Cama.Core.Models.Project;
+using Cama.Core.Config;
+using Cama.Core.Mutation.Models;
 using Cama.Core.Report.Cama;
+using Cama.Infrastructure.Models;
 using Cama.Infrastructure.Tabs;
 using Cama.Module.Mutation.Sections.Details;
 using Cama.Module.Mutation.Sections.Overview;
@@ -26,12 +26,12 @@ namespace Cama.Module.Mutation.Tab
             _mainTabContainer.AddTab(new MutationOverviewView(config));
         }
 
-        public void OpenDocumentDetailsTab(MutatedDocument document, CamaConfig config)
+        public void OpenDocumentDetailsTab(MutationDocument document, CamaConfig config)
         {
             _mainTabContainer.AddTab(new MutationDetailsView(document, config));
         }
 
-        public void OpenTestRunTab(IList<MutatedDocument> documents, CamaConfig config)
+        public void OpenTestRunTab(IList<MutationDocument> documents, CamaConfig config)
         {
             _mainTabContainer.AddTab(new TestRunView(documents, config));
         }
@@ -41,22 +41,22 @@ namespace Cama.Module.Mutation.Tab
             _mainTabContainer.AddTab(new TestRunView(report));
         }
 
-        public void OpenDocumentResultTab(CamaReportMutationItem result)
+        public void OpenDocumentResultTab(MutationDocumentResult result)
         {
             _mainTabContainer.AddTab(new MutationDocumentTestResultView(result));
         }
 
-        public void OpenFileDetailsTab(MFile file, CamaConfig config)
+        public void OpenFileDetailsTab(FileMutationsModel file, CamaConfig config)
         {
             _mainTabContainer.AddTab(new FileDetailsView(file, config));
         }
 
-        public void OpenFaildToCompileTab(IList<CamaReportMutationItem> mutantsFailedToCompile)
+        public void OpenFaildToCompileTab(IList<MutationDocumentResult> mutantsFailedToCompile)
         {
             _mainTabContainer.AddTab(new FailedToCompileMutationDocumentsView(mutantsFailedToCompile));
         }
 
-        public void OpenAllMutationResultTab(List<CamaReportMutationItem> completedMutations)
+        public void OpenAllMutationResultTab(List<MutationDocumentResult> completedMutations)
         {
             _mainTabContainer.AddTab(new AllCompletedMutationDocumentTestResultView(completedMutations));
         }

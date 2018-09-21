@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using Cama.Core.Models;
+using Cama.Infrastructure.Models;
 
 namespace Cama.Module.Mutation.Models
 {
@@ -9,7 +10,7 @@ namespace Cama.Module.Mutation.Models
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 067
 
-        public MFile MFile { get; set; }
+        public FileMutationsModel MFile { get; set; }
 
         public int MutationCount => MFile.MutatedDocuments.Count;
     }

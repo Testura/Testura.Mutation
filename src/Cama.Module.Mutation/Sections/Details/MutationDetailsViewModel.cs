@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using Cama.Core.Models.Mutation;
-using Cama.Core.Models.Project;
+using Cama.Core.Config;
+using Cama.Core.Mutation.Models;
 using Cama.Infrastructure.Tabs;
 using DiffPlex;
 using DiffPlex.DiffBuilder;
@@ -14,7 +14,7 @@ namespace Cama.Module.Mutation.Sections.Details
     public class MutationDetailsViewModel : BindableBase, INotifyPropertyChanged
     {
         private readonly IMutationModuleTabOpener _tabOpener;
-        private MutatedDocument _document;
+        private MutationDocument _document;
         private CamaConfig _config;
 
         public MutationDetailsViewModel(IMutationModuleTabOpener tabOpener)
@@ -40,27 +40,26 @@ namespace Cama.Module.Mutation.Sections.Details
 
         public string Title { get; set; }
 
-        public void Initialize(MutatedDocument document, CamaConfig config)
+        public void Initialize(MutationDocument document, CamaConfig config)
         {
             _config = config;
             _document = document;
             FileName = document.FileName;
-            UnitTests = document.Tests;
-            Title = $"{document.FileName} - {document.MutationInfo.Location})";
+            Title = $"{document.FileName} - {document.MutationDetails.Location})";
             ShowFullCode(false);
         }
 
         private void ShowFullCode(bool? showFullCode)
         {
-            CodeBeforeMutation = showFullCode.Value ? _document.MutationInfo.FullOrginal.ToFullString() : _document.MutationInfo.Orginal.ToFullString();
-            CodeAfterMutation = showFullCode.Value ? _document.MutationInfo.FullMutation.ToFullString() : _document.MutationInfo.Mutation.ToFullString();
+            CodeBeforeMutation = showFullCode.Value ? _document.MutationDetails.FullOrginal.ToFullString() : _document.MutationDetails.Orginal.ToFullString();
+            CodeAfterMutation = showFullCode.Value ? _document.MutationDetails.FullMutation.ToFullString() : _document.MutationDetails.Mutation.ToFullString();
             var diffBuilder = new SideBySideDiffBuilder(new Differ());
             Diff = diffBuilder.BuildDiffModel(CodeBeforeMutation, CodeAfterMutation);
         }
 
         private void ExecuteTests()
         {
-            _tabOpener.OpenTestRunTab(new List<MutatedDocument> { _document }, _config);
+            _tabOpener.OpenTestRunTab(new List<MutationDocument> { _document }, _config);
         }
     }
 }

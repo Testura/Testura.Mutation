@@ -131,6 +131,7 @@
   <ItemGroup>
     <Compile Include="Converts\IsZeroConverter.cs" />
     <Compile Include="ILoadingDisplayer.cs" />
+    <Compile Include="Models\FileMutationsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="Services\ProjectHistoryService.cs" />

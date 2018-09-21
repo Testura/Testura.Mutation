@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
-using Cama.Core.Models.Mutation;
-using Cama.Core.Models.Project;
+using Cama.Core.Config;
+using Cama.Core.Mutation.Models;
 using Cama.Core.Report.Cama;
 
 namespace Cama.Module.Mutation.Sections.TestRun
@@ -11,7 +11,7 @@ namespace Cama.Module.Mutation.Sections.TestRun
     /// </summary>
     public partial class TestRunView : TabItem
     {
-        public TestRunView(IList<MutatedDocument> documents, CamaConfig config)
+        public TestRunView(IList<MutationDocument> documents, CamaConfig config)
         {
             InitializeComponent();
 

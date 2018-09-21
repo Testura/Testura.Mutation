@@ -5,8 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Cama.Core.Models.Mutation;
-using Cama.Core.Models.Project;
+using Cama.Core.Config;
 using Cama.Core.Services.Project;
 using Cama.Core.Solution;
 using Cama.Infrastructure;
@@ -22,24 +21,24 @@ namespace Cama.Module.Start.Sections.NewProject
     public class NewProjectViewModel : BindableBase, INotifyPropertyChanged
     {
         private readonly FilePickerService _filePickerService;
-        private readonly SolutionService _solutionService;
+        private readonly SolutionInfoService _solutionInfoService;
         private readonly ILoadingDisplayer _loadingDisplayer;
-        private readonly ICreateProjectService _createProjectService;
+        private readonly ICreateCamaProjectService _createCamaProjectService;
         private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
         private readonly ProjectHistoryService _projectHistoryService;
 
         public NewProjectViewModel(
             FilePickerService filePickerService,
-            SolutionService solutionService,
+            SolutionInfoService solutionInfoService,
             ILoadingDisplayer loadingDisplayer,
-            ICreateProjectService createProjectService,
+            ICreateCamaProjectService createCamaProjectService,
             IMutationModuleTabOpener mutationModuleTabOpener,
             ProjectHistoryService projectHistoryService)
         {
             _filePickerService = filePickerService;
-            _solutionService = solutionService;
+            _solutionInfoService = solutionInfoService;
             _loadingDisplayer = loadingDisplayer;
-            _createProjectService = createProjectService;
+            _createCamaProjectService = createCamaProjectService;
             _mutationModuleTabOpener = mutationModuleTabOpener;
             _projectHistoryService = projectHistoryService;
             ProjectNamesInSolution = new List<string>();
@@ -74,7 +73,7 @@ namespace Cama.Module.Start.Sections.NewProject
             {
                 _loadingDisplayer.ShowLoading("Grabbing solution info..");
                 SolutionPath = file;
-                var projects = await _solutionService.GetSolutionInfoAsync(SolutionPath);
+                var projects = await _solutionInfoService.GetSolutionInfoAsync(SolutionPath);
                 _loadingDisplayer.HideLoading();
                 ProjectNamesInSolution = projects.Select(p => p.Name).ToList();
                 SelectedTestProjectInSolution = projects.Select(p => new ProjectListItem(p, false)).ToList();
@@ -106,7 +105,7 @@ namespace Cama.Module.Start.Sections.NewProject
             };
 
 
-            _createProjectService.CreateProject(projectPath, config);
+            _createCamaProjectService.CreateProject(projectPath, config);
             _projectHistoryService.AddToHistory(projectPath);
             _mutationModuleTabOpener.OpenOverviewTab(null);
         }

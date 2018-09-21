@@ -1,4 +1,4 @@
-﻿using Cama.Core.Mutation.Mutators.BinaryExpressionMutators;
+﻿using Cama.Core.Mutators.BinaryExpressionMutators;
 using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
 
@@ -17,9 +17,9 @@ namespace Cama.Tests.Core.Mutation.Mutators.BinaryExpressionMutations
             var root = tree.GetRoot();
 
             var ifConditionalMutationOperator = new ConditionalBoundaryMutator();
-            var doc = ifConditionalMutationOperator.GetMutatedDocument(root, null, null);
+            var doc = ifConditionalMutationOperator.GetMutatedDocument(root, null);
 
-           Assert.AreEqual($"i {mutatedConditional} 1", doc[0].MutationInfo.Mutation.ToString());
+           Assert.AreEqual($"i {mutatedConditional} 1", doc[0].MutationDetails.Mutation.ToString());
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
-using Cama.Core.Models.Mutation;
-using Cama.Core.Models.Project;
+using Cama.Core.Config;
+using Cama.Core.Mutation.Models;
 
 namespace Cama.Module.Mutation.Sections.Details
 {
@@ -9,7 +9,7 @@ namespace Cama.Module.Mutation.Sections.Details
     /// </summary>
     public partial class MutationDetailsView : TabItem
     {
-        public MutationDetailsView(MutatedDocument document, CamaConfig config)
+        public MutationDetailsView(MutationDocument document, CamaConfig config)
         {
             InitializeComponent();
 

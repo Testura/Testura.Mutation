@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cama.Core.Models.Mutation;
+using Cama.Core.Mutation.Models;
 
 namespace Cama.Core.Report.Cama
 {
@@ -14,13 +14,13 @@ namespace Cama.Core.Report.Cama
         {
             TotalNumberOfMutations = mutations.Count;
             NumberOfSurvivedMutations = mutations.Count(m => m.Survived);
-            Mutations = mutations.Select(m => new CamaReportMutationItem(m));
+            Mutations = mutations;
         }
 
         public int TotalNumberOfMutations { get; set; }
 
         public int NumberOfSurvivedMutations { get; set; }
 
-        public IEnumerable<CamaReportMutationItem> Mutations { get; set; }
+        public IEnumerable<MutationDocumentResult> Mutations { get; set; }
     }
 }

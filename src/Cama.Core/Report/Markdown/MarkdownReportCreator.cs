@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Anotar.Log4Net;
-using Cama.Core.Models.Mutation;
+using Cama.Core.Mutation.Models;
 
 namespace Cama.Core.Report.Markdown
 {
@@ -43,11 +43,11 @@ namespace Cama.Core.Report.Markdown
             markdown.Append("--- | --- | --- | --- | --- \n");
             foreach (var mutation in surivedMutations)
             {
-                markdown.Append($"{mutation.Document.FileName} |" +
-                                $" {mutation.Document.MutationInfo.Location.Where} |" +
-                                $" {mutation.Document.MutationInfo.Location.Line} |" +
-                                $" `{mutation.Document.MutationInfo.Orginal}` |" +
-                                $" `{mutation.Document.MutationInfo.Mutation}`\n");
+                markdown.Append($"{mutation.FileName} |" +
+                                $" {mutation.Location.Where} |" +
+                                $" {mutation.Location.Line} |" +
+                                $" `{mutation.Orginal}` |" +
+                                $" `{mutation.Mutation}`\n");
             }
 
             return markdown;

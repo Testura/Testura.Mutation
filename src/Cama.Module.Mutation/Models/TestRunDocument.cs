@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using Cama.Core.Models.Mutation;
+using Cama.Core.Mutation.Models;
 
 namespace Cama.Module.Mutation.Models
 {
@@ -11,7 +11,7 @@ namespace Cama.Module.Mutation.Models
 
         public enum TestRunStatusEnum { Running, Waiting }
 
-        public MutatedDocument Document { get; set; }
+        public MutationDocument Document { get; set; }
 
         public TestRunStatusEnum Status { get; set; }
     }
