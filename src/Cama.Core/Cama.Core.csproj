@@ -77,6 +77,9 @@
     <Compile Include="Mutation\Mutators\ReturnValueMutator.cs" />
     <Compile Include="Models\MutationLocationInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\Cama\CamaReport.cs" />
+    <Compile Include="Report\Cama\CamaReportCreator.cs" />
+    <Compile Include="Report\Cama\CamaReportMutationItem.cs" />
     <Compile Include="Report\Html\HtmlReportCreator.cs" />
     <Compile Include="Report\IReportCreator.cs" />
     <Compile Include="Report\Markdown\MarkdownReportCreator.cs" />
