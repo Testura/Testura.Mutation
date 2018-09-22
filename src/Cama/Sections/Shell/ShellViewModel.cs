@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Cama.Core.Report.Cama;
-using Cama.Infrastructure.Tabs;
+using Cama.Core.Execution.Report.Cama;
+using Cama.Tabs;
 using Newtonsoft.Json;
 using Prism.Mvvm;
 

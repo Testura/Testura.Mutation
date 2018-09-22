@@ -1,0 +1,16 @@
+﻿using System.Collections.Generic;
+
+namespace Cama.Core.Execution.Report
+{
+    public abstract class ReportCreator
+    {
+        protected ReportCreator(string savePath)
+        {
+            SavePath = savePath;
+        }
+
+        protected string SavePath { get; }
+
+        public abstract void SaveReport(IList<MutationDocumentResult> mutations);
+    }
+}

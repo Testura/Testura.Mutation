@@ -43,60 +43,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CamaConfig.cs" />
+    <Compile Include="Creator\MutationsDocumentCreator.cs" />
+    <Compile Include="Execution\Compilation\CompilationError.cs" />
+    <Compile Include="Execution\Compilation\CompilationResult.cs" />
+    <Compile Include="Execution\Compilation\MutationDocumentCompiler.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\CompilationException.cs" />
     <Compile Include="Exceptions\ProjectSetUpException.cs" />
-    <Compile Include="Extensions\EnumExtensions.cs" />
-    <Compile Include="Logs\LogWatcher.cs" />
-    <Compile Include="Logs\MemoryAppenderWithEvents.cs" />
-    <Compile Include="Mutation\Compilation\CompilationError.cs" />
-    <Compile Include="Mutation\Compilation\CompilationResult.cs" />
-    <Compile Include="Project\Config\CamaFileConfig.cs" />
-    <Compile Include="Project\Config\CamaConfig.cs" />
-    <Compile Include="Mutation\MutationDocumentDetails.cs" />
-    <Compile Include="Mutation\MutationDocument.cs" />
-    <Compile Include="Solution\SolutionProjectInfo.cs" />
-    <Compile Include="TestRunner\Result\TestResult.cs" />
-    <Compile Include="TestRunner\Result\TestSuiteResult.cs" />
-    <Compile Include="Mutators\BinaryExpressionMutators\BinaryExpressionMutator.cs" />
-    <Compile Include="Mutators\BinaryExpressionMutators\ConditionalBoundaryMutator.cs" />
-    <Compile Include="Mutators\BinaryExpressionMutators\NegateConditionalMutator.cs" />
-    <Compile Include="Mutators\IMutator.cs" />
-    <Compile Include="Mutators\NegateTypeCompabilityMutator.cs" />
-    <Compile Include="Mutators\IncrementsMutator.cs" />
-    <Compile Include="Mutators\Mutator.cs" />
-    <Compile Include="Mutators\MutationOperatorFactory.cs" />
-    <Compile Include="Mutators\BinaryExpressionMutators\MathMutator.cs" />
-    <Compile Include="Mutators\ReturnValueMutator.cs" />
-    <Compile Include="Mutation\Location\MutationLocationInfo.cs" />
+    <Compile Include="Execution\Runners\ITestRunner.cs" />
+    <Compile Include="Execution\MutationDocumentExecutor.cs" />
+    <Compile Include="Execution\Result\Maker\INUnitTestCaseResultMaker.cs" />
+    <Compile Include="Execution\Result\Maker\NUnitTestCaseResultMaker.cs" />
+    <Compile Include="Execution\Result\TestResult.cs" />
+    <Compile Include="Execution\Result\TestSuiteResult.cs" />
+    <Compile Include="Execution\Runners\NUnitTestRunner.cs" />
+    <Compile Include="Execution\TestRunnerDependencyFilesHandler.cs" />
+    <Compile Include="Location\MutationLocationInfo.cs" />
+    <Compile Include="MutationDocument.cs" />
+    <Compile Include="MutationDocumentDetails.cs" />
+    <Compile Include="MutationDocumentResult.cs" />
+    <Compile Include="Creator\Mutators\BinaryExpressionMutators\BinaryExpressionMutator.cs" />
+    <Compile Include="Creator\Mutators\BinaryExpressionMutators\ConditionalBoundaryMutator.cs" />
+    <Compile Include="Creator\Mutators\BinaryExpressionMutators\MathMutator.cs" />
+    <Compile Include="Creator\Mutators\BinaryExpressionMutators\NegateConditionalMutator.cs" />
+    <Compile Include="Creator\Mutators\IMutator.cs" />
+    <Compile Include="Creator\Mutators\IncrementsMutator.cs" />
+    <Compile Include="Creator\Mutators\MutationOperatorFactory.cs" />
+    <Compile Include="Creator\Mutators\Mutator.cs" />
+    <Compile Include="Creator\Mutators\NegateTypeCompabilityMutator.cs" />
+    <Compile Include="Creator\Mutators\ReturnValueMutator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Report\Cama\CamaReport.cs" />
-    <Compile Include="Report\Cama\CamaReportCreator.cs" />
-    <Compile Include="Mutation\MutationDocumentResult.cs" />
-    <Compile Include="Report\Html\HtmlReportCreator.cs" />
-    <Compile Include="Report\IReportCreator.cs" />
-    <Compile Include="Report\Markdown\MarkdownReportCreator.cs" />
-    <Compile Include="Report\Trx\TrxReportCreator.cs" />
-    <Compile Include="Report\Trx\Trx.cs" />
-    <Compile Include="TestRunner\TestRunnerDependencyFilesHandler.cs" />
-    <Compile Include="Mutation\Compilation\MutatedDocumentCompiler.cs" />
-    <Compile Include="Project\ICreateCamaProjectService.cs" />
-    <Compile Include="Project\IOpenCamaProjectService.cs" />
-    <Compile Include="Project\CamaProjectService.cs" />
-    <Compile Include="Mutation\MutationDocumentCreator.cs" />
-    <Compile Include="TestRunner\TestRunnerFacade.cs" />
+    <Compile Include="Execution\Report\Cama\CamaReport.cs" />
+    <Compile Include="Execution\Report\Cama\CamaReportCreator.cs" />
+    <Compile Include="Execution\Report\Html\HtmlReportCreator.cs" />
+    <Compile Include="Execution\Report\Markdown\MarkdownReportCreator.cs" />
+    <Compile Include="Execution\Report\ReportCreator.cs" />
+    <Compile Include="Execution\Report\Trx\Trx.cs" />
+    <Compile Include="Execution\Report\Trx\TrxReportCreator.cs" />
     <Compile Include="Solution\SolutionInfoService.cs" />
-    <Compile Include="TestRunner\ITestRunner.cs" />
-    <Compile Include="TestRunner\Result\Maker\INUnitTestCaseResultMaker.cs" />
-    <Compile Include="TestRunner\Result\Maker\NUnitTestCaseResultMaker.cs" />
-    <Compile Include="TestRunner\Runners\NUnitTestRunner.cs" />
+    <Compile Include="Solution\SolutionProjectInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <Content Include="Log4Net.Config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Report\Html\ReportTemplate.cshtml">
+    <Content Include="Execution\Report\Html\ReportTemplate.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -107,8 +100,14 @@
     <PackageReference Include="ConsoleTables">
       <Version>2.2.0</Version>
     </PackageReference>
+    <PackageReference Include="FluentValidation">
+      <Version>7.6.105</Version>
+    </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="MediatR">
+      <Version>5.1.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Build.Locator">
       <Version>1.0.18</Version>

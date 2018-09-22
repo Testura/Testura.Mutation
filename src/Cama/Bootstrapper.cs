@@ -1,26 +1,24 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows;
-using Cama.Core.Services.Project;
-using Cama.Infrastructure;
-using Cama.Infrastructure.Tabs;
-using Cama.Module.Debug;
-using Cama.Module.Loading;
-using Cama.Module.Loading.Sections.Loading;
-using Cama.Module.Menu;
-using Cama.Module.Mutation;
-using Cama.Module.Mutation.Tab;
-using Cama.Module.Start;
-using Cama.Module.Start.Tab;
+using Cama.Sections.Loading;
 using Cama.Sections.Shell;
+using Cama.Service.Extensions;
+using Cama.Service.Logs;
+using Cama.Tab;
+using Cama.Tabs;
+using Microsoft.Build.Locator;
 using Microsoft.Practices.Unity;
-using Prism.Modularity;
 using Prism.Mvvm;
+using Prism.Regions;
 using Prism.Unity;
+using DebugShellView = Cama.Sections.Debug.DebugShellView;
+using LoadingView = Cama.Sections.Loading.LoadingView;
+using ShellWindow = Cama.Sections.Shell.ShellWindow;
 
 namespace Cama
 {
-    class Bootstrapper : UnityBootstrapper
+    public class Bootstrapper : UnityBootstrapper
     {
         protected override void ConfigureServiceLocator()
         {
@@ -45,6 +43,10 @@ namespace Cama
                 var viewModelName = $"{viewName}ViewModel, {viewAssemblyName}";
                 return Type.GetType(viewModelName);
             });
+
+            var regionManager = Container.Resolve<IRegionManager>();
+            regionManager.RegisterViewWithRegion(RegionNames.LoadRegion, typeof(LoadingView));
+            regionManager.RegisterViewWithRegion(RegionNames.BottomRegion, typeof(DebugShellView));
         }
 
         protected override DependencyObject CreateShell()
@@ -54,38 +56,19 @@ namespace Cama
 
         protected override void InitializeShell()
         {
+            MSBuildLocator.RegisterDefaults();
             Application.Current.MainWindow.Show();
-        }
-
-        protected override void ConfigureModuleCatalog()
-        {
-            AddModule(typeof(StartModule), InitializationMode.WhenAvailable);
-            AddModule(typeof(MutationModule), InitializationMode.OnDemand);
-            AddModule(typeof(DebugModule), InitializationMode.WhenAvailable);
-            AddModule(typeof(MenuModule), InitializationMode.WhenAvailable);
-            AddModule(typeof(LoadingModule), InitializationMode.WhenAvailable);
-        }
-
-        private void AddModule(Type type, InitializationMode mode)
-        {
-            ModuleCatalog.AddModule(new ModuleInfo
-            {
-                ModuleName = type.Name,
-                ModuleType = type.AssemblyQualifiedName,
-                InitializationMode = mode
-            });
         }
 
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
+
+            Container.RegisterMediator(new HierarchicalLifetimeManager());
             Container.RegisterType<IMainTabContainer, TabContainer>();
             Container.RegisterType<IMutationModuleTabOpener, MutationTabOpener>();
             Container.RegisterType<IStartModuleTabOpener, StartModuleTabOpener>();
-            Container.RegisterType<ICreateCamaProjectService, CamaProjectService>();
-            Container.RegisterType<IOpenCamaProjectService, CamaProjectService>();
-
-            // Ugly, should be in the loading module...
+            Container.RegisterType<LogWatcher>(new ContainerControlledLifetimeManager());
             Container.RegisterType<LoadingViewModel>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ILoadingDisplayer, LoadingViewModel>(new ContainerControlledLifetimeManager());
         }

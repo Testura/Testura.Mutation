@@ -10,7 +10,6 @@ namespace Cama.Core.Solution
     {
         public async Task<List<SolutionProjectInfo>> GetSolutionInfoAsync(string solutionPath)
         {
-            MSBuildLocator.RegisterDefaults();
             var workspace = MSBuildWorkspace.Create();
             var solution = await workspace.OpenSolutionAsync(solutionPath);
 

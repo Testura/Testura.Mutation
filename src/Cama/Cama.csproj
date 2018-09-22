@@ -46,6 +46,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,13 +66,112 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behavior\AutoScrollBehavior.cs" />
+    <Compile Include="Common\CodeDiff\OldNewDiffPiece.cs" />
+    <Compile Include="Common\CodeDiff\SideBySideDiffModelVisualizer.cs" />
+    <Compile Include="Converts\IsZeroConverter.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="ILoadingDisplayer.cs" />
+    <Compile Include="Models\DocumentRowModel.cs" />
+    <Compile Include="Models\MutationDocumentsExecutionResultModel.cs" />
+    <Compile Include="Models\MutationOperatorGridItem.cs" />
+    <Compile Include="Models\ProjectListItem.cs" />
+    <Compile Include="Models\TestRunDocument.cs" />
+    <Compile Include="RegionNames.cs" />
+    <Compile Include="Sections\Debug\DebugShellView.xaml.cs">
+      <DependentUpon>DebugShellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\Debug\DebugShellViewModel.cs" />
+    <Compile Include="Sections\MutationDetails\MutationFileDetailsView.xaml.cs">
+      <DependentUpon>MutationFileDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\MutationDetails\MutationFileDetailsViewModel.cs" />
+    <Compile Include="Sections\MutationDetails\MutationDocumentDetailsView.xaml.cs">
+      <DependentUpon>MutationDocumentDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\MutationDetails\MutationDocumentDetailsViewModel.cs" />
+    <Compile Include="Sections\Loading\LoadingView.xaml.cs">
+      <DependentUpon>LoadingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\Loading\LoadingViewModel.cs" />
+    <Compile Include="Sections\NewProject\NewProjectDialog.xaml.cs">
+      <DependentUpon>NewProjectDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\NewProject\NewProjectViewModel.cs" />
+    <Compile Include="Sections\MutationDocumentsOverview\MutationDocumentsOverviewView.xaml.cs">
+      <DependentUpon>MutationDocumentsOverviewView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\MutationDocumentsOverview\MutationDocumentsOverviewViewModel.cs" />
+    <Compile Include="Sections\MutationDocumentsExecutionResult\AllMutationDocumentsResultView.xaml.cs">
+      <DependentUpon>AllMutationDocumentsResultView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\MutationDocumentsExecutionResult\AllMutationDocumentsResultViewModel.cs" />
+    <Compile Include="Sections\MutationDocumentsExecutionResult\FailedToCompileMutationDocumentsView.xaml.cs">
+      <DependentUpon>FailedToCompileMutationDocumentsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\MutationDocumentsExecutionResult\FailedToCompileMutationDocumentsViewModel.cs" />
+    <Compile Include="Sections\MutationDocumentsExecutionResult\MutationDocumentResultView.xaml.cs">
+      <DependentUpon>MutationDocumentResultView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\MutationDocumentsExecutionResult\MutationDocumentResultViewModel.cs" />
     <Compile Include="Sections\Shell\TabContainer.cs" />
     <Compile Include="Sections\Shell\TabShellWindow.xaml.cs">
       <DependentUpon>TabShellWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sections\MutationDocumentsExecution\MutationDocumentsExecutionView.xaml.cs">
+      <DependentUpon>MutationDocumentsExecutionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\MutationDocumentsExecution\MutationDocumentsExecutionViewModel.cs" />
+    <Compile Include="Sections\Welcome\WelcomeView.xaml.cs">
+      <DependentUpon>WelcomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\Welcome\WelcomeViewModel.cs" />
+    <Compile Include="Services\FilePickerService.cs" />
+    <Compile Include="Services\SaveReportService.cs" />
+    <Compile Include="Tabs\IMainTabContainer.cs" />
+    <Compile Include="Tabs\IMutationModuleTabOpener.cs" />
+    <Compile Include="Tabs\IStartModuleTabOpener.cs" />
+    <Compile Include="Tab\MutationTabOpener.cs" />
+    <Compile Include="Tab\StartModuleTabOpener.cs" />
     <Page Include="Resources\MaterialDesign.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sections\Debug\DebugShellView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\MutationDetails\MutationFileDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\MutationDetails\MutationDocumentDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\Loading\LoadingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\NewProject\NewProjectDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\MutationDocumentsOverview\MutationDocumentsOverviewView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\MutationDocumentsExecutionResult\AllMutationDocumentsResultView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\MutationDocumentsExecutionResult\FailedToCompileMutationDocumentsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\MutationDocumentsExecutionResult\MutationDocumentResultView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Sections\Shell\ShellWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -90,6 +191,14 @@
     <Page Include="Sections\Shell\TabShellWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sections\MutationDocumentsExecution\MutationDocumentsExecutionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\Welcome\WelcomeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -120,8 +229,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DiffPlex">
+      <Version>1.4.1</Version>
+    </PackageReference>
     <PackageReference Include="Dragablz">
       <Version>0.0.3.203</Version>
+    </PackageReference>
+    <PackageReference Include="LiveCharts.Wpf">
+      <Version>0.9.7</Version>
     </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
@@ -129,43 +244,45 @@
     <PackageReference Include="MaterialDesignThemes">
       <Version>2.4.0.1044</Version>
     </PackageReference>
+    <PackageReference Include="MediatR">
+      <Version>5.1.0</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Build.Locator">
       <Version>1.0.18</Version>
     </PackageReference>
     <PackageReference Include="Prism.Unity" Version="6.3.0" />
+    <PackageReference Include="PropertyChanged.Fody">
+      <Version>2.5.11</Version>
+    </PackageReference>
+    <PackageReference Include="Unity.Abstractions">
+      <Version>3.3.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cama.Core\Cama.Core.csproj">
       <Project>{43eb1e4e-4f79-4554-b358-4a6d711ce39a}</Project>
       <Name>Cama.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cama.Infrastructure\Cama.Infrastructure.csproj">
+    <ProjectReference Include="..\Cama.Service\Cama.Service.csproj">
       <Project>{4e413455-59c5-4da5-870a-a3481d2c6b8a}</Project>
-      <Name>Cama.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cama.Module.Debug\Cama.Module.Debug.csproj">
-      <Project>{a205b338-b1d2-4b72-8d13-58c67cd75306}</Project>
-      <Name>Cama.Module.Debug</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cama.Module.Loading\Cama.Module.Loading.csproj">
-      <Project>{f98a17e0-3581-4e4c-b5e2-c436fe2e05da}</Project>
-      <Name>Cama.Module.Loading</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cama.Module.Menu\Cama.Module.Menu.csproj">
-      <Project>{9a10e0fb-442e-4b7f-8225-3fe14afd756a}</Project>
-      <Name>Cama.Module.Menu</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cama.Module.Mutation\Cama.Module.Mutation.csproj">
-      <Project>{492649c1-125a-457e-8f14-9e785dcffd49}</Project>
-      <Name>Cama.Module.Mutation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cama.Module.Start\Cama.Module.Start.csproj">
-      <Project>{31faf894-3343-4fd3-9116-a27a19afd45b}</Project>
-      <Name>Cama.Module.Start</Name>
+      <Name>Cama.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon_Inx_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\error.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\checked.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

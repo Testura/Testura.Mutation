@@ -7,8 +7,8 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         xmlns:dockablz="http://dragablz.net/winfx/xaml/dockablz"
-        xmlns:welcome="clr-namespace:Cama.Module.Start.Sections.Welcome;assembly=Cama.Module.Start"
-        xmlns:infrastructure="clr-namespace:Cama.Infrastructure;assembly=Cama.Infrastructure"
+        xmlns:welcome1="clr-namespace:Cama.Sections.Welcome"
+        xmlns:cama="clr-namespace:Cama"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -36,11 +36,11 @@
                     <dragablz:TabablzControl.InterTabController>
                         <dragablz:InterTabController InterTabClient="{Binding MyInterTabClient}" />
                     </dragablz:TabablzControl.InterTabController>
-                    <welcome:WelcomeView></welcome:WelcomeView>
+                    <welcome1:WelcomeView></welcome1:WelcomeView>
                 </dragablz:TabablzControl>
             </dockablz:Layout>
-            <ContentControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.BottomRegion}" Grid.Row="1" />
+            <ContentControl prism:RegionManager.RegionName="{x:Static cama:RegionNames.BottomRegion}" Grid.Row="1" />
         </Grid>
-        <ContentControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.LoadRegion}" />
+        <ContentControl prism:RegionManager.RegionName="{x:Static cama:RegionNames.LoadRegion}" />
     </Grid>
 </Window>
