@@ -30,7 +30,10 @@ namespace Cama.Sections.MutationDocumentsExecutionResult
 
         private void OpenCompleteDocumentTab(MutationDocumentResult obj)
         {
-            _mutationModuleTabOpener.OpenDocumentResultTab(obj);
+            if (obj != null)
+            {
+                _mutationModuleTabOpener.OpenDocumentResultTab(obj);
+            }
         }
     }
 }

@@ -38,11 +38,11 @@
             @foreach (var mutation in @Model)
             {
                 <tr>
-                    <td>@mutation.Document.FileName</td>
-                    <td>@mutation.Document.MutationInfo.Location.Where</td>
-                    <td>@mutation.Document.MutationInfo.Location.Line</td>
-                    <td>@mutation.Document.MutationInfo.Orginal</td>
-                    <td>@mutation.Document.MutationInfo.Mutation</td>
+                    <td>@mutation.FileName</td>
+                    <td>@mutation.Location.Where</td>
+                    <td>@mutation.Location.Line</td>
+                    <td>@mutation.Orginal</td>
+                    <td>@mutation.Mutation</td>
                 </tr>
             }
         </table>
