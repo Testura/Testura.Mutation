@@ -32,7 +32,9 @@ namespace Cama.Console
                 new MathMutator(),
                 new ConditionalBoundaryMutator(),
                 new NegateConditionalMutator(),
-                new ReturnValueMutator()
+                new ReturnValueMutator(),
+                new IncrementsMutator(),
+                new NegateTypeCompabilityMutator()
             };
 
             var config = await _commandDispatcher.ExecuteCommandAsync(new OpenProjectCommand(configPath));
