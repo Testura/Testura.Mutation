@@ -20,7 +20,7 @@ namespace Cama.Service.Commands.Mutation.ExecuteMutations
 
         public override async Task<IList<MutationDocumentResult>> OnHandle(ExecuteMutationsCommand command, CancellationToken cancellationToken)
         {
-            var semaphoreSlim = new SemaphoreSlim(command.Config.TestRunInstancesCount, command.Config.TestRunInstancesCount);
+            var semaphoreSlim = new SemaphoreSlim(command.Config.NumberOfTestRunInstances, command.Config.NumberOfTestRunInstances);
             var results = new List<MutationDocumentResult>();
             var numberOfMutationsLeft = command.MutationDocuments.Count;
 

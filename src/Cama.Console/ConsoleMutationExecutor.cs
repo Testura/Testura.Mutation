@@ -6,6 +6,7 @@ using Cama.Core.Creator.Mutators;
 using Cama.Core.Creator.Mutators.BinaryExpressionMutators;
 using Cama.Core.Execution.Report;
 using Cama.Core.Execution.Report.Cama;
+using Cama.Core.Execution.Report.Html;
 using Cama.Core.Execution.Report.Markdown;
 using Cama.Core.Execution.Report.Trx;
 using Cama.Service.Commands;
@@ -45,7 +46,8 @@ namespace Cama.Console
             {
                 new TrxReportCreator(savePath),
                 new MarkdownReportCreator(Path.ChangeExtension(savePath, ".md")),
-                new CamaReportCreator(Path.ChangeExtension(savePath, ".cama"))
+                new CamaReportCreator(Path.ChangeExtension(savePath, ".cama")),
+                new HtmlOnlyBodyReportCreator(Path.ChangeExtension(savePath, ".html"))
             }));
 
             return !results.Any(r => r.Survived);

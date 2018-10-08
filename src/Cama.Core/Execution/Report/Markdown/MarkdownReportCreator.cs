@@ -47,11 +47,11 @@ namespace Cama.Core.Execution.Report.Markdown
             markdown.Append("--- | --- | --- | --- | --- \n");
             foreach (var mutation in surivedMutations)
             {
-                markdown.Append($"{mutation.FileName} |" +
+                markdown.Append($"| {mutation.FileName} |" +
                                 $" {mutation.Location.Where} |" +
                                 $" {mutation.Location.Line} |" +
-                                $" `{mutation.Orginal}` |" +
-                                $" `{mutation.Mutation}`\n");
+                                $" ``` {mutation.Orginal} ``` |" +
+                                $" ``` {mutation.Mutation} ``` |\n");
             }
 
             return markdown;

@@ -35,7 +35,7 @@ namespace Cama.Service.Commands.Project.OpenProject
             {
                 SolutionPath = fileConfig.SolutionPath,
                 Filter = fileConfig.Filter ?? new List<string>(),
-                TestRunInstancesCount = fileConfig.TestRunInstancesCount,
+                NumberOfTestRunInstances = fileConfig.NumberOfTestRunInstances,
                 BuildConfiguration = fileConfig.BuildConfiguration,
                 MaxTestTimeMin = fileConfig.MaxTestTimeMin
             };
@@ -94,15 +94,15 @@ namespace Cama.Service.Commands.Project.OpenProject
 
         private void InitializeMutationProjects(CamaFileConfig fileConfig, CamaConfig config, Microsoft.CodeAnalysis.Solution solution)
         {
-            if (fileConfig.IgnoredProjects == null)
+            if (fileConfig.IgnoredMutationProjects == null)
             {
-                fileConfig.IgnoredProjects = new List<string>();
+                fileConfig.IgnoredMutationProjects = new List<string>();
             }
 
             LogTo.Info("Setting up mutation projects.");
             foreach (var solutionProject in solution.Projects)
             {
-                if (fileConfig.IgnoredProjects.Contains(solutionProject.Name) || fileConfig.TestProjects.Contains(solutionProject.Name))
+                if (fileConfig.IgnoredMutationProjects.Contains(solutionProject.Name) || fileConfig.TestProjects.Contains(solutionProject.Name))
                 {
                     continue;
                 }

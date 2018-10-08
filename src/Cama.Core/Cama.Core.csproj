@@ -51,6 +51,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\CompilationException.cs" />
     <Compile Include="Exceptions\ProjectSetUpException.cs" />
+    <Compile Include="Execution\Report\Html\HtmlOnlyBodyReportCreator.cs" />
     <Compile Include="Execution\Runners\ITestRunner.cs" />
     <Compile Include="Execution\MutationDocumentExecutor.cs" />
     <Compile Include="Execution\Result\Maker\INUnitTestCaseResultMaker.cs" />
@@ -90,6 +91,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Execution\Report\Html\ReportTemplate.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Execution\Report\Html\ReportTemplateOnlyBody.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

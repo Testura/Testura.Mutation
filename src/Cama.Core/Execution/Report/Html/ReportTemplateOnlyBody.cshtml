@@ -1,0 +1,19 @@
+﻿<table id="mutations" border="2" cellpadding="10">
+    <tr>
+        <th><p align="left">File</p></th>
+        <th><p align="left">Where</p></th>
+        <th><p align="left">Line</p></th>
+        <th><p align="left">Orginal</p></th>
+        <th><p align="left">Mutation</p></th>
+    </tr>
+    @foreach (var mutation in @Model)
+    {
+        <tr>
+            <td>@mutation.FileName</td>
+            <td>@mutation.Location.Where</td>
+            <td>@mutation.Location.Line</td>
+            <td><code>@mutation.Orginal</code></td>
+            <td><code>@mutation.Mutation</code></td>
+        </tr>
+    }
+</table>

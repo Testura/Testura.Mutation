@@ -6,7 +6,7 @@ namespace Cama.Service.Models
     {
         public CamaFileConfig()
         {
-            TestRunInstancesCount = 3;
+            NumberOfTestRunInstances = 3;
             MaxTestTimeMin = 5;
             BuildConfiguration = "debug";
         }
@@ -15,11 +15,11 @@ namespace Cama.Service.Models
 
         public IList<string> TestProjects { get; set; }
 
-        public IList<string> IgnoredProjects { get; set; }
+        public IList<string> IgnoredMutationProjects { get; set; }
 
         public IList<string> Filter { get; set; }
 
-        public int TestRunInstancesCount { get; set; }
+        public int NumberOfTestRunInstances { get; set; }
 
         public string BuildConfiguration { get; set; }
 

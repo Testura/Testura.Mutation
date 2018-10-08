@@ -18,7 +18,8 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Cama"
         AllowDrop="True"
-        Drop="OnDrop">
+        Drop="OnDrop"
+        Loaded="OnLoaded">
     <Grid>
         <Grid Margin="10">
             <Grid.RowDefinitions>

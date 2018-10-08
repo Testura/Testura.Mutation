@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -42,6 +43,16 @@ namespace Cama.Sections.Shell
             var files = ((string[]) e.Data.GetData(DataFormats.FileDrop)).Where(p => p.EndsWith(".cama"));
             var viewModel = DataContext as ShellViewModel;
             viewModel?.OpenReport(files);
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.Properties["StartUpFile"] != null)
+            {
+              var file = Application.Current.Properties["StartUpFile"].ToString();
+              var viewModel = DataContext as ShellViewModel;
+              viewModel?.OpenReport(new List<string> { file });
+            }
         }
     }
 }

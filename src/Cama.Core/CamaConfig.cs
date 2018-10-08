@@ -21,7 +21,7 @@ namespace Cama.Core
 
         public IList<string> Filter { get; set; }
 
-        public int TestRunInstancesCount { get; set; }
+        public int NumberOfTestRunInstances { get; set; }
 
         public string BuildConfiguration { get; set; }
 
