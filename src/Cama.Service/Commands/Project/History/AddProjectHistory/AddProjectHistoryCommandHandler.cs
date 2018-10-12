@@ -11,7 +11,7 @@ namespace Cama.Service.Commands.Project.History.AddProjectHistory
     {
         private const string FileName = "CamaProjectHistory.Json";
 
-        public static string HistoryPath => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), FileName);
+        public static string HistoryPath => Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), FileName);
 
         public override async Task<bool> OnHandle(AddProjectHistoryCommand command, CancellationToken cancellationToken)
         {
