@@ -19,7 +19,8 @@
         Title="Cama"
         AllowDrop="True"
         Drop="OnDrop"
-        Loaded="OnLoaded">
+        Loaded="OnLoaded"
+        WindowState="Maximized">
     <Grid>
         <Grid Margin="10">
             <Grid.RowDefinitions>
