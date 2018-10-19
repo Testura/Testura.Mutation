@@ -110,6 +110,9 @@
       <DependentUpon>DebugShellView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sections\Debug\DebugShellViewModel.cs" />
+    <Compile Include="Sections\Dialogs\ErrorDialogWindow.xaml.cs">
+      <DependentUpon>ErrorDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sections\MutationDetails\MutationFileDetailsView.xaml.cs">
       <DependentUpon>MutationFileDetailsView.xaml</DependentUpon>
     </Compile>
@@ -154,6 +157,7 @@
       <DependentUpon>WelcomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sections\Welcome\WelcomeViewModel.cs" />
+    <Compile Include="Services\ErrorDialogService.cs" />
     <Compile Include="Services\FilePickerService.cs" />
     <Compile Include="Services\SaveReportService.cs" />
     <Compile Include="Tabs\IMainTabContainer.cs" />
@@ -168,6 +172,10 @@
     <Page Include="Sections\Debug\DebugShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\Dialogs\ErrorDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Sections\MutationDetails\MutationFileDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -327,6 +335,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\error.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

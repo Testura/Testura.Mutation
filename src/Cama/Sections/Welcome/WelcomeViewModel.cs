@@ -4,7 +4,9 @@ using System.IO;
 using Cama.Service.Commands;
 using Cama.Service.Commands.Project.History.GetProjectHistory;
 using Cama.Service.Commands.Project.OpenProject;
+using Cama.Services;
 using Cama.Tabs;
+using FluentValidation;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -53,11 +55,19 @@ namespace Cama.Sections.Welcome
         private async void OpenHistoryProjectAsync(string path)
         {
             _loadingDisplayer.ShowLoading($"Opening {Path.GetFileName(path)}");
-            var config = await _commandDispatcher.ExecuteCommandAsync(new OpenProjectCommand(path));
-            _loadingDisplayer.HideLoading();
-
-            _mutationModuleTabOpener.OpenOverviewTab(config);
+            try
+            {
+                var config = await _commandDispatcher.ExecuteCommandAsync(new OpenProjectCommand(path));
+                _mutationModuleTabOpener.OpenOverviewTab(config);
+            }
+            catch (ValidationException ex)
+            {
+                ErrorDialogService.ShowErrorDialog("Unexpected error", "Failed to open project.", ex.Message);
+            }
+            finally
+            {
+                _loadingDisplayer.HideLoading();
+            }
         }
-
     }
 }
