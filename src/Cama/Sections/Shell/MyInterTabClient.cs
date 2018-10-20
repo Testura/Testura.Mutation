@@ -8,7 +8,7 @@ namespace Cama.Sections.Shell
         public INewTabHost<Window> GetNewHost(IInterTabClient interTabClient, object partition, TabablzControl source)
         {
             var view = new TabShellWindow();
-            view.TabsContainer.InterTabController = new InterTabController() {InterTabClient = interTabClient};
+            view.TabsContainer.InterTabController = new InterTabController { InterTabClient = interTabClient };
             return new NewTabHost<Window>(view, view.TabsContainer);
         }
 

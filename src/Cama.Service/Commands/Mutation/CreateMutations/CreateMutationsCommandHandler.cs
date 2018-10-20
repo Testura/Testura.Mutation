@@ -8,9 +8,9 @@ namespace Cama.Service.Commands.Mutation.CreateMutations
 {
     public class CreateMutationsCommandHandler : ValidateResponseRequestHandler<CreateMutationsCommand, IList<MutationDocument>>
     {
-        private readonly MutationsDocumentCreator _mutationsCreator;
+        private readonly MutationDocumentCreator _mutationsCreator;
 
-        public CreateMutationsCommandHandler(MutationsDocumentCreator mutationsCreator)
+        public CreateMutationsCommandHandler(MutationDocumentCreator mutationsCreator)
         {
             _mutationsCreator = mutationsCreator;
         }

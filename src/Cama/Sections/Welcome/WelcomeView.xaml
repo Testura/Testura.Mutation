@@ -38,7 +38,7 @@
                     </i:Interaction.Triggers>
                 </ListBox>
             </GroupBox>
-            <Button Content="Create new project" Command="{Binding ClickMeCommand}" Width="150" Margin="10, 0, 16 ,0" HorizontalAlignment="Right" />
+            <Button Content="Create new project" Command="{Binding CreateNewProjectCommand}" Width="150" Margin="10, 0, 16 ,0" HorizontalAlignment="Right" />
         </StackPanel>
     </Grid>
 </TabItem>

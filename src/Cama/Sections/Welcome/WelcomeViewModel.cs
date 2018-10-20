@@ -14,7 +14,6 @@ namespace Cama.Sections.Welcome
 {
     public class WelcomeViewModel : BindableBase, INotifyPropertyChanged
     {
-        private readonly IMainTabContainer _mainTabContainer;
         private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
         private readonly IStartModuleTabOpener _startModuleTabOpener;
         private readonly ICommandDispatcher _commandDispatcher;
@@ -30,27 +29,16 @@ namespace Cama.Sections.Welcome
             _startModuleTabOpener = startModuleTabOpener;
             _commandDispatcher = commandDispatcher;
             _loadingDisplayer = loadingDisplayer;
-            ClickMeCommand = new DelegateCommand(ClickMe);
+            CreateNewProjectCommand = new DelegateCommand(() => _startModuleTabOpener.OpenNewProjectTab());
             OpenHistoryProjectCommand = new DelegateCommand<string>(OpenHistoryProjectAsync);
             ProjectHistory = _commandDispatcher.ExecuteCommandAsync(new GetProjectHistoryCommand()).Result;
         }
 
         public IList<string> ProjectHistory { get; set; }
 
-        public DelegateCommand ClickMeCommand { get; set; }
+        public DelegateCommand CreateNewProjectCommand { get; set; }
 
         public DelegateCommand<string> OpenHistoryProjectCommand { get; set; }
-
-        private async void ClickMe()
-        {
-            /*
-            _mainTabContainer.RemoveTab("Welcome");
-            _mutationModuleTabOpener.OpenOverviewTab();
-            */
-
-            _startModuleTabOpener.OpenNewProjectTab();
-
-        }
 
         private async void OpenHistoryProjectAsync(string path)
         {

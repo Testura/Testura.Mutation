@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -40,7 +39,7 @@ namespace Cama.Sections.Shell
 
         private void OnDrop(object sender, DragEventArgs e)
         {
-            var files = ((string[]) e.Data.GetData(DataFormats.FileDrop)).Where(p => p.EndsWith(".cama"));
+            var files = (string[])e.Data.GetData(DataFormats.FileDrop);
             var viewModel = DataContext as ShellViewModel;
             viewModel?.OpenReport(files);
         }
