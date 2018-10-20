@@ -8,6 +8,7 @@ using Anotar.Log4Net;
 using Cama.Core;
 using Cama.Core.Exceptions;
 using Cama.Core.Solution;
+using Cama.Service.Exceptions;
 using Cama.Service.Models;
 using FluentValidation;
 using Microsoft.Build.Locator;
@@ -30,45 +31,54 @@ namespace Cama.Service.Commands.Project.OpenProject
 
             LogTo.Info($"Opening project at {path}");
 
-            var fileConfig = JsonConvert.DeserializeObject<CamaFileConfig>(File.ReadAllText(path));
-            var config = new CamaConfig
+            try
             {
-                SolutionPath = fileConfig.SolutionPath,
-                Filter = fileConfig.Filter ?? new List<string>(),
-                NumberOfTestRunInstances = fileConfig.NumberOfTestRunInstances,
-                BuildConfiguration = fileConfig.BuildConfiguration,
-                MaxTestTimeMin = fileConfig.MaxTestTimeMin
-            };
 
-            using (var workspace = MSBuildWorkspace.Create())
-            {
-                LogTo.Info("Opening solution..");
-
-                if (!File.Exists(config.SolutionPath))
+                var fileConfig = JsonConvert.DeserializeObject<CamaFileConfig>(File.ReadAllText(path));
+                var config = new CamaConfig
                 {
-                    throw new FileNotFoundException("Could not find solution", config.SolutionPath);
-                }
+                    SolutionPath = fileConfig.SolutionPath,
+                    Filter = fileConfig.Filter ?? new List<string>(),
+                    NumberOfTestRunInstances = fileConfig.NumberOfTestRunInstances,
+                    BuildConfiguration = fileConfig.BuildConfiguration,
+                    MaxTestTimeMin = fileConfig.MaxTestTimeMin
+                };
 
-                var solution = await workspace.OpenSolutionAsync(config.SolutionPath);
-
-                if (workspace.Diagnostics.Any(w => w.Kind == WorkspaceDiagnosticKind.Failure && ContainsProjectName(w.Message, config.MutationProjects, config.TestProjects)))
+                using (var workspace = MSBuildWorkspace.Create())
                 {
-                    foreach (var workspaceDiagnostic in workspace.Diagnostics.Where(d => d.Kind == WorkspaceDiagnosticKind.Failure))
+                    LogTo.Info("Opening solution..");
+
+                    if (!File.Exists(config.SolutionPath))
                     {
-                        LogTo.Error($"Workspace error: {workspaceDiagnostic.Message}");
+                        throw new FileNotFoundException("Could not find solution", config.SolutionPath);
                     }
 
-                    throw new ProjectSetUpException("Failed to open solution. View log for details.");
+                    var solution = await workspace.OpenSolutionAsync(config.SolutionPath);
+
+                    if (workspace.Diagnostics.Any(w => w.Kind == WorkspaceDiagnosticKind.Failure && ContainsProjectName(w.Message, config.MutationProjects, config.TestProjects)))
+                    {
+                        foreach (var workspaceDiagnostic in workspace.Diagnostics.Where(d => d.Kind == WorkspaceDiagnosticKind.Failure))
+                        {
+                            LogTo.Error($"Workspace error: {workspaceDiagnostic.Message}");
+                        }
+
+                        throw new ProjectSetUpException("Failed to open solution. View log for details.");
+                    }
+
+                    InitializeTestProjects(fileConfig, config, solution);
+                    InitializeMutationProjects(fileConfig, config, solution);
+
+                    workspace.CloseSolution();
+                    LogTo.Info("Opening project finished.");
                 }
 
-                InitializeTestProjects(fileConfig, config, solution);
-                InitializeMutationProjects(fileConfig, config, solution);
-
-                workspace.CloseSolution();
-                LogTo.Info("Opening project finished.");
+                return config;
             }
-
-            return config;
+            catch(Exception ex)
+            {
+                LogTo.ErrorException("Failed to open project", ex);
+                throw new OpenProjectException("Failed to open project", ex);
+            }
         }
 
         private bool ContainsProjectName(string message, IList<SolutionProjectInfo> mutationProjects, IList<SolutionProjectInfo> testProjects)

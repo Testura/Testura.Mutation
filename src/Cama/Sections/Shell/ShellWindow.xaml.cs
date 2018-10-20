@@ -41,7 +41,7 @@ namespace Cama.Sections.Shell
         {
             var files = (string[])e.Data.GetData(DataFormats.FileDrop);
             var viewModel = DataContext as ShellViewModel;
-            viewModel?.OpenReport(files);
+            viewModel?.Open(files);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -50,7 +50,7 @@ namespace Cama.Sections.Shell
             {
               var file = Application.Current.Properties["StartUpFile"].ToString();
               var viewModel = DataContext as ShellViewModel;
-              viewModel?.OpenReport(new List<string> { file });
+              viewModel?.Open(new List<string> { file });
             }
         }
     }
