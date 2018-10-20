@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Cama.Core;
 using Cama.Core.Creator.Mutators;
 using Cama.Core.Exceptions;
@@ -52,8 +53,6 @@ namespace Cama.Sections.MutationDocumentsOverview
 
         public ObservableCollection<MutationOperatorGridItem> MutationOperatorGridItems { get; set; }
 
-        public bool IsMutationDocumentsLoaded => Documents.Any();
-
         public void Initialize(CamaConfig config)
         {
             _config = config;
@@ -66,7 +65,9 @@ namespace Cama.Sections.MutationDocumentsOverview
             try
             {
                 var settings = MutationOperatorGridItems.Where(m => m.IsSelected).Select(m => m.MutationOperator);
-                var mutationDocuments = await _commandDispatcher.ExecuteCommandAsync(new CreateMutationsCommand(_config, settings.Select(MutationOperatorFactory.GetMutationOperator).ToList()));
+                var command = new CreateMutationsCommand(_config, settings.Select(MutationOperatorFactory.GetMutationOperator).ToList());
+
+                var mutationDocuments = await Task.Run(() => _commandDispatcher.ExecuteCommandAsync(command));
                 var fileNames = mutationDocuments.Select(r => r.FileName).Distinct();
 
                 foreach (var fileName in fileNames)

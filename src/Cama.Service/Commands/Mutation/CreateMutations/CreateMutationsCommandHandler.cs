@@ -15,9 +15,9 @@ namespace Cama.Service.Commands.Mutation.CreateMutations
             _mutationsCreator = mutationsCreator;
         }
 
-        public override async Task<IList<MutationDocument>> OnHandle(CreateMutationsCommand command, CancellationToken cancellationToken)
+        public override Task<IList<MutationDocument>> OnHandle(CreateMutationsCommand command, CancellationToken cancellationToken)
         {
-            return await _mutationsCreator.CreateMutationsAsync(command.Config, command.MutationOperators);
+            return _mutationsCreator.CreateMutationsAsync(command.Config, command.MutationOperators);
         }
     }
 }

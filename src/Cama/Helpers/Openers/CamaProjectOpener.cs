@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using Cama.Helpers.Displayers;
 using Cama.Helpers.Openers.Tabs;
 using Cama.Service.Commands;
@@ -29,7 +30,7 @@ namespace Cama.Helpers.Openers
             _loadingDisplayer.ShowLoading($"Opening project at {Path.GetFileName(path)}");
             try
             {
-                var config = await _commandDispatcher.ExecuteCommandAsync(new OpenProjectCommand(path));
+                var config = await Task.Run(() => _commandDispatcher.ExecuteCommandAsync(new OpenProjectCommand(path)));
                 _mutationModuleTabOpener.OpenOverviewTab(config);
             }
             catch (ValidationException ex)
