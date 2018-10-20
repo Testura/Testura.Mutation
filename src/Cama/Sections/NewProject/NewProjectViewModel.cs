@@ -63,7 +63,7 @@ namespace Cama.Sections.NewProject
 
         private async void PickSolutionPathAsync()
         {
-            var file = _filePickerService.PickFile();
+            var file = _filePickerService.PickFile(FilePickerService.Filter.Solution);
             if (!string.IsNullOrEmpty(file))
             {
                 _loadingDisplayer.ShowLoading("Grabbing solution info..");

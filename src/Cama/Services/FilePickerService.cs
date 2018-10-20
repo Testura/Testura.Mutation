@@ -1,15 +1,29 @@
-﻿using System.Windows.Forms;
+﻿using System.Runtime.Serialization;
+using System.Windows.Forms;
+using Cama.Extensions;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace Cama.Services
 {
     public class FilePickerService
     {
-        public string PickFile()
+        public enum Filter
+        {
+            [EnumMember(Value = "sln files (*.sln)|*.sln")]
+            Solution,
+
+            [EnumMember(Value = "json files (*.json)|*.json")]
+            Project,
+
+            [EnumMember(Value = "cama files (*.cama)|*.cama")]
+            Report
+        }
+
+        public string PickFile(Filter filter)
         {
             var fileDialog = new OpenFileDialog()
             {
-                Filter = "sln files (*.sln)|*.sln"
+                Filter = filter.GetValue()
             };
 
             fileDialog.ShowDialog();

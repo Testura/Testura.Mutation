@@ -16,18 +16,15 @@ namespace Cama.Sections.Shell
 {
     public class ShellViewModel : BindableBase
     {
-        private readonly IMutationModuleTabOpener _moduleTabOpener;
         private readonly ILoadingDisplayer _loadingDisplayer;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
 
         public ShellViewModel(
-            IMutationModuleTabOpener moduleTabOpener,
             ILoadingDisplayer loadingDisplayer,
             ICommandDispatcher commandDispatcher,
             IMutationModuleTabOpener mutationModuleTabOpener)
         {
-            _moduleTabOpener = moduleTabOpener;
             _loadingDisplayer = loadingDisplayer;
             _commandDispatcher = commandDispatcher;
             _mutationModuleTabOpener = mutationModuleTabOpener;
@@ -88,7 +85,7 @@ namespace Cama.Sections.Shell
                     return;
                 }
 
-                _moduleTabOpener.OpenTestRunTab(report);
+                _mutationModuleTabOpener.OpenTestRunTab(report);
             }
             catch (Exception ex)
             {
