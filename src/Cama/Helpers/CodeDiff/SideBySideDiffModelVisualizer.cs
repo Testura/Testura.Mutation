@@ -6,7 +6,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using DiffPlex.DiffBuilder.Model;
 
-namespace Cama.Common.CodeDiff
+namespace Cama.Helpers.CodeDiff
 {
     public class SideBySideDiffModelVisualizer
     {

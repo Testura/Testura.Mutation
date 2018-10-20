@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Cama.Converts
+namespace Cama.Helpers.Converts
 {
     public class IsZeroConverter : IValueConverter
     {

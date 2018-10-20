@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Cama.Tabs
+namespace Cama.Helpers.Openers.Tabs
 {
     public interface IMainTabContainer
     {

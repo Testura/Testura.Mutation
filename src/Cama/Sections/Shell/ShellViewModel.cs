@@ -1,33 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using Cama.Core.Execution.Report.Cama;
-using Cama.Service.Commands;
-using Cama.Service.Commands.Project.OpenProject;
-using Cama.Service.Exceptions;
-using Cama.Services;
-using Cama.Tabs;
-using FluentValidation;
-using Newtonsoft.Json;
+using Cama.Helpers.Openers;
 using Prism.Mvvm;
 
 namespace Cama.Sections.Shell
 {
     public class ShellViewModel : BindableBase
     {
-        private readonly ILoadingDisplayer _loadingDisplayer;
-        private readonly ICommandDispatcher _commandDispatcher;
-        private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
+        private readonly CamaProjectOpener _projectOpener;
+        private readonly MutationReportOpener _mutationReportOpener;
 
         public ShellViewModel(
-            ILoadingDisplayer loadingDisplayer,
-            ICommandDispatcher commandDispatcher,
-            IMutationModuleTabOpener mutationModuleTabOpener)
+            CamaProjectOpener projectOpener,
+            MutationReportOpener mutationReportOpener)
         {
-            _loadingDisplayer = loadingDisplayer;
-            _commandDispatcher = commandDispatcher;
-            _mutationModuleTabOpener = mutationModuleTabOpener;
+            _projectOpener = projectOpener;
+            _mutationReportOpener = mutationReportOpener;
             MyInterTabClient = new MyInterTabClient();
         }
 
@@ -40,64 +28,22 @@ namespace Cama.Sections.Shell
                 // Change this to a constant somewhere?
                 if (path.EndsWith(".cama", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    OpenReportAsync(path);
+                    OpenReport(path);
                     continue;
                 }
 
-                OpenProjectAsync(path);
+                OpenProject(path);
             }
         }
 
-        public async void OpenProjectAsync(string path)
+        public void OpenProject(string path)
         {
-            _loadingDisplayer.ShowLoading($"Opening project at {Path.GetFileName(path)}");
-            try
-            {
-                var config = await _commandDispatcher.ExecuteCommandAsync(new OpenProjectCommand(path));
-                _mutationModuleTabOpener.OpenOverviewTab(config);
-            }
-            catch (ValidationException ex)
-            {
-                ErrorDialogService.ShowErrorDialog("Unexpected error", "Failed to open project.", ex.Message);
-            }
-            catch (OpenProjectException ex)
-            {
-                ErrorDialogService.ShowErrorDialog("Unexpected error", "Failed to open project.", ex.InnerException?.ToString());
-            }
-            finally
-            {
-                _loadingDisplayer.HideLoading();
-            }
+           _projectOpener.OpenProject(path);
         }
 
-        public async void OpenReportAsync(string path)
+        public void OpenReport(string path)
         {
-            try
-            {
-                _loadingDisplayer.ShowLoading($"Loading report at \"{path}\"");
-                var report = await Task.Run(() => JsonConvert.DeserializeObject<CamaReport>(File.ReadAllText(path)));
-
-                if (report == null)
-                {
-                    ErrorDialogService.ShowErrorDialog(
-                        "Unexpected error when loading report",
-                        "Report is null (did you try to open an empty file?). Please try to open a different file.");
-                    return;
-                }
-
-                _mutationModuleTabOpener.OpenTestRunTab(report);
-            }
-            catch (Exception ex)
-            {
-                ErrorDialogService.ShowErrorDialog(
-                    "Unexpected error when loading report",
-                    $"Could not load project at {path}. Please check details for more information.",
-                    ex.ToString());
-            }
-            finally
-            {
-                _loadingDisplayer.HideLoading();
-            }
+            _mutationReportOpener.OpenMutationReport(path);
         }
     }
 }

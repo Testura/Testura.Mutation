@@ -1,7 +1,6 @@
-﻿using Cama.Tabs;
-using NewProjectDialog = Cama.Sections.NewProject.NewProjectDialog;
+﻿using NewProjectDialog = Cama.Sections.NewProject.NewProjectDialog;
 
-namespace Cama.Tab
+namespace Cama.Helpers.Openers.Tabs
 {
     public class StartModuleTabOpener : IStartModuleTabOpener
     {

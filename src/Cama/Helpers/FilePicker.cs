@@ -1,11 +1,11 @@
 ﻿using System.Runtime.Serialization;
 using System.Windows.Forms;
-using Cama.Extensions;
+using Cama.Helpers.Extensions;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
-namespace Cama.Services
+namespace Cama.Helpers
 {
-    public class FilePickerService
+    public class FilePicker
     {
         public enum Filter
         {

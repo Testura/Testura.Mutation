@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using Cama.Sections.Dialogs;
 
-namespace Cama.Services
+namespace Cama.Helpers.Displayers
 {
-    public static class ErrorDialogService
+    public static class ErrorDialogDisplayer
     {
         public static void ShowErrorDialog(string title, string message, string details = "")
         {

@@ -95,12 +95,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Behavior\AutoScrollBehavior.cs" />
-    <Compile Include="Common\CodeDiff\OldNewDiffPiece.cs" />
-    <Compile Include="Common\CodeDiff\SideBySideDiffModelVisualizer.cs" />
-    <Compile Include="Converts\IsZeroConverter.cs" />
-    <Compile Include="Extensions\EnumExtensions.cs" />
-    <Compile Include="ILoadingDisplayer.cs" />
+    <Compile Include="Helpers\Behavior\AutoScrollBehavior.cs" />
+    <Compile Include="Helpers\CodeDiff\OldNewDiffPiece.cs" />
+    <Compile Include="Helpers\CodeDiff\SideBySideDiffModelVisualizer.cs" />
+    <Compile Include="Helpers\Converts\IsZeroConverter.cs" />
+    <Compile Include="Helpers\Extensions\EnumExtensions.cs" />
+    <Compile Include="Helpers\Displayers\ILoadingDisplayer.cs" />
     <Compile Include="Models\DocumentRowModel.cs" />
     <Compile Include="Models\MutationDocumentsExecutionResultModel.cs" />
     <Compile Include="Models\MutationOperatorGridItem.cs" />
@@ -158,14 +158,15 @@
       <DependentUpon>WelcomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sections\Welcome\WelcomeViewModel.cs" />
-    <Compile Include="Services\ErrorDialogService.cs" />
-    <Compile Include="Services\FilePickerService.cs" />
-    <Compile Include="Services\SaveReportService.cs" />
-    <Compile Include="Tabs\IMainTabContainer.cs" />
-    <Compile Include="Tabs\IMutationModuleTabOpener.cs" />
-    <Compile Include="Tabs\IStartModuleTabOpener.cs" />
-    <Compile Include="Tab\MutationTabOpener.cs" />
-    <Compile Include="Tab\StartModuleTabOpener.cs" />
+    <Compile Include="Helpers\Displayers\ErrorDialogDisplayer.cs" />
+    <Compile Include="Helpers\FilePicker.cs" />
+    <Compile Include="Helpers\Openers\MutationReportOpener.cs" />
+    <Compile Include="Helpers\Openers\CamaProjectOpener.cs" />
+    <Compile Include="Helpers\Openers\Tabs\IMainTabContainer.cs" />
+    <Compile Include="Helpers\Openers\Tabs\IMutationModuleTabOpener.cs" />
+    <Compile Include="Helpers\Openers\Tabs\IStartModuleTabOpener.cs" />
+    <Compile Include="Helpers\Openers\Tabs\MutationTabOpener.cs" />
+    <Compile Include="Helpers\Openers\Tabs\StartModuleTabOpener.cs" />
     <Page Include="Resources\MaterialDesign.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

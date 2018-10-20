@@ -4,13 +4,13 @@ using System.Linq;
 using Cama.Core;
 using Cama.Core.Creator.Mutators;
 using Cama.Core.Exceptions;
-using Cama.Extensions;
+using Cama.Helpers.Displayers;
+using Cama.Helpers.Extensions;
+using Cama.Helpers.Openers.Tabs;
 using Cama.Models;
 using Cama.Service;
 using Cama.Service.Commands;
 using Cama.Service.Commands.Mutation.CreateMutations;
-using Cama.Services;
-using Cama.Tabs;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -79,7 +79,7 @@ namespace Cama.Sections.MutationDocumentsOverview
             }
             catch (MutationDocumentException ex)
             {
-                ErrorDialogService.ShowErrorDialog("Failed to create mutations", ex.Message, ex.InnerException?.Message);
+                ErrorDialogDisplayer.ShowErrorDialog("Failed to create mutations", ex.Message, ex.InnerException?.Message);
             }
             finally
             {

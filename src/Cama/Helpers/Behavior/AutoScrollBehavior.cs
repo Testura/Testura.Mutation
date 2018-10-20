@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Cama.Behavior
+namespace Cama.Helpers.Behavior
 {
     public static class AutoScrollBehavior
     {
