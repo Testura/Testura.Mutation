@@ -44,7 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CamaConfig.cs" />
-    <Compile Include="Creator\MutationsDocumentCreator.cs" />
+    <Compile Include="Creator\MutationDocumentCreator.cs" />
+    <Compile Include="Exceptions\MutationDocumentException.cs" />
     <Compile Include="Execution\Compilation\CompilationError.cs" />
     <Compile Include="Execution\Compilation\CompilationResult.cs" />
     <Compile Include="Execution\Compilation\MutationDocumentCompiler.cs" />

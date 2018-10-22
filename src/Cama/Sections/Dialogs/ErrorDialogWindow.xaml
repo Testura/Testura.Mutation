@@ -1,0 +1,41 @@
+﻿<Window x:Class="Cama.Sections.Dialogs.ErrorDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Height="Auto" Width="Auto"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="#424242"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="Error"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        MinWidth="600"
+        Icon="../../Resources/error.ico">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="75" />
+            </Grid.RowDefinitions>
+        <materialDesign:ColorZone Mode="Dark" Padding="16" Margin="0, 0, 0, 10">
+            <TextBlock x:Name="TxtMessage" Grid.Row="0" Margin="3, 16, 16, 16" />
+        </materialDesign:ColorZone>
+        <Expander HorizontalAlignment="Stretch"
+                  Grid.Row="1"
+                  Header="Details"
+                  Foreground="White"
+                  x:Name="ExpDetails">
+            <TextBlock Opacity=".68" Text=""
+                       TextWrapping="Wrap"
+                       Foreground="White"
+                       Margin="24,8,24,16" 
+                       x:Name="TxtDetails" />
+
+        </Expander>
+        <Button x:Name="BtnClose" Grid.Row="2" HorizontalAlignment="Right" Content="Close" Width="100" Height="25" Click="BtnCloseOnClick" />
+        </Grid>
+</Window>

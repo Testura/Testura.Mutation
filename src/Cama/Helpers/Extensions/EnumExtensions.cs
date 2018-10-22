@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Cama.Extensions
+namespace Cama.Helpers.Extensions
 {
     public static class EnumExtensions
     {

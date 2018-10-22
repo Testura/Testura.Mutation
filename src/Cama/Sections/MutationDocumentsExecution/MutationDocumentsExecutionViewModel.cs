@@ -6,11 +6,10 @@ using System.Linq;
 using System.Windows;
 using Cama.Core;
 using Cama.Core.Execution.Report.Cama;
+using Cama.Helpers.Openers.Tabs;
 using Cama.Models;
 using Cama.Service.Commands;
 using Cama.Service.Commands.Mutation.ExecuteMutations;
-using Cama.Services;
-using Cama.Tabs;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -23,19 +22,15 @@ namespace Cama.Sections.MutationDocumentsExecution
     {
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
-        private readonly SaveReportService _saveReportService;
-        private readonly ILoadingDisplayer _loadingDisplayer;
         private CamaConfig _config;
 
-        public MutationDocumentsExecutionViewModel(ICommandDispatcher commandDispatcher,
-            IMutationModuleTabOpener mutationModuleTabOpener, SaveReportService saveReportService,
-            ILoadingDisplayer loadingDisplayer)
+        public MutationDocumentsExecutionViewModel(
+            ICommandDispatcher commandDispatcher,
+            IMutationModuleTabOpener mutationModuleTabOpener)
         {
             MutationDocumentsExecutionResults = new MutationDocumentsExecutionResultModel();
             _commandDispatcher = commandDispatcher;
             _mutationModuleTabOpener = mutationModuleTabOpener;
-            _saveReportService = saveReportService;
-            _loadingDisplayer = loadingDisplayer;
             RunningDocuments = new ObservableCollection<TestRunDocument>();
             RunCommand = new DelegateCommand(ExecuteMutationDocuments);
             CompletedDocumentSelectedCommand = new DelegateCommand<MutationDocumentResult>(OpenCompleteDocumentTab);
@@ -138,8 +133,9 @@ namespace Cama.Sections.MutationDocumentsExecution
             _mutationModuleTabOpener.OpenDocumentResultTab(obj);
         }
 
-        private async void SaveReportAsync()
+        private void SaveReportAsync()
         {
+            // Change to open a tab instead
             /*
             _loadingDisplayer.ShowLoading("Saving report..");
             await Task.Run(() => _saveReportService.SaveReport(SurvivedDocuments));

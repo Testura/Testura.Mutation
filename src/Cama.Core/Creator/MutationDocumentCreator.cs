@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Cama.Core.Creator.Mutators;
+using Cama.Core.Exceptions;
 using Microsoft.CodeAnalysis.MSBuild;
 
 namespace Cama.Core.Creator
 {
-    public class MutationsDocumentCreator
+    public class MutationDocumentCreator
     {
         public async Task<IList<MutationDocument>> CreateMutationsAsync(CamaConfig config, IList<IMutator> mutationOperators)
         {
@@ -22,13 +23,13 @@ namespace Cama.Core.Creator
 
                 var list = new List<MutationDocument>();
 
-                foreach (var mutationprojectInfo in config.MutationProjects)
+                foreach (var mutationProjectInfo in config.MutationProjects)
                 {
-                    var currentProject = solution.Projects.FirstOrDefault(p => p.Name == mutationprojectInfo.Name);
+                    var currentProject = solution.Projects.FirstOrDefault(p => p.Name == mutationProjectInfo.Name);
 
                     if (currentProject == null)
                     {
-                        LogTo.Error($"Could not find any project with the name {mutationprojectInfo.Name}");
+                        LogTo.Error($"Could not find any project with the name {mutationProjectInfo.Name}");
                         continue;
                     }
 
@@ -73,8 +74,8 @@ namespace Cama.Core.Creator
             }
             catch (Exception ex)
             {
-                LogTo.ErrorException("Unkown exception", ex);
-                throw ex;
+                LogTo.ErrorException("Unknown exception when creating mutation documents", ex);
+                throw new MutationDocumentException("Unknown exception when creating mutation documents", ex);
             }
         }
     }

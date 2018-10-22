@@ -5,7 +5,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
-             xmlns:codeDiff="clr-namespace:Cama.Common.CodeDiff"
+             xmlns:codeDiff="clr-namespace:Cama.Helpers.CodeDiff"
              prism:ViewModelLocator.AutoWireViewModel="True"
              Header="{Binding Title}">
     <Grid>

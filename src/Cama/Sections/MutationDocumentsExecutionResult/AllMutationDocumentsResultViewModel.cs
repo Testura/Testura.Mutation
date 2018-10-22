@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Cama.Core;
-using Cama.Tabs;
+using Cama.Helpers.Openers.Tabs;
 using Prism.Commands;
 using Prism.Mvvm;
 

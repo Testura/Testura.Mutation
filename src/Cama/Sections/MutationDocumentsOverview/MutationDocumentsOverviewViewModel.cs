@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Cama.Core;
 using Cama.Core.Creator.Mutators;
-using Cama.Extensions;
+using Cama.Core.Exceptions;
+using Cama.Helpers.Displayers;
+using Cama.Helpers.Extensions;
+using Cama.Helpers.Openers.Tabs;
 using Cama.Models;
 using Cama.Service;
 using Cama.Service.Commands;
 using Cama.Service.Commands.Mutation.CreateMutations;
-using Cama.Tabs;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -50,26 +53,39 @@ namespace Cama.Sections.MutationDocumentsOverview
 
         public ObservableCollection<MutationOperatorGridItem> MutationOperatorGridItems { get; set; }
 
-        public bool IsMutationDocumentsLoaded => Documents.Any();
+        public void Initialize(CamaConfig config)
+        {
+            _config = config;
+        }
 
         private async void CreateDocuments()
         {
             _loadingDisplayer.ShowLoading("Creating mutation documents..");
-            var settings = MutationOperatorGridItems.Where(m => m.IsSelected).Select(m => m.MutationOperator);
-            var mutationDocuments = await _commandDispatcher.ExecuteCommandAsync(new CreateMutationsCommand(_config, settings.Select(MutationOperatorFactory.GetMutationOperator).ToList()));
-            var fileNames = mutationDocuments.Select(r => r.FileName).Distinct();
 
-            foreach (var fileName in fileNames)
+            try
             {
-                Documents.Add(new DocumentRowModel { MFile = new FileMutationsModel(fileName, mutationDocuments.Where(m => m.FileName == fileName).ToList() )});
+                var settings = MutationOperatorGridItems.Where(m => m.IsSelected).Select(m => m.MutationOperator);
+                var command = new CreateMutationsCommand(_config, settings.Select(MutationOperatorFactory.GetMutationOperator).ToList());
+
+                var mutationDocuments = await Task.Run(() => _commandDispatcher.ExecuteCommandAsync(command));
+                var fileNames = mutationDocuments.Select(r => r.FileName).Distinct();
+
+                foreach (var fileName in fileNames)
+                {
+                    Documents.Add(new DocumentRowModel
+                    {
+                        MFile = new FileMutationsModel(fileName, mutationDocuments.Where(m => m.FileName == fileName).ToList())
+                    });
+                }
             }
-
-            _loadingDisplayer.HideLoading();
-        }
-
-        public void Initialize(CamaConfig config)
-        {
-            _config = config;
+            catch (MutationDocumentException ex)
+            {
+                ErrorDialogDisplayer.ShowErrorDialog("Failed to create mutations", ex.Message, ex.InnerException?.Message);
+            }
+            finally
+            {
+                _loadingDisplayer.HideLoading();
+            }
         }
 
         private void RunAllMutations()

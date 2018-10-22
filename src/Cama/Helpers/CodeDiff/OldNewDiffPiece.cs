@@ -1,6 +1,6 @@
 ﻿using DiffPlex.DiffBuilder.Model;
 
-namespace Cama.Common.CodeDiff
+namespace Cama.Helpers.CodeDiff
 {
     public class OldNewDiffPiece
     {

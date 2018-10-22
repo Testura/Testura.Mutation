@@ -8,16 +8,16 @@ namespace Cama.Service.Commands.Mutation.CreateMutations
 {
     public class CreateMutationsCommandHandler : ValidateResponseRequestHandler<CreateMutationsCommand, IList<MutationDocument>>
     {
-        private readonly MutationsDocumentCreator _mutationsCreator;
+        private readonly MutationDocumentCreator _mutationsCreator;
 
-        public CreateMutationsCommandHandler(MutationsDocumentCreator mutationsCreator)
+        public CreateMutationsCommandHandler(MutationDocumentCreator mutationsCreator)
         {
             _mutationsCreator = mutationsCreator;
         }
 
-        public override async Task<IList<MutationDocument>> OnHandle(CreateMutationsCommand command, CancellationToken cancellationToken)
+        public override Task<IList<MutationDocument>> OnHandle(CreateMutationsCommand command, CancellationToken cancellationToken)
         {
-            return await _mutationsCreator.CreateMutationsAsync(command.Config, command.MutationOperators);
+            return _mutationsCreator.CreateMutationsAsync(command.Config, command.MutationOperators);
         }
     }
 }

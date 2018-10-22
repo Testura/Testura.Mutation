@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
+using System.Threading.Tasks;
+using Cama.Helpers;
+using Cama.Helpers.Openers;
+using Cama.Helpers.Openers.Tabs;
 using Cama.Service.Commands;
 using Cama.Service.Commands.Project.History.GetProjectHistory;
-using Cama.Service.Commands.Project.OpenProject;
-using Cama.Tabs;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -12,52 +13,62 @@ namespace Cama.Sections.Welcome
 {
     public class WelcomeViewModel : BindableBase, INotifyPropertyChanged
     {
-        private readonly IMainTabContainer _mainTabContainer;
-        private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
         private readonly IStartModuleTabOpener _startModuleTabOpener;
         private readonly ICommandDispatcher _commandDispatcher;
-        private readonly ILoadingDisplayer _loadingDisplayer;
+        private readonly MutationReportOpener _mutationReportOpener;
+        private readonly CamaProjectOpener _projectOpener;
+        private readonly FilePicker _filePickerService;
 
         public WelcomeViewModel(
-            IMutationModuleTabOpener mutationModuleTabOpener,
             IStartModuleTabOpener startModuleTabOpener,
             ICommandDispatcher commandDispatcher,
-            ILoadingDisplayer loadingDisplayer)
+            MutationReportOpener mutationReportOpener,
+            CamaProjectOpener projectOpener,
+            FilePicker filePickerService)
         {
-            _mutationModuleTabOpener = mutationModuleTabOpener;
             _startModuleTabOpener = startModuleTabOpener;
             _commandDispatcher = commandDispatcher;
-            _loadingDisplayer = loadingDisplayer;
-            ClickMeCommand = new DelegateCommand(ClickMe);
-            OpenHistoryProjectCommand = new DelegateCommand<string>(OpenHistoryProjectAsync);
+            _mutationReportOpener = mutationReportOpener;
+            _projectOpener = projectOpener;
+            _filePickerService = filePickerService;
+            CreateNewProjectCommand = new DelegateCommand(() => _startModuleTabOpener.OpenNewProjectTab());
+            OpenProjectCommand = new DelegateCommand(OpenProject);
+            OpenReportCommand = new DelegateCommand(OpenReport);
+            OpenHistoryProjectCommand = new DelegateCommand<string>(OpenProject);
             ProjectHistory = _commandDispatcher.ExecuteCommandAsync(new GetProjectHistoryCommand()).Result;
         }
 
         public IList<string> ProjectHistory { get; set; }
 
-        public DelegateCommand ClickMeCommand { get; set; }
+        public DelegateCommand OpenReportCommand { get; set; }
+
+        public DelegateCommand CreateNewProjectCommand { get; set; }
+
+        public DelegateCommand OpenProjectCommand { get; set; }
 
         public DelegateCommand<string> OpenHistoryProjectCommand { get; set; }
 
-        private async void ClickMe()
+        private void OpenProject()
         {
-            /*
-            _mainTabContainer.RemoveTab("Welcome");
-            _mutationModuleTabOpener.OpenOverviewTab();
-            */
-
-            _startModuleTabOpener.OpenNewProjectTab();
-
+            var file = _filePickerService.PickFile(FilePicker.Filter.Project);
+            if (!string.IsNullOrEmpty(file))
+            {
+                OpenProject(file);
+            }
         }
 
-        private async void OpenHistoryProjectAsync(string path)
+        private void OpenReport()
         {
-            _loadingDisplayer.ShowLoading($"Opening {Path.GetFileName(path)}");
-            var config = await _commandDispatcher.ExecuteCommandAsync(new OpenProjectCommand(path));
-            _loadingDisplayer.HideLoading();
-
-            _mutationModuleTabOpener.OpenOverviewTab(config);
+            var file = _filePickerService.PickFile(FilePicker.Filter.Report);
+            if (!string.IsNullOrEmpty(file))
+            {
+                _mutationReportOpener.OpenMutationReport(file);
+            }
         }
 
+        private void OpenProject(string path)
+        {
+            _projectOpener.OpenProject(path);
+        }
     }
 }

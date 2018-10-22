@@ -6,7 +6,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using DiffPlex.DiffBuilder.Model;
 
-namespace Cama.Common.CodeDiff
+namespace Cama.Helpers.CodeDiff
 {
     public class SideBySideDiffModelVisualizer
     {
@@ -57,7 +57,7 @@ namespace Cama.Common.CodeDiff
             diffBox.Document.Blocks.Clear();
             foreach (var line in lines)
             {
-                var lineSubPieces = Enumerable.Zip(line.Old.SubPieces, line.New.SubPieces, (oldPiece, newPiece) => new OldNewDiffPiece{ Old = oldPiece, New = newPiece, Length = Math.Max(oldPiece.Text?.Length ?? 0, newPiece.Text?.Length ?? 0) });
+                var lineSubPieces = Enumerable.Zip(line.Old.SubPieces, line.New.SubPieces, (oldPiece, newPiece) => new OldNewDiffPiece { Old = oldPiece, New = newPiece, Length = Math.Max(oldPiece.Text?.Length ?? 0, newPiece.Text?.Length ?? 0) });
 
                 var oldNewLine = lineSelector(line);
                 switch (oldNewLine.Type)

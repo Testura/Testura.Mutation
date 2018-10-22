@@ -10,7 +10,6 @@ namespace Cama.Models
 {
     public class MutationDocumentsExecutionResultModel : INotifyPropertyChanged
     {
-
         public MutationDocumentsExecutionResultModel()
         {
             MutationScore = "0%";
@@ -19,6 +18,7 @@ namespace Cama.Models
             MutationsSurvivedCount = new ObservableValue();
             MutationsKilledCount = new ObservableValue();
         }
+
 #pragma warning disable 067
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 067
