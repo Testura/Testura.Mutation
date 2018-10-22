@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Editing;
 
@@ -27,9 +28,9 @@ namespace Cama.Core
 
         public string MutationName => $"Proj: {ProjectName}, File: {FileName}({MutationDetails.Location.Where} - {MutationDetails.Location.Line})";
 
-        public Document CreateMutatedDocument()
+        public async Task<Document> CreateMutatedDocumentAsync()
         {
-            var editor = DocumentEditor.CreateAsync(_orginalDocument).Result;
+            var editor = await DocumentEditor.CreateAsync(_orginalDocument);
             editor.ReplaceNode(MutationDetails.Orginal, MutationDetails.Mutation);
             return _orginalDocument.WithText(editor.GetChangedDocument().GetSyntaxRootAsync().Result.GetText());
         }

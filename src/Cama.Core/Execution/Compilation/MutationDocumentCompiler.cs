@@ -16,7 +16,7 @@ namespace Cama.Core.Execution.Compilation
         {
             LogTo.Info($"Compiling mutation {document.MutationName} to {path}");
 
-            var mutatedDocument = document.CreateMutatedDocument();
+            var mutatedDocument = await document.CreateMutatedDocumentAsync();
             var compilation = await mutatedDocument.Project.GetCompilationAsync();
             var result = compilation.Emit(path, manifestResources: GetEmbeddedResources(mutatedDocument.Project.AssemblyName, mutatedDocument.Project.FilePath));
 

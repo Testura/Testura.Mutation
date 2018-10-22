@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using Cama.Core;
 using Cama.Core.Execution.Report.Cama;
@@ -99,8 +100,12 @@ namespace Cama.Sections.MutationDocumentsExecution
         private async void ExecuteMutationDocuments()
         {
             TestNotStarted = false;
-            await _commandDispatcher.ExecuteCommandAsync(
-                new ExecuteMutationsCommand(_config, RunningDocuments.Select(r => r.Document).ToList(), MutationDocumentStarted, MutationDocumentCompleted));
+            await Task.Run(() => _commandDispatcher.ExecuteCommandAsync(
+                new ExecuteMutationsCommand(
+                    _config,
+                    RunningDocuments.Select(r => r.Document).ToList(),
+                    MutationDocumentStarted,
+                    MutationDocumentCompleted)));
         }
 
         private void MutationDocumentStarted(MutationDocument mutationDocument)
