@@ -42,6 +42,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>..\..\settings\Cama.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -94,12 +95,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Behavior\AutoScrollBehavior.cs" />
-    <Compile Include="Common\CodeDiff\OldNewDiffPiece.cs" />
-    <Compile Include="Common\CodeDiff\SideBySideDiffModelVisualizer.cs" />
-    <Compile Include="Converts\IsZeroConverter.cs" />
-    <Compile Include="Extensions\EnumExtensions.cs" />
-    <Compile Include="ILoadingDisplayer.cs" />
+    <Compile Include="Helpers\Behavior\AutoScrollBehavior.cs" />
+    <Compile Include="Helpers\CodeDiff\OldNewDiffPiece.cs" />
+    <Compile Include="Helpers\CodeDiff\SideBySideDiffModelVisualizer.cs" />
+    <Compile Include="Helpers\Converts\IsZeroConverter.cs" />
+    <Compile Include="Helpers\Extensions\EnumExtensions.cs" />
+    <Compile Include="Helpers\Displayers\ILoadingDisplayer.cs" />
     <Compile Include="Models\DocumentRowModel.cs" />
     <Compile Include="Models\MutationDocumentsExecutionResultModel.cs" />
     <Compile Include="Models\MutationOperatorGridItem.cs" />
@@ -110,6 +111,9 @@
       <DependentUpon>DebugShellView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sections\Debug\DebugShellViewModel.cs" />
+    <Compile Include="Sections\Dialogs\ErrorDialogWindow.xaml.cs">
+      <DependentUpon>ErrorDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sections\MutationDetails\MutationFileDetailsView.xaml.cs">
       <DependentUpon>MutationFileDetailsView.xaml</DependentUpon>
     </Compile>
@@ -154,13 +158,15 @@
       <DependentUpon>WelcomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sections\Welcome\WelcomeViewModel.cs" />
-    <Compile Include="Services\FilePickerService.cs" />
-    <Compile Include="Services\SaveReportService.cs" />
-    <Compile Include="Tabs\IMainTabContainer.cs" />
-    <Compile Include="Tabs\IMutationModuleTabOpener.cs" />
-    <Compile Include="Tabs\IStartModuleTabOpener.cs" />
-    <Compile Include="Tab\MutationTabOpener.cs" />
-    <Compile Include="Tab\StartModuleTabOpener.cs" />
+    <Compile Include="Helpers\Displayers\ErrorDialogDisplayer.cs" />
+    <Compile Include="Helpers\FilePicker.cs" />
+    <Compile Include="Helpers\Openers\MutationReportOpener.cs" />
+    <Compile Include="Helpers\Openers\CamaProjectOpener.cs" />
+    <Compile Include="Helpers\Openers\Tabs\IMainTabContainer.cs" />
+    <Compile Include="Helpers\Openers\Tabs\IMutationModuleTabOpener.cs" />
+    <Compile Include="Helpers\Openers\Tabs\IStartModuleTabOpener.cs" />
+    <Compile Include="Helpers\Openers\Tabs\MutationTabOpener.cs" />
+    <Compile Include="Helpers\Openers\Tabs\StartModuleTabOpener.cs" />
     <Page Include="Resources\MaterialDesign.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -168,6 +174,10 @@
     <Page Include="Sections\Debug\DebugShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\Dialogs\ErrorDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Sections\MutationDetails\MutationFileDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -251,7 +261,6 @@
       <Link>Log4Net.Config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Cama_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -327,6 +336,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\error.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

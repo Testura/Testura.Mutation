@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows;
+using Cama.Helpers.Displayers;
+using Cama.Helpers.Openers.Tabs;
 using Cama.Sections.Loading;
 using Cama.Sections.Shell;
 using Cama.Service.Extensions;
 using Cama.Service.Logs;
-using Cama.Tab;
-using Cama.Tabs;
 using Microsoft.Build.Locator;
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;

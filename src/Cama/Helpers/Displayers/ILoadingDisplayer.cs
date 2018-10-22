@@ -1,4 +1,4 @@
-﻿namespace Cama
+﻿namespace Cama.Helpers.Displayers
 {
     public interface ILoadingDisplayer
     {

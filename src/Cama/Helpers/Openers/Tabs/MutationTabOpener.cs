@@ -5,10 +5,9 @@ using Cama.Sections.MutationDetails;
 using Cama.Sections.MutationDocumentsExecutionResult;
 using Cama.Sections.MutationDocumentsOverview;
 using Cama.Service;
-using Cama.Tabs;
 using MutationDocumentsExecutionView = Cama.Sections.MutationDocumentsExecution.MutationDocumentsExecutionView;
 
-namespace Cama.Tab
+namespace Cama.Helpers.Openers.Tabs
 {
     public class MutationTabOpener : IMutationModuleTabOpener
     {

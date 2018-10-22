@@ -1,13 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Cama.Behavior
+namespace Cama.Helpers.Behavior
 {
     public static class AutoScrollBehavior
     {
         public static readonly DependencyProperty AutoScrollProperty =
             DependencyProperty.RegisterAttached("AutoScroll", typeof(bool), typeof(AutoScrollBehavior), new PropertyMetadata(false, AutoScrollPropertyChanged));
-
 
         public static void AutoScrollPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
@@ -23,6 +22,11 @@ namespace Cama.Behavior
             }
         }
 
+        public static void SetAutoScroll(DependencyObject obj, bool value)
+        {
+            obj.SetValue(AutoScrollProperty, value);
+        }
+
         private static void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             // Only scroll to bottom when the extent changed. Otherwise you can't scroll up
@@ -31,16 +35,6 @@ namespace Cama.Behavior
                 var scrollViewer = sender as ScrollViewer;
                 scrollViewer?.ScrollToBottom();
             }
-        }
-
-        public static bool GetAutoScroll(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(AutoScrollProperty);
-        }
-
-        public static void SetAutoScroll(DependencyObject obj, bool value)
-        {
-            obj.SetValue(AutoScrollProperty, value);
         }
     }
 }

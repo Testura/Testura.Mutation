@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Linq;
 using Cama.Core;
+using Cama.Helpers.Openers.Tabs;
 using Cama.Service;
-using Cama.Tabs;
 using Prism.Commands;
 using Prism.Mvvm;
 

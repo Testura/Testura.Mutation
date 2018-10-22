@@ -1,31 +1,49 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Cama.Core.Execution.Report.Cama;
-using Cama.Tabs;
-using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using Cama.Helpers.Openers;
 using Prism.Mvvm;
 
 namespace Cama.Sections.Shell
 {
     public class ShellViewModel : BindableBase
     {
-        private readonly IMutationModuleTabOpener _moduleTabOpener;
+        private readonly CamaProjectOpener _projectOpener;
+        private readonly MutationReportOpener _mutationReportOpener;
 
-        public ShellViewModel(IMutationModuleTabOpener moduleTabOpener)
+        public ShellViewModel(
+            CamaProjectOpener projectOpener,
+            MutationReportOpener mutationReportOpener)
         {
-            _moduleTabOpener = moduleTabOpener;
+            _projectOpener = projectOpener;
+            _mutationReportOpener = mutationReportOpener;
             MyInterTabClient = new MyInterTabClient();
         }
 
         public MyInterTabClient MyInterTabClient { get; set; }
 
-        public void OpenReport(IEnumerable<string> files)
+        public void Open(IEnumerable<string> paths)
         {
-            foreach (var file in files)
+            foreach (var path in paths)
             {
-                var report = JsonConvert.DeserializeObject<CamaReport>(File.ReadAllText(file));
-                _moduleTabOpener.OpenTestRunTab(report);
+                // Change this to a constant somewhere?
+                if (path.EndsWith(".cama", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    OpenReport(path);
+                    continue;
+                }
+
+                OpenProject(path);
             }
+        }
+
+        public void OpenProject(string path)
+        {
+           _projectOpener.OpenProject(path);
+        }
+
+        public void OpenReport(string path)
+        {
+            _mutationReportOpener.OpenMutationReport(path);
         }
     }
 }

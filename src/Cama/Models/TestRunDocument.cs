@@ -9,7 +9,11 @@ namespace Cama.Models
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 067
 
-        public enum TestRunStatusEnum { Running, Waiting }
+        public enum TestRunStatusEnum
+        {
+            Running,
+            Waiting
+        }
 
         public MutationDocument Document { get; set; }
 

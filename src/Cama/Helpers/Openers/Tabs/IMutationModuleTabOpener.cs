@@ -3,7 +3,7 @@ using Cama.Core;
 using Cama.Core.Execution.Report.Cama;
 using Cama.Service;
 
-namespace Cama.Tabs
+namespace Cama.Helpers.Openers.Tabs
 {
     public interface IMutationModuleTabOpener
     {

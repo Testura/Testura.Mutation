@@ -3,14 +3,15 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Cama.Core.Solution;
+using Cama.Helpers;
+using Cama.Helpers.Displayers;
+using Cama.Helpers.Openers.Tabs;
 using Cama.Models;
 using Cama.Service.Commands;
 using Cama.Service.Commands.Project.CreateProject;
 using Cama.Service.Commands.Project.History.AddProjectHistory;
 using Cama.Service.Commands.Project.OpenProject;
 using Cama.Service.Models;
-using Cama.Services;
-using Cama.Tabs;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -18,14 +19,14 @@ namespace Cama.Sections.NewProject
 {
     public class NewProjectViewModel : BindableBase, INotifyPropertyChanged
     {
-        private readonly FilePickerService _filePickerService;
+        private readonly FilePicker _filePickerService;
         private readonly SolutionInfoService _solutionInfoService;
         private readonly ILoadingDisplayer _loadingDisplayer;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
 
         public NewProjectViewModel(
-            FilePickerService filePickerService,
+            FilePicker filePickerService,
             SolutionInfoService solutionInfoService,
             ILoadingDisplayer loadingDisplayer,
             ICommandDispatcher commandDispatcher,
@@ -63,7 +64,7 @@ namespace Cama.Sections.NewProject
 
         private async void PickSolutionPathAsync()
         {
-            var file = _filePickerService.PickFile();
+            var file = _filePickerService.PickFile(FilePicker.Filter.Solution);
             if (!string.IsNullOrEmpty(file))
             {
                 _loadingDisplayer.ShowLoading("Grabbing solution info..");
