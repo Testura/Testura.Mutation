@@ -47,7 +47,12 @@ namespace Cama.Core.Execution.Compilation
             var embeddedResources = doc.Descendants().Where(d => d.Name.LocalName.Equals("EmbeddedResource", StringComparison.InvariantCultureIgnoreCase));
             foreach (var embeddedResource in embeddedResources)
             {
-                var path = embeddedResource.Attribute("Include").Value;
+                var path = embeddedResource.Attribute("Include")?.Value;
+                if (path == null)
+                {
+                    continue;
+                }
+
                 var pathFixed = path.Split('\\');
 
                 var resourcePath = Path.Combine(Path.GetDirectoryName(projectPath), path);
