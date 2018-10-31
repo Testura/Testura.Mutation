@@ -1,5 +1,6 @@
 ﻿using Cama.Core.Location;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cama.Core
 {
