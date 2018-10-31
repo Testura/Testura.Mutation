@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Anotar.Log4Net;
 using Microsoft.CodeAnalysis;
 using Newtonsoft.Json.Linq;
