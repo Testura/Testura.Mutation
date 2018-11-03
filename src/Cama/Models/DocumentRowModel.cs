@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using Cama.Service;
+using Cama.Application;
 
 namespace Cama.Models
 {

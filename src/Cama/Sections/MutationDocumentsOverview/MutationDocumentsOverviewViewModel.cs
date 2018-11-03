@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Cama.Application;
+using Cama.Application.Commands.Mutation.CreateMutations;
 using Cama.Core;
 using Cama.Core.Creator.Mutators;
 using Cama.Core.Exceptions;
@@ -9,8 +11,6 @@ using Cama.Helpers.Displayers;
 using Cama.Helpers.Extensions;
 using Cama.Helpers.Openers.Tabs;
 using Cama.Models;
-using Cama.Service;
-using Cama.Service.Commands.Mutation.CreateMutations;
 using MediatR;
 using Prism.Commands;
 using Prism.Mvvm;

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows;
+using Cama.Application.Commands.Mutation.ExecuteMutations;
 using Cama.Core;
 using Cama.Core.Execution.Report.Cama;
 using Cama.Helpers.Openers.Tabs;
 using Cama.Models;
-using Cama.Service.Commands.Mutation.ExecuteMutations;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -121,7 +120,7 @@ namespace Cama.Sections.MutationDocumentsExecution
 
                 if (runDocument != null)
                 {
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() => RunningDocuments.Remove(runDocument)));
+                    System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() => RunningDocuments.Remove(runDocument)));
                 }
 
                 MutationDocumentsExecutionResults.AddResult(result);

@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
+using Cama.Application.Commands.Project.OpenProject;
+using Cama.Application.Exceptions;
 using Cama.Helpers.Displayers;
 using Cama.Helpers.Openers.Tabs;
-using Cama.Service.Commands.Project.OpenProject;
-using Cama.Service.Exceptions;
 using FluentValidation;
 using MediatR;
 

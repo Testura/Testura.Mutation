@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using Cama.Service.Logs;
+using Cama.Application.Logs;
 using Prism.Mvvm;
 
 namespace Cama.Sections.Debug

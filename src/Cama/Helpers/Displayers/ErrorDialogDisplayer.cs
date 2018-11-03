@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using Cama.Sections.Dialogs;
+﻿using Cama.Sections.Dialogs;
 
 namespace Cama.Helpers.Displayers
 {
@@ -10,7 +9,7 @@ namespace Cama.Helpers.Displayers
             var dialog = new ErrorDialogWindow(message, details, title)
             {
                 ShowInTaskbar = false,
-                Owner = Application.Current.MainWindow
+                Owner = System.Windows.Application.Current.MainWindow
             };
 
             dialog.ShowDialog();

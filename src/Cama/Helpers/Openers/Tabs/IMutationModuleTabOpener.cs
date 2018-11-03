@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using Cama.Application;
 using Cama.Core;
 using Cama.Core.Execution.Report.Cama;
-using Cama.Service;
 
 namespace Cama.Helpers.Openers.Tabs
 {

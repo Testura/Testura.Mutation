@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using Cama.Application.Commands.Project.History.GetProjectHistory;
 using Cama.Helpers;
 using Cama.Helpers.Openers;
 using Cama.Helpers.Openers.Tabs;
-using Cama.Service.Commands.Project.History.GetProjectHistory;
 using MediatR;
 using Prism.Commands;
 using Prism.Mvvm;

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows;
+using Cama.Application.Extensions;
+using Cama.Application.Logs;
 using Cama.Helpers.Displayers;
 using Cama.Helpers.Openers.Tabs;
 using Cama.Sections.Loading;
 using Cama.Sections.Shell;
-using Cama.Service.Extensions;
-using Cama.Service.Logs;
 using Microsoft.Build.Locator;
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;
@@ -57,7 +57,7 @@ namespace Cama
         protected override void InitializeShell()
         {
             MSBuildLocator.RegisterDefaults();
-            Application.Current.MainWindow.Show();
+            System.Windows.Application.Current.MainWindow.Show();
         }
 
         protected override void ConfigureContainer()

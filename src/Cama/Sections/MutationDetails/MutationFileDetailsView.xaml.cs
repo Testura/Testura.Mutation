@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
+using Cama.Application;
 using Cama.Core;
-using Cama.Service;
 
 namespace Cama.Sections.MutationDetails
 {
