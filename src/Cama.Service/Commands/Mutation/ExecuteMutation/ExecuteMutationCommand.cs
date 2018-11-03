@@ -1,5 +1,4 @@
-﻿using System;
-using Cama.Core;
+﻿using Cama.Core;
 using MediatR;
 
 namespace Cama.Service.Commands.Mutation.ExecuteMutation

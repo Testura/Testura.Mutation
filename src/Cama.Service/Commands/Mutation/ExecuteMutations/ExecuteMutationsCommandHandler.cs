@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Cama.Core;
 using Cama.Core.Execution;
+using MediatR;
 
 namespace Cama.Service.Commands.Mutation.ExecuteMutations
 {
-    public class ExecuteMutationsCommandHandler : ValidateResponseRequestHandler<ExecuteMutationsCommand, IList<MutationDocumentResult>>
+    public class ExecuteMutationsCommandHandler : IRequestHandler<ExecuteMutationsCommand, IList<MutationDocumentResult>>
     {
         private readonly MutationDocumentExecutor _mutationDocumentExecutor;
 
@@ -18,7 +19,7 @@ namespace Cama.Service.Commands.Mutation.ExecuteMutations
             _mutationDocumentExecutor = mutationDocumentExecutor;
         }
 
-        public override async Task<IList<MutationDocumentResult>> OnHandle(ExecuteMutationsCommand command, CancellationToken cancellationToken)
+        public async Task<IList<MutationDocumentResult>> Handle(ExecuteMutationsCommand command, CancellationToken cancellationToken)
         {
             var semaphoreSlim = new SemaphoreSlim(command.Config.NumberOfTestRunInstances, command.Config.NumberOfTestRunInstances);
             var results = new List<MutationDocumentResult>();

@@ -10,22 +10,16 @@ using Cama.Core.Exceptions;
 using Cama.Core.Solution;
 using Cama.Service.Exceptions;
 using Cama.Service.Models;
-using FluentValidation;
-using Microsoft.Build.Locator;
+using MediatR;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.MSBuild;
 using Newtonsoft.Json;
 
 namespace Cama.Service.Commands.Project.OpenProject
 {
-    public class OpenProjectCommandHandler : ValidateResponseRequestHandler<OpenProjectCommand, CamaConfig>
+    public class OpenProjectCommandHandler : IRequestHandler<OpenProjectCommand, CamaConfig>
     {
-        public OpenProjectCommandHandler(IValidator<OpenProjectCommand> validators)
-            : base(validators)
-        {
-        }
-
-        public override async Task<CamaConfig> OnHandle(OpenProjectCommand command, CancellationToken cancellationToken)
+        public async Task<CamaConfig> Handle(OpenProjectCommand command, CancellationToken cancellationToken)
         {
             var path = command.Path;
 

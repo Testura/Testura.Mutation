@@ -3,13 +3,14 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Cama.Service.Commands.Project.History.AddProjectHistory;
+using MediatR;
 using Newtonsoft.Json;
 
 namespace Cama.Service.Commands.Project.History.GetProjectHistory
 {
-    public class GetProjectHistoryCommandHandler : ValidateResponseRequestHandler<GetProjectHistoryCommand, IList<string>>
+    public class GetProjectHistoryCommandHandler : IRequestHandler<GetProjectHistoryCommand, IList<string>>
     {
-        public override async Task<IList<string>> OnHandle(GetProjectHistoryCommand command, CancellationToken cancellationToken)
+        public async Task<IList<string>> Handle(GetProjectHistoryCommand command, CancellationToken cancellationToken)
         {
             if (!File.Exists(AddProjectHistoryCommandHandler.HistoryPath))
             {

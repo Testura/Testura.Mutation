@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Cama.Core;
 using Cama.Service.Commands;
+using Cama.Service.Commands.Project.History.GetProjectHistory;
+using Cama.Service.Commands.Project.OpenProject;
+using Cama.Service.Infrastructure;
 using FluentValidation;
 using MediatR;
+using MediatR.Pipeline;
 using Microsoft.Practices.Unity;
 
 namespace Cama.Service.Extensions
@@ -13,11 +18,12 @@ namespace Cama.Service.Extensions
     {
         public static IUnityContainer RegisterMediator(this IUnityContainer container, LifetimeManager lifetimeManager)
         {
-            container.RegisterType<ICommandDispatcher, CommandDispatcher>();
-            container.RegisterMediatorHandlers(Assembly.GetAssembly(typeof(CommandDispatcher)));
-            container.RegisterMediatorValidators(Assembly.GetAssembly(typeof(CommandDispatcher)));
+            container.RegisterType(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
+            container.RegisterType(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>), "RequestValidationBehavior");
+            container.RegisterMediatorValidators(Assembly.GetAssembly(typeof(RequestValidationBehavior<,>)));
 
-            return container.RegisterType<IMediator, Mediator>(lifetimeManager)
+
+            container.RegisterType<IMediator, Mediator>(lifetimeManager)
                 .RegisterInstance<ServiceFactory>(type =>
                 {
                     var enumerableType = type
@@ -31,6 +37,10 @@ namespace Cama.Service.Extensions
                             ? container.Resolve(type)
                             : null;
                 });
+
+            container.RegisterMediatorHandlers(Assembly.GetAssembly(typeof(OpenProjectCommandHandler)));
+
+            return container;
         }
 
         public static IUnityContainer RegisterMediatorHandlers(this IUnityContainer container, Assembly assembly)
@@ -46,29 +56,6 @@ namespace Cama.Service.Extensions
             return container;
         }
 
-        internal static bool IsGenericTypeOf(this Type type, Type genericType)
-        {
-            return type.IsGenericType &&
-                   type.GetGenericTypeDefinition() == genericType;
-        }
-
-        internal static void AddGenericTypes(this List<object> list, IUnityContainer container, Type genericType)
-        {
-            var genericHandlerRegistrations =
-                container.Registrations.Where(reg => reg.RegisteredType == genericType);
-
-            foreach (var handlerRegistration in genericHandlerRegistrations)
-            {
-                if (list.All(item => item.GetType() != handlerRegistration.MappedToType))
-                {
-                    list.Add(container.Resolve(handlerRegistration.MappedToType));
-                }
-            }
-        }
-
-        /// <summary>
-        ///     Register all implementations of a given type for provided assembly.
-        /// </summary>
         public static IUnityContainer RegisterTypesImplementingType(this IUnityContainer container, Assembly assembly, Type type)
         {
             foreach (var implementation in assembly.GetTypes().Where(t => t.GetInterfaces().Any(implementation => IsSubclassOfRawGeneric(type, implementation))))
@@ -81,9 +68,6 @@ namespace Cama.Service.Extensions
             return container;
         }
 
-        /// <summary>
-        ///     Register all implementations of a given type for provided assembly.
-        /// </summary>
         public static IUnityContainer RegisterNamedTypesImplementingType(this IUnityContainer container, Assembly assembly, Type type)
         {
             foreach (var implementation in assembly.GetTypes().Where(t => t.GetInterfaces().Any(implementation => IsSubclassOfRawGeneric(type, implementation))))

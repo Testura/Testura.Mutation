@@ -1,10 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cama.Core.Execution.Compilation;
+using MediatR;
 
 namespace Cama.Service.Commands.Mutation.CompileMutation
 {
-    public class CompileMutationCommandHandler : ValidateResponseRequestHandler<CompileMutationCommand, CompilationResult>
+    public class CompileMutationCommandHandler : IRequestHandler<CompileMutationCommand, CompilationResult>
     {
         private readonly MutationDocumentCompiler _compiler;
 
@@ -13,7 +14,7 @@ namespace Cama.Service.Commands.Mutation.CompileMutation
             _compiler = compiler;
         }
 
-        public override async Task<CompilationResult> OnHandle(CompileMutationCommand command, CancellationToken cancellationToken)
+        public async Task<CompilationResult> Handle(CompileMutationCommand command, CancellationToken cancellationToken)
         {
             return await _compiler.CompileAsync(command.SavePath, command.Mutation);
         }

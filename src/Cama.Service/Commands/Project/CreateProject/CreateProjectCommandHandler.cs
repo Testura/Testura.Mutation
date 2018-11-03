@@ -2,13 +2,14 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
+using MediatR;
 using Newtonsoft.Json;
 
 namespace Cama.Service.Commands.Project.CreateProject
 {
-    public class CreateProjectCommandHandler : ValidateResponseRequestHandler<CreateProjectCommand, bool>
+    public class CreateProjectCommandHandler : IRequestHandler<CreateProjectCommand, bool>
     {
-        public override Task<bool> OnHandle(CreateProjectCommand command, CancellationToken cancellationToken)
+        public Task<bool> Handle(CreateProjectCommand command, CancellationToken cancellationToken)
         {
             LogTo.Info("Creating project file");
             File.WriteAllText(command.SavePath, JsonConvert.SerializeObject(command.Config));

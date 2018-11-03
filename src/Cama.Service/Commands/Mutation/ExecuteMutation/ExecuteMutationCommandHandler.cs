@@ -2,10 +2,11 @@
 using System.Threading.Tasks;
 using Cama.Core;
 using Cama.Core.Execution;
+using MediatR;
 
 namespace Cama.Service.Commands.Mutation.ExecuteMutation
 {
-    public class ExecuteMutationCommandHandler : ValidateResponseRequestHandler<ExecuteMutationCommand, MutationDocumentResult>
+    public class ExecuteMutationCommandHandler : IRequestHandler<ExecuteMutationCommand, MutationDocumentResult>
     {
         private readonly MutationDocumentExecutor _mutationDocumentExecutor;
 
@@ -14,7 +15,7 @@ namespace Cama.Service.Commands.Mutation.ExecuteMutation
             _mutationDocumentExecutor = mutationDocumentExecutor;
         }
 
-        public override async Task<MutationDocumentResult> OnHandle(ExecuteMutationCommand command, CancellationToken cancellationToken)
+        public async Task<MutationDocumentResult> Handle(ExecuteMutationCommand command, CancellationToken cancellationToken)
         {
             return await _mutationDocumentExecutor.ExecuteMutationAsync(command.Config, command.Mutation);
         }

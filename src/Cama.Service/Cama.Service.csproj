@@ -206,30 +206,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\CommandDispatcher.cs" />
-    <Compile Include="Commands\ICommandDispatcher.cs" />
     <Compile Include="Commands\Mutation\CompileMutation\CompileMutationCommand.cs" />
     <Compile Include="Commands\Mutation\CompileMutation\CompileMutationCommandHandler.cs" />
+    <Compile Include="Commands\Mutation\CompileMutation\CompileMutationCommandValidator.cs" />
     <Compile Include="Commands\Mutation\CreateMutations\CreateMutationsCommand.cs" />
     <Compile Include="Commands\Mutation\CreateMutations\CreateMutationsCommandHandler.cs" />
+    <Compile Include="Commands\Mutation\CreateMutations\CreateMutationsCommandValidator.cs" />
+    <Compile Include="Commands\Mutation\ExecuteMutations\ExecuteMutationsCommandValidator.cs" />
     <Compile Include="Commands\Mutation\ExecuteMutations\ExecuteMutationsCommand.cs" />
     <Compile Include="Commands\Mutation\ExecuteMutations\ExecuteMutationsCommandHandler.cs" />
     <Compile Include="Commands\Mutation\ExecuteMutation\ExecuteMutationCommand.cs" />
     <Compile Include="Commands\Mutation\ExecuteMutation\ExecuteMutationCommandHandler.cs" />
+    <Compile Include="Commands\Mutation\ExecuteMutation\ExecuteMutationCommandValidator.cs" />
+    <Compile Include="Commands\Project\CreateProject\CreateProjectCommandValidator.cs" />
+    <Compile Include="Commands\Project\History\AddProjectHistory\AddProjectHistoryCommandValidator.cs" />
     <Compile Include="Commands\Project\History\AddProjectHistory\AddProjectHistoryCommand.cs" />
     <Compile Include="Commands\Project\History\AddProjectHistory\AddProjectHistoryCommandHandler.cs" />
     <Compile Include="Commands\Project\CreateProject\CreateProjectCommand.cs" />
     <Compile Include="Commands\Project\CreateProject\CreateProjectCommandHandler.cs" />
     <Compile Include="Commands\Project\History\GetProjectHistory\GetProjectHistoryCommand.cs" />
     <Compile Include="Commands\Project\History\GetProjectHistory\GetProjectHistoryCommandHandler.cs" />
+    <Compile Include="Commands\Project\History\GetProjectHistory\GetProjectHistoryCommandValidator.cs" />
     <Compile Include="Commands\Project\OpenProject\OpenProjectCommand.cs" />
     <Compile Include="Commands\Project\OpenProject\OpenProjectCommandHandler.cs" />
     <Compile Include="Commands\Project\OpenProject\OpenProjectCommandValidator.cs" />
     <Compile Include="Commands\Report\Creator\CreateReportCommand.cs" />
     <Compile Include="Commands\Report\Creator\CreateReportCommandHandler.cs" />
-    <Compile Include="Commands\ValidateResponseRequestHandler.cs" />
     <Compile Include="Exceptions\OpenProjectException.cs" />
     <Compile Include="FileMutationsModel.cs" />
+    <Compile Include="Infrastructure\RequestLogger.cs" />
+    <Compile Include="Infrastructure\RequestValidationBehavior.cs" />
     <Compile Include="Logs\LogWatcher.cs" />
     <Compile Include="Logs\MemoryAppenderWithEvents.cs" />
     <Compile Include="Models\CamaFileConfig.cs" />
@@ -256,6 +262,7 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Fody.3.1.0\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.1.0\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
