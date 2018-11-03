@@ -1,5 +1,4 @@
-﻿using Cama.Service.Extensions;
-using Microsoft.Build.Locator;
+﻿using Cama.Application.Extensions;
 using Microsoft.Practices.Unity;
 
 namespace Cama.Console

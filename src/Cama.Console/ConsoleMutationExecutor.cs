@@ -2,6 +2,10 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Cama.Application.Commands.Mutation.CreateMutations;
+using Cama.Application.Commands.Mutation.ExecuteMutations;
+using Cama.Application.Commands.Project.OpenProject;
+using Cama.Application.Commands.Report.Creator;
 using Cama.Core.Creator.Mutators;
 using Cama.Core.Creator.Mutators.BinaryExpressionMutators;
 using Cama.Core.Execution.Report;
@@ -9,10 +13,6 @@ using Cama.Core.Execution.Report.Cama;
 using Cama.Core.Execution.Report.Html;
 using Cama.Core.Execution.Report.Markdown;
 using Cama.Core.Execution.Report.Trx;
-using Cama.Service.Commands.Mutation.CreateMutations;
-using Cama.Service.Commands.Mutation.ExecuteMutations;
-using Cama.Service.Commands.Project.OpenProject;
-using Cama.Service.Commands.Report.Creator;
 using MediatR;
 
 namespace Cama.Console
