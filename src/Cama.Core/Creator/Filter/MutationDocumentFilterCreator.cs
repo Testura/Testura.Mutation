@@ -37,13 +37,12 @@ namespace Cama.Core.Creator.Filter
                 {
                     if (line.Contains(","))
                     {
-                        var singleLineSplit = line.Split(',');
-                        var start = int.Parse(singleLineSplit[0]);
-                        lines.Add(start);
+                        var startAndCount = line.Split(',');
+                        var start = int.Parse(startAndCount[0]);
 
-                        for (int n = 0; n < int.Parse(singleLineSplit[1]); n++)
+                        for (int n = 0; n <= int.Parse(startAndCount[1]); n++)
                         {
-                            lines.Add(start + n + 1);
+                            lines.Add(start + n);
                         }
 
                         continue;
