@@ -99,7 +99,11 @@ namespace Cama.Sections.MutationDocumentsExecution
         {
             TestNotStarted = false;
             await _mediator.Send(
-                new ExecuteMutationsCommand(_config, RunningDocuments.Select(r => r.Document).ToList(), MutationDocumentStarted, MutationDocumentCompleted));
+                new ExecuteMutationsCommand(
+                    _config,
+                    RunningDocuments.Select(r => r.Document).ToList(),
+                    MutationDocumentStarted,
+                    MutationDocumentCompleted));
         }
 
         private void MutationDocumentStarted(MutationDocument mutationDocument)

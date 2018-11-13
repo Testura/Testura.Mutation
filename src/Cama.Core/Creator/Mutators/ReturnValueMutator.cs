@@ -31,7 +31,7 @@ namespace Cama.Core.Creator.Mutators
 
                 if (literlaExpression.IsKind(SyntaxKind.NullLiteralExpression))
                 {
-                    newNode = node.Parent.ReplaceNode(node.Parent, SyntaxFactory.ThrowStatement(SyntaxFactory.ObjectCreationExpression(SyntaxFactory.IdentifierName(typeof(Exception).Name)).WithArgumentList(SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList<ArgumentSyntax>(SyntaxFactory.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal("Mmmmutation"))))))));
+                    newNode = node.Parent.ReplaceNode(node.Parent, SyntaxFactory.ThrowStatement(SyntaxFactory.ObjectCreationExpression(SyntaxFactory.IdentifierName($"System.{typeof(Exception).Name}")).WithArgumentList(SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList<ArgumentSyntax>(SyntaxFactory.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal("Mmmmutation"))))))));
                 }
 
                 if (literlaExpression.IsKind(SyntaxKind.StringLiteralExpression))
