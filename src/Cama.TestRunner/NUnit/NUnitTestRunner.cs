@@ -100,7 +100,7 @@ namespace Cama.TestRunner.NUnit
 
         private TestSuiteResult CreateResult(XmlNode result)
         {
-            var nUnitTestCaseResultMaker = new TestCaseResultMaker();
+            var nUnitTestCaseResultMaker = new NUnitTestCaseResultMaker();
             if (result.Name != "test-run")
             {
                 throw new InvalidOperationException("Expected <test-run> as top-level element but was <" + result.Name + ">");

@@ -34,7 +34,8 @@ namespace Cama.Application.Commands.Project.OpenProject
                     Filter = fileConfig.Filter ?? new List<string>(),
                     NumberOfTestRunInstances = fileConfig.NumberOfTestRunInstances,
                     BuildConfiguration = fileConfig.BuildConfiguration,
-                    MaxTestTimeMin = fileConfig.MaxTestTimeMin
+                    MaxTestTimeMin = fileConfig.MaxTestTimeMin,
+                    TestRunner = fileConfig.TestRunner
                 };
 
                 using (var workspace = MSBuildWorkspace.Create())

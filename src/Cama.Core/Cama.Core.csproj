@@ -56,10 +56,8 @@
     <Compile Include="Exceptions\CompilationException.cs" />
     <Compile Include="Exceptions\ProjectSetUpException.cs" />
     <Compile Include="Execution\Report\Html\HtmlOnlyBodyReportCreator.cs" />
-    <Compile Include="Execution\Result\Maker\ITestCaseResultMakerFactory.cs" />
     <Compile Include="Execution\Runners\ITestRunner.cs" />
     <Compile Include="Execution\MutationDocumentExecutor.cs" />
-    <Compile Include="Execution\Result\Maker\ITestCaseResultMaker.cs" />
     <Compile Include="Execution\Result\TestResult.cs" />
     <Compile Include="Execution\Result\TestSuiteResult.cs" />
     <Compile Include="Execution\Runners\ITestRunnerFactory.cs" />
