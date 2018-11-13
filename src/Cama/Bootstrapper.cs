@@ -3,10 +3,12 @@ using System.Reflection;
 using System.Windows;
 using Cama.Application.Extensions;
 using Cama.Application.Logs;
+using Cama.Core.Execution.Runners;
 using Cama.Helpers.Displayers;
 using Cama.Helpers.Openers.Tabs;
 using Cama.Sections.Loading;
 using Cama.Sections.Shell;
+using Cama.TestRunner;
 using Microsoft.Build.Locator;
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;
@@ -70,6 +72,7 @@ namespace Cama
             Container.RegisterType<IStartModuleTabOpener, StartModuleTabOpener>();
             Container.RegisterType<LogWatcher>(new ContainerControlledLifetimeManager());
             Container.RegisterType<LoadingViewModel>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ITestRunnerFactory, TestRunnerFactory>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ILoadingDisplayer, LoadingViewModel>(new ContainerControlledLifetimeManager());
         }
     }

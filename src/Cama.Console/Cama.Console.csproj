@@ -41,6 +41,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet>..\..\settings\Cama.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -57,13 +59,7 @@
     <ApplicationIcon>icon_Inx_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>B04CB3568A0A61DED91D1A2319C6DF5BE9D757A3</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>Cama.Console_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -74,6 +70,9 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Anotar.Log4Net, Version=4.6.2.0, Culture=neutral, PublicKeyToken=9d5b24f0733c26f7, processorArchitecture=MSIL">
@@ -249,6 +248,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cama.Application\Cama.Application.csproj">
@@ -259,10 +259,16 @@
       <Project>{43eb1e4e-4f79-4554-b358-4a6d711ce39a}</Project>
       <Name>Cama.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cama.TestRunner\Cama.TestRunner.csproj">
+      <Project>{8aeeab5d-ea0b-4ddc-a355-ceed97d518e1}</Project>
+      <Name>Cama.TestRunner</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />

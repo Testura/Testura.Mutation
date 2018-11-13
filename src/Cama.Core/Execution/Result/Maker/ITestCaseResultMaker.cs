@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace Cama.Core.Execution.Result.Maker
 {
-    public interface INUnitTestCaseResultMaker
+    public interface ITestCaseResultMaker
     {
         IList<TestResult> CreateTestCaseResult(XmlNode startNode);
     }

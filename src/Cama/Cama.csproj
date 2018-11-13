@@ -52,6 +52,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\settings\Cama.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>icon_Inx_icon.ico</ApplicationIcon>
@@ -273,6 +274,9 @@
     <PackageReference Include="Dragablz">
       <Version>0.0.3.203</Version>
     </PackageReference>
+    <PackageReference Include="FluentValidation">
+      <Version>7.6.105</Version>
+    </PackageReference>
     <PackageReference Include="LiveCharts.Wpf">
       <Version>0.9.7</Version>
     </PackageReference>
@@ -292,6 +296,11 @@
     <PackageReference Include="PropertyChanged.Fody">
       <Version>2.5.11</Version>
     </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers">
+      <Version>1.0.2</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Unity.Abstractions">
       <Version>3.3.1</Version>
     </PackageReference>
@@ -304,6 +313,10 @@
     <ProjectReference Include="..\Cama.Application\Cama.Application.csproj">
       <Project>{4e413455-59c5-4da5-870a-a3481d2c6b8a}</Project>
       <Name>Cama.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cama.TestRunner\Cama.TestRunner.csproj">
+      <Project>{8aeeab5d-ea0b-4ddc-a355-ceed97d518e1}</Project>
+      <Name>Cama.TestRunner</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

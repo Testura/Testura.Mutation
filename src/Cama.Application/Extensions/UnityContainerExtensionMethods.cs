@@ -19,7 +19,6 @@ namespace Cama.Application.Extensions
             container.RegisterType(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>), "RequestValidationBehavior");
             container.RegisterMediatorValidators(Assembly.GetAssembly(typeof(RequestValidationBehavior<,>)));
 
-
             container.RegisterType<IMediator, Mediator>(lifetimeManager)
                 .RegisterInstance<ServiceFactory>(type =>
                 {
@@ -59,7 +58,9 @@ namespace Cama.Application.Extensions
             {
                 var interfaces = implementation.GetInterfaces();
                 foreach (var @interface in interfaces)
+                {
                     container.RegisterType(@interface, implementation);
+                }
             }
 
             return container;
@@ -71,7 +72,9 @@ namespace Cama.Application.Extensions
             {
                 var interfaces = implementation.GetInterfaces();
                 foreach (var @interface in interfaces)
+                {
                     container.RegisterType(@interface, implementation, implementation.FullName);
+                }
             }
 
             return container;
@@ -83,7 +86,9 @@ namespace Cama.Application.Extensions
             {
                 var currentType = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
                 if (generic == currentType)
+                {
                     return true;
+                }
 
                 toCheck = toCheck.BaseType;
             }

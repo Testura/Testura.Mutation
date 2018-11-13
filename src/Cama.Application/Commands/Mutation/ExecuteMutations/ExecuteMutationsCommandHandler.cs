@@ -28,7 +28,7 @@ namespace Cama.Application.Commands.Mutation.ExecuteMutations
             var tasks = command.MutationDocuments.Select((document) => Task.Run(async () =>
             {
                 MutationDocumentResult result = null;
-                
+
                 try
                 {
                     semaphoreSlim.Wait();

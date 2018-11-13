@@ -27,7 +27,6 @@ namespace Cama.Application.Commands.Project.OpenProject
 
             try
             {
-
                 var fileConfig = JsonConvert.DeserializeObject<CamaFileConfig>(File.ReadAllText(path));
                 var config = new CamaConfig
                 {
@@ -68,7 +67,7 @@ namespace Cama.Application.Commands.Project.OpenProject
 
                 return config;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogTo.ErrorException("Failed to open project", ex);
                 throw new OpenProjectException("Failed to open project", ex);

@@ -11,6 +11,7 @@ namespace Cama.Core
             TestProjects = new List<SolutionProjectInfo>();
             Filter = new List<string>();
             MaxTestTimeMin = 5;
+            TestRunner = "nunit";
         }
 
         public string SolutionPath { get; set; }
@@ -26,5 +27,7 @@ namespace Cama.Core
         public string BuildConfiguration { get; set; }
 
         public int MaxTestTimeMin { get; set; }
+
+        public string TestRunner { get; set; }
     }
 }

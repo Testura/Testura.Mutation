@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
+using Cama.Core.Execution.Result;
+using Cama.Core.Execution.Result.Maker;
 using NUnit;
 
-namespace Cama.Core.Execution.Result.Maker
+namespace Cama.TestRunner.NUnit
 {
-    public class NUnitTestCaseResultMaker : INUnitTestCaseResultMaker
+    public class TestCaseResultMaker : ITestCaseResultMaker
     {
         public IList<TestResult> CreateTestCaseResult(XmlNode startNode)
         {

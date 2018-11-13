@@ -40,15 +40,16 @@ namespace Cama.Console
 
             var config = await _mediator.Send(new OpenProjectCommand(configPath));
             var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(config, mutators));
-            var results = await _mediator.Send(new ExecuteMutationsCommand(config, mutationDocuments, null));
-
-            await _mediator.Send(new CreateReportCommand(results, new List<ReportCreator>
+            var results = await _mediator.Send(new ExecuteMutationsCommand(config, mutationDocuments.Take(4).ToList(), null));
+            var reports = new List<ReportCreator>
             {
                 new TrxReportCreator(savePath),
                 new MarkdownReportCreator(Path.ChangeExtension(savePath, ".md")),
                 new CamaReportCreator(Path.ChangeExtension(savePath, ".cama")),
                 new HtmlOnlyBodyReportCreator(Path.ChangeExtension(savePath, ".html"))
-            }));
+            };
+
+            await _mediator.Send(new CreateReportCommand(results, reports));
 
             return !results.Any(r => r.Survived);
         }
