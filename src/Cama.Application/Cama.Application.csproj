@@ -232,6 +232,7 @@
     <Compile Include="Commands\Project\OpenProject\OpenProjectCommandValidator.cs" />
     <Compile Include="Commands\Report\Creator\CreateReportCommand.cs" />
     <Compile Include="Commands\Report\Creator\CreateReportCommandHandler.cs" />
+    <Compile Include="Commands\Report\Creator\CreateReportCommandValidator.cs" />
     <Compile Include="Exceptions\OpenProjectException.cs" />
     <Compile Include="FileMutationsModel.cs" />
     <Compile Include="Infrastructure\RequestLogger.cs" />

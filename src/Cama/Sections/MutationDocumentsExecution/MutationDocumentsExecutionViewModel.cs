@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using Cama.Application.Commands.Mutation.ExecuteMutations;
 using Cama.Core;
 using Cama.Core.Execution.Report.Cama;
@@ -104,7 +103,7 @@ namespace Cama.Sections.MutationDocumentsExecution
                     _config,
                     RunningDocuments.Select(r => r.Document).ToList(),
                     MutationDocumentStarted,
-                    MutationDocumentCompleted)));
+                    MutationDocumentCompleted));
         }
 
         private void MutationDocumentStarted(MutationDocument mutationDocument)

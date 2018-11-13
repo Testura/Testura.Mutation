@@ -53,7 +53,6 @@ namespace Cama.Core.Execution.Compilation
                     continue;
                 }
 
-
                 var pathFixed = path.Split('\\');
                 var resourcePath = Path.Combine(Path.GetDirectoryName(projectPath), path);
 
