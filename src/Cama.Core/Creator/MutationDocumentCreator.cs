@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
+using Cama.Core.Creator.Filter;
 using Cama.Core.Creator.Mutators;
 using Cama.Core.Exceptions;
 using Microsoft.CodeAnalysis.MSBuild;
@@ -11,6 +12,13 @@ namespace Cama.Core.Creator
 {
     public class MutationDocumentCreator
     {
+        private MutationDocumentFilterCreator _mutationDocumentFilterCreator;
+
+        public MutationDocumentCreator()
+        {
+            _mutationDocumentFilterCreator = new MutationDocumentFilterCreator();
+        }
+
         public async Task<IList<MutationDocument>> CreateMutationsAsync(CamaConfig config, IList<IMutator> mutationOperators)
         {
             try
@@ -22,6 +30,7 @@ namespace Cama.Core.Creator
                 LogTo.Info("Starting to analyze test..");
 
                 var list = new List<MutationDocument>();
+                var filters = _mutationDocumentFilterCreator.CreateFilterItems(config.Filter);
 
                 foreach (var mutationProjectInfo in config.MutationProjects)
                 {
@@ -41,14 +50,12 @@ namespace Cama.Core.Creator
                         try
                         {
                             var document = currentProject.GetDocument(documentId);
+                            var filter = filters.FirstOrDefault(f => f.MatchFilterName(document.Name));
 
-                            if (config.Filter.Any())
+                            if (filter == null)
                             {
-                                if (!config.Filter.Any(f => f.EndsWith(document.Name)))
-                                {
-                                    LogTo.Info($"Ignoring {document.Name} (not in filter).");
-                                    continue;
-                                }
+                                LogTo.Info($"Ignoring {document.Name} (not in filter).");
+                                continue;
                             }
 
                             LogTo.Info($"Creating mutation for {document.Name}..");
@@ -58,7 +65,8 @@ namespace Cama.Core.Creator
 
                             foreach (var mutationOperator in mutationOperators)
                             {
-                                mutationDocuments.AddRange(mutationOperator.GetMutatedDocument(root, document));
+                                var mutatedDocuments = mutationOperator.GetMutatedDocument(root, document);
+                                mutationDocuments.AddRange(mutatedDocuments.Where(m => filter.MatchFilterLines(m)));
                             }
 
                             list.AddRange(mutationDocuments);

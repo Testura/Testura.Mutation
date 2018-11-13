@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading.Tasks;
+using Cama.Application.Commands.Project.History.GetProjectHistory;
 using Cama.Helpers;
 using Cama.Helpers.Openers;
 using Cama.Helpers.Openers.Tabs;
-using Cama.Service.Commands;
-using Cama.Service.Commands.Project.History.GetProjectHistory;
+using MediatR;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -14,20 +13,20 @@ namespace Cama.Sections.Welcome
     public class WelcomeViewModel : BindableBase, INotifyPropertyChanged
     {
         private readonly IStartModuleTabOpener _startModuleTabOpener;
-        private readonly ICommandDispatcher _commandDispatcher;
+        private readonly IMediator _mediator;
         private readonly MutationReportOpener _mutationReportOpener;
         private readonly CamaProjectOpener _projectOpener;
         private readonly FilePicker _filePickerService;
 
         public WelcomeViewModel(
             IStartModuleTabOpener startModuleTabOpener,
-            ICommandDispatcher commandDispatcher,
+            IMediator mediator,
             MutationReportOpener mutationReportOpener,
             CamaProjectOpener projectOpener,
             FilePicker filePickerService)
         {
             _startModuleTabOpener = startModuleTabOpener;
-            _commandDispatcher = commandDispatcher;
+            _mediator = mediator;
             _mutationReportOpener = mutationReportOpener;
             _projectOpener = projectOpener;
             _filePickerService = filePickerService;
@@ -35,7 +34,7 @@ namespace Cama.Sections.Welcome
             OpenProjectCommand = new DelegateCommand(OpenProject);
             OpenReportCommand = new DelegateCommand(OpenReport);
             OpenHistoryProjectCommand = new DelegateCommand<string>(OpenProject);
-            ProjectHistory = _commandDispatcher.ExecuteCommandAsync(new GetProjectHistoryCommand()).Result;
+            ProjectHistory = _mediator.Send(new GetProjectHistoryCommand()).Result;
         }
 
         public IList<string> ProjectHistory { get; set; }

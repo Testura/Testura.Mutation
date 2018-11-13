@@ -4,16 +4,15 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
+using Cama.Application.Commands.Mutation.ExecuteMutations;
 using Cama.Core;
 using Cama.Core.Execution.Report.Cama;
 using Cama.Helpers.Openers.Tabs;
 using Cama.Models;
-using Cama.Service.Commands;
-using Cama.Service.Commands.Mutation.ExecuteMutations;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using MediatR;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -21,16 +20,16 @@ namespace Cama.Sections.MutationDocumentsExecution
 {
     public class MutationDocumentsExecutionViewModel : BindableBase, INotifyPropertyChanged
     {
-        private readonly ICommandDispatcher _commandDispatcher;
+        private readonly IMediator _mediator;
         private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
         private CamaConfig _config;
 
         public MutationDocumentsExecutionViewModel(
-            ICommandDispatcher commandDispatcher,
+            IMediator mediator,
             IMutationModuleTabOpener mutationModuleTabOpener)
         {
             MutationDocumentsExecutionResults = new MutationDocumentsExecutionResultModel();
-            _commandDispatcher = commandDispatcher;
+            _mediator = mediator;
             _mutationModuleTabOpener = mutationModuleTabOpener;
             RunningDocuments = new ObservableCollection<TestRunDocument>();
             RunCommand = new DelegateCommand(ExecuteMutationDocuments);
@@ -100,7 +99,7 @@ namespace Cama.Sections.MutationDocumentsExecution
         private async void ExecuteMutationDocuments()
         {
             TestNotStarted = false;
-            await Task.Run(() => _commandDispatcher.ExecuteCommandAsync(
+            await _mediator.Send(
                 new ExecuteMutationsCommand(
                     _config,
                     RunningDocuments.Select(r => r.Document).ToList(),
@@ -126,7 +125,7 @@ namespace Cama.Sections.MutationDocumentsExecution
 
                 if (runDocument != null)
                 {
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() => RunningDocuments.Remove(runDocument)));
+                    System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() => RunningDocuments.Remove(runDocument)));
                 }
 
                 MutationDocumentsExecutionResults.AddResult(result);

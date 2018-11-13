@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
+using Cama.Application;
 using Cama.Core;
 using Cama.Core.Execution.Report.Cama;
 using Cama.Sections.MutationDetails;
 using Cama.Sections.MutationDocumentsExecutionResult;
 using Cama.Sections.MutationDocumentsOverview;
-using Cama.Service;
 using MutationDocumentsExecutionView = Cama.Sections.MutationDocumentsExecution.MutationDocumentsExecutionView;
 
 namespace Cama.Helpers.Openers.Tabs

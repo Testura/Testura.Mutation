@@ -2,16 +2,16 @@
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using Cama.Application.Commands.Project.CreateProject;
+using Cama.Application.Commands.Project.History.AddProjectHistory;
+using Cama.Application.Commands.Project.OpenProject;
+using Cama.Application.Models;
 using Cama.Core.Solution;
 using Cama.Helpers;
 using Cama.Helpers.Displayers;
 using Cama.Helpers.Openers.Tabs;
 using Cama.Models;
-using Cama.Service.Commands;
-using Cama.Service.Commands.Project.CreateProject;
-using Cama.Service.Commands.Project.History.AddProjectHistory;
-using Cama.Service.Commands.Project.OpenProject;
-using Cama.Service.Models;
+using MediatR;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -22,20 +22,20 @@ namespace Cama.Sections.NewProject
         private readonly FilePicker _filePickerService;
         private readonly SolutionInfoService _solutionInfoService;
         private readonly ILoadingDisplayer _loadingDisplayer;
-        private readonly ICommandDispatcher _commandDispatcher;
+        private readonly IMediator _mediator;
         private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
 
         public NewProjectViewModel(
             FilePicker filePickerService,
             SolutionInfoService solutionInfoService,
             ILoadingDisplayer loadingDisplayer,
-            ICommandDispatcher commandDispatcher,
+            IMediator mediator,
             IMutationModuleTabOpener mutationModuleTabOpener)
         {
             _filePickerService = filePickerService;
             _solutionInfoService = solutionInfoService;
             _loadingDisplayer = loadingDisplayer;
-            _commandDispatcher = commandDispatcher;
+            _mediator = mediator;
             _mutationModuleTabOpener = mutationModuleTabOpener;
             ProjectNamesInSolution = new List<string>();
             ProjectPathCommand = new DelegateCommand(PickProjectPath);
@@ -97,9 +97,9 @@ namespace Cama.Sections.NewProject
                 TestProjects = SelectedTestProjectInSolution.Where(s => s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
             };
 
-            await _commandDispatcher.ExecuteCommandAsync(new CreateProjectCommand(projectPath, config));
-            await _commandDispatcher.ExecuteCommandAsync(new AddProjectHistoryCommand(projectPath));
-            _mutationModuleTabOpener.OpenOverviewTab(await _commandDispatcher.ExecuteCommandAsync(new OpenProjectCommand(projectPath)));
+            await _mediator.Send(new CreateProjectCommand(projectPath, config));
+            await _mediator.Send(new AddProjectHistoryCommand(projectPath));
+            _mutationModuleTabOpener.OpenOverviewTab(await _mediator.Send(new OpenProjectCommand(projectPath)));
         }
     }
 }

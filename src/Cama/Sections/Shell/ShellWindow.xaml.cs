@@ -46,9 +46,9 @@ namespace Cama.Sections.Shell
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (Application.Current.Properties["StartUpFile"] != null)
+            if (System.Windows.Application.Current.Properties["StartUpFile"] != null)
             {
-              var file = Application.Current.Properties["StartUpFile"].ToString();
+              var file = System.Windows.Application.Current.Properties["StartUpFile"].ToString();
               var viewModel = DataContext as ShellViewModel;
               viewModel?.Open(new List<string> { file });
             }

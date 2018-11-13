@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using Cama.Core;
 using LiveCharts.Defaults;
 
@@ -45,7 +44,7 @@ namespace Cama.Models
                 return;
             }
 
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => CompletedMutationDocuments.Add(result)));
+            System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() => CompletedMutationDocuments.Add(result)));
             FinishedMutationsCount++;
 
             if (!result.CompilationResult.IsSuccess)
@@ -57,7 +56,7 @@ namespace Cama.Models
             if (result.Survived)
             {
                 MutationsSurvivedCount.Value++;
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => SurvivedMutationDocuments.Add(result)));
+                System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() => SurvivedMutationDocuments.Add(result)));
             }
             else
             {

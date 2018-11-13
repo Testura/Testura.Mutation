@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using Cama.Helpers.Openers.Tabs;
 
 namespace Cama.Sections.Shell
@@ -8,19 +7,19 @@ namespace Cama.Sections.Shell
     {
         public void AddTab(TabItem userControl)
         {
-            var shell = (ShellWindow)Application.Current.MainWindow;
+            var shell = (ShellWindow)System.Windows.Application.Current.MainWindow;
             shell.AddTab(userControl);
         }
 
         public void RemoveTab(string name)
         {
-            var shell = (ShellWindow)Application.Current.MainWindow;
+            var shell = (ShellWindow)System.Windows.Application.Current.MainWindow;
             shell.RemoveTab(name);
         }
 
         public void RemoveAllTabs()
         {
-            var shell = (ShellWindow)Application.Current.MainWindow;
+            var shell = (ShellWindow)System.Windows.Application.Current.MainWindow;
             shell.RemoveAllTabs();
         }
     }

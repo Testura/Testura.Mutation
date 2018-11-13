@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Cama.Application;
+using Cama.Application.Commands.Mutation.CreateMutations;
 using Cama.Core;
 using Cama.Core.Creator.Mutators;
 using Cama.Core.Exceptions;
@@ -9,9 +11,7 @@ using Cama.Helpers.Displayers;
 using Cama.Helpers.Extensions;
 using Cama.Helpers.Openers.Tabs;
 using Cama.Models;
-using Cama.Service;
-using Cama.Service.Commands;
-using Cama.Service.Commands.Mutation.CreateMutations;
+using MediatR;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -19,14 +19,14 @@ namespace Cama.Sections.MutationDocumentsOverview
 {
     public class MutationDocumentsOverviewViewModel : BindableBase
     {
-        private readonly ICommandDispatcher _commandDispatcher;
+        private readonly IMediator _mediator;
         private readonly IMutationModuleTabOpener _tabOpener;
         private readonly ILoadingDisplayer _loadingDisplayer;
         private CamaConfig _config;
 
-        public MutationDocumentsOverviewViewModel(ICommandDispatcher commandDispatcher, IMutationModuleTabOpener tabOpener, ILoadingDisplayer loadingDisplayer)
+        public MutationDocumentsOverviewViewModel(IMediator mediator, IMutationModuleTabOpener tabOpener, ILoadingDisplayer loadingDisplayer)
         {
-            _commandDispatcher = commandDispatcher;
+            _mediator = mediator;
             _tabOpener = tabOpener;
             _loadingDisplayer = loadingDisplayer;
             Documents = new ObservableCollection<DocumentRowModel>();
@@ -67,7 +67,7 @@ namespace Cama.Sections.MutationDocumentsOverview
                 var settings = MutationOperatorGridItems.Where(m => m.IsSelected).Select(m => m.MutationOperator);
                 var command = new CreateMutationsCommand(_config, settings.Select(MutationOperatorFactory.GetMutationOperator).ToList());
 
-                var mutationDocuments = await Task.Run(() => _commandDispatcher.ExecuteCommandAsync(command));
+                var mutationDocuments = await Task.Run(() => _mediator.Send(command));
                 var fileNames = mutationDocuments.Select(r => r.FileName).Distinct();
 
                 foreach (var fileName in fileNames)

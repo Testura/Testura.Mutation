@@ -53,9 +53,10 @@ namespace Cama.Core.Execution.Compilation
                     continue;
                 }
 
-                var pathFixed = path.Split('\\');
 
+                var pathFixed = path.Split('\\');
                 var resourcePath = Path.Combine(Path.GetDirectoryName(projectPath), path);
+
                 resources.Add(new ResourceDescription(
                     $"{assemblyName}.{string.Join(".", pathFixed)}",
                     () => File.OpenRead(resourcePath),
