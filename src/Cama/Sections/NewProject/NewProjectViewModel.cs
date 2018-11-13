@@ -37,6 +37,7 @@ namespace Cama.Sections.NewProject
             _loadingDisplayer = loadingDisplayer;
             _mediator = mediator;
             _mutationModuleTabOpener = mutationModuleTabOpener;
+            TestRunnerTypes = new List<string> { "NUnit", "XUnit" };
             ProjectNamesInSolution = new List<string>();
             ProjectPathCommand = new DelegateCommand(PickProjectPath);
             SolutionPathCommand = new DelegateCommand(PickSolutionPathAsync);
@@ -61,6 +62,10 @@ namespace Cama.Sections.NewProject
         public List<string> ProjectNamesInSolution { get; set; }
 
         public List<ProjectListItem> SelectedProjectsInSolution { get; set; }
+
+        public List<string> TestRunnerTypes { get; set; }
+
+        public int SelectedTestRunnerIndex { get; set; }
 
         private async void PickSolutionPathAsync()
         {
@@ -95,6 +100,7 @@ namespace Cama.Sections.NewProject
                 IgnoredMutationProjects = SelectedProjectsInSolution.Where(s => !s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
                 SolutionPath = SolutionPath,
                 TestProjects = SelectedTestProjectInSolution.Where(s => s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
+                TestRunner = TestRunnerTypes[SelectedTestRunnerIndex]
             };
 
             await _mediator.Send(new CreateProjectCommand(projectPath, config));
