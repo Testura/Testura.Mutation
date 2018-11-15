@@ -7,9 +7,9 @@ namespace Cama.Application.Commands.Mutation.CompileMutation
 {
     public class CompileMutationCommandHandler : IRequestHandler<CompileMutationCommand, CompilationResult>
     {
-        private readonly MutationDocumentCompiler _compiler;
+        private readonly Compiler _compiler;
 
-        public CompileMutationCommandHandler(MutationDocumentCompiler compiler)
+        public CompileMutationCommandHandler(Compiler compiler)
         {
             _compiler = compiler;
         }

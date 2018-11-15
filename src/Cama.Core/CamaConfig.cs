@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cama.Core.Baseline;
 using Cama.Core.Solution;
 
 namespace Cama.Core
@@ -12,6 +13,7 @@ namespace Cama.Core
             Filter = new List<string>();
             MaxTestTimeMin = 5;
             TestRunner = "nunit";
+            BaselineInfos = new List<BaselineInfo>();
         }
 
         public string SolutionPath { get; set; }
@@ -29,5 +31,7 @@ namespace Cama.Core
         public int MaxTestTimeMin { get; set; }
 
         public string TestRunner { get; set; }
+
+        public IList<BaselineInfo> BaselineInfos { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Cama.Application.Commands.Project.OpenProject;
 using Cama.Application.Exceptions;
+using Cama.Core;
 using Cama.Helpers.Displayers;
 using Cama.Helpers.Openers.Tabs;
 using FluentValidation;
@@ -28,18 +29,22 @@ namespace Cama.Helpers.Openers
         public async void OpenProject(string path)
         {
             _loadingDisplayer.ShowLoading($"Opening project at {Path.GetFileName(path)}");
+            CamaConfig config = null;
+
             try
             {
-                var config = await Task.Run(() => _mediator.Send(new OpenProjectCommand(path)));
+                config = await Task.Run(() => _mediator.Send(new OpenProjectCommand(path, true)));
                 _mutationModuleTabOpener.OpenOverviewTab(config);
             }
             catch (ValidationException ex)
             {
                 ErrorDialogDisplayer.ShowErrorDialog("Unexpected error", "Failed to open project.", ex.Message);
+                return;
             }
             catch (OpenProjectException ex)
             {
                 ErrorDialogDisplayer.ShowErrorDialog("Unexpected error", "Failed to open project.", ex.InnerException?.ToString());
+                return;
             }
             finally
             {

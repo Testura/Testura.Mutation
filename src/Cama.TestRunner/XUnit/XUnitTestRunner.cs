@@ -12,11 +12,13 @@ namespace Cama.TestRunner.XUnit
 {
     public class XUnitTestRunner : ITestRunner
     {
+        private double _executionTime;
         private ManualResetEvent _finished;
         private IList<TestResult> _results;
 
         public async Task<TestSuiteResult> RunTestsAsync(string dllPath, TimeSpan maxTime)
         {
+            _executionTime = 0;
             _finished = new ManualResetEvent(false);
             _results = new List<TestResult>();
 
@@ -35,13 +37,13 @@ namespace Cama.TestRunner.XUnit
                 {
                     LogTo.Info("Test canceled. The mutation probably created an infinite loop.");
                     runner.Cancel();
-                    return new TestSuiteResult("TIMEOUT", new List<TestResult>(), "NULL");
+                    return new TestSuiteResult("TIMEOUT", new List<TestResult>(), "NULL", maxTime);
                 }
 
                 _finished.WaitOne();
                 _finished.Dispose();
 
-                return new TestSuiteResult(Path.GetFileName(dllPath), _results, string.Empty);
+                return new TestSuiteResult(Path.GetFileName(dllPath), _results, string.Empty, TimeSpan.FromSeconds((int)_executionTime));
             }
         }
 
@@ -82,6 +84,7 @@ namespace Cama.TestRunner.XUnit
 
         private void OnExecutionComplete(ExecutionCompleteInfo info)
         {
+            _executionTime = (double)info.ExecutionTime;
             _finished.Set();
         }
     }

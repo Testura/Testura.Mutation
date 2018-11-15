@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
@@ -47,14 +48,14 @@ namespace Cama.TestRunner.NUnit
                         {
                             LogTo.Info("Test canceled. The mutation probably created an infinite loop.");
                             runner.StopRun(true);
-                            return new TestSuiteResult("TIMEOUT", new List<TestResult>(), "NULL");
+                            return new TestSuiteResult("TIMEOUT", new List<TestResult>(), "NULL", maxTime);
                         }
 
                         var result = resultTask.Result;
 
                         if (result == null)
                         {
-                            return new TestSuiteResult("ERROR", new List<TestResult>(), "NULL");
+                            return new TestSuiteResult("ERROR", new List<TestResult>(), "NULL", TimeSpan.Zero);
                         }
 
                         if (result.InnerText.Contains("System.IO.FileLoadException : Could not load file or assembly "))
@@ -81,7 +82,7 @@ namespace Cama.TestRunner.NUnit
                     }
                 }
 
-                return new TestSuiteResult("ERROR", new List<TestResult>(), "NULL");
+                return new TestSuiteResult("ERROR", new List<TestResult>(), "NULL", TimeSpan.Zero);
             }
         }
 
@@ -108,7 +109,9 @@ namespace Cama.TestRunner.NUnit
 
             var name = result.GetAttribute("name");
             var testCaseResults = nUnitTestCaseResultMaker.CreateTestCaseResult(result);
-            return new TestSuiteResult(name, testCaseResults, result.InnerXml);
+            var duration = double.Parse(result.GetAttribute("duration"), CultureInfo.InvariantCulture);
+
+            return new TestSuiteResult(name, testCaseResults, result.InnerXml, TimeSpan.FromSeconds(duration));
         }
     }
 }

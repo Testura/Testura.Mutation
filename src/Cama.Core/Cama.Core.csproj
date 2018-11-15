@@ -43,18 +43,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Baseline\BaselineCreator.cs" />
+    <Compile Include="Baseline\BaselineInfo.cs" />
     <Compile Include="CamaConfig.cs" />
     <Compile Include="Creator\Filter\MutationDocumentEmptyFilterItem.cs" />
     <Compile Include="Creator\Filter\MutationDocumentFilterCreator.cs" />
     <Compile Include="Creator\Filter\MutationDocumentFilterItem.cs" />
     <Compile Include="Creator\MutationDocumentCreator.cs" />
+    <Compile Include="Exceptions\BaselineException.cs" />
     <Compile Include="Exceptions\MutationDocumentException.cs" />
     <Compile Include="Execution\Compilation\CompilationError.cs" />
     <Compile Include="Execution\Compilation\CompilationResult.cs" />
-    <Compile Include="Execution\Compilation\MutationDocumentCompiler.cs" />
+    <Compile Include="Execution\Compilation\Compiler.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\CompilationException.cs" />
     <Compile Include="Exceptions\ProjectSetUpException.cs" />
+    <Compile Include="Execution\Compilation\IMutationDocumentCompiler.cs" />
+    <Compile Include="Execution\Compilation\IProjectCompiler.cs" />
     <Compile Include="Execution\Report\Html\HtmlOnlyBodyReportCreator.cs" />
     <Compile Include="Execution\Runners\ITestRunner.cs" />
     <Compile Include="Execution\MutationDocumentExecutor.cs" />

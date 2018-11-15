@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Windows;
 using Cama.Application.Extensions;
 using Cama.Application.Logs;
+using Cama.Core.Execution.Compilation;
 using Cama.Core.Execution.Runners;
 using Cama.Helpers.Displayers;
 using Cama.Helpers.Openers.Tabs;
@@ -74,6 +75,8 @@ namespace Cama
             Container.RegisterType<LoadingViewModel>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ITestRunnerFactory, TestRunnerFactory>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ILoadingDisplayer, LoadingViewModel>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IProjectCompiler, Compiler>();
+            Container.RegisterType<IMutationDocumentCompiler, Compiler>();
         }
     }
 }

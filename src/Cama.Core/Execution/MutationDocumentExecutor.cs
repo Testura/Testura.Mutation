@@ -14,11 +14,11 @@ namespace Cama.Core.Execution
 {
     public class MutationDocumentExecutor
     {
-        private readonly MutationDocumentCompiler _compiler;
+        private readonly IMutationDocumentCompiler _compiler;
         private readonly TestRunnerDependencyFilesHandler _testRunnerDependencyFilesHandler;
         private readonly ITestRunnerFactory _testRunnerFactory;
 
-        public MutationDocumentExecutor(MutationDocumentCompiler compiler, TestRunnerDependencyFilesHandler testRunnerDependencyFilesHandler, ITestRunnerFactory testRunnerFactory)
+        public MutationDocumentExecutor(IMutationDocumentCompiler compiler, TestRunnerDependencyFilesHandler testRunnerDependencyFilesHandler, ITestRunnerFactory testRunnerFactory)
         {
             _compiler = compiler;
             _testRunnerDependencyFilesHandler = testRunnerDependencyFilesHandler;
@@ -60,7 +60,9 @@ namespace Cama.Core.Execution
 
             foreach (var testProject in config.TestProjects)
             {
-                await RunTestAsync(config.TestRunner, results, mutationDirectoryPath, mutationDllPath, testProject, config.MaxTestTimeMin);
+                var baseline = config.BaselineInfos.FirstOrDefault(b => b.TestProjectName.Equals(testProject.Name, StringComparison.OrdinalIgnoreCase));
+                var result = await RunTestAsync(config.TestRunner, mutationDirectoryPath, mutationDllPath, testProject, baseline?.GetTestProjectTimeout() ?? TimeSpan.FromMinutes(config.MaxTestTimeMin));
+                results.Add(result);
 
                 if (results.Any(r => !r.IsSuccess))
                 {
@@ -86,13 +88,12 @@ namespace Cama.Core.Execution
             return mustationResult;
         }
 
-        private async Task RunTestAsync(
+        private async Task<TestSuiteResult> RunTestAsync(
             string testRunnerName,
-            List<TestSuiteResult> results,
             string mutationDirectoryPath,
             string mutationDllPath,
             SolutionProjectInfo testProject,
-            int maxTestTimeMin)
+            TimeSpan testTimout)
         {
             LogTo.Info($"Starting to run tests in {testProject.OutputFileName}");
             var mutationTestDirectoryPath = Path.Combine(mutationDirectoryPath, Guid.NewGuid().ToString());
@@ -106,18 +107,21 @@ namespace Cama.Core.Execution
             File.Copy(mutationDllPath, Path.Combine(mutationTestDirectoryPath, Path.GetFileName(mutationDllPath)), true);
 
             var testRunner = _testRunnerFactory.CreateTestRunner(testRunnerName);
-            results.Add(await testRunner.RunTestsAsync(testDllPath, TimeSpan.FromMinutes(maxTestTimeMin)));
+            return await testRunner.RunTestsAsync(testDllPath, testTimout);
         }
 
         private TestSuiteResult CombineResult(string name, IList<TestSuiteResult> testResult)
         {
             var tests = new List<TestResult>();
+            var executionTime = TimeSpan.Zero;
+
             foreach (var testSuiteResult in testResult)
             {
                 tests.AddRange(testSuiteResult.TestResults);
+                executionTime = executionTime.Add(testSuiteResult.ExecutionTime);
             }
 
-            return new TestSuiteResult(name, tests, null);
+            return new TestSuiteResult(name, tests, null, executionTime);
         }
     }
 }

@@ -8,6 +8,7 @@ using Anotar.Log4Net;
 using Cama.Application.Exceptions;
 using Cama.Application.Models;
 using Cama.Core;
+using Cama.Core.Baseline;
 using Cama.Core.Exceptions;
 using Cama.Core.Solution;
 using MediatR;
@@ -19,6 +20,13 @@ namespace Cama.Application.Commands.Project.OpenProject
 {
     public class OpenProjectCommandHandler : IRequestHandler<OpenProjectCommand, CamaConfig>
     {
+        private readonly BaselineCreator _baselineCreator;
+
+        public OpenProjectCommandHandler(BaselineCreator baselineCreator)
+        {
+            _baselineCreator = baselineCreator;
+        }
+
         public async Task<CamaConfig> Handle(OpenProjectCommand command, CancellationToken cancellationToken)
         {
             var path = command.Path;
@@ -61,6 +69,11 @@ namespace Cama.Application.Commands.Project.OpenProject
 
                     InitializeTestProjects(fileConfig, config, solution);
                     InitializeMutationProjects(fileConfig, config, solution);
+
+                    if (command.CreateBaseline)
+                    {
+                       config.BaselineInfos = new List<BaselineInfo>(await _baselineCreator.CreateBaselineAsync(config, solution));
+                    }
 
                     workspace.CloseSolution();
                     LogTo.Info("Opening project finished.");

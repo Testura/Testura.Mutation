@@ -38,7 +38,7 @@ namespace Cama.Console
                 new NegateTypeCompabilityMutator()
             };
 
-            var config = await _mediator.Send(new OpenProjectCommand(configPath));
+            var config = await _mediator.Send(new OpenProjectCommand(configPath, true));
             var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(config, mutators));
             var results = await _mediator.Send(new ExecuteMutationsCommand(config, mutationDocuments.Take(4).ToList(), null));
             var reports = new List<ReportCreator>

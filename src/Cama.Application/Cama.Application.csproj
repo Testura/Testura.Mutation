@@ -208,6 +208,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Baseline\CreateBaseline\CreateBaselineCommand.cs" />
+    <Compile Include="Commands\Baseline\CreateBaseline\CreateBaselineCommandHandler.cs" />
+    <Compile Include="Commands\Baseline\CreateBaseline\CreateBaselineCommandValidator.cs" />
     <Compile Include="Commands\Mutation\CompileMutation\CompileMutationCommand.cs" />
     <Compile Include="Commands\Mutation\CompileMutation\CompileMutationCommandHandler.cs" />
     <Compile Include="Commands\Mutation\CompileMutation\CompileMutationCommandValidator.cs" />
@@ -261,8 +264,6 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
-    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
