@@ -23,45 +23,80 @@ namespace Cama.Application.Commands.Mutation.ExecuteMutations
         {
             var semaphoreSlim = new SemaphoreSlim(command.Config.NumberOfTestRunInstances, command.Config.NumberOfTestRunInstances);
             var results = new List<MutationDocumentResult>();
+            var mutationDocuments = new Queue<MutationDocument>(command.MutationDocuments);
+            var currentRunningDocuments = new List<Task>();
             var numberOfMutationsLeft = command.MutationDocuments.Count;
 
-            var tasks = command.MutationDocuments.Select((document) => Task.Run(async () =>
+            await Task.Run(() =>
             {
-                MutationDocumentResult result = null;
-
-                try
+                while (mutationDocuments.Any())
                 {
                     semaphoreSlim.Wait();
-                    command.MutationDocumentStartedCallback?.Invoke(document);
-                    result = await _mutationDocumentExecutor.ExecuteMutationAsync(command.Config, document);
-                }
-                catch (Exception ex)
-                {
-                    LogTo.WarnException($"Unexpected exception when running {document.MutationName}", ex);
+                    var document = mutationDocuments.Dequeue();
 
-                    result = new MutationDocumentResult
+                    currentRunningDocuments.Add(Task.Run(async () =>
                     {
-                        Id = document.Id,
-                        UnexpectedError = ex.Message
-                    };
-                }
-                finally
-                {
-                    lock (results)
-                    {
-                        results.Add(result);
-                    }
+                        MutationDocumentResult result = null;
 
-                    Interlocked.Decrement(ref numberOfMutationsLeft);
-                    LogTo.Info($"Number of mutations left: {numberOfMutationsLeft}");
-                    semaphoreSlim.Release();
-                    command.MutationDocumentCompledtedCallback?.Invoke(result);
-                }
-            })).ToArray();
+                        try
+                        {
+                            command.MutationDocumentStartedCallback?.Invoke(document);
 
-            await Task.WhenAll(tasks);
+                            var timeout = GetTimeout(command.Config);
+                            var resultTask = _mutationDocumentExecutor.ExecuteMutationAsync(command.Config, document);
+
+                            var completedTask = await Task.WhenAny(resultTask, Task.Delay(timeout));
+
+                            if (completedTask != resultTask)
+                            {
+                                LogTo.Error(
+                                    "Big timeout! A timeout that we couldn't handle in our unit test exectutor");
+                                throw new TimeoutException();
+                            }
+
+                            result = await resultTask;
+                        }
+                        catch (Exception ex)
+                        {
+                            LogTo.WarnException($"Unexpected exception when running {document.MutationName}", ex);
+
+                            result = new MutationDocumentResult
+                            {
+                                Id = document.Id,
+                                UnexpectedError = ex.Message
+                            };
+                        }
+                        finally
+                        {
+                            lock (results)
+                            {
+                                results.Add(result);
+                            }
+
+                            Interlocked.Decrement(ref numberOfMutationsLeft);
+                            LogTo.Info($"Number of mutations left: {numberOfMutationsLeft}");
+                            semaphoreSlim.Release();
+                            command.MutationDocumentCompledtedCallback?.Invoke(result);
+                        }
+                    }));
+
+                }
+            });
+
+            // Wait for the final ones
+            await Task.WhenAll(currentRunningDocuments);
 
             return results;
+        }
+
+        private TimeSpan GetTimeout(CamaConfig config)
+        {
+            if (config.BaselineInfos != null && config.BaselineInfos.Any())
+            {
+                return new TimeSpan(config.BaselineInfos.Sum(b => b.ExecutionTime.Ticks * 4));
+            }
+
+            return TimeSpan.FromMinutes(config.MaxTestTimeMin);
         }
     }
 }

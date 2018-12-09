@@ -27,13 +27,11 @@ namespace Cama.TestRunner.XUnit
                 runner.OnExecutionComplete = OnExecutionComplete;
                 runner.OnTestFailed = OnTestFailed;
                 runner.OnTestPassed = OnTestPassed;
-
-                var maxTimeTask = Task.Run(async () => await Task.Delay(maxTime));
                 var resultTask = Task.Run(() => RunTests(runner));
 
-                var finishedTask = await Task.WhenAny(maxTimeTask, resultTask);
+                var finishedTask = await Task.WhenAny(resultTask, Task.Delay(maxTime));
 
-                if (finishedTask == maxTimeTask)
+                if (finishedTask != resultTask)
                 {
                     LogTo.Info("Test canceled. The mutation probably created an infinite loop.");
                     runner.Cancel();

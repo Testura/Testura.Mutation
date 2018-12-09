@@ -105,7 +105,7 @@ namespace Cama.Sections.NewProject
 
             await _mediator.Send(new CreateProjectCommand(projectPath, config));
             await _mediator.Send(new AddProjectHistoryCommand(projectPath));
-            _mutationModuleTabOpener.OpenOverviewTab(await _mediator.Send(new OpenProjectCommand(projectPath)));
+            _mutationModuleTabOpener.OpenOverviewTab(await _mediator.Send(new OpenProjectCommand(projectPath, true)));
         }
     }
 }

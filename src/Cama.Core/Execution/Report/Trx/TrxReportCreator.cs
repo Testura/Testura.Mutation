@@ -168,7 +168,12 @@ namespace Cama.Core.Execution.Report.Trx
             {
                 string error = string.Empty;
 
-                if (!mutation.CompilationResult.IsSuccess)
+                if (mutation.CompilationResult == null)
+                {
+                    continue;
+                }
+
+                if (mutation.CompilationResult != null && !mutation.CompilationResult.IsSuccess)
                 {
                     var errorTable = new ConsoleTable("Description", "File");
                     foreach (var compilerResultError in mutation.CompilationResult.Errors)
