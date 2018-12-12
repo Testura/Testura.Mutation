@@ -71,10 +71,16 @@ namespace Cama.Application.Commands.Mutation.ExecuteMutations
                             lock (results)
                             {
                                 results.Add(result);
+
+                                var survived = results.Count(r => r.Survived && (r.CompilationResult != null && r.CompilationResult.IsSuccess));
+                                var killed = results.Count(r => !r.Survived && (r.CompilationResult != null && r.CompilationResult.IsSuccess));
+                                var compileErrors = results.Count(r => r.CompilationResult != null && !r.CompilationResult.IsSuccess);
+                                var unknownErrors = results.Count(r => r.UnexpectedError != null);
+
+                                Interlocked.Decrement(ref numberOfMutationsLeft);
+                                LogTo.Info($"Current progress: {{ Survived: {survived}, Killed: {killed}, CompileErrors: {compileErrors}, UnknownERrors: {unknownErrors}, MutationsLeft: {numberOfMutationsLeft} }}");
                             }
 
-                            Interlocked.Decrement(ref numberOfMutationsLeft);
-                            LogTo.Info($"Number of mutations left: {numberOfMutationsLeft}");
                             semaphoreSlim.Release();
                             command.MutationDocumentCompledtedCallback?.Invoke(result);
                         }

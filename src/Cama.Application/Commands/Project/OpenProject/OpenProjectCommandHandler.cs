@@ -35,7 +35,11 @@ namespace Cama.Application.Commands.Project.OpenProject
 
             try
             {
-                var fileConfig = JsonConvert.DeserializeObject<CamaFileConfig>(File.ReadAllText(path));
+                var fileContent = File.ReadAllText(path);
+
+                LogTo.Info($"Loading configuration: {fileContent}");
+
+                var fileConfig = JsonConvert.DeserializeObject<CamaFileConfig>(fileContent);
                 var config = new CamaConfig
                 {
                     SolutionPath = fileConfig.SolutionPath,
