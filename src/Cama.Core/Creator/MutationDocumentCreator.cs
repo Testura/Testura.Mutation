@@ -52,9 +52,9 @@ namespace Cama.Core.Creator
                             var document = currentProject.GetDocument(documentId);
                             var filter = filters.FirstOrDefault(f => f.MatchFilterName(document.Name));
 
-                            if (filter == null)
+                            if (filter == null || config.IgnoredFiles.Contains(document.Name))
                             {
-                                LogTo.Info($"Ignoring {document.Name} (not in filter).");
+                                LogTo.Info($"Ignoring {document.Name} (not in filter or on ignore list).");
                                 continue;
                             }
 

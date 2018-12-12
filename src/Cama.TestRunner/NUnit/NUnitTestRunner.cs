@@ -9,7 +9,6 @@ using Anotar.Log4Net;
 using Cama.Core.Execution.Result;
 using NUnit;
 using NUnit.Engine;
-using NUnit.Engine.Runners;
 using NUnit.Engine.Services;
 using ITestRunner = Cama.Core.Execution.Runners.ITestRunner;
 using TestSuiteResult = Cama.Core.Execution.Result.TestSuiteResult;

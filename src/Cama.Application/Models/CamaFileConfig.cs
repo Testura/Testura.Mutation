@@ -6,6 +6,7 @@ namespace Cama.Application.Models
     {
         public CamaFileConfig()
         {
+            IgnoredFiles = new List<string>();
             NumberOfTestRunInstances = 3;
             MaxTestTimeMin = 5;
             BuildConfiguration = "debug";
@@ -19,6 +20,8 @@ namespace Cama.Application.Models
         public IList<string> IgnoredMutationProjects { get; set; }
 
         public IList<string> Filter { get; set; }
+
+        public IList<string> IgnoredFiles { get; set; }
 
         public int NumberOfTestRunInstances { get; set; }
 

@@ -44,6 +44,7 @@ namespace Cama.Application.Commands.Project.OpenProject
                 {
                     SolutionPath = fileConfig.SolutionPath,
                     Filter = fileConfig.Filter ?? new List<string>(),
+                    IgnoredFiles = fileConfig.IgnoredFiles ?? new List<string>(),
                     NumberOfTestRunInstances = fileConfig.NumberOfTestRunInstances,
                     BuildConfiguration = fileConfig.BuildConfiguration,
                     MaxTestTimeMin = fileConfig.MaxTestTimeMin,
