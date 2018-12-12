@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cama.Core.Baseline;
+using Cama.Core.Creator.Filter;
 using Cama.Core.Solution;
 
 namespace Cama.Core
@@ -10,8 +11,6 @@ namespace Cama.Core
         {
             MutationProjects = new List<SolutionProjectInfo>();
             TestProjects = new List<SolutionProjectInfo>();
-            Filter = new List<string>();
-            IgnoredFiles = new List<string>();
             MaxTestTimeMin = 5;
             TestRunner = "nunit";
             BaselineInfos = new List<BaselineInfo>();
@@ -23,9 +22,7 @@ namespace Cama.Core
 
         public IList<SolutionProjectInfo> TestProjects { get; set; }
 
-        public IList<string> Filter { get; set; }
-
-        public IList<string> IgnoredFiles { get; set; }
+        public MutationDocumentFilter Filter { get; set; }
 
         public int NumberOfTestRunInstances { get; set; }
 

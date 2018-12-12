@@ -172,6 +172,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Creator\MutationDocumentFilterTests.cs" />
+    <Compile Include="Core\Creator\MutationDocumentFilterItemTests.cs" />
     <Compile Include="Core\Mutation\Mutators\BinaryExpressionMutations\ConditionalBoundaryMutatorTests.cs" />
     <Compile Include="Core\Mutation\Mutators\BinaryExpressionMutations\NegateConditionalMutatorTests.cs" />
     <Compile Include="Core\Mutation\Mutators\BinaryExpressionMutations\MathMutatorTests.cs" />

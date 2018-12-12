@@ -46,8 +46,7 @@
     <Compile Include="Baseline\BaselineCreator.cs" />
     <Compile Include="Baseline\BaselineInfo.cs" />
     <Compile Include="CamaConfig.cs" />
-    <Compile Include="Creator\Filter\MutationDocumentEmptyFilterItem.cs" />
-    <Compile Include="Creator\Filter\MutationDocumentFilterCreator.cs" />
+    <Compile Include="Creator\Filter\MutationDocumentFilter.cs" />
     <Compile Include="Creator\Filter\MutationDocumentFilterItem.cs" />
     <Compile Include="Creator\MutationDocumentCreator.cs" />
     <Compile Include="Exceptions\BaselineException.cs" />

@@ -1,34 +1,105 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Cama.Core.Creator.Filter
 {
     public class MutationDocumentFilterItem
     {
-        public MutationDocumentFilterItem()
+        public enum FilterEffect
         {
-            LineNumbers = new List<int>();
+            Allow,
+            Deny
         }
 
-        public string Name { get; set; }
+        public string Resource { get; set; }
 
-        public List<int> LineNumbers { get; set; }
+        public IList<string> Lines { get; set; }
 
-        public virtual bool MatchFilterName(string documentName)
+        public FilterEffect Effect { get; set; }
+
+        public bool MatchResource(string resource)
         {
-            return Name.EndsWith(documentName);
+            return Regex.IsMatch(resource, FormattedResource(), RegexOptions.IgnoreCase);
         }
 
-        public virtual bool MatchFilterLines(MutationDocument mutationDocument)
+        public bool IsDenied(string resource)
         {
-            if (!LineNumbers.Any())
+            return CheckResource(FilterEffect.Deny, resource);
+        }
+
+        public bool IsAllowed(string resource)
+        {
+            return CheckResource(FilterEffect.Allow, resource);
+        }
+
+        public virtual bool MatchFilterLines(int line)
+        {
+            var lineNumbers = GetLineNumbers();
+
+            if (!lineNumbers.Any())
             {
                 return true;
             }
 
-            var line = mutationDocument.MutationDetails.Location.Line.Split(new[] { "@(", ":" }, StringSplitOptions.RemoveEmptyEntries).First();
-            return LineNumbers.Contains(int.Parse(line));
+            return lineNumbers.Contains(line);
+        }
+
+        public bool LineAreDenied(int line)
+        {
+            return MatchFilterLines(line) && Effect == FilterEffect.Deny;
+        }
+
+        public bool LineAreAllowed(int line)
+        {
+            return MatchFilterLines(line) && Effect == FilterEffect.Allow;
+        }
+
+        private IList<int> GetLineNumbers()
+        {
+            if (Lines == null)
+            {
+                return Array.Empty<int>();
+            }
+
+            var lines = new List<int>();
+
+            foreach (var line in Lines)
+            {
+                if (line.Contains(","))
+                {
+                    var startAndCount = line.Split(',');
+                    var start = int.Parse(startAndCount[0]);
+
+                    for (int n = 0; n <= int.Parse(startAndCount[1]); n++)
+                    {
+                        lines.Add(start + n);
+                    }
+
+                    continue;
+                }
+
+                lines.Add(int.Parse(line));
+            }
+
+            return lines;
+        }
+
+        private bool CheckResource(FilterEffect effect, string resource)
+        {
+            var isMatch = MatchResource(resource);
+            if (isMatch && Effect == effect)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private string FormattedResource()
+        {
+            return "^" + Regex.Escape(Resource).Replace("\\*", ".*") + "$";
         }
     }
 }

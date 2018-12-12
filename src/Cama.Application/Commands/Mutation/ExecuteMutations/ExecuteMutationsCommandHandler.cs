@@ -42,18 +42,7 @@ namespace Cama.Application.Commands.Mutation.ExecuteMutations
                         {
                             command.MutationDocumentStartedCallback?.Invoke(document);
 
-                            var timeout = GetTimeout(command.Config);
                             var resultTask = _mutationDocumentExecutor.ExecuteMutationAsync(command.Config, document);
-
-                            var completedTask = await Task.WhenAny(resultTask, Task.Delay(timeout));
-
-                            if (completedTask != resultTask)
-                            {
-                                LogTo.Error(
-                                    "Big timeout! A timeout that we couldn't handle in our unit test exectutor");
-                                throw new TimeoutException();
-                            }
-
                             result = await resultTask;
                         }
                         catch (Exception ex)

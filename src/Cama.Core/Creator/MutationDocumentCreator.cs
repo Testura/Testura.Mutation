@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
-using Cama.Core.Creator.Filter;
 using Cama.Core.Creator.Mutators;
 using Cama.Core.Exceptions;
 using Microsoft.CodeAnalysis.MSBuild;
@@ -12,13 +11,6 @@ namespace Cama.Core.Creator
 {
     public class MutationDocumentCreator
     {
-        private MutationDocumentFilterCreator _mutationDocumentFilterCreator;
-
-        public MutationDocumentCreator()
-        {
-            _mutationDocumentFilterCreator = new MutationDocumentFilterCreator();
-        }
-
         public async Task<IList<MutationDocument>> CreateMutationsAsync(CamaConfig config, IList<IMutator> mutationOperators)
         {
             try
@@ -30,7 +22,6 @@ namespace Cama.Core.Creator
                 LogTo.Info("Starting to analyze test..");
 
                 var list = new List<MutationDocument>();
-                var filters = _mutationDocumentFilterCreator.CreateFilterItems(config.Filter);
 
                 foreach (var mutationProjectInfo in config.MutationProjects)
                 {
@@ -50,11 +41,10 @@ namespace Cama.Core.Creator
                         try
                         {
                             var document = currentProject.GetDocument(documentId);
-                            var filter = filters.FirstOrDefault(f => f.MatchFilterName(document.Name));
 
-                            if (filter == null || config.IgnoredFiles.Contains(document.Name))
+                            if (!config.Filter.ResourceAllowed(document.FilePath))
                             {
-                                LogTo.Info($"Ignoring {document.Name} (not in filter or on ignore list).");
+                                LogTo.Info($"Ignoring {document.Name}.");
                                 continue;
                             }
 
@@ -66,7 +56,7 @@ namespace Cama.Core.Creator
                             foreach (var mutationOperator in mutationOperators)
                             {
                                 var mutatedDocuments = mutationOperator.GetMutatedDocument(root, document);
-                                mutationDocuments.AddRange(mutatedDocuments.Where(m => filter.MatchFilterLines(m)));
+                                mutationDocuments.AddRange(mutatedDocuments.Where(m => config.Filter.ResourceLinesAllowed(document.FilePath, GetDocumentLine(m))));
                             }
 
                             list.AddRange(mutationDocuments);
@@ -85,6 +75,12 @@ namespace Cama.Core.Creator
                 LogTo.ErrorException("Unknown exception when creating mutation documents", ex);
                 throw new MutationDocumentException("Unknown exception when creating mutation documents", ex);
             }
+        }
+
+        private int GetDocumentLine(MutationDocument mutationDocument)
+        {
+            var line = mutationDocument.MutationDetails.Location.Line.Split(new[] { "@(", ":" }, StringSplitOptions.RemoveEmptyEntries).First();
+            return int.Parse(line);
         }
     }
 }

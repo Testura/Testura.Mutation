@@ -50,11 +50,11 @@ namespace Cama.TestRunner.NUnit
                             if (!listener.TestRunFinished)
                             {
                                 LogTo.Info("Test canceled. The mutation probably created an infinite loop.");
-                                runner.StopRun(true);
+                                TryStopRunner(runner);
                                 return new TestSuiteResult("TIMEOUT", new List<TestResult>(), "NULL", maxTime);
                             }
 
-                            var result = testRun.Result;
+                            var result = TryGetTestResult(testRun);
 
                             if (result == null)
                             {
@@ -82,7 +82,8 @@ namespace Cama.TestRunner.NUnit
                         }
                         catch (Exception ex)
                         {
-                            LogTo.ErrorException("Failed to unload test runner", ex);
+                            LogTo.ErrorException("Uknown exception when running nunit", ex);
+                            TryStopRunner(runner);
                         }
                     }
 
@@ -104,6 +105,46 @@ namespace Cama.TestRunner.NUnit
             var duration = double.Parse(result.GetAttribute("duration"), CultureInfo.InvariantCulture);
 
             return new TestSuiteResult(name, testCaseResults, result.InnerXml, TimeSpan.FromSeconds(duration));
+        }
+
+        private XmlNode TryGetTestResult(ITestRun testRun)
+        {
+            // Really hacky but sometimes it fail..
+            for (int n = 0; n < 10; n++)
+            {
+                try
+                {
+                    return testRun.Result;
+                }
+                catch (InvalidOperationException)
+                {
+                    Task.Delay(TimeSpan.FromSeconds(1));
+                }
+            }
+
+            throw new Exception("Could not get test results");
+        }
+
+        private void TryStopRunner(global::NUnit.Engine.ITestRunner testRunner)
+        {
+            // Really hacky but sometimes it fail..
+            for (int n = 0; n < 3; n++)
+            {
+                try
+                {
+                    testRunner.StopRun(true);
+                    testRunner.Unload();
+
+                    LogTo.Info("Stopped testrunner");
+                }
+                catch (Exception ex)
+                {
+                    LogTo.WarnException("Could not stop testrunner, trying again", ex);
+                    Task.Delay(TimeSpan.FromSeconds(1));
+                }
+            }
+
+            LogTo.Error("Failed to stop testrunner");
         }
     }
 }
