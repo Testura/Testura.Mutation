@@ -16,13 +16,13 @@ namespace Cama.Core.Execution
     {
         private readonly IMutationDocumentCompiler _compiler;
         private readonly TestRunnerDependencyFilesHandler _testRunnerDependencyFilesHandler;
-        private readonly ITestRunnerFactory _testRunnerFactory;
+        private readonly ITestRunnerClient _testRunnerClient;
 
-        public MutationDocumentExecutor(IMutationDocumentCompiler compiler, TestRunnerDependencyFilesHandler testRunnerDependencyFilesHandler, ITestRunnerFactory testRunnerFactory)
+        public MutationDocumentExecutor(IMutationDocumentCompiler compiler, TestRunnerDependencyFilesHandler testRunnerDependencyFilesHandler, ITestRunnerClient testRunnerClient)
         {
             _compiler = compiler;
             _testRunnerDependencyFilesHandler = testRunnerDependencyFilesHandler;
-            _testRunnerFactory = testRunnerFactory;
+            _testRunnerClient = testRunnerClient;
         }
 
         public async Task<MutationDocumentResult> ExecuteMutationAsync(CamaConfig config, MutationDocument mutationDocument)
@@ -106,8 +106,7 @@ namespace Cama.Core.Execution
             // Copy the mutation to our mutation test directory (and override the orginal file)
             File.Copy(mutationDllPath, Path.Combine(mutationTestDirectoryPath, Path.GetFileName(mutationDllPath)), true);
 
-            var testRunner = _testRunnerFactory.CreateTestRunner(testRunnerName);
-            return await testRunner.RunTestsAsync(testDllPath, testTimout);
+            return await _testRunnerClient.RunTestsAsync(testRunnerName, testDllPath, testTimout);
         }
 
         private TestSuiteResult CombineResult(string name, IList<TestSuiteResult> testResult)
@@ -121,7 +120,13 @@ namespace Cama.Core.Execution
                 executionTime = executionTime.Add(testSuiteResult.ExecutionTime);
             }
 
-            return new TestSuiteResult(name, tests, null, executionTime);
+            return new TestSuiteResult
+            {
+                Name = name,
+                TestResults = tests,
+                ExecutionTime = executionTime,
+                IsSuccess = tests.All(t => t.IsSuccess)
+            };
         }
     }
 }

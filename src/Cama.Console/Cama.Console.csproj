@@ -251,6 +251,10 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Cama.TestRunner.Console\Cama.TestRunner.Console.csproj">
+      <Project>{de7878fe-0f75-44fc-8964-0b3d3e815fd9}</Project>
+      <Name>Cama.TestRunner.Console</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cama.Application\Cama.Application.csproj">
       <Project>{4e413455-59c5-4da5-870a-a3481d2c6b8a}</Project>
       <Name>Cama.Application</Name>
@@ -258,6 +262,10 @@
     <ProjectReference Include="..\Cama.Core\Cama.Core.csproj">
       <Project>{43eb1e4e-4f79-4554-b358-4a6d711ce39a}</Project>
       <Name>Cama.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cama.Infrastructure\Cama.Infrastructure.csproj">
+      <Project>{8a6ddfab-f6be-44d9-b58f-6139149875a5}</Project>
+      <Name>Cama.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cama.TestRunner\Cama.TestRunner.csproj">
       <Project>{8aeeab5d-ea0b-4ddc-a355-ceed97d518e1}</Project>

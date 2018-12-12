@@ -1,34 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cama.Core.Execution.Result
 {
     public class TestSuiteResult
     {
-        private readonly string _innerXml;
+        public string Name { get; set; }
 
-        public TestSuiteResult(string name, IList<TestResult> results, string innerXml, TimeSpan executionTime)
+        public bool IsSuccess { get; set; }
+
+        public IList<TestResult> TestResults { get; set; }
+
+        public TimeSpan ExecutionTime { get; set; }
+
+        public string InnerXml { get; set; }
+
+        public static TestSuiteResult Error(string message, TimeSpan time)
         {
-            _innerXml = innerXml;
-            Name = name;
-            TestResults = results;
-            IsSuccess = TestResults.All(t => t.IsSuccess);
-            ExecutionTime = executionTime;
+            return new TestSuiteResult
+            {
+                IsSuccess = false,
+                Name = $"ERROR - {message}",
+                TestResults = new List<TestResult>()
+            };
         }
-
-        /// <summary>
-        /// Gets the name of the test suite
-        /// </summary>
-        public string Name { get; }
-
-        public bool IsSuccess { get; }
-
-        /// <summary>
-        /// Gets the detailed result of this test suite
-        /// </summary>
-        public IList<TestResult> TestResults { get; }
-
-        public TimeSpan ExecutionTime { get; }
     }
 }

@@ -65,6 +65,7 @@
     <Compile Include="Execution\Result\TestResult.cs" />
     <Compile Include="Execution\Result\TestSuiteResult.cs" />
     <Compile Include="Execution\Runners\ITestRunnerFactory.cs" />
+    <Compile Include="Execution\Runners\ITestRunnerClient.cs" />
     <Compile Include="Execution\TestRunnerDependencyFilesHandler.cs" />
     <Compile Include="Location\MutationLocationInfo.cs" />
     <Compile Include="MutationDocument.cs" />

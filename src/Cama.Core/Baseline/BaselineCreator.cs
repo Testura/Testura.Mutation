@@ -20,16 +20,16 @@ namespace Cama.Core.Baseline
     public class BaselineCreator
     {
         private readonly IProjectCompiler _projectCompiler;
-        private readonly ITestRunnerFactory _testRunnerFactory;
         private readonly TestRunnerDependencyFilesHandler _testRunnerDependencyFilesHandler;
+        private ITestRunnerClient _testRunnerClient;
 
         public BaselineCreator(
             IProjectCompiler projectCompiler,
-            ITestRunnerFactory testRunnerFactory,
+            ITestRunnerClient testRunnerClient,
             TestRunnerDependencyFilesHandler testRunnerDependencyFilesHandler)
         {
             _projectCompiler = projectCompiler;
-            _testRunnerFactory = testRunnerFactory;
+            _testRunnerClient = testRunnerClient;
             _testRunnerDependencyFilesHandler = testRunnerDependencyFilesHandler;
         }
 
@@ -114,8 +114,7 @@ namespace Cama.Core.Baseline
                 File.Copy(file, Path.Combine(testDirectoryPath, Path.GetFileName(file)), true);
             }
 
-            var testRunner = _testRunnerFactory.CreateTestRunner(testRunnerName);
-            return await testRunner.RunTestsAsync(testDllPath, TimeSpan.FromMinutes(maxTestTimeMin));
+            return await _testRunnerClient.RunTestsAsync(testRunnerName, testDllPath, TimeSpan.FromMinutes(maxTestTimeMin));
         }
 
         private void LogBaselineSummary(IList<BaselineInfo> baselineInfos)

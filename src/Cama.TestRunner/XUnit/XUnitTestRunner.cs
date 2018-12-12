@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
@@ -16,7 +17,7 @@ namespace Cama.TestRunner.XUnit
         private ManualResetEvent _finished;
         private IList<TestResult> _results;
 
-        public async Task<TestSuiteResult> RunTestsAsync(string dllPath, TimeSpan maxTime)
+        public async Task<TestSuiteResult> RunTestsAsync(string dllPath)
         {
             _executionTime = 0;
             _finished = new ManualResetEvent(false);
@@ -27,21 +28,18 @@ namespace Cama.TestRunner.XUnit
                 runner.OnExecutionComplete = OnExecutionComplete;
                 runner.OnTestFailed = OnTestFailed;
                 runner.OnTestPassed = OnTestPassed;
-                var resultTask = Task.Run(() => RunTests(runner));
-
-                var finishedTask = await Task.WhenAny(resultTask, Task.Delay(maxTime));
-
-                if (finishedTask != resultTask)
-                {
-                    LogTo.Info("Test canceled. The mutation probably created an infinite loop.");
-                    runner.Cancel();
-                    return new TestSuiteResult("TIMEOUT", new List<TestResult>(), "NULL", maxTime);
-                }
+                await Task.Run(() => RunTests(runner));
 
                 _finished.WaitOne();
                 _finished.Dispose();
 
-                return new TestSuiteResult(Path.GetFileName(dllPath), _results, string.Empty, TimeSpan.FromSeconds((int)_executionTime));
+                return new TestSuiteResult
+                {
+                    Name = Path.GetFileName(dllPath),
+                    TestResults = _results,
+                    ExecutionTime = TimeSpan.FromSeconds((int)_executionTime),
+                    IsSuccess = _results.All(r => r.IsSuccess)
+                };
             }
         }
 
