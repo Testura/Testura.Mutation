@@ -12,6 +12,7 @@ using Cama.Core.Execution.Report;
 using Cama.Core.Execution.Report.Cama;
 using Cama.Core.Execution.Report.Html;
 using Cama.Core.Execution.Report.Markdown;
+using Cama.Core.Execution.Report.Summary;
 using Cama.Core.Execution.Report.Trx;
 using MediatR;
 
@@ -46,7 +47,8 @@ namespace Cama.Console
                 new TrxReportCreator(savePath),
                 new MarkdownReportCreator(Path.ChangeExtension(savePath, ".md")),
                 new CamaReportCreator(Path.ChangeExtension(savePath, ".cama")),
-                new HtmlOnlyBodyReportCreator(Path.ChangeExtension(savePath, ".html"))
+                new HtmlOnlyBodyReportCreator(Path.ChangeExtension(savePath, ".html")),
+                new TextSummaryReportCreator(Path.ChangeExtension(savePath, ".txt"))
             };
 
             await _mediator.Send(new CreateReportCommand(results, reports));

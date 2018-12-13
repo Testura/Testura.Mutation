@@ -60,6 +60,7 @@
     <Compile Include="Execution\Compilation\IMutationDocumentCompiler.cs" />
     <Compile Include="Execution\Compilation\IProjectCompiler.cs" />
     <Compile Include="Execution\Report\Html\HtmlOnlyBodyReportCreator.cs" />
+    <Compile Include="Execution\Report\Summary\TextSummaryReportCreator.cs" />
     <Compile Include="Execution\Runners\ITestRunner.cs" />
     <Compile Include="Execution\MutationDocumentExecutor.cs" />
     <Compile Include="Execution\Result\TestResult.cs" />
