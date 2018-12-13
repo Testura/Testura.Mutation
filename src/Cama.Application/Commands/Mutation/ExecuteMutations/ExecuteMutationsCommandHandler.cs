@@ -67,7 +67,7 @@ namespace Cama.Application.Commands.Mutation.ExecuteMutations
                                 var unknownErrors = results.Count(r => r.UnexpectedError != null);
 
                                 Interlocked.Decrement(ref numberOfMutationsLeft);
-                                LogTo.Info($"Current progress: {{ Survived: {survived}, Killed: {killed}, CompileErrors: {compileErrors}, UnknownERrors: {unknownErrors}, MutationsLeft: {numberOfMutationsLeft} }}");
+                                LogTo.Info($"Current progress: {{ Survived: {survived}, Killed: {killed}, CompileErrors: {compileErrors}, UnknownErrors: {unknownErrors}, MutationsLeft: {numberOfMutationsLeft} }}");
                             }
 
                             semaphoreSlim.Release();
