@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cama.Core.Execution.Report.Cama
@@ -9,12 +10,18 @@ namespace Cama.Core.Execution.Report.Cama
         {
         }
 
-        public CamaReport(IList<MutationDocumentResult> mutations)
+        public CamaReport(IList<MutationDocumentResult> mutations, TimeSpan executionTime)
         {
             TotalNumberOfMutations = mutations.Count;
             NumberOfSurvivedMutations = mutations.Count(m => m.Survived);
+            NumberOfKilledMutations = mutations.Count(r => !r.Survived && (r.CompilationResult != null && r.CompilationResult.IsSuccess));
             Mutations = mutations;
+            ExecutionTime = executionTime;
         }
+
+        public int NumberOfKilledMutations { get; set; }
+
+        public TimeSpan ExecutionTime { get; set; }
 
         public int TotalNumberOfMutations { get; set; }
 

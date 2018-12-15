@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Anotar.Log4Net;
@@ -12,7 +13,7 @@ namespace Cama.Core.Execution.Report.Summary
         {
         }
 
-        public override void SaveReport(IList<MutationDocumentResult> mutations)
+        public override void SaveReport(IList<MutationDocumentResult> mutations, TimeSpan executionTime)
         {
             if (!mutations.Any())
             {
@@ -31,7 +32,8 @@ namespace Cama.Core.Execution.Report.Summary
                 $"Survived: {survived}",
                 $"Killed: {killed}",
                 $"Compile errors: {compileErrors}",
-                $"Unknown errors: {unknownErrors}"
+                $"Unknown errors: {unknownErrors}",
+                $"Execution time: {executionTime}"
             };
 
             File.WriteAllLines(SavePath, lines);

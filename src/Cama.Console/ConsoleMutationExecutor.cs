@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,6 +41,8 @@ namespace Cama.Console
             };
 
             var config = await _mediator.Send(new OpenProjectCommand(configPath, true));
+
+            var start = DateTime.Now;
             var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(config, mutators));
             var results = await _mediator.Send(new ExecuteMutationsCommand(config, mutationDocuments.ToList(), null));
             var reports = new List<ReportCreator>
@@ -51,7 +54,7 @@ namespace Cama.Console
                 new TextSummaryReportCreator(Path.ChangeExtension(savePath, ".txt"))
             };
 
-            await _mediator.Send(new CreateReportCommand(results, reports));
+            await _mediator.Send(new CreateReportCommand(results, reports, DateTime.Now - start));
 
             return !results.Any(r => r.Survived);
         }

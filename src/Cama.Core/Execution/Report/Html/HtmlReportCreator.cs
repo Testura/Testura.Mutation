@@ -18,7 +18,7 @@ namespace Cama.Core.Execution.Report.Html
 
         private string TemplatePath => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Execution", "Report", "Html", "ReportTemplate.cshtml");
 
-        public override void SaveReport(IList<MutationDocumentResult> mutations)
+        public override void SaveReport(IList<MutationDocumentResult> mutations, TimeSpan exectutionTime)
         {
             LogTo.Info("Saving HTML report..");
 

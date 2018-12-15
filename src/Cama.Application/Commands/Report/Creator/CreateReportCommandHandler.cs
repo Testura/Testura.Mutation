@@ -8,7 +8,7 @@ namespace Cama.Application.Commands.Report.Creator
     {
         public Task<bool> Handle(CreateReportCommand command, CancellationToken cancellationToken)
         {
-            Parallel.ForEach(command.ReportCreators, reportCreator => reportCreator.SaveReport(command.Mutations));
+            Parallel.ForEach(command.ReportCreators, reportCreator => reportCreator.SaveReport(command.Mutations, command.ExecutionTime));
             return Task.FromResult(true);
         }
     }

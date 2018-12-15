@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Cama.Core.Execution.Report.Markdown
         {
         }
 
-        public override void SaveReport(IList<MutationDocumentResult> mutations)
+        public override void SaveReport(IList<MutationDocumentResult> mutations, TimeSpan exectutionTime)
         {
             LogTo.Info("Saving markdown report..");
 

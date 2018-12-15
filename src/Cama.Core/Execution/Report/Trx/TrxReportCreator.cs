@@ -15,7 +15,7 @@ namespace Cama.Core.Execution.Report.Trx
         {
         }
 
-        public override void SaveReport(IList<MutationDocumentResult> mutations)
+        public override void SaveReport(IList<MutationDocumentResult> mutations, TimeSpan exectutionTime)
         {
             LogTo.Info("Saving TRX report..");
 

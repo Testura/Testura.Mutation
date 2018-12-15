@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Cama.Core.Execution.Report
 {
@@ -11,6 +12,6 @@ namespace Cama.Core.Execution.Report
 
         protected string SavePath { get; }
 
-        public abstract void SaveReport(IList<MutationDocumentResult> mutations);
+        public abstract void SaveReport(IList<MutationDocumentResult> mutations, TimeSpan executionTime);
     }
 }
