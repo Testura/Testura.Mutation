@@ -4,6 +4,7 @@ using System.Linq;
 using Cama.Core.Execution.Compilation;
 using Cama.Core.Execution.Result;
 using Cama.Core.Location;
+using Cama.Core.Util;
 
 namespace Cama.Core
 {
@@ -41,5 +42,16 @@ namespace Cama.Core
         public string MutationName { get; set; }
 
         public string UnexpectedError { get; set; }
+
+        public string Hash { get; set; }
+
+        public void GenerateHash()
+        {
+            Hash = HashHelper.CreateMD5Hash(
+                ProjectName +
+                FileName +
+                Orginal +
+                Mutation);
+        }
     }
 }

@@ -92,6 +92,7 @@
     <Compile Include="Execution\Report\Trx\TrxReportCreator.cs" />
     <Compile Include="Solution\SolutionInfoService.cs" />
     <Compile Include="Solution\SolutionProjectInfo.cs" />
+    <Compile Include="Util\HashHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

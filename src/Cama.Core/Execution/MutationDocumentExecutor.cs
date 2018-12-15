@@ -27,7 +27,7 @@ namespace Cama.Core.Execution
 
         public async Task<MutationDocumentResult> ExecuteMutationAsync(CamaConfig config, MutationDocument mutationDocument)
         {
-            var mustationResult = new MutationDocumentResult
+            var mutationResult = new MutationDocumentResult
             {
                 Id = mutationDocument.Id,
                 MutationName = mutationDocument.MutationName,
@@ -39,6 +39,8 @@ namespace Cama.Core.Execution
                 Mutation = mutationDocument.MutationDetails.Mutation.ToFullString(),
                 FullMutation = mutationDocument.MutationDetails.FullMutation.ToFullString()
             };
+
+            mutationResult.GenerateHash();
 
             LogTo.Info($"Running mutation: \"{mutationDocument.MutationName}\"");
 
@@ -52,10 +54,10 @@ namespace Cama.Core.Execution
 
             Directory.CreateDirectory(mutationDirectoryPath);
 
-            mustationResult.CompilationResult = await _compiler.CompileAsync(mutationDllPath, mutationDocument);
-            if (!mustationResult.CompilationResult.IsSuccess)
+            mutationResult.CompilationResult = await _compiler.CompileAsync(mutationDllPath, mutationDocument);
+            if (!mutationResult.CompilationResult.IsSuccess)
             {
-                return mustationResult;
+                return mutationResult;
             }
 
             foreach (var testProject in config.TestProjects)
@@ -82,10 +84,10 @@ namespace Cama.Core.Execution
             var final = CombineResult(mutationDocument.FileName, results);
             LogTo.Info($"\"{mutationDocument.MutationName}\" done. Ran {final.TestResults.Count} tests and {final.TestResults.Count(t => !t.IsSuccess)} failed.");
 
-            mustationResult.FailedTests = final.TestResults.Where(t => !t.IsSuccess).ToList();
-            mustationResult.TestsRunCount = final.TestResults.Count;
+            mutationResult.FailedTests = final.TestResults.Where(t => !t.IsSuccess).ToList();
+            mutationResult.TestsRunCount = final.TestResults.Count;
 
-            return mustationResult;
+            return mutationResult;
         }
 
         private async Task<TestSuiteResult> RunTestAsync(
