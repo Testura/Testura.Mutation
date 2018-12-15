@@ -20,5 +20,18 @@ namespace Cama.Tests.Core.Creator
 
             Assert.AreEqual(shouldBeAllowed, mutationDocumentFilterItem.IsAllowed(resource));
         }
+
+        [TestCase("\\weird\\hej.cs", true)]
+        [TestCase("/weird/hej.cs", true)]
+        public void IsAllowedSpecialPath(string resource, bool shouldBeAllowed)
+        {
+            var mutationDocumentFilterItem = new MutationDocumentFilterItem
+            {
+                Effect = MutationDocumentFilterItem.FilterEffect.Allow,
+                Resource = "/weird/hej.cs"
+            };
+
+            Assert.AreEqual(shouldBeAllowed, mutationDocumentFilterItem.IsAllowed(resource));
+        }
     }
 }

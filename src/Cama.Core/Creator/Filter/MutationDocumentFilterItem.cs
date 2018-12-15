@@ -88,7 +88,7 @@ namespace Cama.Core.Creator.Filter
 
         private bool CheckResource(FilterEffect effect, string resource)
         {
-            var isMatch = MatchResource(resource);
+            var isMatch = MatchResource(resource.Replace('\\', '/'));
             if (isMatch && Effect == effect)
             {
                 return true;
