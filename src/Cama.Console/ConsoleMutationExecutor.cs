@@ -45,13 +45,15 @@ namespace Cama.Console
             var start = DateTime.Now;
             var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(config, mutators));
             var results = await _mediator.Send(new ExecuteMutationsCommand(config, mutationDocuments.ToList(), null));
+
+            var trxSavePath = Path.Combine(savePath, "result.trx");
             var reports = new List<ReportCreator>
             {
-                new TrxReportCreator(savePath),
-                new MarkdownReportCreator(Path.ChangeExtension(savePath, ".md")),
-                new CamaReportCreator(Path.ChangeExtension(savePath, ".cama")),
-                new HtmlOnlyBodyReportCreator(Path.ChangeExtension(savePath, ".html")),
-                new TextSummaryReportCreator(Path.ChangeExtension(savePath, ".txt"))
+                new TrxReportCreator(trxSavePath),
+                new MarkdownReportCreator(Path.ChangeExtension(trxSavePath, ".md")),
+                new CamaReportCreator(Path.ChangeExtension(trxSavePath, ".cama")),
+                new HtmlOnlyBodyReportCreator(Path.ChangeExtension(trxSavePath, ".html")),
+                new TextSummaryReportCreator(Path.ChangeExtension(trxSavePath, ".txt"))
             };
 
             await _mediator.Send(new CreateReportCommand(results, reports, DateTime.Now - start));
