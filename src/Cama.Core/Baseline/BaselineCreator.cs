@@ -74,6 +74,9 @@ namespace Cama.Core.Baseline
             foreach (var solutionProjectInfo in config.TestProjects)
             {
                 var result = await RunTestAsync(config.TestRunner, solutionProjectInfo, config.MaxTestTimeMin);
+
+                LogBaselineSummary(baselineInfos);
+
                 if (!result.IsSuccess)
                 {
                     var failedTests = result.TestResults.Where(t => !t.IsSuccess);
@@ -89,8 +92,6 @@ namespace Cama.Core.Baseline
                 LogTo.Info($"..done ({result.TestResults.Count(t => t.IsSuccess)} tests passed).");
                 baselineInfos.Add(new BaselineInfo(solutionProjectInfo.Name, result.ExecutionTime));
             }
-
-            LogBaselineSummary(baselineInfos);
 
             LogTo.Info("Baseline completed.");
             return baselineInfos;
