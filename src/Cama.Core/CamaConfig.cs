@@ -12,7 +12,7 @@ namespace Cama.Core
             MutationProjects = new List<SolutionProjectInfo>();
             TestProjects = new List<SolutionProjectInfo>();
             MaxTestTimeMin = 5;
-            TestRunner = "nunit";
+            TestRunner = "dotnet";
             BaselineInfos = new List<BaselineInfo>();
         }
 
@@ -33,5 +33,7 @@ namespace Cama.Core
         public string TestRunner { get; set; }
 
         public IList<BaselineInfo> BaselineInfos { get; set; }
+
+        public string DotNetPath { get; set; }
     }
 }

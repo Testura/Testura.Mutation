@@ -10,7 +10,7 @@ namespace Cama.Application.Models
             NumberOfTestRunInstances = 3;
             MaxTestTimeMin = 5;
             BuildConfiguration = "debug";
-            TestRunner = "nunit";
+            TestRunner = "dotnet";
         }
 
         public string SolutionPath { get; set; }
@@ -28,5 +28,7 @@ namespace Cama.Application.Models
         public int MaxTestTimeMin { get; set; }
 
         public string TestRunner { get; set; }
+
+        public string DotNetPath { get; set; }
     }
 }

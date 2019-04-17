@@ -47,7 +47,8 @@ namespace Cama.Application.Commands.Project.OpenProject
                     NumberOfTestRunInstances = fileConfig.NumberOfTestRunInstances,
                     BuildConfiguration = fileConfig.BuildConfiguration,
                     MaxTestTimeMin = fileConfig.MaxTestTimeMin,
-                    TestRunner = fileConfig.TestRunner
+                    TestRunner = fileConfig.TestRunner,
+                    DotNetPath = fileConfig.DotNetPath
                 };
 
                 using (var workspace = MSBuildWorkspace.Create())

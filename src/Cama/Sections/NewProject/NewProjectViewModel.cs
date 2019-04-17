@@ -37,7 +37,7 @@ namespace Cama.Sections.NewProject
             _loadingDisplayer = loadingDisplayer;
             _mediator = mediator;
             _mutationModuleTabOpener = mutationModuleTabOpener;
-            TestRunnerTypes = new List<string> { "NUnit", "xUnit", "DotNet" };
+            TestRunnerTypes = new List<string> { "DotNet", "xUnit", "NUnit" };
             ProjectNamesInSolution = new List<string>();
             ProjectPathCommand = new DelegateCommand(PickProjectPath);
             SolutionPathCommand = new DelegateCommand(PickSolutionPathAsync);

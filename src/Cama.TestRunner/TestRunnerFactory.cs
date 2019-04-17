@@ -12,7 +12,7 @@ namespace Cama.TestRunner
         public const string XUnit = "xunit";
         public const string DotNet = "dotnet";
 
-        public ITestRunner CreateTestRunner(string testRunnerName)
+        public ITestRunner CreateTestRunner(string testRunnerName, string dotNetPath)
         {
             if (testRunnerName.Equals(NUnit, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -26,7 +26,7 @@ namespace Cama.TestRunner
 
             if (testRunnerName.Equals(DotNet, StringComparison.InvariantCultureIgnoreCase))
             {
-                return new DotNetTestRunner();
+                return new DotNetTestRunner(dotNetPath);
             }
 
             throw new ArgumentException($"Could not find any test runner with the name {testRunnerName}.");

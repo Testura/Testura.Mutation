@@ -63,7 +63,7 @@ namespace Cama.Core.Execution
             foreach (var testProject in config.TestProjects)
             {
                 var baseline = config.BaselineInfos.FirstOrDefault(b => b.TestProjectName.Equals(testProject.Name, StringComparison.OrdinalIgnoreCase));
-                var result = await RunTestAsync(config.TestRunner, mutationDirectoryPath, mutationDllPath, testProject, baseline?.GetTestProjectTimeout() ?? TimeSpan.FromMinutes(config.MaxTestTimeMin));
+                var result = await RunTestAsync(config.TestRunner, mutationDirectoryPath, mutationDllPath, config.DotNetPath, testProject, baseline?.GetTestProjectTimeout() ?? TimeSpan.FromMinutes(config.MaxTestTimeMin));
                 results.Add(result);
 
                 if (results.Any(r => !r.IsSuccess))
@@ -94,6 +94,7 @@ namespace Cama.Core.Execution
             string testRunnerName,
             string mutationDirectoryPath,
             string mutationDllPath,
+            string dotNetPath,
             SolutionProjectInfo testProject,
             TimeSpan testTimout)
         {
@@ -108,7 +109,7 @@ namespace Cama.Core.Execution
             // Copy the mutation to our mutation test directory (and override the orginal file)
             File.Copy(mutationDllPath, Path.Combine(mutationTestDirectoryPath, Path.GetFileName(mutationDllPath)), true);
 
-            return await _testRunnerClient.RunTestsAsync(testRunnerName, testDllPath, testTimout);
+            return await _testRunnerClient.RunTestsAsync(testRunnerName, testDllPath, dotNetPath, testTimout);
         }
 
         private TestSuiteResult CombineResult(string name, IList<TestSuiteResult> testResult)

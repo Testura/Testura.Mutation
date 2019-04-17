@@ -13,14 +13,15 @@ namespace Cama.Infrastructure
     public class TestRunnerConsoleClient : ITestRunnerClient
 
     {
-        public Task<TestSuiteResult> RunTestsAsync(string runner, string dllPath, TimeSpan maxTime)
+        public Task<TestSuiteResult> RunTestsAsync(string runner, string dllPath, string dotNetPath, TimeSpan maxTime)
         {
             return Task.Run(() =>
             {
                 var allArguments = new List<string>
                 {
                     runner,
-                    dllPath
+                    dotNetPath,
+                    dllPath,
                 };
 
                 try

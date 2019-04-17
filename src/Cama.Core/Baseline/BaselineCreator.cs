@@ -73,9 +73,7 @@ namespace Cama.Core.Baseline
 
             foreach (var solutionProjectInfo in config.TestProjects)
             {
-                var result = await RunTestAsync(config.TestRunner, solutionProjectInfo, config.MaxTestTimeMin);
-
-                LogBaselineSummary(baselineInfos);
+                var result = await RunTestAsync(config.TestRunner, config.DotNetPath, solutionProjectInfo, config.MaxTestTimeMin);
 
                 if (!result.IsSuccess)
                 {
@@ -93,12 +91,15 @@ namespace Cama.Core.Baseline
                 baselineInfos.Add(new BaselineInfo(solutionProjectInfo.Name, result.ExecutionTime));
             }
 
+            LogBaselineSummary(baselineInfos);
+
             LogTo.Info("Baseline completed.");
             return baselineInfos;
         }
 
         private async Task<TestSuiteResult> RunTestAsync(
             string testRunnerName,
+            string dotNetPath,
             SolutionProjectInfo testProject,
             int maxTestTimeMin)
         {
@@ -115,7 +116,7 @@ namespace Cama.Core.Baseline
                 File.Copy(file, Path.Combine(testDirectoryPath, Path.GetFileName(file)), true);
             }
 
-            return await _testRunnerClient.RunTestsAsync(testRunnerName, testDllPath, TimeSpan.FromMinutes(maxTestTimeMin));
+            return await _testRunnerClient.RunTestsAsync(testRunnerName, testDllPath, dotNetPath, TimeSpan.FromMinutes(maxTestTimeMin));
         }
 
         private void LogBaselineSummary(IList<BaselineInfo> baselineInfos)

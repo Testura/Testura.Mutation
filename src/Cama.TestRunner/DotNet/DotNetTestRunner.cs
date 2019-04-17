@@ -14,6 +14,12 @@ namespace Cama.TestRunner.DotNet
     public class DotNetTestRunner : ITestRunner
     {
         private const string ResultName = "result.trx";
+        private readonly string _dotNetPath;
+
+        public DotNetTestRunner(string dotNetPath)
+        {
+            _dotNetPath = dotNetPath;
+        }
 
         public Task<TestSuiteResult> RunTestsAsync(string dllPath)
         {
@@ -22,7 +28,7 @@ namespace Cama.TestRunner.DotNet
             return Task.Run(() =>
             {
                 using (var command = Command.Run(
-                    "dotnet.exe",
+                     GetDotNetExe(),
                     new[] { "vstest", dllPath, $"--logger:trx;LogFileName={ResultName}", $"--ResultsDirectory:{directoryPath}" },
                     o =>
                     {
@@ -83,6 +89,11 @@ namespace Cama.TestRunner.DotNet
                     TestResults = testResults
                 };
             }
+        }
+
+        private string GetDotNetExe()
+        {
+            return string.IsNullOrEmpty(_dotNetPath) ? "dotnet.exe" : _dotNetPath;
         }
     }
 }

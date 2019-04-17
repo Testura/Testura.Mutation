@@ -2,6 +2,6 @@
 {
     public interface ITestRunnerFactory
     {
-        ITestRunner CreateTestRunner(string testRunnerName);
+        ITestRunner CreateTestRunner(string testRunnerName, string dotNetPath);
     }
 }
