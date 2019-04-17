@@ -7,6 +7,7 @@ using Cama.Core.Execution.Compilation;
 using Cama.Core.Execution.Runners;
 using Cama.Helpers.Displayers;
 using Cama.Helpers.Openers.Tabs;
+using Cama.Infrastructure;
 using Cama.Sections.Loading;
 using Cama.Sections.Shell;
 using Cama.TestRunner;
@@ -77,6 +78,7 @@ namespace Cama
             Container.RegisterType<ILoadingDisplayer, LoadingViewModel>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IProjectCompiler, Compiler>();
             Container.RegisterType<IMutationDocumentCompiler, Compiler>();
+            Container.RegisterType<ITestRunnerClient, TestRunnerConsoleClient>();
         }
     }
 }

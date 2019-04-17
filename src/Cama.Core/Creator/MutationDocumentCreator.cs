@@ -42,7 +42,7 @@ namespace Cama.Core.Creator
                         {
                             var document = currentProject.GetDocument(documentId);
 
-                            if (!config.Filter.ResourceAllowed(document.FilePath))
+                            if (config.Filter != null && !config.Filter.ResourceAllowed(document.FilePath))
                             {
                                 LogTo.Info($"Ignoring {document.Name}.");
                                 continue;
@@ -56,7 +56,7 @@ namespace Cama.Core.Creator
                             foreach (var mutationOperator in mutationOperators)
                             {
                                 var mutatedDocuments = mutationOperator.GetMutatedDocument(root, document);
-                                mutationDocuments.AddRange(mutatedDocuments.Where(m => config.Filter.ResourceLinesAllowed(document.FilePath, GetDocumentLine(m))));
+                                mutationDocuments.AddRange(mutatedDocuments.Where(m => config.Filter == null || config.Filter.ResourceLinesAllowed(document.FilePath, GetDocumentLine(m))));
                             }
 
                             list.AddRange(mutationDocuments);
