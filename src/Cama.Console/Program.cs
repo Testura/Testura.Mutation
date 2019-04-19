@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Anotar.Log4Net;
-using Microsoft.Build.Locator;
-using Microsoft.Practices.Unity;
 
 namespace Cama.Console
 {
@@ -22,28 +19,15 @@ namespace Cama.Console
             System.Console.WriteLine("        _______\\/////////__\\///________\\///__\\///______________\\///__\\///________\\///__");
             System.Console.WriteLine(string.Empty);
 
-            LogTo.Info("Starting mutation testing");
+            var options = CommandLineOptions.Parse(args);
 
-            if (args.Length < 1)
+            if (options?.Command == null)
             {
-                throw new ArgumentException("Path to cama config is required.");
+                // RootCommand will have printed help
+                Environment.Exit(1);
             }
 
-            if (args.Length < 2)
-            {
-                throw new ArgumentException("Output path is required.");
-            }
-
-            MSBuildLocator.RegisterDefaults();
-            var mutationRunner = Bootstrapper.GetContainer().Resolve<ConsoleMutationExecutor>();
-            var success = await mutationRunner.ExecuteMutationRunner(args[0], args[1]);
-
-            if (!success)
-            {
-                Environment.Exit(-1);
-            }
-
-            Environment.Exit(0);
+            Environment.Exit(await options.Command.RunAsync());
         }
     }
 }
