@@ -10,12 +10,12 @@ namespace Cama.Console.CommandConfigurations
             command.Description = "An example command from the neat .NET Core Starter";
             command.HelpOption("--help|-h|-?");
 
-            var configPathArgument = command.Argument("configPath", "Path to cama config");
-            var outputPathArgument = command.Argument("outputPath", "Path to output directory");
+            var configPath = command.Option("-cp|--configPath", "Required. Path to cama config", CommandOptionType.SingleValue).IsRequired();
+            var outputPath = command.Option("-op|--outputPath", "Required. Path to output directory", CommandOptionType.SingleValue).IsRequired();
 
             command.OnExecute(() =>
             {
-                options.Command = new MutateCommand(configPathArgument.Value, outputPathArgument.Value, options);
+                options.Command = new MutateCommand(configPath.Value(), outputPath.Value(), options);
 
                 return 0;
             });
