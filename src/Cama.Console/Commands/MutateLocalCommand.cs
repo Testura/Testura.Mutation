@@ -4,17 +4,15 @@ using Microsoft.Practices.Unity;
 
 namespace Cama.Console.Commands
 {
-    public class MutateCommand : ICommand
+    public class MutateLocalCommand : ICommand
     {
         private readonly string _configPath;
         private readonly string _outputPath;
-        private CommandLineOptions _options;
 
-        public MutateCommand(string configPath, string outputPath, CommandLineOptions options)
+        public MutateLocalCommand(string configPath, string outputPath)
         {
             _configPath = configPath;
             _outputPath = outputPath;
-            _options = options;
         }
 
         public async Task<int> RunAsync()

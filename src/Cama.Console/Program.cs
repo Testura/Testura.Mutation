@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Threading.Tasks;
+using Cama.Console.CommandConfigurations;
+using Cama.Console.Commands;
+using McMaster.Extensions.CommandLineUtils;
 
 namespace Cama.Console
 {
     public class Program
     {
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
             System.Console.WriteLine(string.Empty);
             System.Console.WriteLine("________/\\\\\\\\\\\\\\\\\\_____/\\\\\\\\\\\\\\\\\\_____/\\\\\\\\____________/\\\\\\\\_____/\\\\\\\\\\\\\\\\\\____        ");
@@ -19,15 +21,21 @@ namespace Cama.Console
             System.Console.WriteLine("        _______\\/////////__\\///________\\///__\\///______________\\///__\\///________\\///__");
             System.Console.WriteLine(string.Empty);
 
-            var options = CommandLineOptions.Parse(args);
-
-            if (options?.Command == null)
+            var app = new CommandLineApplication
             {
-                // RootCommand will have printed help
-                Environment.Exit(1);
-            }
+                Name = "Cama.Console",
+                FullName = "C# mutation testing"
+            };
 
-            Environment.Exit(await options.Command.RunAsync());
+            app.HelpOption("-?|-h|--help");
+
+            app.Command("local", a => MutateLocalConfiguration.Configure(a));
+            app.Command("git", a => MutateGitConfiguration.Configure(a));
+
+            app.OnExecute(() => new RootCommand(app).RunAsync().Wait());
+
+            var result = app.Execute(args);
+            Environment.Exit(result);
         }
     }
 }

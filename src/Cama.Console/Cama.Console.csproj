@@ -318,10 +318,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="CommandConfigurations\MutateCommandConfiguration.cs" />
-    <Compile Include="CommandLineOptions.cs" />
+    <Compile Include="CommandConfigurations\MutateLocalConfiguration.cs" />
+    <Compile Include="CommandConfigurations\MutateGitConfiguration.cs" />
     <Compile Include="Commands\ICommand.cs" />
-    <Compile Include="Commands\MutateCommand.cs" />
+    <Compile Include="Commands\MutateGitCommand.cs" />
+    <Compile Include="Commands\MutateLocalCommand.cs" />
+    <Compile Include="Commands\RootCommand.cs" />
     <Compile Include="ConsoleMutationExecutor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
