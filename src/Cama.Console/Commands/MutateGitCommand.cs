@@ -6,17 +6,24 @@ namespace Cama.Console.Commands
 {
     public class MutateGitCommand : ICommand
     {
-        private readonly string _configPath;
+        private readonly string _repositoryUrl;
+        private readonly string _branch;
+        private readonly string _username;
+        private readonly string _password;
         private readonly string _outputPath;
 
-        public MutateGitCommand(string configPath, string outputPath)
+        public MutateGitCommand(string repositoryUrl, string branch, string username, string password, string outputPath)
         {
-            _configPath = configPath;
+            _repositoryUrl = repositoryUrl;
+            _branch = branch;
+            _username = username;
+            _password = password;
             _outputPath = outputPath;
         }
 
         public async Task<int> RunAsync()
         {
+            /*
             MSBuildLocator.RegisterDefaults();
             var mutationRunner = Bootstrapper.GetContainer().Resolve<ConsoleMutationExecutor>();
             var success = await mutationRunner.ExecuteMutationRunner(_configPath, _outputPath);
@@ -27,6 +34,9 @@ namespace Cama.Console.Commands
             }
 
             return 0;
+            */
+
+            return await Task.FromResult(1);
         }
     }
 }

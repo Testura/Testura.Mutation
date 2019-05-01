@@ -10,12 +10,16 @@ namespace Cama.Console.CommandConfigurations
             app.Description = "An example command from the neat .NET Core Starter";
             app.HelpOption("--help|-h|-?");
 
-            var configPath = app.Option("-cp|--configPath", "Required. Path to cama config", CommandOptionType.SingleValue).IsRequired();
+            var repositoryUrl = app.Option("-ru|--repositoryUrl", "Required. Path to cama config", CommandOptionType.SingleValue).IsRequired();
+            var branch = app.Option("-b|--branch", "Required. Path to cama config", CommandOptionType.SingleValue).IsRequired();
             var outputPath = app.Option("-op|--outputPath", "Required. Path to output directory", CommandOptionType.SingleValue).IsRequired();
+
+            var username = app.Option("-u|--username", "Required. Path to cama config", CommandOptionType.SingleValue);
+            var password = app.Option("-p|--password", "Required. Path to cama config", CommandOptionType.SingleValue);
 
             app.OnExecute(() =>
             {
-                var command = new MutateLocalCommand(configPath.Value(), outputPath.Value());
+                var command = new MutateGitCommand(repositoryUrl.Value(), branch.Value(), username.Value(), password.Value(), outputPath.Value());
                 return command.RunAsync();
             });
         }
