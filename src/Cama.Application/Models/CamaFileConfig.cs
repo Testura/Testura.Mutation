@@ -17,7 +17,7 @@ namespace Cama.Application.Models
 
         public IList<string> TestProjects { get; set; }
 
-        public IList<string> IgnoredMutationProjects { get; set; }
+        public IList<string> IgnoredProjects { get; set; }
 
         public MutationDocumentFilter Filter { get; set; }
 

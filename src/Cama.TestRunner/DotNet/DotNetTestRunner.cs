@@ -13,12 +13,13 @@ namespace Cama.TestRunner.DotNet
 {
     public class DotNetTestRunner : ITestRunner
     {
-        private const string ResultName = "result.trx";
+        private readonly string _resultId;
         private readonly string _dotNetPath;
 
         public DotNetTestRunner(string dotNetPath)
         {
             _dotNetPath = dotNetPath;
+            _resultId = Guid.NewGuid().ToString();
         }
 
         public Task<TestSuiteResult> RunTestsAsync(string dllPath)
@@ -29,7 +30,7 @@ namespace Cama.TestRunner.DotNet
             {
                 using (var command = Command.Run(
                      GetDotNetExe(),
-                    new[] { "vstest", dllPath, $"--logger:trx;LogFileName={ResultName}", $"--ResultsDirectory:{directoryPath}" },
+                    new[] { "vstest", dllPath, $"--logger:trx;LogFileName={_resultId}", $"--ResultsDirectory:{directoryPath}" },
                     o =>
                     {
                         o.StartInfo(si =>
@@ -58,8 +59,9 @@ namespace Cama.TestRunner.DotNet
         private TestSuiteResult CreateResult(string name, string directoryPath)
         {
             var serializer = new XmlSerializer(typeof(TestRunType));
+            var resultPath = Directory.GetFiles(directoryPath).First(f => f.Contains(_resultId));
 
-            using (var fileStream = new FileStream(Path.Combine(directoryPath, ResultName), FileMode.Open))
+            using (var fileStream = new FileStream(resultPath, FileMode.Open))
             {
                 var testRun = (TestRunType)serializer.Deserialize(fileStream);
                 var time = (TestRunTypeTimes)testRun.Items[0];

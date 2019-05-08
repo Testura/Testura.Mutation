@@ -97,7 +97,7 @@ namespace Cama.Sections.NewProject
 
             var config = new CamaFileConfig
             {
-                IgnoredMutationProjects = SelectedProjectsInSolution.Where(s => !s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
+                IgnoredProjects = SelectedProjectsInSolution.Where(s => !s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
                 SolutionPath = SolutionPath,
                 TestProjects = SelectedTestProjectInSolution.Where(s => s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
                 TestRunner = TestRunnerTypes[SelectedTestRunnerIndex]

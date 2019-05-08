@@ -20,8 +20,8 @@ namespace Cama.Infrastructure
                 var allArguments = new List<string>
                 {
                     runner,
-                    dotNetPath,
                     dllPath,
+                    dotNetPath
                 };
 
                 try
@@ -50,7 +50,9 @@ namespace Cama.Infrastructure
                         {
                             if (!command.Result.Success)
                             {
-                                LogTo.Info($"Error from test client - {error}");
+                                LogTo.Info($"Message from test client - {output}.");
+                                LogTo.Info($"Error from test client - {error}.");
+
                                 return new TestSuiteResult
                                 {
                                     IsSuccess = false,

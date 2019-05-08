@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Build.Locator;
+using MediatR;
 using Microsoft.Practices.Unity;
 
 namespace Cama.Console.Commands
@@ -23,6 +23,8 @@ namespace Cama.Console.Commands
 
         public async Task<int> RunAsync()
         {
+            var mediator = Bootstrapper.GetContainer().Resolve<IMediator>();
+
             /*
             MSBuildLocator.RegisterDefaults();
             var mutationRunner = Bootstrapper.GetContainer().Resolve<ConsoleMutationExecutor>();

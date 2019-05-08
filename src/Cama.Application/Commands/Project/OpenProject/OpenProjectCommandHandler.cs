@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
@@ -116,15 +117,15 @@ namespace Cama.Application.Commands.Project.OpenProject
 
         private void InitializeMutationProjects(CamaFileConfig fileConfig, CamaConfig config, Microsoft.CodeAnalysis.Solution solution)
         {
-            if (fileConfig.IgnoredMutationProjects == null)
+            if (fileConfig.IgnoredProjects == null)
             {
-                fileConfig.IgnoredMutationProjects = new List<string>();
+                fileConfig.IgnoredProjects = new List<string>();
             }
 
             LogTo.Info("Setting up mutation projects.");
             foreach (var solutionProject in solution.Projects)
             {
-                if (fileConfig.IgnoredMutationProjects.Contains(solutionProject.Name) || fileConfig.TestProjects.Contains(solutionProject.Name))
+                if (IsIgnored(solutionProject.Name, fileConfig.IgnoredProjects) || IsTestProject(solutionProject.Name, fileConfig.TestProjects))
                 {
                     continue;
                 }
@@ -145,30 +146,64 @@ namespace Cama.Application.Commands.Project.OpenProject
             LogTo.Info("Setting up test projects.");
             foreach (var testProjectName in fileConfig.TestProjects)
             {
-                var testProject = solution.Projects.FirstOrDefault(p => p.Name == testProjectName);
+                var testProjects = solution.Projects.Where(p => Regex.IsMatch(p.Name, FormattedProjectName(testProjectName), RegexOptions.IgnoreCase));
 
-                if (testProject == null)
+                if (!testProjects.Any())
                 {
                     throw new ProjectSetUpException($"Could not find any project with the name {testProjectName} in the solution.");
                 }
 
-                LogTo.Info($"Found the test project {testProjectName}. Grabbing output info.");
-
-                var testProjectOutput = testProject.OutputFilePath;
-
-                // We replace in path just to make sure...
-                if (config.BuildConfiguration != null && config.BuildConfiguration.Equals("release", StringComparison.InvariantCultureIgnoreCase))
+                foreach (var testProject in testProjects)
                 {
-                    testProjectOutput = testProjectOutput.Replace("/debug/", "/release/");
-                }
-                else
-                {
-                    testProjectOutput = testProjectOutput.Replace("/release/", "/debug/");
-                }
+                    LogTo.Info($"Found the test project {testProject.Name}. Grabbing output info.");
 
-                LogTo.Info($"Wanted build configuration is \"{config.BuildConfiguration}\". Setting test project output to \"{testProjectOutput}\"");
-                config.TestProjects.Add(new SolutionProjectInfo(testProject.Name, testProjectOutput));
+                    if (IsIgnored(testProject.Name, fileConfig.IgnoredProjects))
+                    {
+                        LogTo.Info("But it was ignored. So skipping");
+                        continue;
+                    }
+
+                    var testProjectOutput = testProject.OutputFilePath;
+
+                    // We replace in path just to make sure...
+                    if (config.BuildConfiguration != null && config.BuildConfiguration.Equals("release", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        testProjectOutput = testProjectOutput.Replace("/debug/", "/release/");
+                    }
+                    else
+                    {
+                        testProjectOutput = testProjectOutput.Replace("/release/", "/debug/");
+                    }
+
+                    LogTo.Info($"Wanted build configuration is \"{config.BuildConfiguration}\". Setting test project output to \"{testProjectOutput}\"");
+                    config.TestProjects.Add(new SolutionProjectInfo(testProject.Name, testProjectOutput));
+                }
             }
+        }
+
+        private bool IsIgnored(string projectName, IList<string> ignoredProjects)
+        {
+            if (ignoredProjects == null)
+            {
+                return false;
+            }
+
+            return ignoredProjects.Any(ignoredProject => Regex.IsMatch(projectName, FormattedProjectName(ignoredProject), RegexOptions.IgnoreCase));
+        }
+
+        private bool IsTestProject(string projectName, IList<string> testProjects)
+        {
+            if (testProjects == null)
+            {
+                return false;
+            }
+
+            return testProjects.Any(testProject => Regex.IsMatch(projectName, FormattedProjectName(testProject), RegexOptions.IgnoreCase));
+        }
+
+        private string FormattedProjectName(string projectName)
+        {
+            return "^" + Regex.Escape(projectName).Replace("\\*", ".*") + "$";
         }
     }
 }

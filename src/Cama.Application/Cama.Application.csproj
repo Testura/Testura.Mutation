@@ -223,6 +223,9 @@
     <Compile Include="Commands\Mutation\ExecuteMutation\ExecuteMutationCommand.cs" />
     <Compile Include="Commands\Mutation\ExecuteMutation\ExecuteMutationCommandHandler.cs" />
     <Compile Include="Commands\Mutation\ExecuteMutation\ExecuteMutationCommandValidator.cs" />
+    <Compile Include="Commands\Project\CreateGitProject\CreateGitProjectCommand.cs" />
+    <Compile Include="Commands\Project\CreateGitProject\CreateGitProjectCommandHandler.cs" />
+    <Compile Include="Commands\Project\CreateGitProject\CreateGitProjectCommandValidator.cs" />
     <Compile Include="Commands\Project\CreateProject\CreateProjectCommandValidator.cs" />
     <Compile Include="Commands\Project\History\AddProjectHistory\AddProjectHistoryCommandValidator.cs" />
     <Compile Include="Commands\Project\History\AddProjectHistory\AddProjectHistoryCommand.cs" />
@@ -268,9 +271,7 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\Project\CreateGitProject\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Fody.3.1.0\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.1.0\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
