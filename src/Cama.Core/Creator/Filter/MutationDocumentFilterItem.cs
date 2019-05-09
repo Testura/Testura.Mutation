@@ -21,7 +21,7 @@ namespace Cama.Core.Creator.Filter
 
         public bool MatchResource(string resource)
         {
-            return Regex.IsMatch(resource, FormattedResource(), RegexOptions.IgnoreCase);
+            return Regex.IsMatch(resource.Replace('\\', '/'), FormattedResource(), RegexOptions.IgnoreCase);
         }
 
         public bool IsDenied(string resource)
@@ -89,7 +89,7 @@ namespace Cama.Core.Creator.Filter
 
         private bool CheckResource(FilterEffect effect, string resource)
         {
-            var isMatch = MatchResource(resource.Replace('\\', '/'));
+            var isMatch = MatchResource(resource);
             return isMatch && Effect == effect;
         }
 
