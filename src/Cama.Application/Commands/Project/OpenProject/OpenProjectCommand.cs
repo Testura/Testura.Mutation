@@ -1,4 +1,4 @@
-﻿using Cama.Core;
+﻿using Cama.Core.Config;
 using MediatR;
 
 namespace Cama.Application.Commands.Project.OpenProject

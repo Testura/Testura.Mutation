@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cama.Application;
 using Cama.Core;
+using Cama.Core.Config;
 using Cama.Core.Execution.Report.Cama;
 using Cama.Sections.MutationDetails;
 using Cama.Sections.MutationDocumentsExecutionResult;

@@ -45,7 +45,8 @@
   <ItemGroup>
     <Compile Include="Baseline\BaselineCreator.cs" />
     <Compile Include="Baseline\BaselineInfo.cs" />
-    <Compile Include="CamaConfig.cs" />
+    <Compile Include="Config\CamaConfig.cs" />
+    <Compile Include="Config\TestProject.cs" />
     <Compile Include="Creator\Filter\MutationDocumentFilter.cs" />
     <Compile Include="Creator\Filter\MutationDocumentFilterItem.cs" />
     <Compile Include="Creator\MutationDocumentCreator.cs" />

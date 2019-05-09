@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Cama.Core;
+using Cama.Core.Config;
 using Cama.Core.Execution;
 using MediatR;
 

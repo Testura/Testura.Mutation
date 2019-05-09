@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Cama.Application.Exceptions;
 using Cama.Application.Models;
-using Cama.Core;
 using Cama.Core.Baseline;
+using Cama.Core.Config;
 using Cama.Core.Exceptions;
 using Cama.Core.Solution;
 using MediatR;
@@ -48,7 +48,6 @@ namespace Cama.Application.Commands.Project.OpenProject
                     NumberOfTestRunInstances = fileConfig.NumberOfTestRunInstances,
                     BuildConfiguration = fileConfig.BuildConfiguration,
                     MaxTestTimeMin = fileConfig.MaxTestTimeMin,
-                    TestRunner = fileConfig.TestRunner,
                     DotNetPath = fileConfig.DotNetPath
                 };
 
@@ -63,7 +62,7 @@ namespace Cama.Application.Commands.Project.OpenProject
 
                     var solution = await workspace.OpenSolutionAsync(config.SolutionPath);
 
-                    if (workspace.Diagnostics.Any(w => w.Kind == WorkspaceDiagnosticKind.Failure && ContainsProjectName(w.Message, config.MutationProjects, config.TestProjects)))
+                    if (workspace.Diagnostics.Any(w => w.Kind == WorkspaceDiagnosticKind.Failure && ContainsProjectName(w.Message, config.MutationProjects, config.TestProjects.Select(t => t.Project).ToList())))
                     {
                         foreach (var workspaceDiagnostic in workspace.Diagnostics.Where(d => d.Kind == WorkspaceDiagnosticKind.Failure))
                         {
@@ -176,9 +175,40 @@ namespace Cama.Application.Commands.Project.OpenProject
                     }
 
                     LogTo.Info($"Wanted build configuration is \"{config.BuildConfiguration}\". Setting test project output to \"{testProjectOutput}\"");
-                    config.TestProjects.Add(new SolutionProjectInfo(testProject.Name, testProjectOutput));
+                    config.TestProjects.Add(new TestProject { Project = new SolutionProjectInfo(testProject.Name, testProjectOutput), TestRunner = GetTestRunner(testProject, fileConfig.TestRunner)});
                 }
             }
+        }
+
+        private string GetTestRunner(Microsoft.CodeAnalysis.Project testProject, string fileConfigTestRunner)
+        {
+            //This is a bit hackish but it's until I fix so you can specify test runner in file config. 
+            LogTo.Info($"Looking for test runner for {testProject.Name}..");
+            if (!string.IsNullOrEmpty(fileConfigTestRunner))
+            {
+                LogTo.Info($"..found {fileConfigTestRunner} in config.");
+                return fileConfigTestRunner;
+            }
+
+            if (testProject.ParseOptions.PreprocessorSymbolNames.Any(p => p.ToUpper().Contains("NETCOREAPP")))
+            {
+                LogTo.Info("..found .core in symbol names so will use dotnet.");
+                return "dotnet";
+            }
+
+            if(testProject.MetadataReferences.Any(m => m.Display.ToLower().Contains("nunit")))
+            {
+                LogTo.Info("..found nunit in references so will use that.");
+                return "nunit";
+            }
+
+            if (testProject.MetadataReferences.Any(m => m.Display.ToLower().Contains("xunit")))
+            {
+                LogTo.Info("..found xunit in references so will use that.");
+                return "xunit";
+            }
+
+            throw new OpenProjectException($"Could not determine test runner for {testProject.Name}. Please specify test runner in config");
         }
 
         private bool IsIgnored(string projectName, IList<string> ignoredProjects)

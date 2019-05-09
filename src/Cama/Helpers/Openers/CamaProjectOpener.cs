@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Cama.Application.Commands.Project.OpenProject;
 using Cama.Application.Exceptions;
-using Cama.Core;
+using Cama.Core.Config;
 using Cama.Helpers.Displayers;
 using Cama.Helpers.Openers.Tabs;
 using FluentValidation;

@@ -3,16 +3,15 @@ using Cama.Core.Baseline;
 using Cama.Core.Creator.Filter;
 using Cama.Core.Solution;
 
-namespace Cama.Core
+namespace Cama.Core.Config
 {
     public class CamaConfig
     {
         public CamaConfig()
         {
             MutationProjects = new List<SolutionProjectInfo>();
-            TestProjects = new List<SolutionProjectInfo>();
+            TestProjects = new List<TestProject>();
             MaxTestTimeMin = 5;
-            TestRunner = "dotnet";
             BaselineInfos = new List<BaselineInfo>();
         }
 
@@ -20,7 +19,7 @@ namespace Cama.Core
 
         public IList<SolutionProjectInfo> MutationProjects { get; set; }
 
-        public IList<SolutionProjectInfo> TestProjects { get; set; }
+        public IList<TestProject> TestProjects { get; set; }
 
         public MutationDocumentFilter Filter { get; set; }
 
@@ -29,8 +28,6 @@ namespace Cama.Core
         public string BuildConfiguration { get; set; }
 
         public int MaxTestTimeMin { get; set; }
-
-        public string TestRunner { get; set; }
 
         public IList<BaselineInfo> BaselineInfos { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cama.Core;
+using Cama.Core.Config;
 using Cama.Core.Creator.Mutators;
 using MediatR;
 

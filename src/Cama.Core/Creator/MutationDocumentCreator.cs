@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
+using Cama.Core.Config;
 using Cama.Core.Creator.Mutators;
 using Cama.Core.Exceptions;
 using Microsoft.CodeAnalysis.MSBuild;
@@ -35,7 +36,7 @@ namespace Cama.Core.Creator
 
                     var documentIds = currentProject.DocumentIds;
 
-                    LogTo.Info("Starting to create mutations..");
+                    LogTo.Info($"Starting to create mutations for {currentProject.Name}..");
                     foreach (var documentId in documentIds)
                     {
                         try
@@ -66,6 +67,11 @@ namespace Cama.Core.Creator
                             LogTo.Error("Error when creating mutation: " + ex.Message);
                         }
                     }
+                }
+
+                if (!list.Any())
+                {
+                    LogTo.Warn("Could not find a single mutation. Maybe check your filter?");
                 }
 
                 return list;

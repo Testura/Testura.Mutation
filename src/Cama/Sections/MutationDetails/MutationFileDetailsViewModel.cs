@@ -2,6 +2,7 @@
 using System.Linq;
 using Cama.Application;
 using Cama.Core;
+using Cama.Core.Config;
 using Cama.Helpers.Openers.Tabs;
 using Prism.Commands;
 using Prism.Mvvm;

@@ -5,10 +5,10 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
+using Cama.Core.Config;
 using Cama.Core.Execution.Compilation;
 using Cama.Core.Execution.Result;
 using Cama.Core.Execution.Runners;
-using Cama.Core.Solution;
 
 namespace Cama.Core.Execution
 {
@@ -62,8 +62,8 @@ namespace Cama.Core.Execution
 
             foreach (var testProject in config.TestProjects)
             {
-                var baseline = config.BaselineInfos.FirstOrDefault(b => b.TestProjectName.Equals(testProject.Name, StringComparison.OrdinalIgnoreCase));
-                var result = await RunTestAsync(config.TestRunner, mutationDirectoryPath, mutationDllPath, config.DotNetPath, testProject, baseline?.GetTestProjectTimeout() ?? TimeSpan.FromMinutes(config.MaxTestTimeMin));
+                var baseline = config.BaselineInfos.FirstOrDefault(b => b.TestProjectName.Equals(testProject.Project.Name, StringComparison.OrdinalIgnoreCase));
+                var result = await RunTestAsync(testProject, mutationDirectoryPath, mutationDllPath, config.DotNetPath, baseline?.GetTestProjectTimeout() ?? TimeSpan.FromMinutes(config.MaxTestTimeMin));
                 results.Add(result);
 
                 if (results.Any(r => !r.IsSuccess))
@@ -91,25 +91,24 @@ namespace Cama.Core.Execution
         }
 
         private async Task<TestSuiteResult> RunTestAsync(
-            string testRunnerName,
+            TestProject testProject,
             string mutationDirectoryPath,
             string mutationDllPath,
             string dotNetPath,
-            SolutionProjectInfo testProject,
             TimeSpan testTimout)
         {
-            LogTo.Info($"Starting to run tests in {testProject.OutputFileName}");
+            LogTo.Info($"Starting to run tests in {testProject.Project.OutputFileName}");
             var mutationTestDirectoryPath = Path.Combine(mutationDirectoryPath, Guid.NewGuid().ToString());
-            var testDllPath = Path.Combine(mutationTestDirectoryPath, testProject.OutputFileName);
+            var testDllPath = Path.Combine(mutationTestDirectoryPath, testProject.Project.OutputFileName);
             Directory.CreateDirectory(mutationTestDirectoryPath);
 
             // Copy all files from the test directory to our own mutation test directory
-            _testRunnerDependencyFilesHandler.CopyDependencies(testProject.OutputDirectoryPath, mutationTestDirectoryPath);
+            _testRunnerDependencyFilesHandler.CopyDependencies(testProject.Project.OutputDirectoryPath, mutationTestDirectoryPath);
 
             // Copy the mutation to our mutation test directory (and override the orginal file)
             File.Copy(mutationDllPath, Path.Combine(mutationTestDirectoryPath, Path.GetFileName(mutationDllPath)), true);
 
-            return await _testRunnerClient.RunTestsAsync(testRunnerName, testDllPath, dotNetPath, testTimout);
+            return await _testRunnerClient.RunTestsAsync(testProject.TestRunner, testDllPath, dotNetPath, testTimout);
         }
 
         private TestSuiteResult CombineResult(string name, IList<TestSuiteResult> testResult)

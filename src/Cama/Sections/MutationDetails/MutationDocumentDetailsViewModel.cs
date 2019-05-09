@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using Cama.Core;
+using Cama.Core.Config;
 using Cama.Helpers.Openers.Tabs;
 using DiffPlex;
 using DiffPlex.DiffBuilder;

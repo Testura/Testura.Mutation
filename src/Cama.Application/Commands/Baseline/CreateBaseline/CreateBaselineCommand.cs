@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Cama.Core;
 using Cama.Core.Baseline;
+using Cama.Core.Config;
 using MediatR;
 
 namespace Cama.Application.Commands.Baseline.CreateBaseline

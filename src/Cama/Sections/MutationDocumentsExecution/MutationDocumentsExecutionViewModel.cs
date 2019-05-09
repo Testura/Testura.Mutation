@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using Cama.Application.Commands.Mutation.ExecuteMutations;
 using Cama.Core;
+using Cama.Core.Config;
 using Cama.Core.Execution.Report.Cama;
 using Cama.Helpers.Openers.Tabs;
 using Cama.Models;

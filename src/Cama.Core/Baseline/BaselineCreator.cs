@@ -5,12 +5,12 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
+using Cama.Core.Config;
 using Cama.Core.Exceptions;
 using Cama.Core.Execution;
 using Cama.Core.Execution.Compilation;
 using Cama.Core.Execution.Result;
 using Cama.Core.Execution.Runners;
-using Cama.Core.Solution;
 using ConsoleTables;
 using Microsoft.CodeAnalysis.MSBuild;
 using Newtonsoft.Json.Linq;
@@ -71,9 +71,9 @@ namespace Cama.Core.Baseline
 
             var baselineInfos = new List<BaselineInfo>();
 
-            foreach (var solutionProjectInfo in config.TestProjects)
+            foreach (var testProject in config.TestProjects)
             {
-                var result = await RunTestAsync(config.TestRunner, config.DotNetPath, solutionProjectInfo, config.MaxTestTimeMin);
+                var result = await RunTestAsync(testProject, config.DotNetPath, config.MaxTestTimeMin);
 
                 if (!result.IsSuccess)
                 {
@@ -88,7 +88,7 @@ namespace Cama.Core.Baseline
                 }
 
                 LogTo.Info($"..done ({result.TestResults.Count(t => t.IsSuccess)} tests passed).");
-                baselineInfos.Add(new BaselineInfo(solutionProjectInfo.Name, result.ExecutionTime));
+                baselineInfos.Add(new BaselineInfo(testProject.Project.Name, result.ExecutionTime));
             }
 
             LogBaselineSummary(baselineInfos);
@@ -98,25 +98,24 @@ namespace Cama.Core.Baseline
         }
 
         private async Task<TestSuiteResult> RunTestAsync(
-            string testRunnerName,
+            TestProject testProject,
             string dotNetPath,
-            SolutionProjectInfo testProject,
             int maxTestTimeMin)
         {
-            LogTo.Info($"Starting to run tests in {testProject.OutputFileName}");
+            LogTo.Info($"Starting to run tests in {testProject.Project.OutputFileName}");
             var testDirectoryPath = Path.Combine(BaselineDirectoryPath, Guid.NewGuid().ToString());
-            var testDllPath = Path.Combine(testDirectoryPath, testProject.OutputFileName);
+            var testDllPath = Path.Combine(testDirectoryPath, testProject.Project.OutputFileName);
             Directory.CreateDirectory(testDirectoryPath);
 
             // Copy all files from the test directory to our own mutation test directory
-            _testRunnerDependencyFilesHandler.CopyDependencies(testProject.OutputDirectoryPath, testDirectoryPath);
+            _testRunnerDependencyFilesHandler.CopyDependencies(testProject.Project.OutputDirectoryPath, testDirectoryPath);
 
             foreach (var file in Directory.EnumerateFiles(BaselineDirectoryPath))
             {
                 File.Copy(file, Path.Combine(testDirectoryPath, Path.GetFileName(file)), true);
             }
 
-            return await _testRunnerClient.RunTestsAsync(testRunnerName, testDllPath, dotNetPath, TimeSpan.FromMinutes(maxTestTimeMin));
+            return await _testRunnerClient.RunTestsAsync(testProject.TestRunner, testDllPath, dotNetPath, TimeSpan.FromMinutes(maxTestTimeMin));
         }
 
         private void LogBaselineSummary(IList<BaselineInfo> baselineInfos)
