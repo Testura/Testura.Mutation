@@ -131,7 +131,7 @@ namespace Cama.Application.Commands.Project.OpenProject
 
                 LogTo.Info($"Grabbing output info for {solutionProject.Name}.");
 
-                config.MutationProjects.Add(new SolutionProjectInfo(solutionProject.Name, solutionProject.OutputFilePath));
+                config.MutationProjects.Add(new SolutionProjectInfo(solutionProject.Name, UpdateOutputPathWithBuildConfiguration(solutionProject.OutputFilePath, config.BuildConfiguration)));
             }
         }
 
@@ -162,18 +162,7 @@ namespace Cama.Application.Commands.Project.OpenProject
                         continue;
                     }
 
-                    var testProjectOutput = testProject.OutputFilePath;
-
-                    // We replace in path just to make sure...
-                    if (config.BuildConfiguration != null && config.BuildConfiguration.Equals("release", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        testProjectOutput = testProjectOutput.Replace("/debug/", "/release/");
-                    }
-                    else
-                    {
-                        testProjectOutput = testProjectOutput.Replace("/release/", "/debug/");
-                    }
-
+                    var testProjectOutput = UpdateOutputPathWithBuildConfiguration(testProject.OutputFilePath, config.BuildConfiguration);
                     LogTo.Info($"Wanted build configuration is \"{config.BuildConfiguration}\". Setting test project output to \"{testProjectOutput}\"");
                     config.TestProjects.Add(new TestProject { Project = new SolutionProjectInfo(testProject.Name, testProjectOutput), TestRunner = GetTestRunner(testProject, fileConfig.TestRunner)});
                 }
@@ -229,6 +218,17 @@ namespace Cama.Application.Commands.Project.OpenProject
             }
 
             return testProjects.Any(testProject => Regex.IsMatch(projectName, FormattedProjectName(testProject), RegexOptions.IgnoreCase));
+        }
+
+        private string UpdateOutputPathWithBuildConfiguration(string path, string buildConfiguration)
+        {
+            // We replace in path just to make sure...
+            if (buildConfiguration != null && buildConfiguration.Equals("release", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return path.Replace("\\Debug\\", "\\Release\\");
+            }
+
+            return path.Replace("\\Release\\", "\\debug\\");
         }
 
         private string FormattedProjectName(string projectName)

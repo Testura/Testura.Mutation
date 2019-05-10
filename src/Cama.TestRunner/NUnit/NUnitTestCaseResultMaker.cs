@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml;
 using Cama.Core.Execution.Result;
 using NUnit;
@@ -23,11 +24,13 @@ namespace Cama.TestRunner.NUnit
             }
             else
             {
+                var label = node.GetAttribute("label");
+
                 results.Add(new TestResult
                 {
                     FullName = node.GetAttribute("fullname"),
                     Name = node.GetAttribute("name"),
-                    IsSuccess = node.GetAttribute("result") == "Passed",
+                    IsSuccess = node.GetAttribute("result") == "Passed" || label.Equals("ignored", StringComparison.InvariantCultureIgnoreCase),
                     InnerText = string.IsNullOrEmpty(node.InnerText) ? "Test passed without any errors." : node.InnerText
                 });
             }
