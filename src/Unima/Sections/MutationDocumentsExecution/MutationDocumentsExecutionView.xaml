@@ -45,7 +45,7 @@
             <StackPanel Orientation="Horizontal">
                 <Button Content="See result from all mutations" Command="{Binding SeeAllMutationsCommand}" Margin="16" />
                 <Button Content="See failed to compile mutations" Command="{Binding FailedToCompileCommand}" Margin="16" />
-                <Button Content="Save report" Command="{Binding SaveReportCommand}" Margin="16" />
+                <Button Content="Save report" Command="{Binding SaveReportCommand}" Margin="16" IsEnabled="False" />
             </StackPanel>
         </materialDesign:Card>
 

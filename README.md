@@ -5,7 +5,7 @@ Are you looking for ways to improve your unit tests quality and coverage? Then U
 Unima is a mutation testing tool for C# and will verify the quality of your unit tests by injecting different mutations in your code and running your unit tests. If your unit tests: 
 
 - Fails it mean that you find the mutation and you have good coverage
-- Pass it means that the mutation survived and you miss coverage on the specific functionallity.
+- Pass it means that the mutation survived and you miss coverage on the specific functionality.
 
 ![Example of mutation](https://i.imgur.com/ZFPbEyI.png)
 *Example of a mutation* 
@@ -25,7 +25,7 @@ Simply go to releases and download the latest version (or build from source).
 
 ### Console application 
 
-![Console application](https://i.imgur.com/mbhCjWy.png)
+![Console application](https://i.imgur.com/0xVUmXi.png)
 
 First you have to create a json run config, for example: 
 
@@ -43,9 +43,16 @@ First you have to create a json run config, for example:
 ```
 
 Then you run the exe from for example cmd by writing: 
+
 ```c#
 path\to\Unima.Console.exe local --configPath "path/To/Json/Config" --outputPath "path/to/output/directory"
 ```
+
+It will then:
+
+1. Run a baseline (simply execute all your unit tests to make sure that everything is fine)
+2. Create mutations 
+3. Go through each mutation and run all unit tests (we run all unit test each mutation).
 
 After execution you will get a couple of different result files (we will later add so you can filter which result you want):
 
@@ -54,6 +61,8 @@ After execution you will get a couple of different result files (we will later a
 - A short summary in txt
 - A html file 
 - A json file
+
+They contain your mutation score (killed mutations divided by total mutations) as well as details about all survived mutations.
 
 #### Possible config values 
 
@@ -92,7 +101,7 @@ We run all unit tests for all mutations and this property tells us how many sess
 
 #### IgnoredProjects
 
-List of projects that we should't mutate or run tests from. For example: 
+List of projects that we shouldn't mutate or run tests from. For example: 
 ```c#
     "IgnoredProjects":  [
                             "Name.Of.The.Project"
@@ -134,6 +143,10 @@ In this example we will:
 - All other files are ignored
 
 We use filter a lot to run mutations on specific subsets for example new pull requests.
+
+#### DotNetPath
+
+If you use dotnet as test runner and we can't find dotnet.exe automatically it is possible to set it manually with this property. 
 
 ### WPF Application 
 

@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2016 Mille Boström
+Copyright (c) 2019 Mille Boström
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
