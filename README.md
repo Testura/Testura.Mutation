@@ -1,6 +1,6 @@
 ![Unima Logo](https://i.imgur.com/ELDUHai.png)
 
-Are you looking for ways to improve your unit tests quality and coverage? Then Unima and mutation testing may be something for you.
+Are you looking for ways to improve your unit tests quality and test coverage? Then Unima and mutation testing may be something for you.
 
 Unima is a mutation testing tool for C# and will verify the quality of your unit tests by injecting different mutations in your code and running your unit tests. If your unit tests: 
 
