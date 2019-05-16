@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Unima.Core.Config;
+using Unima.Core.Exceptions;
 using Unima.Core.Execution.Compilation;
 using Unima.Core.Execution.Result;
 using Unima.Core.Execution.Runners;
@@ -82,6 +83,12 @@ namespace Unima.Core.Execution
             }
 
             var final = CombineResult(mutationDocument.FileName, results);
+
+            if (final.TestResults.Count == 0)
+            {
+                throw new MutationDocumentException("Unkown error when running, we should not have 0 tests.");
+            }
+
             LogTo.Info($"\"{mutationDocument.MutationName}\" done. Ran {final.TestResults.Count} tests and {final.TestResults.Count(t => !t.IsSuccess)} failed.");
 
             mutationResult.FailedTests = final.TestResults.Where(t => !t.IsSuccess).ToList();

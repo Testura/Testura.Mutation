@@ -59,10 +59,10 @@ namespace Unima.Core.Execution.Report.Trx
                             {
                                 new CountersType
                                 {
-                                    passed = mutations.Count(s => !s.Survived && s.CompilationResult.IsSuccess),
-                                    failed = mutations.Count(s => s.Survived && s.CompilationResult.IsSuccess),
-                                    completed = mutations.Count(s => s.CompilationResult.IsSuccess),
-                                    error = mutations.Count(s => !s.CompilationResult.IsSuccess)
+                                    passed = mutations.Count(s => !s.Survived && s.CompilationResult != null && s.CompilationResult.IsSuccess),
+                                    failed = mutations.Count(s => s.Survived && s.CompilationResult != null && s.CompilationResult.IsSuccess),
+                                    completed = mutations.Count(s => s.CompilationResult != null && s.CompilationResult.IsSuccess),
+                                    error = mutations.Count(s => !s.CompilationResult.IsSuccess || s.CompilationResult == null)
                                 }
                             }
                         },

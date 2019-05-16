@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Medallion.Shell;
+using Medallion.Shell.Streams;
 using Newtonsoft.Json;
 using Unima.Core.Execution.Result;
 using Unima.Core.Execution.Runners;
@@ -43,8 +44,8 @@ namespace Unima.Infrastructure
                             o.DisposeOnExit();
                         }))
                     {
-                        var output = command.StandardOutput.ReadToEnd();
-                        var error = command.StandardError.ReadToEnd();
+                        var output = ReadToEnd(command.StandardOutput, maxTime);
+                        var error = ReadToEnd(command.StandardError, maxTime);
 
                         try
                         {
@@ -79,6 +80,21 @@ namespace Unima.Infrastructure
                     throw;
                 }
             });
+        }
+
+        private string ReadToEnd(ProcessStreamReader processStream, TimeSpan maxTime)
+        {
+            var readStreamTask = Task.Run(() => processStream.ReadToEnd());
+            var successful = readStreamTask.Wait(maxTime);
+
+            if (successful)
+            {
+                return readStreamTask.Result;
+            }
+
+            LogTo.Error("Stuck when reading from stream!");
+            return "Error reading from stream";
+
         }
     }
 }

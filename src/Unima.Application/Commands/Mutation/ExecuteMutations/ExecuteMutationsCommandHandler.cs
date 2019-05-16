@@ -70,8 +70,8 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutations
                             {
                                 results.Add(result);
 
-                                var survived = results.Count(r => r.Survived && (r.CompilationResult != null && r.CompilationResult.IsSuccess));
-                                var killed = results.Count(r => !r.Survived && (r.CompilationResult != null && r.CompilationResult.IsSuccess));
+                                var survived = results.Count(r => r.Survived && (r.CompilationResult != null && r.CompilationResult.IsSuccess) && r.UnexpectedError == null);
+                                var killed = results.Count(r => !r.Survived && (r.CompilationResult != null && r.CompilationResult.IsSuccess) && r.UnexpectedError == null);
                                 var compileErrors = results.Count(r => r.CompilationResult != null && !r.CompilationResult.IsSuccess);
                                 var unknownErrors = results.Count(r => r.UnexpectedError != null);
 
