@@ -70,6 +70,9 @@
     <Compile Include="Execution\Runners\ITestRunnerClient.cs" />
     <Compile Include="Execution\TestRunnerDependencyFilesHandler.cs" />
     <Compile Include="Location\MutationLocationInfo.cs" />
+    <Compile Include="Loggers\AzureMutationRunLogger.cs" />
+    <Compile Include="Loggers\IMutationRunLogger.cs" />
+    <Compile Include="Loggers\MutationRunLoggerFactory.cs" />
     <Compile Include="MutationDocument.cs" />
     <Compile Include="MutationDocumentDetails.cs" />
     <Compile Include="MutationDocumentResult.cs" />

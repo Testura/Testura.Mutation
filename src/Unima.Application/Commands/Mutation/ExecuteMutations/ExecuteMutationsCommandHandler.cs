@@ -8,16 +8,19 @@ using MediatR;
 using Unima.Core;
 using Unima.Core.Config;
 using Unima.Core.Execution;
+using Unima.Core.Loggers;
 
 namespace Unima.Application.Commands.Mutation.ExecuteMutations
 {
     public class ExecuteMutationsCommandHandler : IRequestHandler<ExecuteMutationsCommand, IList<MutationDocumentResult>>
     {
         private readonly MutationDocumentExecutor _mutationDocumentExecutor;
+        private readonly MutationRunLoggerFactory _mutationRunLoggerFactory;
 
-        public ExecuteMutationsCommandHandler(MutationDocumentExecutor mutationDocumentExecutor)
+        public ExecuteMutationsCommandHandler(MutationDocumentExecutor mutationDocumentExecutor, MutationRunLoggerFactory mutationRunLoggerFactory)
         {
             _mutationDocumentExecutor = mutationDocumentExecutor;
+            _mutationRunLoggerFactory = mutationRunLoggerFactory;
         }
 
         public async Task<IList<MutationDocumentResult>> Handle(ExecuteMutationsCommand command, CancellationToken cancellationToken)
@@ -27,6 +30,10 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutations
             var mutationDocuments = new Queue<MutationDocument>(command.MutationDocuments);
             var currentRunningDocuments = new List<Task>();
             var numberOfMutationsLeft = command.MutationDocuments.Count;
+            var mutationRunLoggers = command.Config.MutationRunLoggers?.Select(m => _mutationRunLoggerFactory.GetMutationRunLogger(m)).ToList() ?? new List<IMutationRunLogger>();
+
+            LogTo.Info($"Total number of mutations generated: {numberOfMutationsLeft}");
+            mutationRunLoggers.ForEach(m => m.LogBeforeRun(command.MutationDocuments));
 
             await Task.Run(() =>
             {
@@ -41,6 +48,7 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutations
 
                         try
                         {
+                            mutationRunLoggers.ForEach(m => m.LogBeforeMutation(document));
                             command.MutationDocumentStartedCallback?.Invoke(document);
 
                             var resultTask = _mutationDocumentExecutor.ExecuteMutationAsync(command.Config, document);
@@ -69,6 +77,7 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutations
 
                                 Interlocked.Decrement(ref numberOfMutationsLeft);
                                 LogTo.Info($"Current progress: {{ Survived: {survived}, Killed: {killed}, CompileErrors: {compileErrors}, UnknownErrors: {unknownErrors}, MutationsLeft: {numberOfMutationsLeft} }}");
+                                mutationRunLoggers.ForEach(m => m.LogAfterMutation(document, results, numberOfMutationsLeft));
                             }
 
                             semaphoreSlim.Release();

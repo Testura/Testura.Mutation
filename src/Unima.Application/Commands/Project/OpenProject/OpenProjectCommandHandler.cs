@@ -48,7 +48,8 @@ namespace Unima.Application.Commands.Project.OpenProject
                     NumberOfTestRunInstances = fileConfig.NumberOfTestRunInstances,
                     BuildConfiguration = fileConfig.BuildConfiguration,
                     MaxTestTimeMin = fileConfig.MaxTestTimeMin,
-                    DotNetPath = fileConfig.DotNetPath
+                    DotNetPath = fileConfig.DotNetPath,
+                    MutationRunLoggers = fileConfig.MutationRunLoggers
                 };
 
                 using (var workspace = MSBuildWorkspace.Create())

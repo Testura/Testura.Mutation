@@ -22,4 +22,9 @@ namespace Unima.Core
         [EnumMember(Value = "Replace return values of methods or properties.")]
         ReturnValue
     }
+
+    public enum MutationRunLogger
+    {
+        Azure
+    }
 }

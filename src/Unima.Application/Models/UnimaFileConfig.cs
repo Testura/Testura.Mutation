@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unima.Core;
 using Unima.Core.Creator.Filter;
 
 namespace Unima.Application.Models
@@ -29,5 +30,7 @@ namespace Unima.Application.Models
         public string TestRunner { get; set; }
 
         public string DotNetPath { get; set; }
+
+        public List<MutationRunLogger> MutationRunLoggers { get; set; }
     }
 }

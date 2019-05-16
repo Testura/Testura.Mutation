@@ -32,5 +32,7 @@ namespace Unima.Core.Config
         public IList<BaselineInfo> BaselineInfos { get; set; }
 
         public string DotNetPath { get; set; }
+
+        public List<MutationRunLogger> MutationRunLoggers { get; set; }
     }
 }
