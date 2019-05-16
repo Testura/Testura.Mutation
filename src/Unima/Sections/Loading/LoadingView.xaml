@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Unima.Sections.Loading.LoadingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid Background="Black" Opacity="0.7" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="*" MinHeight="500"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="180" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ProgressBar
+                Style="{StaticResource MaterialDesignCircularProgressBar}"
+                IsIndeterminate="True"
+                Width="150"
+                Grid.Row="0"/>
+            <Label Content="{Binding Message }" FontSize="20" Foreground="White" HorizontalAlignment="Center" Margin="50, 75, 50, 50" Grid.Row="1"/>
+        </Grid>
+    </Grid>
+</UserControl>
