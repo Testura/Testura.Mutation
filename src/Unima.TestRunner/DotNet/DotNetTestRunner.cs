@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 using Medallion.Shell;
 using Medallion.Shell.Streams;
@@ -87,7 +88,8 @@ namespace Unima.TestRunner.DotNet
                     {
                         FullName = $"{testDefinitionItems.First(t => t.id == unitTestResultType.testId).TestMethod.className}.{unitTestResultType.testName}",
                         IsSuccess = unitTestResultType.outcome.Equals("passed", StringComparison.InvariantCultureIgnoreCase) || unitTestResultType.outcome.Equals("NotExecuted", StringComparison.InvariantCultureIgnoreCase),
-                        Name = unitTestResultType.testName
+                        Name = unitTestResultType.testName,
+                        InnerText = TryGetMessage(unitTestResultType)
                     });
                 }
 
@@ -99,6 +101,24 @@ namespace Unima.TestRunner.DotNet
                     TestResults = testResults
                 };
             }
+        }
+
+        private string TryGetMessage(UnitTestResultType unitTestResultType)
+        {
+            if (unitTestResultType.Items == null || !unitTestResultType.Items.Any())
+            {
+                return string.Empty;
+            }
+
+            var item = unitTestResultType.Items.First() as OutputType;
+            var message = item?.ErrorInfo.Message as XmlNode[];
+
+            if (message == null || !message.Any())
+            {
+                return string.Empty;
+            }
+
+            return message[0].Value ?? string.Empty;
         }
 
         private bool ReadToEnd(ProcessStreamReader processStream, out string message)
