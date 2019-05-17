@@ -111,7 +111,7 @@ namespace Unima.TestRunner.DotNet
             }
 
             var item = unitTestResultType.Items.First() as OutputType;
-            var message = item?.ErrorInfo.Message as XmlNode[];
+            var message = item?.ErrorInfo?.Message as XmlNode[];
 
             if (message == null || !message.Any())
             {
