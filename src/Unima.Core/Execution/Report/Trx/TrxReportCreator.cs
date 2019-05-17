@@ -62,7 +62,7 @@ namespace Unima.Core.Execution.Report.Trx
                                     passed = mutations.Count(s => !s.Survived && s.CompilationResult != null && s.CompilationResult.IsSuccess),
                                     failed = mutations.Count(s => s.Survived && s.CompilationResult != null && s.CompilationResult.IsSuccess),
                                     completed = mutations.Count(s => s.CompilationResult != null && s.CompilationResult.IsSuccess),
-                                    error = mutations.Count(s => !s.CompilationResult.IsSuccess || s.CompilationResult == null)
+                                    error = mutations.Count(s => s.CompilationResult == null || !s.CompilationResult.IsSuccess)
                                 }
                             }
                         },
@@ -75,7 +75,7 @@ namespace Unima.Core.Execution.Report.Trx
                             {
                                 new TestListType()
                                 {
-                                    id = ((UnitTestResultType)results.Items[0]).testListId,
+                                    id = results.Items.Any() ? ((UnitTestResultType)results.Items[0]).testListId : "No result found",
                                     name = "All Loaded Results"
                                 }
                             }
