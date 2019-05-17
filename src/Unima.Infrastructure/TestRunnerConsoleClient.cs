@@ -6,6 +6,7 @@ using Anotar.Log4Net;
 using Medallion.Shell;
 using Medallion.Shell.Streams;
 using Newtonsoft.Json;
+using Unima.Core.Exceptions;
 using Unima.Core.Execution.Result;
 using Unima.Core.Execution.Runners;
 
@@ -22,6 +23,7 @@ namespace Unima.Infrastructure
                 {
                     runner,
                     dllPath,
+                    maxTime.ToString(),
                     dotNetPath
                 };
 
@@ -44,8 +46,14 @@ namespace Unima.Infrastructure
                             o.DisposeOnExit();
                         }))
                     {
-                        var output = ReadToEnd(command.StandardOutput, maxTime);
-                        var error = ReadToEnd(command.StandardError, maxTime);
+                        var error = string.Empty;
+                        var success = ReadToEnd(command.StandardOutput, maxTime, out var output) && ReadToEnd(command.StandardError, maxTime, out error);
+
+                        if (!success)
+                        {
+                            command.Kill();
+                            throw new MutationDocumentException("We have a problem reading from stream. Killing this mutation");
+                        }
 
                         try
                         {
@@ -82,19 +90,15 @@ namespace Unima.Infrastructure
             });
         }
 
-        private string ReadToEnd(ProcessStreamReader processStream, TimeSpan maxTime)
+        private bool ReadToEnd(ProcessStreamReader processStream, TimeSpan maxTime, out string message)
         {
             var readStreamTask = Task.Run(() => processStream.ReadToEnd());
-            var successful = readStreamTask.Wait(maxTime);
+            // We also have a max time in the test runner so add a bit of extra here 
+            // just in case so we don't fail it to early.
+            var successful = readStreamTask.Wait(maxTime.Add(TimeSpan.FromSeconds(30))); 
 
-            if (successful)
-            {
-                return readStreamTask.Result;
-            }
-
-            LogTo.Error("Stuck when reading from stream!");
-            return "Error reading from stream";
-
+            message = successful ? readStreamTask.Result : "Stuck when reading from stream!";
+            return successful;
         }
     }
 }

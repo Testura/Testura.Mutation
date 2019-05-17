@@ -338,7 +338,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Unima.TestRunner.Console\Unima.TestRunner.Console.csproj">

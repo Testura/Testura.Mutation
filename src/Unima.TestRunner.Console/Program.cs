@@ -9,7 +9,7 @@ namespace Unima.TestRunner.Console
         {
             var testRunnerFactory = new TestRunnerFactory();
 
-            var runner = testRunnerFactory.CreateTestRunner(args[0], args.Length > 2 ? args[2] : null);
+            var runner = testRunnerFactory.CreateTestRunner(args[0], TimeSpan.Parse(args[2]), args.Length > 3 ? args[3] : null);
             try
             {
                 var result = runner.RunTestsAsync(args[1]).Result;

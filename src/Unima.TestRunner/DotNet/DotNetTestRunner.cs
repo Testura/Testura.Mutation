@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Medallion.Shell;
+using Medallion.Shell.Streams;
 using Unima.Core.Execution.Report.Trx;
 using Unima.Core.Execution.Result;
 using Unima.Core.Execution.Runners;
@@ -15,10 +16,12 @@ namespace Unima.TestRunner.DotNet
     {
         private readonly string _resultId;
         private readonly string _dotNetPath;
+        private readonly TimeSpan _maxTime;
 
-        public DotNetTestRunner(string dotNetPath)
+        public DotNetTestRunner(string dotNetPath, TimeSpan maxTime)
         {
             _dotNetPath = dotNetPath;
+            _maxTime = maxTime;
             _resultId = Guid.NewGuid().ToString();
         }
 
@@ -44,9 +47,14 @@ namespace Unima.TestRunner.DotNet
                         o.DisposeOnExit();
                     }))
                 {
-                    var error = command.StandardError.ReadToEnd();
+                    var success = ReadToEnd(command.StandardError, out var error);
 
-                    if (!command.Result.Success && !error.ToLower().Contains("test run failed"))
+                    if (!success)
+                    {
+                        command.Kill();
+                    }
+
+                    if (!success || (!command.Result.Success && !error.ToLower().Contains("test run failed")))
                     {
                         return TestSuiteResult.Error(error, TimeSpan.Zero);
                     }
@@ -91,6 +99,15 @@ namespace Unima.TestRunner.DotNet
                     TestResults = testResults
                 };
             }
+        }
+
+        private bool ReadToEnd(ProcessStreamReader processStream, out string message)
+        {
+            var readStreamTask = Task.Run(() => processStream.ReadToEnd());
+            var successful = readStreamTask.Wait(_maxTime);
+
+            message = successful ? readStreamTask.Result : "Error reading from stream";
+            return successful;
         }
 
         private string GetDotNetExe()

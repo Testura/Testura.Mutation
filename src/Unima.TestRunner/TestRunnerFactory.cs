@@ -12,7 +12,7 @@ namespace Unima.TestRunner
         public const string XUnit = "xunit";
         public const string DotNet = "dotnet";
 
-        public ITestRunner CreateTestRunner(string testRunnerName, string dotNetPath)
+        public ITestRunner CreateTestRunner(string testRunnerName, TimeSpan maxTime, string dotNetPath)
         {
             if (testRunnerName.Equals(NUnit, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -26,7 +26,7 @@ namespace Unima.TestRunner
 
             if (testRunnerName.Equals(DotNet, StringComparison.InvariantCultureIgnoreCase))
             {
-                return new DotNetTestRunner(dotNetPath);
+                return new DotNetTestRunner(dotNetPath, TimeSpan.FromSeconds(10));
             }
 
             throw new ArgumentException($"Could not find any test runner with the name {testRunnerName}.");
