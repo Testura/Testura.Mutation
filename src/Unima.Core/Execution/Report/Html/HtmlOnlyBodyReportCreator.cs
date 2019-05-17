@@ -6,6 +6,7 @@ using System.Reflection;
 using Anotar.Log4Net;
 using RazorEngine;
 using RazorEngine.Templating;
+using Encoding = System.Text.Encoding;
 
 namespace Unima.Core.Execution.Report.Html
 {
@@ -33,7 +34,7 @@ namespace Unima.Core.Execution.Report.Html
                 var text = File.ReadAllText(TemplatePath);
                 var renderedText = Engine.Razor.RunCompile(text, "report", null, mutations.Where(m => m.Survived));
 
-                File.WriteAllText(SavePath, renderedText);
+                File.WriteAllText(SavePath, renderedText, Encoding.Unicode);
             }
             catch (Exception ex)
             {
