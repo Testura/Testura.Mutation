@@ -52,7 +52,7 @@ It will then:
 
 1. Run a baseline (simply execute all your unit tests to make sure that everything is fine)
 2. Create mutations 
-3. Go through each mutation and run all unit tests (we run all unit test each mutation).
+3. Go through each mutation and run all unit tests (we run all unit test for each mutation).
 
 After execution you will get a couple of different result files (we will later add so you can filter which result you want):
 
