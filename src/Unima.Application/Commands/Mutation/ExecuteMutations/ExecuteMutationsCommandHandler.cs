@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Anotar.Log4Net;
 using MediatR;
 using Unima.Core;
-using Unima.Core.Config;
 using Unima.Core.Execution;
 using Unima.Core.Loggers;
 
@@ -91,17 +90,18 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutations
             // Wait for the final ones
             await Task.WhenAll(currentRunningDocuments);
 
+            if (results.Any())
+            {
+                LogTo.Info($"Your mutation score: {GetMutationScore(results)}%");
+            }
+            
+
             return results;
         }
 
-        private TimeSpan GetTimeout(UnimaConfig config)
+        private static double GetMutationScore(List<MutationDocumentResult> results)
         {
-            if (config.BaselineInfos != null && config.BaselineInfos.Any())
-            {
-                return new TimeSpan(config.BaselineInfos.Sum(b => b.ExecutionTime.Ticks * 4));
-            }
-
-            return TimeSpan.FromMinutes(config.MaxTestTimeMin);
+            return Math.Round((double)results.Count(r => !r.Survived)/results.Count(r => r.CompilationResult != null && r.CompilationResult.IsSuccess && r.UnexpectedError == null) * 100);
         }
     }
 }
