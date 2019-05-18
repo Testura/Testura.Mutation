@@ -73,7 +73,7 @@ namespace Unima.Infrastructure
                         }
                         catch (TimeoutException)
                         {
-                            LogTo.Info("Test client timed out. Infinit loop?");
+                            LogTo.Info("Test client timed out. Infinite loop?");
                             return TestSuiteResult.Error("TIMEOUT", maxTime);
                         }
 
@@ -84,7 +84,7 @@ namespace Unima.Infrastructure
                 }
                 catch (Win32Exception ex)
                 {
-                    LogTo.ErrorException("Unknown expcetion from test client process", ex);
+                    LogTo.ErrorException("Unknown exception from test client process", ex);
                     throw;
                 }
             });
