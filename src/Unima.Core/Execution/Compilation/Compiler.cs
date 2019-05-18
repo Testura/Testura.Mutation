@@ -66,19 +66,22 @@ namespace Unima.Core.Execution.Compilation
             var embeddedResources = doc.Descendants().Where(d => d.Name.LocalName.Equals("EmbeddedResource", StringComparison.InvariantCultureIgnoreCase));
             foreach (var embeddedResource in embeddedResources)
             {
-                var path = embeddedResource.Attribute("Include")?.Value;
-                if (path == null)
+                var paths = embeddedResource.Attribute("Include")?.Value;
+                if (paths == null)
                 {
                     continue;
                 }
 
-                var pathFixed = path.Split('\\');
-                var resourcePath = Path.Combine(Path.GetDirectoryName(projectPath), path);
+                foreach (var path in paths.Split(';'))
+                {
+                    var pathFixed = path.Split('\\');
+                    var resourcePath = Path.Combine(Path.GetDirectoryName(projectPath), path);
 
-                resources.Add(new ResourceDescription(
-                    $"{assemblyName}.{string.Join(".", pathFixed)}",
-                    () => File.OpenRead(resourcePath),
-                    true));
+                    resources.Add(new ResourceDescription(
+                        $"{assemblyName}.{string.Join(".", pathFixed)}",
+                        () => File.OpenRead(resourcePath),
+                        true));
+                }
             }
 
             return resources;
