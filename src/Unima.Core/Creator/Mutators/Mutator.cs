@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Anotar.Log4Net;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -7,9 +9,11 @@ using Unima.Core.Location;
 
 namespace Unima.Core.Creator.Mutators
 {
-    public class Mutator : CSharpSyntaxRewriter, IMutator
+    public abstract class Mutator : CSharpSyntaxRewriter, IMutator
     {
-        public Mutator()
+        private const string ExcludeFromCoverageAttributeName = "ExcludeFromCodeCoverage";
+
+        protected Mutator()
         {
             Replacers = new List<MutationDocumentDetails>();
         }
@@ -20,15 +24,11 @@ namespace Unima.Core.Creator.Mutators
         {
             Replacers.Clear();
             Visit(root);
-            return Replacers.Select(r => new MutationDocument(document, r)).ToList();
-        }
 
-        /*
-        protected StatementSyntax GetStatement(ExpressionSyntax binaryExpressionSyntax)
-        {
-            return binaryExpressionSyntax.FirstAncestorOrSelf<StatementSyntax>();
+            return Replacers
+                .Where(r => !IsExcludedFromCodeCoverage(r.Location, r.Orginal))
+                .Select(r => new MutationDocument(document, r)).ToList();
         }
-        */
 
         protected MutationLocationInfo GetWhere(CSharpSyntaxNode syntaxNode)
         {
@@ -63,6 +63,39 @@ namespace Unima.Core.Creator.Mutators
             }
 
             return new MutationLocationInfo { Where = where, Line = locationString };
+        }
+
+        protected bool IsExcludedFromCodeCoverage(MutationLocationInfo location, SyntaxNode syntaxNode)
+        {
+            var attributes = new List<string>();
+
+            var methodDeclaration = syntaxNode.FirstAncestorOrSelf<MethodDeclarationSyntax>();
+            var constructorDeclarationSyntax = syntaxNode.FirstAncestorOrSelf<ConstructorDeclarationSyntax>();
+            var propertyDeclaration = syntaxNode.FirstAncestorOrSelf<PropertyDeclarationSyntax>();
+            var classDeclaration = syntaxNode.FirstAncestorOrSelf<ClassDeclarationSyntax>();
+
+            attributes.AddRange(GetAttributeName(methodDeclaration?.AttributeLists));
+            attributes.AddRange(GetAttributeName(constructorDeclarationSyntax?.AttributeLists));
+            attributes.AddRange(GetAttributeName(propertyDeclaration?.AttributeLists));
+            attributes.AddRange(GetAttributeName(classDeclaration?.AttributeLists));
+
+            if (attributes.Any(a => a.Equals(ExcludeFromCoverageAttributeName, StringComparison.InvariantCultureIgnoreCase)))
+            {
+                LogTo.Info($"Ignoring mutation at {location} because of {ExcludeFromCoverageAttributeName} attribute");
+                return true;
+            }
+
+            return false;
+        }
+
+        private IEnumerable<string> GetAttributeName(SyntaxList<AttributeListSyntax>? attributeLists)
+        {
+            if (attributeLists == null)
+            {
+                return Enumerable.Empty<string>();
+            }
+
+            return attributeLists.Value.SelectMany(al => al.Attributes.Select(a => a.Name.ToString()));
         }
     }
 }
