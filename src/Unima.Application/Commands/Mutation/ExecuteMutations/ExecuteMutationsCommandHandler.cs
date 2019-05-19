@@ -30,8 +30,11 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutations
             var currentRunningDocuments = new List<Task>();
             var numberOfMutationsLeft = command.MutationDocuments.Count;
             var mutationRunLoggers = command.Config.MutationRunLoggers?.Select(m => _mutationRunLoggerFactory.GetMutationRunLogger(m)).ToList() ?? new List<IMutationRunLogger>();
+            var expectedExecutionTime = GetExpectedExecutionTime(command);
 
             LogTo.Info($"Total number of mutations generated: {numberOfMutationsLeft}");
+            LogTo.Info($"Expected execution time: {expectedExecutionTime}");
+
             mutationRunLoggers.ForEach(m => m.LogBeforeRun(command.MutationDocuments));
 
             await Task.Run(() =>
@@ -99,7 +102,12 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutations
             return results;
         }
 
-        private static double GetMutationScore(List<MutationDocumentResult> results)
+        private TimeSpan GetExpectedExecutionTime(ExecuteMutationsCommand command)
+        {
+            return TimeSpan.FromMinutes(command.Config.BaselineInfos.Sum(b => b.ExecutionTime.TotalMinutes)*command.MutationDocuments.Count/command.Config.NumberOfTestRunInstances);
+        }
+
+        private double GetMutationScore(List<MutationDocumentResult> results)
         {
             return Math.Round((double)results.Count(r => !r.Survived)/results.Count(r => r.CompilationResult != null && r.CompilationResult.IsSuccess && r.UnexpectedError == null) * 100);
         }
