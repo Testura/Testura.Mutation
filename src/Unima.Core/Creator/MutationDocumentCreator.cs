@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Microsoft.CodeAnalysis.MSBuild;
 using Unima.Core.Config;
-using Unima.Core.Creator.Mutators;
 using Unima.Core.Exceptions;
 
 namespace Unima.Core.Creator
 {
     public class MutationDocumentCreator
     {
-        public async Task<IList<MutationDocument>> CreateMutationsAsync(UnimaConfig config, IList<IMutator> mutationOperators)
+        public async Task<IList<MutationDocument>> CreateMutationsAsync(UnimaConfig config)
         {
             try
             {
@@ -54,7 +53,7 @@ namespace Unima.Core.Creator
                             var root = document.GetSyntaxRootAsync().Result;
                             var mutationDocuments = new List<MutationDocument>();
 
-                            foreach (var mutationOperator in mutationOperators)
+                            foreach (var mutationOperator in config.Mutators)
                             {
                                 var mutatedDocuments = mutationOperator.GetMutatedDocument(root, document);
                                 mutationDocuments.AddRange(mutatedDocuments.Where(m => config.Filter == null || config.Filter.ResourceLinesAllowed(document.FilePath, GetDocumentLine(m))));

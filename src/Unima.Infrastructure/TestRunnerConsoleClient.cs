@@ -79,7 +79,6 @@ namespace Unima.Infrastructure
 
 
                         return JsonConvert.DeserializeObject<TestSuiteResult>(output);
-
                     }
                 }
                 catch (Win32Exception ex)
