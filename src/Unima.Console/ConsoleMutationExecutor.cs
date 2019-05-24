@@ -8,8 +8,6 @@ using Unima.Application.Commands.Mutation.CreateMutations;
 using Unima.Application.Commands.Mutation.ExecuteMutations;
 using Unima.Application.Commands.Project.OpenProject;
 using Unima.Application.Commands.Report.Creator;
-using Unima.Core.Creator.Mutators;
-using Unima.Core.Creator.Mutators.BinaryExpressionMutators;
 using Unima.Core.Execution.Report;
 using Unima.Core.Execution.Report.Html;
 using Unima.Core.Execution.Report.Markdown;
@@ -30,21 +28,10 @@ namespace Unima.Console
 
         public async Task<bool> ExecuteMutationRunner(string configPath, string savePath)
         {
-            var mutators = new List<IMutator>
-            {
-                new MathMutator(),
-                new ConditionalBoundaryMutator(),
-                new NegateConditionalMutator(),
-                new ReturnValueMutator(),
-                new IncrementsMutator(),
-                new NegateTypeCompabilityMutator(),
-                new MethodCallMutator()
-            };
-
             var config = await _mediator.Send(new OpenProjectCommand(configPath, true));
 
             var start = DateTime.Now;
-            var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(config, mutators));
+            var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(config));
             var results = await _mediator.Send(new ExecuteMutationsCommand(config, mutationDocuments.ToList(), null));
 
             var trxSavePath = Path.Combine(savePath, "result.trx");

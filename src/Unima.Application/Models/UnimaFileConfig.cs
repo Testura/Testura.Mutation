@@ -11,6 +11,7 @@ namespace Unima.Application.Models
             NumberOfTestRunInstances = 3;
             MaxTestTimeMin = 5;
             BuildConfiguration = "debug";
+            Mutators = new List<string>();
         }
 
         public string SolutionPath { get; set; }
@@ -32,5 +33,7 @@ namespace Unima.Application.Models
         public string DotNetPath { get; set; }
 
         public List<MutationRunLogger> MutationRunLoggers { get; set; }
+
+        public List<string> Mutators { get; set; }
     }
 }

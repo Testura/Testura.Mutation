@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Unima.Core.Baseline;
 using Unima.Core.Creator.Filter;
+using Unima.Core.Creator.Mutators;
 using Unima.Core.Solution;
 
 namespace Unima.Core.Config
@@ -33,6 +34,8 @@ namespace Unima.Core.Config
 
         public string DotNetPath { get; set; }
 
-        public List<MutationRunLogger> MutationRunLoggers { get; set; }
+        public IList<MutationRunLogger> MutationRunLoggers { get; set; }
+
+        public IList<IMutator> Mutators { get; set; }
     }
 }

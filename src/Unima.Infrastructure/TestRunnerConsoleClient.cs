@@ -78,8 +78,13 @@ namespace Unima.Infrastructure
                         }
 
 
-                        return JsonConvert.DeserializeObject<TestSuiteResult>(output);
+                        var o =  JsonConvert.DeserializeObject<TestSuiteResult>(output);
 
+                        if (o.TestResults.Count == 0)
+                        {
+                        }
+
+                        return o;
                     }
                 }
                 catch (Win32Exception ex)

@@ -12,8 +12,11 @@ using Microsoft.CodeAnalysis.MSBuild;
 using Newtonsoft.Json;
 using Unima.Application.Exceptions;
 using Unima.Application.Models;
+using Unima.Core;
 using Unima.Core.Baseline;
 using Unima.Core.Config;
+using Unima.Core.Creator.Mutators;
+using Unima.Core.Creator.Mutators.BinaryExpressionMutators;
 using Unima.Core.Exceptions;
 using Unima.Core.Solution;
 
@@ -49,7 +52,8 @@ namespace Unima.Application.Commands.Project.OpenProject
                     BuildConfiguration = fileConfig.BuildConfiguration,
                     MaxTestTimeMin = fileConfig.MaxTestTimeMin,
                     DotNetPath = fileConfig.DotNetPath,
-                    MutationRunLoggers = fileConfig.MutationRunLoggers
+                    MutationRunLoggers = fileConfig.MutationRunLoggers,
+                    Mutators = GetMutators(fileConfig.Mutators)
                 };
 
                 using (var workspace = MSBuildWorkspace.Create())
@@ -92,6 +96,42 @@ namespace Unima.Application.Commands.Project.OpenProject
                 LogTo.ErrorException("Failed to open project", ex);
                 throw new OpenProjectException("Failed to open project", ex);
             }
+        }
+
+        private IList<IMutator> GetMutators(List<string> mutationOperators)
+        {
+            LogTo.Info("Loading mutators..");
+
+            if (mutationOperators == null || !mutationOperators.Any())
+            {
+                LogTo.Info("..did not find any mutators in config so loading default ones.");
+
+                return new List<IMutator>
+                {
+                    new MathMutator(),
+                    new ConditionalBoundaryMutator(),
+                    new NegateConditionalMutator(),
+                    new ReturnValueMutator(),
+                    new IncrementsMutator(),
+                    new NegateTypeCompabilityMutator(),
+                };
+            }
+
+            LogTo.Info("..found mutators in config.");
+            var mutators = new List<IMutator>();
+            foreach (var mutationOperator in mutationOperators)
+            {
+                if (Enum.TryParse<MutationOperators>(mutationOperator, true, out var mutationOperatorEnum))
+                {
+                    LogTo.Info($"Adding '{mutationOperator}' mutator");
+                    mutators.Add(MutationOperatorFactory.GetMutationOperator(mutationOperatorEnum));
+                    continue;
+                }
+
+                throw new OpenProjectException($"Could not parse '{mutationOperator}'. Make sure that you use a correct operator.");
+            }
+
+            return mutators;
         }
 
         private bool ContainsProjectName(string message, IList<SolutionProjectInfo> mutationProjects, IList<SolutionProjectInfo> testProjects)
