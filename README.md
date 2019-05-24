@@ -138,7 +138,7 @@ For example:
 
 In this example we will: 
 
-- Allow */src/some/files.cs
+- Allow */src/some/files.cs but only line 59 to 69
 - Allow any files that contains "SuperFile" as long as they don't contain "mock"
 - All other files are ignored
 
