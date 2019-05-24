@@ -146,7 +146,11 @@ We use filter a lot to run mutations on specific subsets for example new pull re
 
 #### DotNetPath
 
-If you use dotnet as test runner and we can't find dotnet.exe automatically it is possible to set it manually with this property. 
+If you use dotnet as test runner and we can't find dotnet.exe automatically it is possible to set it manually with this property.
+
+#### Mutator
+
+A list of all the mutators that you want to run (look further below for tags and the default ones if you don't specifiy any mutators).
 
 ### WPF Application 
 
@@ -164,12 +168,15 @@ Simply open the Unima.exe, click new project and follow the instructions.
 
 Here is a short list of all current available mutations:
 
--	Conditional boundary mutations (>= , >, <=, <, etc)
--	Math mutators (+, -, *, etc) 
--	Negate conditional mutations (>, <, !=, ==, etc) 
--	Increment mutations (++, --)
--	Negate type mutation (i is bool, !(i is bool))
--	Return value mutation (return -1 instead of 0, return null instead of object, throw exception instead of returning null, etc) 
+| Name                 | Mutations                                                                                             | Tag                   | Default |
+|----------------------|-------------------------------------------------------------------------------------------------------|-----------------------|---------|
+| Conditional boundary | >= , >, <=, <, etc                                                                                    | ConditionalBoundary   | true    |
+| Math                 | +, -, *, etc                                                                                          | Math                  | true    |
+| Increment            | ++, --                                                                                                | Increment             | true    |
+| Negate conditional   | >, <, !=, ==, etc                                                                                     | NegateCondtional      | true    |
+| Negate type          | i is bool, !(i is bool)                                                                               | NegateTypeCompability | true    |
+| Return value         | return -1 instead of 0, return null instead of object, throw exception instead of returning null, etc | ReturnValue           | true    |
+| Void Method          | Remove all calls to void methods                                                                      | MethodCall            | false   |
 
 ## License
 
