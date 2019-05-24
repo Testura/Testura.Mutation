@@ -37,7 +37,8 @@ namespace Unima.Console
                 new NegateConditionalMutator(),
                 new ReturnValueMutator(),
                 new IncrementsMutator(),
-                new NegateTypeCompabilityMutator()
+                new NegateTypeCompabilityMutator(),
+                new MethodCallMutator()
             };
 
             var config = await _mediator.Send(new OpenProjectCommand(configPath, true));

@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Unima.Core.Creator.Mutators
@@ -7,8 +8,7 @@ namespace Unima.Core.Creator.Mutators
     {
         public override SyntaxNode VisitExpressionStatement(ExpressionStatementSyntax node)
         {
-            var o = node.ToFullString();
-
+            Replacers.Add(new MutationDocumentDetails(node, SyntaxFactory.EmptyStatement(), GetWhere(node)));
             return base.VisitExpressionStatement(node);
         }
     }
