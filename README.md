@@ -148,9 +148,13 @@ We use filter a lot to run mutations on specific subsets for example new pull re
 
 If you use dotnet as test runner and we can't find dotnet.exe automatically it is possible to set it manually with this property.
 
-#### Mutator
+#### Mutators
 
 A list of all the mutators that you want to run (look further below for tags and the default ones if you don't specifiy any mutators).
+
+```c#
+"Mutators": [ "Increment" ]
+```
 
 ### WPF Application 
 
