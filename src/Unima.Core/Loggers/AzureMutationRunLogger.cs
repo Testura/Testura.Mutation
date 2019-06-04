@@ -25,7 +25,7 @@ namespace Unima.Core.Loggers
 
         private void LogProgress(int mutationsRemainingCount)
         {
-            var progress = Math.Round(mutationsRemainingCount / _totalNumberOfMutations * 100);
+            var progress = 100 - Math.Round(mutationsRemainingCount / _totalNumberOfMutations * 100);
             LogTo.Info($"##vso[task.setprogress value={progress};]Mutation execution progress");
         }
     }
