@@ -156,6 +156,22 @@ A list of all the mutators that you want to run (look further below for tags and
 "Mutators": [ "Increment" ]
 ```
 
+### Mutation run logger
+
+A list of specific run loggers. For example: 
+
+```c#
+ "MutationRunLoggers": [
+                       "Azure"
+       ]
+```
+
+Current run loggers: 
+
+- Azure: This logger will log progress to azure devops/VSO. Example of log line: 
+
+```2019-05-16 14:50:29,251: Unima.Core.Loggers.AzureMutationRunLogger: ##vso[task.setprogress value=67;]Mutation execution progress```
+
 ### WPF Application 
 
 The WPF is in a very early stage but it is possible to: 
