@@ -1,18 +1,18 @@
 ![Unima Logo](https://i.imgur.com/ELDUHai.png)
 
-Are you looking for ways to improve your unit tests quality and test coverage? Then Unima and mutation testing may be something for you.
+Are you looking for ways to improve the quality and test coverage of your unit tests? Then Unima and mutation testing may be something for you.
 
-Unima is a mutation testing tool for C# that verify the quality of your unit tests by injecting different mutations in your code and then checking how your unit tests react. If your unit tests: 
+Unima is a mutation testing tool for C# that verifies the quality of your unit tests by injecting different mutations in your production code and then checks whether your unit tests catch them. If your unit tests: 
 
-- Fails it mean that you found the mutation and you have good coverage
-- Pass it means that the mutation survived and you miss coverage on the specific functionality.
+- Fail it mean that your tests found the mutation and you have good coverage.
+- Pass it means that the mutant survived and you do not have sufficient coverage of the specific functionality.
 
 ![Example of mutation](https://i.imgur.com/ZFPbEyI.png)
 *Example of a mutation* 
 
 ## Why should I use Unima?
  
-- Quick and easy to set up
+- Quick and easy to set up.
 - Very flexible and it's easy to set up which files and lines you want to mutate.
 - Can take your test coverage from good to great.
 - Two different versions - Console and a WPF application. 
@@ -50,11 +50,11 @@ path\to\Unima.Console.exe local --configPath "path/To/Json/Config" --outputPath 
 
 It will then:
 
-1. Run a baseline (simply execute all your unit tests to make sure that everything is fine)
-2. Create mutations 
-3. Go through each mutation and run all unit tests (we run all unit test for each mutation).
+1. Run a baseline (simply execute all your unit tests to make sure that everything is fine).
+2. Apply mutation operators to generate mutants.
+3. Go through each mutant and run all unit tests (we run all unit tests for each mutant).
 
-After execution you will get a couple of different result files (we will later add so you can filter which result you want):
+After the unit test execution, you will get a couple of different result files (we plan to develop a filtering function in the future):
 
 - A trx file 
 - A markdown file 
@@ -62,7 +62,7 @@ After execution you will get a couple of different result files (we will later a
 - A html file 
 - A json file
 
-They contain your mutation score (killed mutations divided by total mutations) as well as details about all survived mutations.
+The result files contain your mutation score (number of killed mutants divided by the total number of mutants) as well as details about all survived mutants.
 
 #### Possible config values 
 
@@ -83,21 +83,21 @@ A list of all test projects that we should run (we won't mutate test projects). 
 
 #### BuildConfiguration
 
-If we should mutate "Debug" or "Release" (it's important to build your project before trying to run the mutation tool!)
+If we should mutate "Debug" or "Release" (it's important to build your project before trying to run Unima!)
 
 #### TestRunner
 
-Currently we have three different flags for the test runner: 
+Unima offers three different flags for the test runner: 
 
 - dotnet: Supports all test frameworks and .NET Core 
 - nunit: Supports nunit non-core 
 - xunit: Support xunit non-core 
 
-In most cases it's best to just run "dotnet".
+In most cases it's best to run "dotnet".
 
 #### NumberOfTestRunInstances
 
-We run all unit tests for all mutations and this property tells us how many sessions we should run in parallel.
+We run all unit tests for all mutants and this property tells us how many sessions we should run in parallel.
 
 #### IgnoredProjects
 
@@ -109,8 +109,8 @@ List of projects that we shouldn't mutate or run tests from. For example:
 ```
 #### Filter
 
-Filter is a way for you to decide which files or lines that you should mutate. You can both allow and deny resources
-but it's important to know what when you add a filter all files will be ignored as default and you have to allow them.
+Filter is a way for you to decide which files or lines that Unima will mutate. You can both allow and deny resources,
+but it's important to know that when you add a filter, all files will be ignored by default and you have to allow them.
 
 For example: 
 
@@ -136,17 +136,17 @@ For example:
                },
 ```
 
-In this example we will: 
+In this example, Unima will: 
 
 - Allow */src/some/files.cs but only line 59 to 69
 - Allow any files that contains "SuperFile" as long as they don't contain "mock"
 - All other files are ignored
 
-We use filter a lot to run mutations on specific subsets for example new pull requests.
+We use filter a lot to run mutation operators on specific subsets for example new pull requests.
 
 #### DotNetPath
 
-If you use dotnet as test runner and we can't find dotnet.exe automatically it is possible to set it manually with this property.
+If you use dotnet as the test runner and Unima can't find dotnet.exe automatically it is possible to set it manually with this property.
 
 #### Mutators
 
@@ -177,16 +177,16 @@ Current run loggers:
 The WPF is in a very early stage but it is possible to: 
 
 - Create new projects 
-- Create and see all the different mutations 
-- Run mutations and see result details 
+- Create and see all the different mutation operators
+- Apply mutation operators and see result details 
 
-Simply open the Unima.exe, click new project and follow the instructions.
+Simply run Unima.exe, click new project and follow the instructions.
 
 ![Example of result](https://i.imgur.com/sAISq0h.jpg)
 
-## Available mutations
+## Available mutation operators
 
-Here is a short list of all current available mutations:
+Here is a short list of all currently available mutation operators:
 
 | Name                 | Mutations                                                                                             | Tag                   | Default |
 |----------------------|-------------------------------------------------------------------------------------------------------|-----------------------|---------|
@@ -202,3 +202,6 @@ Here is a short list of all current available mutations:
 
 This project is licensed under the MIT License. See the [LICENSE.md](LICENSE.md) file for details.
 
+## Acknowledgements
+
+This work has been financially supported by the ITEA3 initiative TESTOMATProject through Vinnova – Sweden’s innovation agency. ![Web page](https://www.testomatproject.eu/)
