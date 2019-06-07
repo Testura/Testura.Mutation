@@ -175,3 +175,6 @@ Here is a short list of all currently available mutation operators:
 
 This project is licensed under the MIT License. See the [LICENSE.md](LICENSE.md) file for details.
 
+## Acknowledgements
+
+This work has been financially supported by the ITEA3 initiative TESTOMATProject through Vinnova – Sweden’s innovation agency. ![Web page](https://www.testomatproject.eu/)
