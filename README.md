@@ -204,4 +204,6 @@ This project is licensed under the MIT License. See the [LICENSE.md](LICENSE.md)
 
 ## Acknowledgements
 
-This work has been financially supported by the ITEA3 initiative TESTOMATProject through Vinnova – Sweden’s innovation agency. ![Web page](https://www.testomatproject.eu/)
+[![Web site](https://www.testomatproject.eu/wp-content/uploads/2017/11/TESTOMAT_Logo_300.png)](https://www.testomatproject.eu/)
+
+This work has been financially supported by the ITEA3 initiative TESTOMATProject through Vinnova - Sweden's innovation agency.
