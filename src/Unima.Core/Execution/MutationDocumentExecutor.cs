@@ -86,7 +86,7 @@ namespace Unima.Core.Execution
 
             if (final.TestResults.Count == 0)
             {
-                throw new MutationDocumentException("Unkown error when running, we should not have 0 tests.");
+                throw new MutationDocumentException("Unknown error when running, we should not have 0 tests.");
             }
 
             LogTo.Info($"\"{mutationDocument.MutationName}\" done. Ran {final.TestResults.Count} tests and {final.TestResults.Count(t => !t.IsSuccess)} failed.");

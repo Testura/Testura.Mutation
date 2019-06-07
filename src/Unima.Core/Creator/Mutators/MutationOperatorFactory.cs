@@ -27,6 +27,9 @@ namespace Unima.Core.Creator.Mutators
                 case MutationOperators.ReturnValue:
                     return new ReturnValueMutator();
 
+                case MutationOperators.MethodCall:
+                    return new MethodCallMutator();
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mutationOperators), mutationOperators, null);
             }

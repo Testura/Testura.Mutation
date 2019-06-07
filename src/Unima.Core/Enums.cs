@@ -20,7 +20,10 @@ namespace Unima.Core
         Increment,
 
         [EnumMember(Value = "Replace return values of methods or properties.")]
-        ReturnValue
+        ReturnValue,
+
+        [EnumMember(Value = "Remove calls to void methods")]
+        MethodCall
     }
 
     public enum MutationRunLogger

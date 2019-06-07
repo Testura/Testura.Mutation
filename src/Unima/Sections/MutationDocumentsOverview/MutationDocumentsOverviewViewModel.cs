@@ -9,7 +9,6 @@ using Unima.Application;
 using Unima.Application.Commands.Mutation.CreateMutations;
 using Unima.Core;
 using Unima.Core.Config;
-using Unima.Core.Creator.Mutators;
 using Unima.Core.Exceptions;
 using Unima.Helpers.Displayers;
 using Unima.Helpers.Extensions;
@@ -66,7 +65,7 @@ namespace Unima.Sections.MutationDocumentsOverview
             try
             {
                 var settings = MutationOperatorGridItems.Where(m => m.IsSelected).Select(m => m.MutationOperator);
-                var command = new CreateMutationsCommand(_config, settings.Select(MutationOperatorFactory.GetMutationOperator).ToList());
+                var command = new CreateMutationsCommand(_config); // TODO: settings.Select(MutationOperatorFactory.GetMutationOperator).ToList()
 
                 var mutationDocuments = await Task.Run(() => _mediator.Send(command));
                 var fileNames = mutationDocuments.Select(r => r.FileName).Distinct();

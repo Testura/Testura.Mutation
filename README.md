@@ -136,17 +136,41 @@ For example:
                },
 ```
 
-In this example we will: 
+In this example, Unima will: 
 
-- Allow */src/some/files.cs
-- Allow any files that contain "SuperFile" as long as they don't contain "mock"
+- Allow */src/some/files.cs but only line 59 to 69
+- Allow any files that contains "SuperFile" as long as they don't contain "mock"
 - All other files are ignored
 
-We use filter a lot to run mutations on specific subsets for example new pull requests.
+We use filter a lot to run mutation operators on specific subsets for example new pull requests.
 
 #### DotNetPath
 
-If you use dotnet as the test runner and we can't find dotnet.exe automatically it is possible to set it manually with this property. 
+If you use dotnet as the test runner and Unima can't find dotnet.exe automatically it is possible to set it manually with this property.
+
+#### Mutators
+
+A list of all the mutators that you want to run (look further below for tags and the default ones if you don't specifiy any mutators).
+
+```c#
+"Mutators": [ "Increment" ]
+```
+
+### Mutation run logger
+
+A list of specific run loggers. For example: 
+
+```c#
+ "MutationRunLoggers": [
+                       "Azure"
+       ]
+```
+
+Current run loggers: 
+
+- Azure: This logger will log progress to azure devops/VSO. Example of log line: 
+
+```2019-05-16 14:50:29,251: Unima.Core.Loggers.AzureMutationRunLogger: ##vso[task.setprogress value=67;]Mutation execution progress```
 
 ### WPF Application 
 
@@ -164,12 +188,15 @@ Simply run Unima.exe, click new project and follow the instructions.
 
 Here is a short list of all currently available mutation operators:
 
--	Conditional boundary mutations (>= , >, <=, <, etc)
--	Math mutators (+, -, *, etc) 
--	Negate conditional mutations (>, <, !=, ==, etc) 
--	Increment mutations (++, --)
--	Negate type mutation (i is bool, !(i is bool))
--	Return value mutation (return -1 instead of 0, return null instead of object, throw exception instead of returning null, etc) 
+| Name                 | Mutations                                                                                             | Tag                   | Default |
+|----------------------|-------------------------------------------------------------------------------------------------------|-----------------------|---------|
+| Conditional boundary | >= , >, <=, <, etc                                                                                    | ConditionalBoundary   | true    |
+| Math                 | +, -, *, etc                                                                                          | Math                  | true    |
+| Increment            | ++, --                                                                                                | Increment             | true    |
+| Negate conditional   | >, <, !=, ==, etc                                                                                     | NegateCondtional      | true    |
+| Negate type          | i is bool, !(i is bool)                                                                               | NegateTypeCompability | true    |
+| Return value         | return -1 instead of 0, return null instead of object, throw exception instead of returning null, etc | ReturnValue           | true    |
+| Void Method          | Remove all calls to void methods                                                                      | MethodCall            | false   |
 
 ## License
 

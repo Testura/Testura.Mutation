@@ -34,7 +34,7 @@ namespace Unima.Core.Execution.Report.Html
                 var text = File.ReadAllText(TemplatePath);
                 var renderedText = Engine.Razor.RunCompile(text, "report", null, mutations.Where(m => m.Survived));
 
-                File.WriteAllText(SavePath, renderedText, Encoding.Unicode);
+                File.WriteAllText(SavePath, renderedText, Encoding.UTF8);
             }
             catch (Exception ex)
             {
