@@ -63,6 +63,11 @@ namespace Unima.Core.Baseline
 
                 if (!result.IsSuccess)
                 {
+                    foreach (var compilationError in result.Errors)
+                    {
+                        LogTo.Error($"{{ Error = \"{compilationError.Message}\", Location = \"{compilationError.Location}\"");
+                    }
+
                     throw new BaselineException(
                         "Failed to compile base line.",
                         new CompilationException(result.Errors.Select(e => e.Message)));
