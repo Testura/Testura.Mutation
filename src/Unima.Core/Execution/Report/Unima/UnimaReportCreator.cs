@@ -18,7 +18,11 @@ namespace Unima.Core.Execution.Report.Unima
             LogTo.Info("Saving unima report..");
 
             var unimaReport = new UnimaReport(mutations, executionTime);
-            File.WriteAllText(SavePath, JsonConvert.SerializeObject(unimaReport));
+            using (StreamWriter file = File.CreateText(SavePath))
+            {
+                var serializer = new JsonSerializer();
+                serializer.Serialize(file, unimaReport);
+            }
 
             LogTo.Info("Unima report saved successfully.");
         }
