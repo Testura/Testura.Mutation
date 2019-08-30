@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -10,9 +11,17 @@ using MediatR;
 using Prism.Commands;
 using Prism.Mvvm;
 using Unima.Application.Commands.Mutation.ExecuteMutations;
+using Unima.Application.Commands.Report.Creator;
 using Unima.Core;
 using Unima.Core.Config;
+using Unima.Core.Execution.Report;
+using Unima.Core.Execution.Report.Html;
+using Unima.Core.Execution.Report.Markdown;
+using Unima.Core.Execution.Report.Summary;
+using Unima.Core.Execution.Report.Trx;
 using Unima.Core.Execution.Report.Unima;
+using Unima.Helpers;
+using Unima.Helpers.Displayers;
 using Unima.Helpers.Openers.Tabs;
 using Unima.Models;
 
@@ -22,15 +31,19 @@ namespace Unima.Sections.MutationDocumentsExecution
     {
         private readonly IMediator _mediator;
         private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
+        private readonly FilePicker _filePicker;
         private UnimaConfig _config;
+        private IList<MutationDocumentResult> _latestResult;
 
         public MutationDocumentsExecutionViewModel(
             IMediator mediator,
-            IMutationModuleTabOpener mutationModuleTabOpener)
+            IMutationModuleTabOpener mutationModuleTabOpener,
+            FilePicker filePicker)
         {
             MutationDocumentsExecutionResults = new MutationDocumentsExecutionResultModel();
             _mediator = mediator;
             _mutationModuleTabOpener = mutationModuleTabOpener;
+            _filePicker = filePicker;
             RunningDocuments = new ObservableCollection<TestRunDocument>();
             RunCommand = new DelegateCommand(ExecuteMutationDocuments);
             CompletedDocumentSelectedCommand = new DelegateCommand<MutationDocumentResult>(OpenCompleteDocumentTab);
@@ -99,7 +112,7 @@ namespace Unima.Sections.MutationDocumentsExecution
         private async void ExecuteMutationDocuments()
         {
             TestNotStarted = false;
-            await _mediator.Send(
+            _latestResult = await _mediator.Send(
                 new ExecuteMutationsCommand(
                     _config,
                     RunningDocuments.Select(r => r.Document).ToList(),
@@ -137,14 +150,31 @@ namespace Unima.Sections.MutationDocumentsExecution
             _mutationModuleTabOpener.OpenDocumentResultTab(obj);
         }
 
-        private void SaveReportAsync()
+        private async void SaveReportAsync()
         {
-            // Change to open a tab instead
-            /*
-            _loadingDisplayer.ShowLoading("Saving report..");
-            await Task.Run(() => _saveReportService.SaveReport(SurvivedDocuments));
-            _loadingDisplayer.HideLoading();
-            */
+            if (_latestResult == null)
+            {
+                ErrorDialogDisplayer.ShowErrorDialog("Nothing so save", "Please run before saving");
+            }
+
+            var savePath = _filePicker.PickDirectory();
+
+            if (string.IsNullOrEmpty(savePath))
+            {
+                return;
+            }
+
+            var trxSavePath = Path.Combine(savePath, "result.trx");
+            var reports = new List<ReportCreator>
+            {
+                new TrxReportCreator(trxSavePath),
+                new MarkdownReportCreator(Path.ChangeExtension(trxSavePath, ".md")),
+                new UnimaReportCreator(Path.ChangeExtension(trxSavePath, ".unima")),
+                new HtmlOnlyBodyReportCreator(Path.ChangeExtension(trxSavePath, ".html")),
+                new TextSummaryReportCreator(Path.ChangeExtension(trxSavePath, ".txt"))
+            };
+
+            await _mediator.Send(new CreateReportCommand(_latestResult, reports, TimeSpan.Zero));
         }
 
         private void FailedToCompile()

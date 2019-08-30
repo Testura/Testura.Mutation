@@ -97,7 +97,7 @@ namespace Unima.Sections.NewProject
 
             var config = new UnimaFileConfig
             {
-                IgnoredProjects = SelectedProjectsInSolution.Where(s => !s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
+                IgnoredProjects = new List<string>(),
                 SolutionPath = SolutionPath,
                 TestProjects = SelectedTestProjectInSolution.Where(s => s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
                 TestRunner = TestRunnerTypes[SelectedTestRunnerIndex]
