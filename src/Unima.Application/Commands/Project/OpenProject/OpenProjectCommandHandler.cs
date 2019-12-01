@@ -190,7 +190,7 @@ namespace Unima.Application.Commands.Project.OpenProject
 
                 if (!testProjects.Any())
                 {
-                    throw new ProjectSetUpException($"Could not find any project with the name {testProjectName} in the solution.");
+                    throw new ProjectSetUpException($"Could not find any project with the name {testProjectName} in the solution. List of project names: {string.Join(", ", solution.Projects.Select(p => p.Name))}");
                 }
 
                 foreach (var testProject in testProjects)
