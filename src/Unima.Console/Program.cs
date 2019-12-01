@@ -49,7 +49,6 @@ namespace Unima.Console
             app.HelpOption("-?|-h|--help");
 
             app.Command("local", a => MutateLocalConfiguration.Configure(a));
-            app.Command("git", a => MutateGitConfiguration.Configure(a));
 
             app.OnExecute(() => new RootCommand(app).RunAsync().Wait());
 

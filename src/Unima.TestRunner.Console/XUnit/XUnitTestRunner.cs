@@ -4,12 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Anotar.Log4Net;
 using Unima.Core.Execution.Result;
 using Unima.Core.Execution.Runners;
 using Xunit.Runners;
 
-namespace Unima.TestRunner.XUnit
+namespace Unima.TestRunner.Console.XUnit
 {
     public class XUnitTestRunner : ITestRunner
     {
@@ -51,7 +50,7 @@ namespace Unima.TestRunner.XUnit
             }
             catch (Exception ex)
             {
-                LogTo.ErrorException("Failed to unload test runner", ex);
+                /* LogTo.ErrorException("Failed to unload test runner", ex); */
                 _finished.Set();
             }
         }

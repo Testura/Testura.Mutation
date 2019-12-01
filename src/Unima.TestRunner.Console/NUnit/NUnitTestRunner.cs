@@ -9,7 +9,7 @@ using NUnit.Engine.Runners;
 using NUnit.Engine.Services;
 using TestSuiteResult = Unima.Core.Execution.Result.TestSuiteResult;
 
-namespace Unima.TestRunner.NUnit
+namespace Unima.TestRunner.Console.NUnit
 {
     public class NUnitTestRunner : Core.Execution.Runners.ITestRunner
     {

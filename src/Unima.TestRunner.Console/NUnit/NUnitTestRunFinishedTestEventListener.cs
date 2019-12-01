@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using NUnit.Engine;
 
-namespace Unima.TestRunner.NUnit
+namespace Unima.TestRunner.Console.NUnit
 {
     public class NUnitTestRunFinishedTestEventListener : ITestEventListener
     {

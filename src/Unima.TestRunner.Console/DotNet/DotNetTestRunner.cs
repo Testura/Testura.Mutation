@@ -11,7 +11,7 @@ using Unima.Core.Execution.Report.Trx;
 using Unima.Core.Execution.Result;
 using Unima.Core.Execution.Runners;
 
-namespace Unima.TestRunner.DotNet
+namespace Unima.TestRunner.Console.DotNet
 {
     public class DotNetTestRunner : ITestRunner
     {

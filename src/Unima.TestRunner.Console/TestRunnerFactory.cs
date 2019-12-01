@@ -1,8 +1,8 @@
 ﻿using System;
 using Unima.Core.Execution.Runners;
-using Unima.TestRunner.DotNet;
-using Unima.TestRunner.NUnit;
-using Unima.TestRunner.XUnit;
+using Unima.TestRunner.Console.DotNet;
+using Unima.TestRunner.Console.NUnit;
+using Unima.TestRunner.Console.XUnit;
 
 namespace Unima.TestRunner
 {

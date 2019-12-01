@@ -323,10 +323,6 @@
       <Project>{8a6ddfab-f6be-44d9-b58f-6139149875a5}</Project>
       <Name>Unima.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Unima.TestRunner\Unima.TestRunner.csproj">
-      <Project>{8aeeab5d-ea0b-4ddc-a355-ceed97d518e1}</Project>
-      <Name>Unima.TestRunner</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon_Inx_icon.ico" />

@@ -13,6 +13,8 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,39 +36,77 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MedallionShell, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MedallionShell.1.6.0\lib\net46\MedallionShell.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.Engine.3.9.0\lib\Mono.Cecil.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="nunit-agent, Version=3.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.Engine.3.9.0\lib\nunit-agent.exe</HintPath>
+    </Reference>
+    <Reference Include="nunit-agent-x86, Version=3.9.0.0, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\..\packages\NUnit.Engine.3.9.0\lib\nunit-agent-x86.exe</HintPath>
+    </Reference>
+    <Reference Include="nunit.engine, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.Engine.3.9.0\lib\nunit.engine.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.engine.api, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.Engine.3.9.0\lib\nunit.engine.api.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.abstractions.2.0.3\lib\net35\xunit.abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.runner.utility.net452, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.runner.utility.2.4.1\lib\net452\xunit.runner.utility.net452.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DotNet\DotNetTestRunner.cs" />
+    <Compile Include="NUnit\NUnitTestCaseResultMaker.cs" />
+    <Compile Include="NUnit\NUnitTestRunFinishedTestEventListener.cs" />
+    <Compile Include="NUnit\NUnitTestRunner.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestRunnerFactory.cs" />
+    <Compile Include="XUnit\XUnitTestRunner.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Unima.Core\Log4Net.Config">
+      <Link>Log4Net.Config</Link>
+    </None>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Unima.Core\Unima.Core.csproj">
       <Project>{43eb1e4e-4f79-4554-b358-4a6d711ce39a}</Project>
       <Name>Unima.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Unima.TestRunner\Unima.TestRunner.csproj">
-      <Project>{8aeeab5d-ea0b-4ddc-a355-ceed97d518e1}</Project>
-      <Name>Unima.TestRunner</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>ROBOCOPY "$(TargetDir) " "$(TargetDir)lib\ " /XF *.exe *.config *.manifest /XD lib logs data /E /IS /MOVE
-if %25errorlevel%25 leq 4 exit 0 else exit %25errorlevel%25</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

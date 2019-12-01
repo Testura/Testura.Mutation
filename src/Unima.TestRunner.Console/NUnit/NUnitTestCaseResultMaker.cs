@@ -4,7 +4,7 @@ using System.Xml;
 using NUnit;
 using Unima.Core.Execution.Result;
 
-namespace Unima.TestRunner.NUnit
+namespace Unima.TestRunner.Console.NUnit
 {
     public class NUnitTestCaseResultMaker
     {
