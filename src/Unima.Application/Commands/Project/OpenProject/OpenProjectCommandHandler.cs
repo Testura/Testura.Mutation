@@ -18,6 +18,7 @@ using Unima.Core.Config;
 using Unima.Core.Creator.Mutators;
 using Unima.Core.Creator.Mutators.BinaryExpressionMutators;
 using Unima.Core.Exceptions;
+using Unima.Core.Git;
 using Unima.Core.Solution;
 
 namespace Unima.Application.Commands.Project.OpenProject
@@ -25,10 +26,12 @@ namespace Unima.Application.Commands.Project.OpenProject
     public class OpenProjectCommandHandler : IRequestHandler<OpenProjectCommand, UnimaConfig>
     {
         private readonly BaselineCreator _baselineCreator;
+        private readonly IGitCloner _gitCloner;
 
-        public OpenProjectCommandHandler(BaselineCreator baselineCreator)
+        public OpenProjectCommandHandler(BaselineCreator baselineCreator, IGitCloner gitCloner)
         {
             _baselineCreator = baselineCreator;
+            _gitCloner = gitCloner;
         }
 
         public async Task<UnimaConfig> Handle(OpenProjectCommand command, CancellationToken cancellationToken)
@@ -44,6 +47,9 @@ namespace Unima.Application.Commands.Project.OpenProject
                 LogTo.Info($"Loading configuration: {fileContent}");
 
                 var fileConfig = JsonConvert.DeserializeObject<UnimaFileConfig>(fileContent);
+
+                VerifyProject(fileConfig);
+
                 var config = new UnimaConfig
                 {
                     SolutionPath = fileConfig.SolutionPath,
@@ -275,6 +281,20 @@ namespace Unima.Application.Commands.Project.OpenProject
         private string FormattedProjectName(string projectName)
         {
             return "^" + Regex.Escape(projectName).Replace("\\*", ".*") + "$";
+        }
+
+        private void VerifyProject(UnimaFileConfig config)
+        {
+            if (config.Git != null)
+            {
+                LogTo.Info("Your config contains GIT information so we will check if the project exist locally.");
+
+                if (!File.Exists(config.SolutionPath))
+                {
+                    LogTo.Info("It does not exist so we will clone it");
+                    _gitCloner.CloneProject(config.Git.Url, config.Git.Branch, config.Git.Username, config.Git.Password, Path.GetDirectoryName(config.SolutionPath));
+                }
+            }
         }
     }
 }

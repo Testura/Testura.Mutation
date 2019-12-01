@@ -264,9 +264,6 @@
     <Compile Include="Commands\Mutation\ExecuteMutation\ExecuteMutationCommand.cs" />
     <Compile Include="Commands\Mutation\ExecuteMutation\ExecuteMutationCommandHandler.cs" />
     <Compile Include="Commands\Mutation\ExecuteMutation\ExecuteMutationCommandValidator.cs" />
-    <Compile Include="Commands\Project\CreateGitProject\CreateGitProjectCommand.cs" />
-    <Compile Include="Commands\Project\CreateGitProject\CreateGitProjectCommandHandler.cs" />
-    <Compile Include="Commands\Project\CreateGitProject\CreateGitProjectCommandValidator.cs" />
     <Compile Include="Commands\Project\CreateProject\CreateProjectCommandValidator.cs" />
     <Compile Include="Commands\Project\History\AddProjectHistory\AddProjectHistoryCommandValidator.cs" />
     <Compile Include="Commands\Project\History\AddProjectHistory\AddProjectHistoryCommand.cs" />
@@ -288,6 +285,7 @@
     <Compile Include="Infrastructure\RequestValidationBehavior.cs" />
     <Compile Include="Logs\LogWatcher.cs" />
     <Compile Include="Logs\MemoryAppenderWithEvents.cs" />
+    <Compile Include="Models\GitInfo.cs" />
     <Compile Include="Models\UnimaFileConfig.cs" />
     <Compile Include="Extensions\UnityContainerExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

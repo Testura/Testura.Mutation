@@ -35,5 +35,7 @@ namespace Unima.Application.Models
         public List<MutationRunLogger> MutationRunLoggers { get; set; }
 
         public List<string> Mutators { get; set; }
+
+        public GitInfo Git { get; set; }
     }
 }
