@@ -359,10 +359,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Unima.Git.Console\Unima.Git.Console.csproj">
-      <Project>{ae2bbb73-4db0-4686-ba21-46c3ef39392c}</Project>
-      <Name>Unima.Git.Console</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Unima.TestRunner.Console\Unima.TestRunner.Console.csproj">
       <Project>{de7878fe-0f75-44fc-8964-0b3d3e815fd9}</Project>
       <Name>Unima.TestRunner.Console</Name>

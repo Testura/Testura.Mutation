@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\LibGit2Sharp.NativeBinaries.2.0.289\build\net46\LibGit2Sharp.NativeBinaries.props" Condition="Exists('..\..\packages\LibGit2Sharp.NativeBinaries.2.0.289\build\net46\LibGit2Sharp.NativeBinaries.props')" />
   <Import Project="..\..\packages\Anotar.Log4Net.Fody.5.1.0\build\Anotar.Log4Net.Fody.props" Condition="Exists('..\..\packages\Anotar.Log4Net.Fody.5.1.0\build\Anotar.Log4Net.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -37,6 +38,9 @@
   <ItemGroup>
     <Reference Include="Anotar.Log4Net, Version=5.1.0.0, Culture=neutral, PublicKeyToken=9d5b24f0733c26f7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Anotar.Log4Net.Fody.5.1.0\lib\net452\Anotar.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="LibGit2Sharp, Version=0.26.0.0, Culture=neutral, PublicKeyToken=7cbde695407f0333, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LibGit2Sharp.0.26.1\lib\net46\LibGit2Sharp.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
@@ -76,8 +80,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Git\GitDIff.cs" />
+    <Compile Include="Solution\DotNetSolutionBuilder.cs" />
     <Compile Include="Git\GitCloner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stream\StreamReaderBase.cs" />
     <Compile Include="TestRunnerConsoleClient.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -105,5 +112,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Fody.6.0.5\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.6.0.5\build\Fody.targets'))" />
     <Error Condition="!Exists('..\..\packages\Anotar.Log4Net.Fody.5.1.0\build\Anotar.Log4Net.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Anotar.Log4Net.Fody.5.1.0\build\Anotar.Log4Net.Fody.props'))" />
+    <Error Condition="!Exists('..\..\packages\LibGit2Sharp.NativeBinaries.2.0.289\build\net46\LibGit2Sharp.NativeBinaries.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\LibGit2Sharp.NativeBinaries.2.0.289\build\net46\LibGit2Sharp.NativeBinaries.props'))" />
   </Target>
 </Project>

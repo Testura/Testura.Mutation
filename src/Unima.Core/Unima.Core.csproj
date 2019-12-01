@@ -50,6 +50,7 @@
     <Compile Include="Config\TestProject.cs" />
     <Compile Include="Creator\Filter\MutationDocumentFilter.cs" />
     <Compile Include="Creator\Filter\MutationDocumentFilterItem.cs" />
+    <Compile Include="Creator\Filter\MutationDocumentFilterItemGitDiffCreator.cs" />
     <Compile Include="Creator\MutationDocumentCreator.cs" />
     <Compile Include="Creator\Mutators\MethodCallMutator.cs" />
     <Compile Include="Exceptions\BaselineException.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Execution\Runners\ITestRunnerClient.cs" />
     <Compile Include="Execution\TestRunnerDependencyFilesHandler.cs" />
     <Compile Include="Git\IGitCloner.cs" />
+    <Compile Include="Git\IGitDiff.cs" />
     <Compile Include="Location\MutationLocationInfo.cs" />
     <Compile Include="Loggers\AzureMutationRunLogger.cs" />
     <Compile Include="Loggers\IMutationRunLogger.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="Execution\Report\ReportCreator.cs" />
     <Compile Include="Execution\Report\Trx\Trx.cs" />
     <Compile Include="Execution\Report\Trx\TrxReportCreator.cs" />
+    <Compile Include="Solution\ISolutionBuilder.cs" />
     <Compile Include="Solution\SolutionInfoService.cs" />
     <Compile Include="Solution\SolutionProjectInfo.cs" />
     <Compile Include="Util\HashHelper.cs" />

@@ -2,6 +2,11 @@
 {
     public interface IGitCloner
     {
-        void CloneProject(string repositoryUrl, string branch, string username, string password, string outputPath);
+        void ClonseSolution(
+            string repositoryUrl,
+            string branch,
+            string outputPath,
+            string username,
+            string password);
     }
 }

@@ -15,6 +15,7 @@ using Unima.Application.Models;
 using Unima.Core;
 using Unima.Core.Baseline;
 using Unima.Core.Config;
+using Unima.Core.Creator.Filter;
 using Unima.Core.Creator.Mutators;
 using Unima.Core.Creator.Mutators.BinaryExpressionMutators;
 using Unima.Core.Exceptions;
@@ -27,11 +28,19 @@ namespace Unima.Application.Commands.Project.OpenProject
     {
         private readonly BaselineCreator _baselineCreator;
         private readonly IGitCloner _gitCloner;
+        private readonly MutationDocumentFilterItemGitDiffCreator _diffCreator;
+        private readonly ISolutionBuilder _solutionBuilder;
 
-        public OpenProjectCommandHandler(BaselineCreator baselineCreator, IGitCloner gitCloner)
+        public OpenProjectCommandHandler(
+            BaselineCreator baselineCreator,
+            IGitCloner gitCloner,
+            MutationDocumentFilterItemGitDiffCreator diffCreator,
+            ISolutionBuilder solutionBuilder)
         {
             _baselineCreator = baselineCreator;
             _gitCloner = gitCloner;
+            _diffCreator = diffCreator;
+            _solutionBuilder = solutionBuilder;
         }
 
         public async Task<UnimaConfig> Handle(OpenProjectCommand command, CancellationToken cancellationToken)
@@ -49,6 +58,8 @@ namespace Unima.Application.Commands.Project.OpenProject
                 var fileConfig = JsonConvert.DeserializeObject<UnimaFileConfig>(fileContent);
 
                 VerifyProject(fileConfig);
+                _solutionBuilder.BuildSolution(fileConfig.SolutionPath);
+                
 
                 var config = new UnimaConfig
                 {
@@ -61,6 +72,18 @@ namespace Unima.Application.Commands.Project.OpenProject
                     MutationRunLoggers = fileConfig.MutationRunLoggers,
                     Mutators = GetMutators(fileConfig.Mutators)
                 };
+
+                if (fileConfig.Git != null && fileConfig.Git.GenerateFilterFromDiffWithMaster)
+                {
+                    var filterItems = _diffCreator.GetFilterItemsFromDiff(Path.GetDirectoryName(fileConfig.SolutionPath), string.Empty);
+
+                    if (config.Filter == null)
+                    {
+                        config.Filter = new MutationDocumentFilter { FilterItems = new List<MutationDocumentFilterItem>() };
+                    }
+                    
+                    config.Filter.FilterItems.AddRange(filterItems);
+                }
 
                 using (var workspace = MSBuildWorkspace.Create())
                 {
@@ -289,10 +312,10 @@ namespace Unima.Application.Commands.Project.OpenProject
             {
                 LogTo.Info("Your config contains GIT information so we will check if the project exist locally.");
 
-                if (!File.Exists(config.SolutionPath))
+                if (!File.Exists(config.SolutionPath) || config.Git.ForceClone)
                 {
-                    LogTo.Info("It does not exist so we will clone it");
-                    _gitCloner.CloneProject(config.Git.Url, config.Git.Branch, config.Git.Username, config.Git.Password, Path.GetDirectoryName(config.SolutionPath));
+                    LogTo.Info("It does not exist or force clone are true so we will clone it");
+                    _gitCloner.ClonseSolution(config.Git.Url, config.Git.Branch, config.Git.Username, config.Git.Password, Path.GetDirectoryName(config.SolutionPath));
                 }
             }
         }

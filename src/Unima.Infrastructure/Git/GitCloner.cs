@@ -1,59 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Medallion.Shell;
-using Medallion.Shell.Streams;
+﻿using System.IO;
+using Anotar.Log4Net;
+using LibGit2Sharp;
 using Unima.Core.Git;
 
 namespace Unima.Infrastructure.Git
 {
     public class GitCloner : IGitCloner
     {
-        public void CloneProject(string repositoryUrl, string branch, string username, string password, string outputPath)
+        public void ClonseSolution(string repositoryUrl, string branch, string username, string password, string outputPath)
         {
-            var arguments = new List<string> { "git", "-ru", repositoryUrl, "-b", branch, "-op", outputPath };
+            if (Directory.Exists(outputPath))
+            {
+                LogTo.Info("Directory already exist so will delete it..");
+
+                // It seems like the git directory sometimes are locked so force it to normal status.
+                SetAttributes(new DirectoryInfo(outputPath));
+
+                Directory.Delete(outputPath, true);
+                LogTo.Info(".. deleting done.");
+            }
+
+            var co = new CloneOptions
+            {
+                BranchName = branch
+            };
 
             if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
             {
-                arguments.AddRange(new[]{ "-u", username, "-p", password});
+                LogTo.Info("Found username and password in git config so will update clone options.");
+                co.CredentialsProvider = (url, user, cred) => new UsernamePasswordCredentials { Username = username, Password = password };
             }
 
-            using (var command = Command.Run(
-                "Unima.Git.exe",
-                arguments.ToArray(),
-                o =>
-                {
-                    o.StartInfo(si =>
-                    {
-                        si.CreateNoWindow = true;
-                        si.UseShellExecute = false;
-                        si.RedirectStandardError = true;
-                        si.RedirectStandardInput = true;
-                        si.RedirectStandardOutput = true;
-                    });
-                    o.DisposeOnExit();
-                }))
-            {
-                var success = ReadToEnd(command.StandardError, out var error);
-
-                if (!success)
-                {
-                    command.Kill();
-                }
-
-                if (!success || (!command.Result.Success && !error.ToLower().Contains("test run failed")))
-                {
-                }
-            }
+            LogTo.Info($"Cloning \"{repositoryUrl}\" (branch {branch}) to \"{outputPath}\"..");
+            Repository.Clone(repositoryUrl, outputPath, co);
+            LogTo.Info(".. cloning done.");
         }
 
-        private bool ReadToEnd(ProcessStreamReader processStream, out string message)
+        private void SetAttributes(DirectoryInfo directory)
         {
-            var readStreamTask = Task.Run(() => processStream.ReadToEnd());
-            var successful = readStreamTask.Wait(TimeSpan.FromSeconds(30));
+            foreach (var directoryInfo in directory.GetDirectories())
+            {
+                SetAttributes(directoryInfo);
+            }
 
-            message = successful ? readStreamTask.Result : "Error reading from stream";
-            return successful;
+            foreach (var fileInfo in directory.GetFiles())
+            {
+                fileInfo.Attributes = FileAttributes.Normal;
+            }
+
+            directory.Attributes = FileAttributes.Normal;
         }
     }
 }
