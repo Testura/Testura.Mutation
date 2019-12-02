@@ -156,6 +156,29 @@ A list of all the mutators that you want to run (look further below for tags and
 "Mutators": [ "Increment" ]
 ```
 
+#### Git
+
+Possible git values:
+
+```c#
+    "Git":  {
+                   "Url": "url/to/your/repository",
+		   "Branch": "master",
+		   "Username": "Your username if any",
+		   "Passsword": "Your password if any"
+		   "ForceClone": false, 
+		   "GenerateFilterFromDiffWithMaster": false
+               },
+```
+
+- `Url`: Url to your repository 
+- `Branch`: Name of the branch you want to clone/checkout 
+- `Username/password`: If your repoistory requires username/password (are optional) 
+- `ForceClone`: We always start by looking if the project exist before cloning - but if this is true we delete the directory and clone again.
+- `GenerateFilterFromDiffWithMaster`: If this is true we will look at the changes between the branch and master and generate filter items for the changes. For example if you have changed line 51 in the file "Test.cs" we will create a filter item like `{ Effect: "Allow", "Resource": "*Test.cs", "Lines": [ "51" ]`
+
+Note: We will use the path in `SolutionPath` as destination when cloning. So if your `SolutionPath` is `C:\\SomeFolder\\MySolution.sln` we will clone it to `C:\\SomeFolter`
+
 ### Mutation run logger
 
 A list of specific run loggers. For example: 
