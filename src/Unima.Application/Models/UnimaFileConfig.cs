@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Unima.Core;
+using Unima.Core.Config;
 using Unima.Core.Creator.Filter;
 
 namespace Unima.Application.Models

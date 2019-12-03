@@ -83,6 +83,7 @@ namespace Unima.Application.Commands.Project.OpenProject
                 MaxTestTimeMin = fileConfig.MaxTestTimeMin,
                 DotNetPath = fileConfig.DotNetPath,
                 MutationRunLoggers = fileConfig.MutationRunLoggers,
+                TargetFramework = fileConfig.TargetFramework ?? new TargetFramework()
             };
 
             return (fileConfig, config);

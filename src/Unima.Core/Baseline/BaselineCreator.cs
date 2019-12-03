@@ -37,7 +37,7 @@ namespace Unima.Core.Baseline
 
         public async Task<IList<BaselineInfo>> CreateBaselineAsync(UnimaConfig config)
         {
-            using (var workspace = MSBuildWorkspace.Create())
+            using (var workspace = MSBuildWorkspace.Create(config.TargetFramework.CreateProperties()))
             {
                 LogTo.Info("Opening solution..");
                 var solution = await workspace.OpenSolutionAsync(config.SolutionPath);

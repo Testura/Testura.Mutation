@@ -27,7 +27,7 @@ namespace Unima.Application.Commands.Project.OpenProject.Handlers
 
         public override async Task HandleAsync(UnimaFileConfig fileConfig, UnimaConfig applicationConfig)
         {
-            using (var workspace = MSBuildWorkspace.Create(CreateProperties(fileConfig)))
+            using (var workspace = MSBuildWorkspace.Create(applicationConfig.TargetFramework.CreateProperties()))
             {
                 LogTo.Info("Opening solution..");
 
@@ -132,7 +132,7 @@ namespace Unima.Application.Commands.Project.OpenProject.Handlers
             return !content.ToLower().Contains(targetFramework.Name.ToLower());
         }
 
-        private void InitializeTestProjects(UnimaFileConfig fileConfig, UnimaConfig config, Microsoft.CodeAnalysis.Solution solution)
+        private void InitializeTestProjects(UnimaFileConfig fileConfig, UnimaConfig config, Solution solution)
         {
             if (fileConfig.TestProjects == null || !fileConfig.TestProjects.Any())
             {
