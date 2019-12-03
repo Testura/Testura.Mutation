@@ -177,7 +177,20 @@ Possible git values:
 - `ForceClone`: We always start by looking if the project exist before cloning - but if this is true we delete the directory and clone again.
 - `GenerateFilterFromDiffWithMaster`: If this is true we will look at the changes between the branch and master and generate filter items for the changes. For example if you have changed line 51 in the file "Test.cs" we will create a filter item like `{ Effect: "Allow", "Resource": "*Test.cs", "Lines": [ "51" ]`
 
-Note: We will use the path in `SolutionPath` as destination when cloning. So if your `SolutionPath` is `C:\\SomeFolder\\MySolution.sln` we will clone it to `C:\\SomeFolter`
+Note: We will use the path in `SolutionPath` as destination when cloning. So if your `SolutionPath` is `C:\\SomeFolder\\MySolution.sln` we will clone it to `C:\\SomeFolder`
+
+#### Target framework 
+
+It's possible to specifiy which target framework we should use when building the project like this: 
+
+```c#
+    "TargetFramework":  {
+                   "Name": "Net47",
+		   "IgnoreProjectsWithWrongTargetFramework": false
+               },
+```
+
+`IgnoreProjectsWithWrongTargetFramework` is optional (default false) but is any easy way to filter out projects that doesn't match the expected target framework.
 
 ### Mutation run logger
 
