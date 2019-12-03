@@ -28,7 +28,7 @@ namespace Unima.Console
 
         public async Task<bool> ExecuteMutationRunner(string configPath, string savePath)
         {
-            var config = await _mediator.Send(new OpenProjectCommand(configPath, true));
+            var config = await _mediator.Send(new OpenProjectCommand(configPath));
 
             var start = DateTime.Now;
             var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(config));
