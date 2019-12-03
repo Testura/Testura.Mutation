@@ -10,7 +10,7 @@ namespace Unima.Application.Commands.Project.OpenProject.Handlers
 
         public virtual Task HandleAsync(UnimaFileConfig fileConfig, UnimaConfig applicationConfig)
         {
-            return Next?.HandleAsync(fileConfig, applicationConfig);
+            return Next?.HandleAsync(fileConfig, applicationConfig) ?? Task.CompletedTask;
         }
 
         public OpenProjectHandler SetNext(OpenProjectHandler handler)

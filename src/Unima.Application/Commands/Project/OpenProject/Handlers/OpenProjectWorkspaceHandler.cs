@@ -122,7 +122,7 @@ namespace Unima.Application.Commands.Project.OpenProject.Handlers
                 string.IsNullOrEmpty(targetFramework.Name) ||
                 targetFramework.IgnoreProjectsWithWrongTargetFramework == false)
             {
-                return true;
+                return false;
             }
 
             var regex = new Regex("<TargetFramework>(.*)</TargetFramework>");

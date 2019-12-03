@@ -45,7 +45,9 @@ namespace Unima.Application.Commands.Project.OpenProject
             {
                 var (fileConfig, applicationConfig) = LoadConfigs(path);
 
-                var handler = new OpenProjectExistHandler(_gitCloner)
+                var handler = new OpenProjectExistHandler(_gitCloner);
+
+                    handler
                     .SetNext(new OpenProjectBuildHandler(_solutionBuilder))
                     .SetNext(new OpenProjectMutatorsHandler())
                     .SetNext(new OpenProjectGitFilterHandler(_diffCreator))
