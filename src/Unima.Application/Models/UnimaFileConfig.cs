@@ -11,6 +11,7 @@ namespace Unima.Application.Models
             NumberOfTestRunInstances = 3;
             MaxTestTimeMin = 5;
             BuildConfiguration = "debug";
+            CreateBaseline = true;
             Mutators = new List<string>();
         }
 
@@ -37,5 +38,9 @@ namespace Unima.Application.Models
         public List<string> Mutators { get; set; }
 
         public GitInfo Git { get; set; }
+
+        public TargetFramework TargetFramework { get; set; }
+
+        public bool CreateBaseline { get; set; }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Medallion.Shell;
-using Medallion.Shell.Streams;
 using Unima.Core.Solution;
 using Unima.Infrastructure.Stream;
 
