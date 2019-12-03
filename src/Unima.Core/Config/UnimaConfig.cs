@@ -37,5 +37,7 @@ namespace Unima.Core.Config
         public IList<MutationRunLogger> MutationRunLoggers { get; set; }
 
         public IList<IMutator> Mutators { get; set; }
+
+        public TargetFramework TargetFramework { get; set; }
     }
 }

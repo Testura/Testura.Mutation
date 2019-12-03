@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Baseline\BaselineCreator.cs" />
     <Compile Include="Baseline\BaselineInfo.cs" />
+    <Compile Include="Config\TargetFramework.cs" />
     <Compile Include="Config\UnimaConfig.cs" />
     <Compile Include="Config\TestProject.cs" />
     <Compile Include="Creator\Filter\MutationDocumentFilter.cs" />

@@ -33,7 +33,7 @@ namespace Unima.Helpers.Openers
 
             try
             {
-                config = await Task.Run(() => _mediator.Send(new OpenProjectCommand(path, true)));
+                config = await Task.Run(() => _mediator.Send(new OpenProjectCommand(path)));
                 _mutationModuleTabOpener.OpenOverviewTab(config);
             }
             catch (ValidationException ex)

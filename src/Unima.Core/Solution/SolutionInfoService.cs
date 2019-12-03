@@ -9,10 +9,11 @@ namespace Unima.Core.Solution
     {
         public async Task<List<SolutionProjectInfo>> GetSolutionInfoAsync(string solutionPath)
         {
-            var workspace = MSBuildWorkspace.Create();
-            var solution = await workspace.OpenSolutionAsync(solutionPath);
-
-            return solution.Projects.Select(p => new SolutionProjectInfo(p.Name, p.OutputFilePath)).ToList();
+            using (var workspace = MSBuildWorkspace.Create())
+            {
+                var solution = await workspace.OpenSolutionAsync(solutionPath);
+                return solution.Projects.Select(p => new SolutionProjectInfo(p.Name, p.OutputFilePath)).ToList();
+            }
         }
     }
 }

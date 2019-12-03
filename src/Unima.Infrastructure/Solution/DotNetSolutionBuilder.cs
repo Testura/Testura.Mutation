@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Medallion.Shell;
-using Medallion.Shell.Streams;
 using Unima.Core.Solution;
 using Unima.Infrastructure.Stream;
 
@@ -30,13 +28,15 @@ namespace Unima.Infrastructure.Solution
                     o.DisposeOnExit();
                 }))
             {
-                var success = ReadToEnd(command.StandardError, out var error);
+                var successError = ReadToEnd(command.StandardError, out var error);
+                ReadToEnd(command.StandardOutput, out var standardOutput);
 
-                if (!success)
+                if (!successError || standardOutput.Contains("Build FAILED"))
                 {
                     command.Kill();
-                    LogTo.Warn("..failed to build solution");
-                    LogTo.Warn(error);
+                    LogTo.Error("..failed to build solution");
+                    LogTo.Error(error);
+                    LogTo.Error(standardOutput);
                     throw new Exception(error);
                 }
                 
