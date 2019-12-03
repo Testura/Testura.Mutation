@@ -1,5 +1,4 @@
-﻿using System.IO;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Unima.Application.Commands.Project.OpenProject
 {

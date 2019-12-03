@@ -54,7 +54,7 @@ namespace Unima.Application.Commands.Project.OpenProject.Handlers
                 workspace.CloseSolution();
             }
 
-            return base.HandleAsync(fileConfig, applicationConfig);
+            await base.HandleAsync(fileConfig, applicationConfig);
         }
 
         private Dictionary<string, string> CreateProperties(UnimaFileConfig fileConfig)

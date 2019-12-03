@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Net;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Unima.Application.Exceptions;
