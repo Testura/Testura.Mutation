@@ -79,6 +79,7 @@
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="Anotar.Log4Net, Version=5.1.0.0, Culture=neutral, PublicKeyToken=9d5b24f0733c26f7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Anotar.Log4Net.Fody.5.1.0\lib\net452\Anotar.Log4Net.dll</HintPath>
