@@ -28,7 +28,7 @@ namespace Unima.Helpers.Openers
 
                 if (report?.Mutations == null)
                 {
-                    ErrorDialogDisplayer.ShowErrorDialog(
+                    CommonDialogDisplayer.ShowErrorDialog(
                         "Unexpected error when loading report",
                         "Report is null (did you try to open an empty file?). Please try to open a different file.");
                     return;
@@ -38,7 +38,7 @@ namespace Unima.Helpers.Openers
             }
             catch (Exception ex)
             {
-                ErrorDialogDisplayer.ShowErrorDialog(
+                CommonDialogDisplayer.ShowErrorDialog(
                     "Unexpected error when loading report",
                     $"Could not load project at {path}. Please check details for more information.",
                     ex.ToString());

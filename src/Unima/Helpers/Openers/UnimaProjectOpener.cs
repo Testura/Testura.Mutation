@@ -38,12 +38,12 @@ namespace Unima.Helpers.Openers
             }
             catch (ValidationException ex)
             {
-                ErrorDialogDisplayer.ShowErrorDialog("Unexpected error", "Failed to open project.", ex.Message);
+                CommonDialogDisplayer.ShowErrorDialog("Unexpected error", "Failed to open project.", ex.Message);
                 return;
             }
             catch (OpenProjectException ex)
             {
-                ErrorDialogDisplayer.ShowErrorDialog("Unexpected error", "Failed to open project.", ex.InnerException?.ToString());
+                CommonDialogDisplayer.ShowErrorDialog("Unexpected error", "Failed to open project.", ex.InnerException?.ToString());
                 return;
             }
             finally

@@ -34,6 +34,7 @@ namespace Unima.Sections.Welcome
             OpenProjectCommand = new DelegateCommand(OpenProject);
             OpenReportCommand = new DelegateCommand(OpenReport);
             OpenHistoryProjectCommand = new DelegateCommand<string>(OpenProject);
+            CreateNewProjectFromGitCommand = new DelegateCommand(() => _startModuleTabOpener.OpenNewProjectFromGitTab());
             ProjectHistory = _mediator.Send(new GetProjectHistoryCommand()).Result;
         }
 
@@ -42,6 +43,8 @@ namespace Unima.Sections.Welcome
         public DelegateCommand OpenReportCommand { get; set; }
 
         public DelegateCommand CreateNewProjectCommand { get; set; }
+
+        public DelegateCommand CreateNewProjectFromGitCommand { get; set; }
 
         public DelegateCommand OpenProjectCommand { get; set; }
 

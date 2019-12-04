@@ -1,8 +1,10 @@
-﻿namespace Unima.Core.Git
+﻿using System.Threading.Tasks;
+
+namespace Unima.Core.Git
 {
     public interface IGitCloner
     {
-        void ClonseSolution(
+        Task CloneSolutionAsync(
             string repositoryUrl,
             string branch,
             string outputPath,

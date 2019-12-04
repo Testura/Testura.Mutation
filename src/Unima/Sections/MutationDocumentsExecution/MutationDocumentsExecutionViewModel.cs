@@ -154,7 +154,7 @@ namespace Unima.Sections.MutationDocumentsExecution
         {
             if (_latestResult == null)
             {
-                ErrorDialogDisplayer.ShowErrorDialog("Nothing so save", "Please run before saving");
+                CommonDialogDisplayer.ShowErrorDialog("Nothing so save", "Please run before saving");
             }
 
             var savePath = _filePicker.PickDirectory();

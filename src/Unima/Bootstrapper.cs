@@ -11,10 +11,12 @@ using Unima.Application.Logs;
 using Unima.Core.Execution.Compilation;
 using Unima.Core.Execution.Runners;
 using Unima.Core.Git;
+using Unima.Core.Solution;
 using Unima.Helpers.Displayers;
 using Unima.Helpers.Openers.Tabs;
 using Unima.Infrastructure;
 using Unima.Infrastructure.Git;
+using Unima.Infrastructure.Solution;
 using Unima.Sections.Loading;
 using Unima.Sections.Shell;
 using Unima.TestRunner;
@@ -82,6 +84,8 @@ namespace Unima
             Container.RegisterType<IMutationDocumentCompiler, Compiler>();
             Container.RegisterType<ITestRunnerClient, TestRunnerConsoleClient>();
             Container.RegisterType<IGitCloner, GitCloner>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IGitDiff, GitDIff>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ISolutionBuilder, DotNetSolutionBuilder>(new ContainerControlledLifetimeManager());
         }
     }
 }

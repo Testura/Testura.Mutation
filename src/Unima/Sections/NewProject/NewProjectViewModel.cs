@@ -67,19 +67,30 @@ namespace Unima.Sections.NewProject
 
         public int SelectedTestRunnerIndex { get; set; }
 
-        private async void PickSolutionPathAsync()
+        public void InitializeWithGitInfo(GitInfo gitInfo, string solutionPath)
+        {
+            SolutionPath = solutionPath;
+            LoadSolutionInfo();
+        }
+
+        private void PickSolutionPathAsync()
         {
             var file = _filePickerService.PickFile(FilePicker.Filter.Solution);
             if (!string.IsNullOrEmpty(file))
             {
-                _loadingDisplayer.ShowLoading("Grabbing solution info..");
                 SolutionPath = file;
-                var projects = await _solutionInfoService.GetSolutionInfoAsync(SolutionPath);
-                _loadingDisplayer.HideLoading();
-                ProjectNamesInSolution = projects.Select(p => p.Name).ToList();
-                SelectedTestProjectInSolution = projects.Select(p => new ProjectListItem(p, false)).ToList();
-                SelectedProjectsInSolution = projects.Select(p => new ProjectListItem(p, false)).ToList();
+                LoadSolutionInfo();
             }
+        }
+
+        private async void LoadSolutionInfo()
+        {
+            _loadingDisplayer.ShowLoading("Grabbing solution info..");
+            var projects = await _solutionInfoService.GetSolutionInfoAsync(SolutionPath);
+            _loadingDisplayer.HideLoading();
+            ProjectNamesInSolution = projects.Select(p => p.Name).ToList();
+            SelectedTestProjectInSolution = projects.Select(p => new ProjectListItem(p, false)).ToList();
+            SelectedProjectsInSolution = projects.Select(p => new ProjectListItem(p, false)).ToList();
         }
 
         private void PickProjectPath()

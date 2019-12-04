@@ -109,6 +109,9 @@
       <DependentUpon>DebugShellView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sections\Debug\DebugShellViewModel.cs" />
+    <Compile Include="Sections\Dialogs\InfoDialogWindow.xaml.cs">
+      <DependentUpon>InfoDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sections\Dialogs\ErrorDialogWindow.xaml.cs">
       <DependentUpon>ErrorDialogWindow.xaml</DependentUpon>
     </Compile>
@@ -127,6 +130,10 @@
     <Compile Include="Sections\NewProject\NewProjectDialog.xaml.cs">
       <DependentUpon>NewProjectDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sections\NewProject\NewProjectFromGitDialog.xaml.cs">
+      <DependentUpon>NewProjectFromGitDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\NewProject\NewProjectFromGitViewModel.cs" />
     <Compile Include="Sections\NewProject\NewProjectViewModel.cs" />
     <Compile Include="Sections\MutationDocumentsOverview\MutationDocumentsOverviewView.xaml.cs">
       <DependentUpon>MutationDocumentsOverviewView.xaml</DependentUpon>
@@ -156,7 +163,7 @@
       <DependentUpon>WelcomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sections\Welcome\WelcomeViewModel.cs" />
-    <Compile Include="Helpers\Displayers\ErrorDialogDisplayer.cs" />
+    <Compile Include="Helpers\Displayers\CommonDialogDisplayer.cs" />
     <Compile Include="Helpers\FilePicker.cs" />
     <Compile Include="Helpers\Openers\MutationReportOpener.cs" />
     <Compile Include="Helpers\Openers\UnimaProjectOpener.cs" />
@@ -170,6 +177,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Sections\Debug\DebugShellView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\Dialogs\InfoDialogWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -208,6 +219,10 @@
     <Page Include="Sections\MutationDocumentsExecutionResult\MutationDocumentResultView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\NewProject\NewProjectFromGitDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Sections\Shell\ShellWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -357,7 +372,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>ROBOCOPY "$(TargetDir) " "$(TargetDir)lib\ " /XF *.exe *.config *.manifest /XD lib logs data /E /IS /MOVE
-if %25errorlevel%25 leq 4 exit 0 else exit %25errorlevel%25</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
