@@ -17,7 +17,7 @@ namespace Unima.Application.Commands.Project.OpenProject.Handlers
             _gitCloner = gitCloner;
         }
 
-        public override Task HandleAsync(UnimaFileConfig fileConfig, UnimaConfig applicationConfig)
+        public override async Task HandleAsync(UnimaFileConfig fileConfig, UnimaConfig applicationConfig)
         {
             var fileExist = File.Exists(fileConfig.SolutionPath);
 
@@ -29,15 +29,15 @@ namespace Unima.Application.Commands.Project.OpenProject.Handlers
             if (!fileExist || (fileConfig.Git != null && fileConfig.Git.ForceClone))
             {
                 LogTo.Info("Could not find project or force clone are enabled so we will clone project.");
-                _gitCloner.ClonseSolution(
-                    fileConfig.Git.Url,
+                await _gitCloner.CloneSolutionAsync(
+                    fileConfig.Git.RepositoryUrl,
                     fileConfig.Git.Branch,
                     fileConfig.Git.Username,
                     fileConfig.Git.Password, 
-                    Path.GetDirectoryName(fileConfig.SolutionPath));
+                    fileConfig.Git.LocalPath);
             }
 
-            return base.HandleAsync(fileConfig, applicationConfig);
+            await base.HandleAsync(fileConfig, applicationConfig);
         }
     }
 }

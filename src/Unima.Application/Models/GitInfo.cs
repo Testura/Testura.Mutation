@@ -2,7 +2,7 @@
 {
     public class GitInfo
     {
-        public string Url { get; set; }
+        public string RepositoryUrl { get; set; }
 
         public string Branch { get; set; }
 
@@ -13,5 +13,7 @@
         public bool ForceClone { get; set; }
 
         public bool GenerateFilterFromDiffWithMaster { get; set; }
+
+        public string LocalPath { get; set; }
     }
 }

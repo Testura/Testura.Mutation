@@ -80,7 +80,7 @@ namespace Unima.Sections.MutationDocumentsOverview
             }
             catch (MutationDocumentException ex)
             {
-                ErrorDialogDisplayer.ShowErrorDialog("Failed to create mutations", ex.Message, ex.InnerException?.Message);
+                CommonDialogDisplayer.ShowErrorDialog("Failed to create mutations", ex.Message, ex.InnerException?.Message);
             }
             finally
             {

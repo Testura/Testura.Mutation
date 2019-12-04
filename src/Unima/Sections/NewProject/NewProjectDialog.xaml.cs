@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using Unima.Application.Models;
 
 namespace Unima.Sections.NewProject
 {
@@ -10,6 +11,14 @@ namespace Unima.Sections.NewProject
         public NewProjectDialog()
         {
             InitializeComponent();
+        }
+
+        public NewProjectDialog(GitInfo gitInfo, string solutionPath)
+        {
+            InitializeComponent();
+
+            var viewModel = DataContext as NewProjectViewModel;
+            viewModel.InitializeWithGitInfo(gitInfo, solutionPath);
         }
     }
 }
