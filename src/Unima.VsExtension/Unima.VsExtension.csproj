@@ -46,6 +46,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Helpers\Converts\IsZeroConverter.cs" />
     <Compile Include="Sections\MutationExplorer\MutationExplorerWindow.cs" />
     <Compile Include="Sections\MutationExplorer\MutationExplorerWindowCommand.cs" />
     <Compile Include="Sections\MutationExplorer\MutationExplorerWindowControl.xaml.cs">
@@ -80,8 +81,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Dragablz">
+      <Version>0.0.3.203</Version>
+    </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="MaterialDesignThemes">
+      <Version>2.4.0.1044</Version>
     </PackageReference>
     <PackageReference Include="MediatR">
       <Version>7.0.0</Version>
@@ -102,12 +109,27 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Resources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\MaterialDesign.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Sections\MutationExplorer\MutationExplorerWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\checked.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\error.ico" />
+    <Resource Include="Resources\error.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\MutationToolWindowCommand.png" />
     <VSCTCompile Include="UnimaVsExtensionPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>

@@ -22,19 +22,17 @@ namespace Unima.VsExtension.Sections.MutationExplorer
     {
         private readonly IMediator _mediator;
         private string _solutionPath;
-        private IVsOutputWindow _outWindow;
-        private IVsOutputWindowPane _customPane;
         private DTE _dte;
 
         public MutationExplorerWindowViewModel(IMediator mediator)
         {
             _mediator = mediator;
             Mutations = new ObservableCollection<TestRunDocument>();
-            OpenReportCommand = new DelegateCommand(() => Do());
+            RunMutationsCommand = new DelegateCommand(() => Do());
             MutationSelectedCommand = new DelegateCommand<TestRunDocument>(GoToMutationFile);
         }
 
-        public DelegateCommand OpenReportCommand { get; set; }
+        public DelegateCommand RunMutationsCommand { get; set; }
 
         public DelegateCommand<TestRunDocument> MutationSelectedCommand { get; set; }
 

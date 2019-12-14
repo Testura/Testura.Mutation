@@ -1,5 +1,9 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Media;
+using Dragablz;
 using EnvDTE;
+using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
 
 namespace Unima.VsExtension.Sections.MutationExplorer
 {
@@ -11,6 +15,9 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         public MutationExplorerWindowControl()
         {
             this.InitializeComponent();
+            ShadowAssist.SetShadowDepth(this, ShadowDepth.Depth0);
+            var hue = new Hue("Dummy", Colors.AliceBlue, Colors.AntiqueWhite);
+            var o = new TabablzControl();
         }
 
         public void Initialize(DTE dte)
