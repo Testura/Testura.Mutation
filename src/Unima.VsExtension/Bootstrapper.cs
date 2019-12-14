@@ -8,9 +8,9 @@ using Unima.Infrastructure;
 using Unima.Infrastructure.Git;
 using Unima.Infrastructure.Solution;
 using Unima.TestRunner;
-using UnimaVsExtension.Sections.ToolsWindow;
+using Unima.VsExtension.Sections.ToolsWindow;
 
-namespace UnimaVsExtension
+namespace Unima.VsExtension
 {
     public class Bootstrapper
     {

@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unima.Infrastructure", "src
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HelpClients", "HelpClients", "{D58AF013-64A5-4DFA-B248-94022A2F04F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnimaVsExtension", "src\UnimaVsExtension\UnimaVsExtension.csproj", "{8D4CD864-3656-48FC-8B2A-F0F710B73928}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unima.VsExtension", "src\Unima.VsExtension\Unima.VsExtension.csproj", "{8D4CD864-3656-48FC-8B2A-F0F710B73928}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

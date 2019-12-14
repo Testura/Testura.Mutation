@@ -3,17 +3,15 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
-using EnvDTE;
 using log4net.Config;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using Unima.Application.Logs;
-using UnimaVsExtension.Sections.ToolsWindow;
-using UnimaVsExtension.Services;
+using Unima.VsExtension.Sections.ToolsWindow;
+using Unima.VsExtension.Services;
 using Task = System.Threading.Tasks.Task;
 
-namespace UnimaVsExtension
+namespace Unima.VsExtension
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.

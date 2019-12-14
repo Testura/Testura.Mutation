@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace UnimaVsExtension.Sections.ToolsWindow
+namespace Unima.VsExtension.Sections.ToolsWindow
 {
     /// <summary>
     /// Interaction logic for MutationToolWindowControl.

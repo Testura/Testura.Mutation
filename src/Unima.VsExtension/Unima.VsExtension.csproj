@@ -13,8 +13,8 @@
     <ProjectGuid>{8D4CD864-3656-48FC-8B2A-F0F710B73928}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnimaVsExtension</RootNamespace>
-    <AssemblyName>UnimaVsExtension</AssemblyName>
+    <RootNamespace>Unima.VsExtension</RootNamespace>
+    <AssemblyName>Unima.VsExtension</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <UseCodebase>true</UseCodebase>

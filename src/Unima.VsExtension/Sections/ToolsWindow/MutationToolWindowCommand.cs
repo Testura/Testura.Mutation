@@ -4,7 +4,7 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace UnimaVsExtension.Sections.ToolsWindow
+namespace Unima.VsExtension.Sections.ToolsWindow
 {
     /// <summary>
     /// Command handler

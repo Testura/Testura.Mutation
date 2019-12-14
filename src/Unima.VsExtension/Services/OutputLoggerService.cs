@@ -1,12 +1,9 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
-using log4net.Config;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Unima.Application.Logs;
 
-namespace UnimaVsExtension.Services
+namespace Unima.VsExtension.Services
 {
     public class OutputLoggerService
     {

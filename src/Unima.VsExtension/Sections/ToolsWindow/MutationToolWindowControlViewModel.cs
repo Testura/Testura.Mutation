@@ -10,7 +10,7 @@ using Unima.Application.Commands.Project.OpenProject;
 using Unima.Application.Models;
 using Task = System.Threading.Tasks.Task;
 
-namespace UnimaVsExtension.Sections.ToolsWindow
+namespace Unima.VsExtension.Sections.ToolsWindow
 {
     public class MutationToolWindowControlViewModel : BindableBase, INotifyPropertyChanged
     {
