@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Unima.Core;
 
-namespace Unima.Models
+namespace Unima.Wpf.Shared.Models
 {
     public class TestRunDocument : INotifyPropertyChanged
     {

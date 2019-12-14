@@ -99,11 +99,7 @@
     <Compile Include="Helpers\Converts\IsZeroConverter.cs" />
     <Compile Include="Helpers\Extensions\EnumExtensions.cs" />
     <Compile Include="Helpers\Displayers\ILoadingDisplayer.cs" />
-    <Compile Include="Models\DocumentRowModel.cs" />
     <Compile Include="Models\MutationDocumentsExecutionResultModel.cs" />
-    <Compile Include="Models\MutationOperatorGridItem.cs" />
-    <Compile Include="Models\ProjectListItem.cs" />
-    <Compile Include="Models\TestRunDocument.cs" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="Sections\Debug\DebugShellView.xaml.cs">
       <DependentUpon>DebugShellView.xaml</DependentUpon>
@@ -338,6 +334,10 @@
       <Project>{8a6ddfab-f6be-44d9-b58f-6139149875a5}</Project>
       <Name>Unima.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Unima.Wpf.Shared\Unima.Wpf.Shared.csproj">
+      <Project>{30e41f1e-12e0-4231-9450-596151fd70b0}</Project>
+      <Name>Unima.Wpf.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon_Inx_icon.ico" />
@@ -370,6 +370,7 @@
   <ItemGroup>
     <Resource Include="Resources\error.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

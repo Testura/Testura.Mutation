@@ -130,6 +130,10 @@
       <Project>{de7878fe-0f75-44fc-8964-0b3d3e815fd9}</Project>
       <Name>Unima.TestRunner.Console</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Unima.Wpf.Shared\Unima.Wpf.Shared.csproj">
+      <Project>{30e41f1e-12e0-4231-9450-596151fd70b0}</Project>
+      <Name>Unima.Wpf.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

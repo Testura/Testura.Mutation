@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 
 namespace Unima.VsExtension.Sections.MutationExplorer
@@ -27,9 +28,9 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             this.Content = mutationToolWindowControl;
         }
 
-        public void InitializeWindow(string solutionFullName)
+        public void InitializeWindow(DTE dte)
         { 
-            ((MutationExplorerWindowControl)Content).Initialize(solutionFullName);
+            ((MutationExplorerWindowControl)Content).Initialize(dte);
         }
     }
 }

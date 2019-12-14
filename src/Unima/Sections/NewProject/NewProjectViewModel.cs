@@ -13,7 +13,7 @@ using Unima.Core.Solution;
 using Unima.Helpers;
 using Unima.Helpers.Displayers;
 using Unima.Helpers.Openers.Tabs;
-using Unima.Models;
+using Unima.Wpf.Shared.Models;
 
 namespace Unima.Sections.NewProject
 {

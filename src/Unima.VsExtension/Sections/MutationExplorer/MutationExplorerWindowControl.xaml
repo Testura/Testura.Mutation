@@ -13,8 +13,45 @@
              Name="MyToolWindow">
     <Grid>
         <StackPanel Orientation="Vertical">
-            <TextBlock Margin="10" HorizontalAlignment="Center">MutationToolWindow</TextBlock>
+            <TextBlock Margin="10" HorizontalAlignment="Center">Mutation explorer</TextBlock>
             <Button Content="Click me!" Command="{Binding OpenReportCommand}" Width="120" Height="80" Name="button1"/>
         </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <DataGrid 
+                SelectionUnit="FullRow"
+                AutoGenerateColumns="False"
+                IsReadOnly="False"
+                ItemsSource="{Binding Mutations}"
+                CanUserAddRows="false"
+                Grid.Row="1">
+                <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Result" Width="10" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label>
+                                <Label.Style>
+                                    <Style TargetType="{x:Type Label}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Survived}" Value="True">
+                                                <Setter Property="Content" Value="Survived"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Survived}" Value="False">
+                                                <Setter Property="Content" Value="Killed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Mutation" Binding="{Binding Document.MutationName}" Width="*" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </UserControl>

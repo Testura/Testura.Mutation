@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using EnvDTE;
 
 namespace Unima.VsExtension.Sections.MutationExplorer
 {
@@ -12,9 +13,9 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             this.InitializeComponent();
         }
 
-        public void Initialize(string solutionPath)
+        public void Initialize(DTE dte)
         {
-           ((MutationExplorerWindowViewModel)DataContext).Initialize(solutionPath);
+           ((MutationExplorerWindowViewModel)DataContext).Initialize(dte);
         }
     }
 }

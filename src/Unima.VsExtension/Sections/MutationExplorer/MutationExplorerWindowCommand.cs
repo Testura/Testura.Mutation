@@ -99,7 +99,7 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
                     var o = (DTE) await ServiceProvider.GetServiceAsync(typeof(DTE));
 
-                    window.InitializeWindow(o.Solution.FullName);
+                    window.InitializeWindow(o);
                 }
                 catch (Exception ex)
                 {

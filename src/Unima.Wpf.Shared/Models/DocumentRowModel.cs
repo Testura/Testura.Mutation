@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Unima.Application;
 
-namespace Unima.Models
+namespace Unima.Wpf.Shared.Models
 {
     public class DocumentRowModel : INotifyPropertyChanged
     {

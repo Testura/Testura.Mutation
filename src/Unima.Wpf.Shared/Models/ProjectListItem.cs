@@ -1,6 +1,6 @@
 ﻿using Unima.Core.Solution;
 
-namespace Unima.Models
+namespace Unima.Wpf.Shared.Models
 {
     public class ProjectListItem
     {

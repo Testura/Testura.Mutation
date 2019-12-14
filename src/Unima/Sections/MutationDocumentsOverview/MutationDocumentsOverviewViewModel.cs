@@ -13,7 +13,7 @@ using Unima.Core.Exceptions;
 using Unima.Helpers.Displayers;
 using Unima.Helpers.Extensions;
 using Unima.Helpers.Openers.Tabs;
-using Unima.Models;
+using Unima.Wpf.Shared.Models;
 
 namespace Unima.Sections.MutationDocumentsOverview
 {
