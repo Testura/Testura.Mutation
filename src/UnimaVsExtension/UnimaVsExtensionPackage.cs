@@ -8,6 +8,9 @@ using log4net.Config;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Unima.Application.Logs;
+using UnimaVsExtension.Sections.ToolsWindow;
+using UnimaVsExtension.Services;
 using Task = System.Threading.Tasks.Task;
 
 namespace UnimaVsExtension
@@ -35,17 +38,22 @@ namespace UnimaVsExtension
     [ProvideToolWindow(typeof(MutationToolWindow))]
     public sealed class UnimaVsExtensionPackage : AsyncPackage
     {
+        private OutputLoggerService _outputLoggerService;
         private IUnityContainer _container;
+
         public const string PackageGuidString = "eb1b49be-0389-4dee-995a-cf1854262fa9";
 
         public UnimaVsExtensionPackage()
         {
+            XmlConfigurator.Configure(new FileInfo(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName + @"\Log4Net.Config"));
+
             _container = Bootstrapper.GetContainer();
+            _outputLoggerService = new OutputLoggerService(new LogWatcher());
         }
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            XmlConfigurator.Configure(new FileInfo(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName + @"\Log4Net.Config"));
+            _outputLoggerService.StartLogger();
 
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await MutationToolWindowCommand.InitializeAsync(this);

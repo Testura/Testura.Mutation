@@ -8,6 +8,7 @@ using Unima.Infrastructure;
 using Unima.Infrastructure.Git;
 using Unima.Infrastructure.Solution;
 using Unima.TestRunner;
+using UnimaVsExtension.Sections.ToolsWindow;
 
 namespace UnimaVsExtension
 {
@@ -25,7 +26,7 @@ namespace UnimaVsExtension
             unityContainer.RegisterType<IMutationDocumentCompiler, Compiler>();
             unityContainer.RegisterType<ITestRunnerClient, TestRunnerConsoleClient>();
             unityContainer.RegisterType<MutationToolWindow>();
-            unityContainer.RegisterType<MutationToolWindowControl>();
+            unityContainer.RegisterType<Sections.ToolsWindow.MutationToolWindowControl>();
             return unityContainer;
         }
     }

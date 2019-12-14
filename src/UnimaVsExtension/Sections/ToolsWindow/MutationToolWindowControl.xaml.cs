@@ -1,12 +1,7 @@
-﻿using EnvDTE;
-using MediatR;
+﻿using System.Windows.Controls;
 
-namespace UnimaVsExtension
+namespace UnimaVsExtension.Sections.ToolsWindow
 {
-    using System.Diagnostics.CodeAnalysis;
-    using System.Windows;
-    using System.Windows.Controls;
-
     /// <summary>
     /// Interaction logic for MutationToolWindowControl.
     /// </summary>
