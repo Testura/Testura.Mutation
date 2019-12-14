@@ -22,17 +22,20 @@ namespace Unima.Application.Commands.Project.OpenProject
         private readonly IGitCloner _gitCloner;
         private readonly MutationDocumentFilterItemGitDiffCreator _diffCreator;
         private readonly ISolutionBuilder _solutionBuilder;
+        private readonly ISolutionOpener _solutionOpener;
 
         public OpenProjectCommandHandler(
             BaselineCreator baselineCreator,
             IGitCloner gitCloner,
             MutationDocumentFilterItemGitDiffCreator diffCreator,
-            ISolutionBuilder solutionBuilder)
+            ISolutionBuilder solutionBuilder,
+            ISolutionOpener solutionOpener)
         {
             _baselineCreator = baselineCreator;
             _gitCloner = gitCloner;
             _diffCreator = diffCreator;
             _solutionBuilder = solutionBuilder;
+            _solutionOpener = solutionOpener;
         }
 
         public async Task<UnimaConfig> Handle(OpenProjectCommand command, CancellationToken cancellationToken)
@@ -51,7 +54,7 @@ namespace Unima.Application.Commands.Project.OpenProject
                     .SetNext(new OpenProjectBuildHandler(_solutionBuilder))
                     .SetNext(new OpenProjectMutatorsHandler())
                     .SetNext(new OpenProjectGitFilterHandler(_diffCreator))
-                    .SetNext(new OpenProjectWorkspaceHandler(_baselineCreator));
+                    .SetNext(new OpenProjectWorkspaceHandler(_baselineCreator, _solutionOpener));
 
                 await handler.HandleAsync(fileConfig, applicationConfig);
 

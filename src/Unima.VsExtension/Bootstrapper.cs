@@ -54,12 +54,12 @@ namespace Unima.VsExtension
             Container.RegisterType<ITestRunnerFactory, TestRunnerFactory>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IGitCloner, GitCloner>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IGitDiff, GitDIff>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<ISolutionBuilder, DotNetSolutionBuilder>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IProjectCompiler, Compiler>();
             Container.RegisterType<IMutationDocumentCompiler, Compiler>();
             Container.RegisterType<ITestRunnerClient, TestRunnerConsoleClient>();
             Container.RegisterType<MutationExplorerWindow>();
             Container.RegisterType<MutationExplorerWindowControl>();
+            Container.RegisterType<ISolutionOpener, MsBuildSolutionOpener>();
 
             base.ConfigureContainer();
         }

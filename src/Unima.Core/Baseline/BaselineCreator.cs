@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
 using ConsoleTables;
-using Microsoft.CodeAnalysis.MSBuild;
 using Newtonsoft.Json.Linq;
 using Unima.Core.Config;
 using Unima.Core.Exceptions;
@@ -14,6 +13,7 @@ using Unima.Core.Execution;
 using Unima.Core.Execution.Compilation;
 using Unima.Core.Execution.Result;
 using Unima.Core.Execution.Runners;
+using Unima.Core.Solution;
 
 namespace Unima.Core.Baseline
 {
@@ -21,15 +21,18 @@ namespace Unima.Core.Baseline
     {
         private readonly IProjectCompiler _projectCompiler;
         private readonly TestRunnerDependencyFilesHandler _testRunnerDependencyFilesHandler;
+        private readonly ISolutionOpener _solutionOpener;
         private ITestRunnerClient _testRunnerClient;
 
         public BaselineCreator(
             IProjectCompiler projectCompiler,
             ITestRunnerClient testRunnerClient,
+            ISolutionOpener solutionOpener,
             TestRunnerDependencyFilesHandler testRunnerDependencyFilesHandler)
         {
             _projectCompiler = projectCompiler;
             _testRunnerClient = testRunnerClient;
+            _solutionOpener = solutionOpener;
             _testRunnerDependencyFilesHandler = testRunnerDependencyFilesHandler;
         }
 
@@ -37,12 +40,9 @@ namespace Unima.Core.Baseline
 
         public async Task<IList<BaselineInfo>> CreateBaselineAsync(UnimaConfig config)
         {
-            using (var workspace = MSBuildWorkspace.Create(config.TargetFramework.CreateProperties()))
-            {
-                LogTo.Info("Opening solution..");
-                var solution = await workspace.OpenSolutionAsync(config.SolutionPath);
-                return await CreateBaselineAsync(config, solution);
-            }
+            LogTo.Info("Opening solution..");
+            var solution = await _solutionOpener.GetSolutionAsync(config);
+            return await CreateBaselineAsync(config, solution);
         }
 
         public async Task<IList<BaselineInfo>> CreateBaselineAsync(UnimaConfig config, Microsoft.CodeAnalysis.Solution solution)

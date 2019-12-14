@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.MSBuild;
 using Unima.Application.Exceptions;
 using Unima.Application.Models;
 using Unima.Core.Baseline;
@@ -19,78 +18,28 @@ namespace Unima.Application.Commands.Project.OpenProject.Handlers
     public class OpenProjectWorkspaceHandler : OpenProjectHandler
     {
         private readonly BaselineCreator _baselineCreator;
+        private readonly ISolutionOpener _solutionOpener;
 
-        public OpenProjectWorkspaceHandler(BaselineCreator baselineCreator)
+        public OpenProjectWorkspaceHandler(BaselineCreator baselineCreator, ISolutionOpener solutionOpener)
         {
             _baselineCreator = baselineCreator;
+            _solutionOpener = solutionOpener;
         }
 
         public override async Task HandleAsync(UnimaFileConfig fileConfig, UnimaConfig applicationConfig)
         {
-            using (var workspace = MSBuildWorkspace.Create(applicationConfig.TargetFramework.CreateProperties()))
+            var solution = await _solutionOpener.GetSolutionAsync(applicationConfig);
+
+            InitializeTestProjects(fileConfig, applicationConfig, solution);
+            InitializeMutationProjects(fileConfig, applicationConfig, solution);
+
+            if (fileConfig.CreateBaseline)
             {
-                LogTo.Info("Opening solution..");
-
-                var solution = await workspace.OpenSolutionAsync(fileConfig.SolutionPath);
-
-                if (workspace.Diagnostics.Any(w => w.Kind == WorkspaceDiagnosticKind.Failure && ContainsProjectName(w.Message, applicationConfig.MutationProjects, applicationConfig.TestProjects.Select(t => t.Project).ToList())))
-                {
-                    foreach (var workspaceDiagnostic in workspace.Diagnostics.Where(d => d.Kind == WorkspaceDiagnosticKind.Failure))
-                    {
-                        LogTo.Error($"Workspace error: {workspaceDiagnostic.Message}");
-                    }
-
-                    throw new ProjectSetUpException("Failed to open solution. View log for details.");
-                }
-
-                InitializeTestProjects(fileConfig, applicationConfig, solution);
-                InitializeMutationProjects(fileConfig, applicationConfig, solution);
-
-                if (fileConfig.CreateBaseline)
-                {
-                    applicationConfig.BaselineInfos = new List<BaselineInfo>(await _baselineCreator.CreateBaselineAsync(applicationConfig, solution));
-                }
-
-                workspace.CloseSolution();
+                applicationConfig.BaselineInfos = new List<BaselineInfo>(await _baselineCreator.CreateBaselineAsync(applicationConfig, solution));
             }
 
             await base.HandleAsync(fileConfig, applicationConfig);
         }
-
-        private Dictionary<string, string> CreateProperties(UnimaFileConfig fileConfig)
-        {
-            var props = new Dictionary<string, string>();
-
-            if (!string.IsNullOrEmpty(fileConfig.TargetFramework?.Name))
-            {
-                LogTo.Info($"Found a target framework in config: {fileConfig.TargetFramework.Name}. Adding it to properties");
-                props.Add("TargetFramework", fileConfig.TargetFramework.Name);
-            }
-
-            return props;
-        }
-
-        private bool ContainsProjectName(string message, IList<SolutionProjectInfo> mutationProjects, IList<SolutionProjectInfo> testProjects)
-        {
-            foreach (var configMutationProject in mutationProjects)
-            {
-                if (message.Contains(configMutationProject.Name))
-                {
-                    return true;
-                }
-            }
-
-            foreach (var configMutationProject in testProjects)
-            {
-                if (message.Contains(Path.GetFileNameWithoutExtension(configMutationProject.OutputFileName)))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
 
         private void InitializeMutationProjects(UnimaFileConfig fileConfig, UnimaConfig config, Microsoft.CodeAnalysis.Solution solution)
         {

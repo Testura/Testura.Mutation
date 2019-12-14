@@ -3,12 +3,17 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
+using EnvDTE;
 using log4net.Config;
 using Microsoft.Practices.Unity;
+using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Shell;
 using Unima.Application.Logs;
+using Unima.Core.Solution;
 using Unima.VsExtension.Sections.MutationExplorer;
 using Unima.VsExtension.Services;
+using Unima.VsExtension.Solution;
 using Task = System.Threading.Tasks.Task;
 
 namespace Unima.VsExtension
@@ -52,6 +57,12 @@ namespace Unima.VsExtension
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
+            var componentModel = (IComponentModel)this.GetService(typeof(SComponentModel));
+            var workspace = componentModel.GetService<VisualStudioWorkspace>();
+
+            _bootstrapper.Container.RegisterInstance(typeof(ISolutionOpener), new VisualStudioSolutionOpener(workspace));
+            _bootstrapper.Container.RegisterInstance(typeof(ISolutionBuilder), new VisualStudioSolutionBuilder((DTE)GetService(typeof(DTE))));
+
             _outputLoggerService.StartLogger();
 
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
