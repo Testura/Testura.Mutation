@@ -10,16 +10,16 @@ using Unima.Application.Commands.Project.OpenProject;
 using Unima.Application.Models;
 using Task = System.Threading.Tasks.Task;
 
-namespace Unima.VsExtension.Sections.ToolsWindow
+namespace Unima.VsExtension.Sections.MutationExplorer
 {
-    public class MutationToolWindowViewModel : BindableBase, INotifyPropertyChanged
+    public class MutationExplorerWindowViewModel : BindableBase, INotifyPropertyChanged
     {
         private readonly IMediator _mediator;
         private string _solutionPath;
         private IVsOutputWindow _outWindow;
         private IVsOutputWindowPane _customPane;
 
-        public MutationToolWindowViewModel(IMediator mediator)
+        public MutationExplorerWindowViewModel(IMediator mediator)
         {
             _mediator = mediator;
             OpenReportCommand = new DelegateCommand(() => Do());

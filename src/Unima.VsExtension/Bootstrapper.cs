@@ -13,7 +13,7 @@ using Unima.Infrastructure;
 using Unima.Infrastructure.Git;
 using Unima.Infrastructure.Solution;
 using Unima.TestRunner;
-using Unima.VsExtension.Sections.ToolsWindow;
+using Unima.VsExtension.Sections.MutationExplorer;
 
 namespace Unima.VsExtension
 {
@@ -58,8 +58,8 @@ namespace Unima.VsExtension
             Container.RegisterType<IProjectCompiler, Compiler>();
             Container.RegisterType<IMutationDocumentCompiler, Compiler>();
             Container.RegisterType<ITestRunnerClient, TestRunnerConsoleClient>();
-            Container.RegisterType<MutationToolWindow>();
-            Container.RegisterType<Sections.ToolsWindow.MutationToolWindowControl>();
+            Container.RegisterType<MutationExplorerWindow>();
+            Container.RegisterType<MutationExplorerWindowControl>();
 
             base.ConfigureContainer();
         }

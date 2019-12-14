@@ -26,7 +26,7 @@
         <Parent guid="guidUnimaVsExtensionPackageCmdSet" id="MyMenuGroup"/>
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>Unima tool window</ButtonText>
+          <ButtonText>Mutation explorer</ButtonText>
         </Strings>
       </Button>
     </Buttons>

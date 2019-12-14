@@ -1,20 +1,20 @@
 ﻿using System.Windows.Controls;
 
-namespace Unima.VsExtension.Sections.ToolsWindow
+namespace Unima.VsExtension.Sections.MutationExplorer
 {
     /// <summary>
     /// Interaction logic for MutationToolWindowControl.
     /// </summary>
-    public partial class MutationToolWindowControl : UserControl
+    public partial class MutationExplorerWindowControl : UserControl
     {
-        public MutationToolWindowControl()
+        public MutationExplorerWindowControl()
         {
             this.InitializeComponent();
         }
 
         public void Initialize(string solutionPath)
         {
-           ((MutationToolWindowViewModel)DataContext).Initialize(solutionPath);
+           ((MutationExplorerWindowViewModel)DataContext).Initialize(solutionPath);
         }
     }
 }

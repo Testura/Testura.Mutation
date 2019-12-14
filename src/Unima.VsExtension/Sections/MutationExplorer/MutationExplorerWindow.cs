@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 
-namespace Unima.VsExtension.Sections.ToolsWindow
+namespace Unima.VsExtension.Sections.MutationExplorer
 {
     /// <summary>
     /// This class implements the tool window exposed by this package and hosts a user control.
@@ -15,12 +15,12 @@ namespace Unima.VsExtension.Sections.ToolsWindow
     /// </para>
     /// </remarks>
     [Guid("ee8fe630-e2c0-4867-a4ba-112709e71d52")]
-    public class MutationToolWindow : ToolWindowPane
+    public class MutationExplorerWindow : ToolWindowPane
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MutationToolWindow"/> class.
+        /// Initializes a new instance of the <see cref="MutationExplorerWindow"/> class.
         /// </summary>
-        public MutationToolWindow(MutationToolWindowControl mutationToolWindowControl)
+        public MutationExplorerWindow(MutationExplorerWindowControl mutationToolWindowControl)
             : base(null)
         {
             this.Caption = "MutationToolWindow";
@@ -29,7 +29,7 @@ namespace Unima.VsExtension.Sections.ToolsWindow
 
         public void InitializeWindow(string solutionFullName)
         { 
-            ((MutationToolWindowControl)Content).Initialize(solutionFullName);
+            ((MutationExplorerWindowControl)Content).Initialize(solutionFullName);
         }
     }
 }

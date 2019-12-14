@@ -4,12 +4,12 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace Unima.VsExtension.Sections.ToolsWindow
+namespace Unima.VsExtension.Sections.MutationExplorer
 {
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class MutationToolWindowCommand
+    internal sealed class MutationExplorerWindowCommand
     {
         /// <summary>
         /// Command ID.
@@ -27,13 +27,13 @@ namespace Unima.VsExtension.Sections.ToolsWindow
         private readonly AsyncPackage package;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MutationToolWindowCommand"/> class.
+        /// Initializes a new instance of the <see cref="MutationExplorerWindowCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
         /// <param name="commandService">Command service to add command to, not null.</param>
         /// <param name="container"></param>
-        private MutationToolWindowCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private MutationExplorerWindowCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -46,7 +46,7 @@ namespace Unima.VsExtension.Sections.ToolsWindow
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static MutationToolWindowCommand Instance
+        public static MutationExplorerWindowCommand Instance
         {
             get;
             private set;
@@ -75,7 +75,7 @@ namespace Unima.VsExtension.Sections.ToolsWindow
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             OleMenuCommandService commandService = await package.GetServiceAsync((typeof(IMenuCommandService))) as OleMenuCommandService;
-            Instance = new MutationToolWindowCommand(package, commandService);
+            Instance = new MutationExplorerWindowCommand(package, commandService);
         }
 
         /// <summary>
@@ -90,8 +90,8 @@ namespace Unima.VsExtension.Sections.ToolsWindow
                 try
                 {
                     var window =
-                        await this.package.ShowToolWindowAsync(typeof(MutationToolWindow), 0, true,
-                            this.package.DisposalToken) as MutationToolWindow;
+                        await this.package.ShowToolWindowAsync(typeof(MutationExplorerWindow), 0, true,
+                            this.package.DisposalToken) as MutationExplorerWindow;
                     if ((null == window) || (null == window.Frame))
                     {
                         throw new NotSupportedException("Cannot create tool window");

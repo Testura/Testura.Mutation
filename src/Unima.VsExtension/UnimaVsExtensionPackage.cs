@@ -7,7 +7,7 @@ using log4net.Config;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.Shell;
 using Unima.Application.Logs;
-using Unima.VsExtension.Sections.ToolsWindow;
+using Unima.VsExtension.Sections.MutationExplorer;
 using Unima.VsExtension.Services;
 using Task = System.Threading.Tasks.Task;
 
@@ -33,7 +33,7 @@ namespace Unima.VsExtension
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(UnimaVsExtensionPackage.PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideToolWindow(typeof(MutationToolWindow))]
+    [ProvideToolWindow(typeof(MutationExplorerWindow))]
     public sealed class UnimaVsExtensionPackage : AsyncPackage
     {
         private OutputLoggerService _outputLoggerService;
@@ -55,7 +55,7 @@ namespace Unima.VsExtension
             _outputLoggerService.StartLogger();
 
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-            await MutationToolWindowCommand.InitializeAsync(this);
+            await MutationExplorerWindowCommand.InitializeAsync(this);
         }
 
         protected override WindowPane InstantiateToolWindow(Type toolWindowType) => (WindowPane)GetService(toolWindowType);
