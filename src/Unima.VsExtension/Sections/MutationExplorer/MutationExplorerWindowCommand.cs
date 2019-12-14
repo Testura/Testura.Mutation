@@ -2,6 +2,7 @@
 using System.ComponentModel.Design;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
 
 namespace Unima.VsExtension.Sections.MutationExplorer
@@ -90,12 +91,15 @@ namespace Unima.VsExtension.Sections.MutationExplorer
                 try
                 {
                     var window =
-                        await this.package.ShowToolWindowAsync(typeof(MutationExplorerWindow), 0, true,
+                        await this.package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true,
                             this.package.DisposalToken) as MutationExplorerWindow;
                     if ((null == window) || (null == window.Frame))
                     {
                         throw new NotSupportedException("Cannot create tool window");
                     }
+
+                    IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
+                    Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
 
                     var o = (DTE) await ServiceProvider.GetServiceAsync(typeof(DTE));
 

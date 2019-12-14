@@ -24,15 +24,19 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         private string _solutionPath;
         private IVsOutputWindow _outWindow;
         private IVsOutputWindowPane _customPane;
+        private DTE _dte;
 
         public MutationExplorerWindowViewModel(IMediator mediator)
         {
             _mediator = mediator;
             Mutations = new ObservableCollection<TestRunDocument>();
             OpenReportCommand = new DelegateCommand(() => Do());
+            MutationSelectedCommand = new DelegateCommand<TestRunDocument>(GoToMutationFile);
         }
 
         public DelegateCommand OpenReportCommand { get; set; }
+
+        public DelegateCommand<TestRunDocument> MutationSelectedCommand { get; set; }
 
         public ObservableCollection<TestRunDocument> Mutations { get; set; }
 
@@ -70,7 +74,16 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
         public void Initialize(DTE dte)
         {
+            _dte = dte;
             _solutionPath = dte.Solution.FullName;
+        }
+
+        private void GoToMutationFile(TestRunDocument obj)
+        {
+            var projItem = _dte.Solution.FindProjectItem(obj.Document.FilePath);
+            var isOpen = projItem.IsOpen[EnvDTE.Constants.vsViewKindPrimary];
+            var window = _dte.OpenFile(EnvDTE.Constants.vsViewKindPrimary, obj.Document.FilePath);
+            window.Visible = true;
         }
     }
 }

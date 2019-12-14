@@ -15,7 +15,7 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
         public void Initialize(DTE dte)
         {
-           ((MutationExplorerWindowViewModel)DataContext).Initialize(dte);
+            ((MutationExplorerWindowViewModel)DataContext).Initialize(dte);
         }
     }
 }

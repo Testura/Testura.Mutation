@@ -14,13 +14,16 @@ namespace Unima.Core
             MutationDetails = mutationDetails;
             Id = Guid.NewGuid();
             FileName = orginalDocument?.Name;
+            FilePath = orginalDocument?.FilePath;
             ProjectName = orginalDocument?.Project.Name;
             _orginalDocument = orginalDocument;
         }
 
         public Guid Id { get; }
 
-        public string FileName { get;  }
+        public string FileName { get; }
+
+        public string FilePath { get; set; }
 
         public string ProjectName { get; set; }
 
