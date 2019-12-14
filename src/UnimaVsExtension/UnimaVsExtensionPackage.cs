@@ -1,7 +1,10 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using EnvDTE;
+using log4net.Config;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -42,6 +45,8 @@ namespace UnimaVsExtension
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
+            XmlConfigurator.Configure(new FileInfo(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName + @"\Log4Net.Config"));
+
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await MutationToolWindowCommand.InitializeAsync(this);
         }

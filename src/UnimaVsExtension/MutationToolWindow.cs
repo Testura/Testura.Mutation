@@ -27,8 +27,11 @@ namespace UnimaVsExtension
         {
             this.Caption = "MutationToolWindow";
             this.Content = toolWindowControl;
+        }
 
-            toolWindowControl.Initialize((DTE)GetService(typeof(DTE)));
+        public void InitializeWindow(string solutionFullName)
+        { 
+            ((MutationToolWindowControl)Content).Initialize(solutionFullName);
         }
     }
 }

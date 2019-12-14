@@ -3,6 +3,7 @@ using System.ComponentModel.Design;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using EnvDTE;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -91,11 +92,15 @@ namespace UnimaVsExtension
         {
             this.package.JoinableTaskFactory.RunAsync(async delegate
             {
-                ToolWindowPane window = await this.package.ShowToolWindowAsync(typeof(MutationToolWindow), 0, true, this.package.DisposalToken);
+                var window = await this.package.ShowToolWindowAsync(typeof(MutationToolWindow), 0, true, this.package.DisposalToken) as MutationToolWindow;
                 if ((null == window) || (null == window.Frame))
                 {
                     throw new NotSupportedException("Cannot create tool window");
                 }
+
+                var o = (DTE)await ServiceProvider.GetServiceAsync(typeof(DTE));
+
+                window.InitializeWindow(o.Solution.FullName);
             });
         }
     }
