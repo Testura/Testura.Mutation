@@ -51,7 +51,7 @@
     <Compile Include="Sections\ToolsWindow\MutationToolWindowControl.xaml.cs">
       <DependentUpon>MutationToolWindowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sections\ToolsWindow\MutationToolWindowControlViewModel.cs" />
+    <Compile Include="Sections\ToolsWindow\MutationToolWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\OutputLoggerService.cs" />
     <Compile Include="UnimaVsExtensionPackage.cs" />

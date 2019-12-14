@@ -20,11 +20,11 @@ namespace Unima.VsExtension.Sections.ToolsWindow
         /// <summary>
         /// Initializes a new instance of the <see cref="MutationToolWindow"/> class.
         /// </summary>
-        public MutationToolWindow(MutationToolWindowControl toolWindowControl)
+        public MutationToolWindow(MutationToolWindowControl mutationToolWindowControl)
             : base(null)
         {
             this.Caption = "MutationToolWindow";
-            this.Content = toolWindowControl;
+            this.Content = mutationToolWindowControl;
         }
 
         public void InitializeWindow(string solutionFullName)

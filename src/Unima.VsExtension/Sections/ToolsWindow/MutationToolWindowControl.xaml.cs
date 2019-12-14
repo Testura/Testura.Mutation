@@ -7,19 +7,14 @@ namespace Unima.VsExtension.Sections.ToolsWindow
     /// </summary>
     public partial class MutationToolWindowControl : UserControl
     {
-        private readonly MutationToolWindowControlViewModel _mutationToolWindowControlViewModel;
-
-        public MutationToolWindowControl(MutationToolWindowControlViewModel mutationToolWindowControlViewModel)
+        public MutationToolWindowControl()
         {
-            _mutationToolWindowControlViewModel = mutationToolWindowControlViewModel;
-
-            this.DataContext = _mutationToolWindowControlViewModel;
             this.InitializeComponent();
         }
 
         public void Initialize(string solutionPath)
         {
-            _mutationToolWindowControlViewModel.Initialize(solutionPath);
+           ((MutationToolWindowViewModel)DataContext).Initialize(solutionPath);
         }
     }
 }

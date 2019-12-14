@@ -54,7 +54,7 @@ namespace Unima.VsExtension.Sections.ToolsWindow
 
         /// <summary>
         /// Gets the service provider from the owner package.
-        /// </summary>
+        /// </summary>C:\Users\milleb\Desktop\Unima Real\Unima\src\Unima.VsExtension\Sections\ToolsWindow\MutationToolWindowCommand.cs
         private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider
         {
             get
@@ -87,15 +87,25 @@ namespace Unima.VsExtension.Sections.ToolsWindow
         {
             this.package.JoinableTaskFactory.RunAsync(async delegate
             {
-                var window = await this.package.ShowToolWindowAsync(typeof(MutationToolWindow), 0, true, this.package.DisposalToken) as MutationToolWindow;
-                if ((null == window) || (null == window.Frame))
+                try
                 {
-                    throw new NotSupportedException("Cannot create tool window");
+                    var window =
+                        await this.package.ShowToolWindowAsync(typeof(MutationToolWindow), 0, true,
+                            this.package.DisposalToken) as MutationToolWindow;
+                    if ((null == window) || (null == window.Frame))
+                    {
+                        throw new NotSupportedException("Cannot create tool window");
+                    }
+
+                    var o = (DTE) await ServiceProvider.GetServiceAsync(typeof(DTE));
+
+                    window.InitializeWindow(o.Solution.FullName);
+                }
+                catch (Exception ex)
+                {
+
                 }
 
-                var o = (DTE)await ServiceProvider.GetServiceAsync(typeof(DTE));
-
-                window.InitializeWindow(o.Solution.FullName);
             });
         }
     }

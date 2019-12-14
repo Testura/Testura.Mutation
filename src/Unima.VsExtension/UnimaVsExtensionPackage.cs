@@ -37,15 +37,16 @@ namespace Unima.VsExtension
     public sealed class UnimaVsExtensionPackage : AsyncPackage
     {
         private OutputLoggerService _outputLoggerService;
-        private IUnityContainer _container;
+        private Bootstrapper _bootstrapper;
 
         public const string PackageGuidString = "eb1b49be-0389-4dee-995a-cf1854262fa9";
 
         public UnimaVsExtensionPackage()
         {
-            XmlConfigurator.Configure(new FileInfo(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName + @"\Log4Net.Config"));
+            _bootstrapper = new Bootstrapper();
+            _bootstrapper.Run();
 
-            _container = Bootstrapper.GetContainer();
+            XmlConfigurator.Configure(new FileInfo(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName + @"\Log4Net.Config"));
             _outputLoggerService = new OutputLoggerService(new LogWatcher());
         }
 
@@ -61,9 +62,9 @@ namespace Unima.VsExtension
 
         protected override object GetService(Type serviceType)
         {
-            if (_container.IsRegistered(serviceType))
+            if (_bootstrapper.Container.IsRegistered(serviceType))
             {
-                return _container.Resolve(serviceType);
+                return _bootstrapper.Container.Resolve(serviceType);
             }
 
             return base.GetService(serviceType);

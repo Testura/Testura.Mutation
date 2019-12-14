@@ -1,4 +1,9 @@
-﻿using Microsoft.Practices.Unity;
+﻿using System;
+using System.Reflection;
+using Microsoft.Practices.Unity;
+using Prism.Mvvm;
+using Prism.Regions;
+using Prism.Unity;
 using Unima.Application.Extensions;
 using Unima.Core.Execution.Compilation;
 using Unima.Core.Execution.Runners;
@@ -12,22 +17,51 @@ using Unima.VsExtension.Sections.ToolsWindow;
 
 namespace Unima.VsExtension
 {
-    public class Bootstrapper
+    public class Bootstrapper : UnityBootstrapper
     {
-        public static IUnityContainer GetContainer()
+        protected override void ConfigureServiceLocator()
         {
-            var unityContainer = new UnityContainer();
-            unityContainer.RegisterMediator(new HierarchicalLifetimeManager());
-            unityContainer.RegisterType<ITestRunnerFactory, TestRunnerFactory>(new ContainerControlledLifetimeManager());
-            unityContainer.RegisterType<IGitCloner, GitCloner>(new ContainerControlledLifetimeManager());
-            unityContainer.RegisterType<IGitDiff, GitDIff>(new ContainerControlledLifetimeManager());
-            unityContainer.RegisterType<ISolutionBuilder, DotNetSolutionBuilder>(new ContainerControlledLifetimeManager());
-            unityContainer.RegisterType<IProjectCompiler, Compiler>();
-            unityContainer.RegisterType<IMutationDocumentCompiler, Compiler>();
-            unityContainer.RegisterType<ITestRunnerClient, TestRunnerConsoleClient>();
-            unityContainer.RegisterType<MutationToolWindow>();
-            unityContainer.RegisterType<Sections.ToolsWindow.MutationToolWindowControl>();
-            return unityContainer;
+            base.ConfigureServiceLocator();
+            ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver(viewType =>
+            {
+                var viewName = viewType.FullName;
+                var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
+                if (viewName.Contains("WindowControl"))
+                {
+                    viewName = viewName.Remove(viewName.LastIndexOf("Control"));
+                }
+                else if (viewName.Contains("Window"))
+                {
+                    viewName = viewName.Remove(viewName.LastIndexOf("Window"));
+                }
+                else if (viewName.Contains("Dialog"))
+                {
+                    viewName = viewName.Remove(viewName.LastIndexOf("Dialog"));
+                }
+                else if (viewName.Contains("View"))
+                {
+                    viewName = viewName.Remove(viewName.LastIndexOf("View"));
+                }
+                viewName = viewName.Replace("View", "ViewModel");
+                var viewModelName = $"{viewName}ViewModel, {viewAssemblyName}";
+                return Type.GetType(viewModelName);
+            });
+        }
+
+        protected override void ConfigureContainer()
+        {
+            Container.RegisterMediator(new HierarchicalLifetimeManager());
+            Container.RegisterType<ITestRunnerFactory, TestRunnerFactory>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IGitCloner, GitCloner>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IGitDiff, GitDIff>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ISolutionBuilder, DotNetSolutionBuilder>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IProjectCompiler, Compiler>();
+            Container.RegisterType<IMutationDocumentCompiler, Compiler>();
+            Container.RegisterType<ITestRunnerClient, TestRunnerConsoleClient>();
+            Container.RegisterType<MutationToolWindow>();
+            Container.RegisterType<Sections.ToolsWindow.MutationToolWindowControl>();
+
+            base.ConfigureContainer();
         }
     }
 }

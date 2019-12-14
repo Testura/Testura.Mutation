@@ -12,14 +12,14 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Unima.VsExtension.Sections.ToolsWindow
 {
-    public class MutationToolWindowControlViewModel : BindableBase, INotifyPropertyChanged
+    public class MutationToolWindowViewModel : BindableBase, INotifyPropertyChanged
     {
         private readonly IMediator _mediator;
         private string _solutionPath;
         private IVsOutputWindow _outWindow;
         private IVsOutputWindowPane _customPane;
 
-        public MutationToolWindowControlViewModel(IMediator mediator)
+        public MutationToolWindowViewModel(IMediator mediator)
         {
             _mediator = mediator;
             OpenReportCommand = new DelegateCommand(() => Do());
