@@ -53,6 +53,7 @@
     <Compile Include="Sections\Config\UnimaConfigWindowControl.xaml.cs">
       <DependentUpon>UnimaConfigWindowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sections\Config\UnimaConfigWindowViewModel.cs" />
     <Compile Include="Sections\MutationExplorer\MutationExplorerWindow.cs" />
     <Compile Include="Sections\MutationExplorer\MutationExplorerWindowCommand.cs" />
     <Compile Include="Sections\MutationExplorer\MutationExplorerWindowControl.xaml.cs">

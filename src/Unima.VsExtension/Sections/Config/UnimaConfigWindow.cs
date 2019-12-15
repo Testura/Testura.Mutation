@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using EnvDTE;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Threading;
 
 namespace Unima.VsExtension.Sections.Config
 {
@@ -12,6 +14,11 @@ namespace Unima.VsExtension.Sections.Config
         {
             Caption = "Unima mutation config";
             Content = unimaConfigWindowControl;
+        }
+
+        public void InitializeWindow(DTE dte, JoinableTaskFactory joinableTaskFactory)
+        {
+            ((UnimaConfigWindowControl)Content).Initialize(dte, joinableTaskFactory);
         }
     }
 }

@@ -1,7 +1,12 @@
-﻿namespace Unima.VsExtension.Sections.Config
+﻿using System.Windows.Media;
+using Dragablz;
+using EnvDTE;
+using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
+using Microsoft.VisualStudio.Threading;
+
+namespace Unima.VsExtension.Sections.Config
 {
-    using System.Diagnostics.CodeAnalysis;
-    using System.Windows;
     using System.Windows.Controls;
 
     /// <summary>
@@ -15,17 +20,16 @@
         public UnimaConfigWindowControl()
         {
             InitializeComponent();
+
+            // Need this or we will get dll problems later on..
+            ShadowAssist.SetShadowDepth(this, ShadowDepth.Depth0);
+            var hue = new Hue("Dummy", Colors.AliceBlue, Colors.AntiqueWhite);
+            var o = new TabablzControl();
         }
 
-        /// <summary>
-        /// Handles click on the button by displaying a message box.
-        /// </summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event args.</param>
-        [SuppressMessage("Microsoft.Globalization", "CA1300:SpecifyMessageBoxOptions", Justification = "Sample code")]
-        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Default event handler naming pattern")]
-        private void button1_Click(object sender, RoutedEventArgs e)
+        public void Initialize(DTE dte, JoinableTaskFactory joinableTaskFactory)
         {
+            ((UnimaConfigWindowViewModel)DataContext).Initialize(dte, joinableTaskFactory);
         }
     }
 }

@@ -13,11 +13,11 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         public const int CommandId = 0x0100;
         public static readonly Guid CommandSet = new Guid("eb065996-2187-4c2c-8ecf-947ac6264c49");
 
-        private readonly AsyncPackage package;
+        private readonly AsyncPackage _package;
 
         private MutationExplorerWindowCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
-            this.package = package ?? throw new ArgumentNullException(nameof(package));
+            _package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
@@ -28,19 +28,9 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static MutationExplorerWindowCommand Instance
-        {
-            get;
-            private set;
-        }
+        public static MutationExplorerWindowCommand Instance { get; private set; }
 
-        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider
-        {
-            get
-            {
-                return package;
-            }
-        }
+        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider => _package;
 
         public static async Task InitializeAsync(AsyncPackage package)
         {
@@ -59,24 +49,24 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         /// <param name="e">The event args.</param>
         private void Execute(object sender, EventArgs e)
         {
-            package.JoinableTaskFactory.RunAsync(async () =>
+            _package.JoinableTaskFactory.RunAsync(async () =>
             {
                 var window =
-                    await package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true, package.DisposalToken) as MutationExplorerWindow;
+                    await _package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true, _package.DisposalToken) as MutationExplorerWindow;
 
                 if (window?.Frame == null)
                 {
                     throw new NotSupportedException("Cannot create tool window");
                 }
 
-                await package.JoinableTaskFactory.SwitchToMainThreadAsync();
+                await _package.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 var windowFrame = (IVsWindowFrame)window.Frame;
                 Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
 
                 var dte = (DTE)await ServiceProvider.GetServiceAsync(typeof(DTE));
 
-                window.InitializeWindow(dte, package.JoinableTaskFactory);
+                window.InitializeWindow(dte, _package.JoinableTaskFactory);
             });
         }
     }
