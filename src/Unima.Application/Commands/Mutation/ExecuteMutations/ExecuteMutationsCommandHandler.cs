@@ -63,7 +63,7 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutations
                             result = new MutationDocumentResult
                             {
                                 Id = document.Id,
-                                UnexpectedError = ex.Message
+                                UnexpectedError = ex.Message,
                             };
                         }
                         finally
@@ -86,7 +86,6 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutations
                             command.MutationDocumentCompledtedCallback?.Invoke(result);
                         }
                     }));
-
                 }
             });
 
@@ -97,19 +96,18 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutations
             {
                 LogTo.Info($"Your mutation score: {GetMutationScore(results)}%");
             }
-            
 
             return results;
         }
 
         private TimeSpan GetExpectedExecutionTime(ExecuteMutationsCommand command)
         {
-            return TimeSpan.FromMinutes(command.Config.BaselineInfos.Sum(b => b.ExecutionTime.TotalMinutes)*command.MutationDocuments.Count/command.Config.NumberOfTestRunInstances);
+            return TimeSpan.FromMinutes(command.Config.BaselineInfos.Sum(b => b.ExecutionTime.TotalMinutes) * command.MutationDocuments.Count / command.Config.NumberOfTestRunInstances);
         }
 
         private double GetMutationScore(List<MutationDocumentResult> results)
         {
-            return Math.Round((double)results.Count(r => !r.Survived)/results.Count(r => r.CompilationResult != null && r.CompilationResult.IsSuccess && r.UnexpectedError == null) * 100);
+            return Math.Round((double)results.Count(r => !r.Survived) / results.Count(r => r.CompilationResult != null && r.CompilationResult.IsSuccess && r.UnexpectedError == null) * 100);
         }
     }
 }

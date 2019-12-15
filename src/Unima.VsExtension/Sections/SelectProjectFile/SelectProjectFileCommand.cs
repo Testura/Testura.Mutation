@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
-using System.Globalization;
-using System.Linq;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -11,70 +9,29 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Unima.VsExtension.Sections.SelectProjectFile
 {
-    /// <summary>
-    /// Command handler
-    /// </summary>
     internal sealed class SelectProjectFileCommand
     {
-        /// <summary>
-        /// Command ID.
-        /// </summary>
         public const int CommandId = 256;
-
-        /// <summary>
-        /// Command menu group (command set GUID).
-        /// </summary>
         public static readonly Guid CommandSet = new Guid("4dd019e1-138b-43cd-b2d9-686d466ef14c");
 
-        /// <summary>
-        /// VS Package that provides this command, not null.
-        /// </summary>
-        private readonly AsyncPackage package;
+        private readonly AsyncPackage _package;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SelectProjectFileCommand"/> class.
-        /// Adds our command handlers for menu (commands must exist in the command table file)
-        /// </summary>
-        /// <param name="package">Owner package, not null.</param>
-        /// <param name="commandService">Command service to add command to, not null.</param>
         private SelectProjectFileCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
-            this.package = package ?? throw new ArgumentNullException(nameof(package));
+            _package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
-            var menuItem = new MenuCommand(this.Execute, menuCommandID);
+            var menuItem = new MenuCommand(Execute, menuCommandID);
             commandService.AddCommand(menuItem);
         }
 
-        /// <summary>
-        /// Gets the instance of the command.
-        /// </summary>
-        public static SelectProjectFileCommand Instance
-        {
-            get;
-            private set;
-        }
+        public static SelectProjectFileCommand Instance { get; private set; }
 
-        /// <summary>
-        /// Gets the service provider from the owner package.
-        /// </summary>
-        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider
-        {
-            get
-            {
-                return this.package;
-            }
-        }
+        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider => _package;
 
-        /// <summary>
-        /// Initializes the singleton instance of the command.
-        /// </summary>
-        /// <param name="package">Owner package, not null.</param>
         public static async Task InitializeAsync(AsyncPackage package)
         {
-            // Switch to the main thread - the call to AddCommand in SelectProjectFileCommand's constructor requires
-            // the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
@@ -90,16 +47,18 @@ namespace Unima.VsExtension.Sections.SelectProjectFile
         /// <param name="e">Event args.</param>
         private void Execute(object sender, EventArgs e)
         {
-            this.package.JoinableTaskFactory.RunAsync(async delegate
+            _package.JoinableTaskFactory.RunAsync(async () =>
             {
-                string message;
-                string title = "Command1";
-                EnvDTE.DTE dte;
-                EnvDTE.SelectedItems selectedItems;
-                EnvDTE.ProjectItem projectItem;
+                await _package.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                dte = (EnvDTE.DTE)await ServiceProvider.GetServiceAsync(typeof(EnvDTE.DTE));
-                selectedItems = dte.SelectedItems;
+                var dte = await ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
+
+                if (dte == null)
+                {
+                    throw new NotSupportedException("Cannot create tool window");
+                }
+
+                var selectedItems = dte.SelectedItems;
 
                 if (selectedItems != null)
                 {
@@ -107,24 +66,23 @@ namespace Unima.VsExtension.Sections.SelectProjectFile
 
                     foreach (SelectedItem selectedItem in selectedItems)
                     {
-                        if (selectedItem.ProjectItem is ProjectItem projectItem1)
+                        if (selectedItem.ProjectItem is ProjectItem projectItem)
                         {
-                            files.Add(projectItem1.Name);
+                            files.Add(projectItem.Name);
                         }
                     }
 
                     var window =
-                        await this.package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true,
-                            this.package.DisposalToken) as MutationExplorerWindow;
-                    if ((null == window) || (null == window.Frame))
+                        await _package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true, _package.DisposalToken) as MutationExplorerWindow;
+                    if (window?.Frame == null)
                     {
                         throw new NotSupportedException("Cannot create tool window");
                     }
 
-                    IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
+                    var windowFrame = (IVsWindowFrame)window.Frame;
                     Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
 
-                    window.InitializeWindow(dte, files);
+                    window.InitializeWindow(dte, _package.JoinableTaskFactory, files);
                 }
             });
         }

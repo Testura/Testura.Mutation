@@ -33,7 +33,7 @@ namespace Unima.Application.Commands.Project.OpenProject.Handlers
                     fileConfig.Git.RepositoryUrl,
                     fileConfig.Git.Branch,
                     fileConfig.Git.Username,
-                    fileConfig.Git.Password, 
+                    fileConfig.Git.Password,
                     fileConfig.Git.LocalPath);
             }
 

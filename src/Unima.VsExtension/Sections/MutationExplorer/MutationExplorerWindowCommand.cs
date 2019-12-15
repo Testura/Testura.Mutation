@@ -3,44 +3,25 @@ using System.ComponentModel.Design;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Threading;
 using Task = System.Threading.Tasks.Task;
 
 namespace Unima.VsExtension.Sections.MutationExplorer
 {
-    /// <summary>
-    /// Command handler
-    /// </summary>
     internal sealed class MutationExplorerWindowCommand
     {
-        /// <summary>
-        /// Command ID.
-        /// </summary>
         public const int CommandId = 0x0100;
-
-        /// <summary>
-        /// Command menu group (command set GUID).
-        /// </summary>
         public static readonly Guid CommandSet = new Guid("eb065996-2187-4c2c-8ecf-947ac6264c49");
 
-        /// <summary>
-        /// VS Package that provides this command, not null.
-        /// </summary>
         private readonly AsyncPackage package;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MutationExplorerWindowCommand"/> class.
-        /// Adds our command handlers for menu (commands must exist in the command table file)
-        /// </summary>
-        /// <param name="package">Owner package, not null.</param>
-        /// <param name="commandService">Command service to add command to, not null.</param>
-        /// <param name="container"></param>
         private MutationExplorerWindowCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
-            var menuItem = new MenuCommand(this.Execute, menuCommandID);
+            var menuItem = new MenuCommand(Execute, menuCommandID);
             commandService.AddCommand(menuItem);
         }
 
@@ -53,29 +34,21 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             private set;
         }
 
-        /// <summary>
-        /// Gets the service provider from the owner package.
-        /// </summary>C:\Users\milleb\Desktop\Unima Real\Unima\src\Unima.VsExtension\Sections\ToolsWindow\MutationToolWindowCommand.cs
         private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider
         {
             get
             {
-                return this.package;
+                return package;
             }
         }
 
-        /// <summary>
-        /// Initializes the singleton instance of the command.
-        /// </summary>
-        /// <param name="package">Owner package, not null.</param>
-        /// <param name="container"></param>
         public static async Task InitializeAsync(AsyncPackage package)
         {
             // Switch to the main thread - the call to AddCommand in MutationToolWindowCommand's constructor requires
             // the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
-            OleMenuCommandService commandService = await package.GetServiceAsync((typeof(IMenuCommandService))) as OleMenuCommandService;
+            OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new MutationExplorerWindowCommand(package, commandService);
         }
 
@@ -86,22 +59,24 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         /// <param name="e">The event args.</param>
         private void Execute(object sender, EventArgs e)
         {
-            this.package.JoinableTaskFactory.RunAsync(async delegate
+            package.JoinableTaskFactory.RunAsync(async () =>
             {
                 var window =
-                    await this.package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true,
-                        this.package.DisposalToken) as MutationExplorerWindow;
-                if ((null == window) || (null == window.Frame))
+                    await package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true, package.DisposalToken) as MutationExplorerWindow;
+
+                if (window?.Frame == null)
                 {
                     throw new NotSupportedException("Cannot create tool window");
                 }
 
-                IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
+                await package.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+                var windowFrame = (IVsWindowFrame)window.Frame;
                 Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
 
-                var o = (DTE)await ServiceProvider.GetServiceAsync(typeof(DTE));
+                var dte = (DTE)await ServiceProvider.GetServiceAsync(typeof(DTE));
 
-                window.InitializeWindow(o);
+                window.InitializeWindow(dte, package.JoinableTaskFactory);
             });
         }
     }

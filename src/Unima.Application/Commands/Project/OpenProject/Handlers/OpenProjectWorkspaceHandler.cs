@@ -108,7 +108,8 @@ namespace Unima.Application.Commands.Project.OpenProject.Handlers
                         continue;
                     }
 
-                    if (WeTargetSpecificFrameworkThatThisProjectDontSupport(testProject.FilePath,
+                    if (WeTargetSpecificFrameworkThatThisProjectDontSupport(
+                        testProject.FilePath,
                         fileConfig.TargetFramework))
                     {
                         LogTo.Info("Project does not target expected framework");
@@ -124,7 +125,7 @@ namespace Unima.Application.Commands.Project.OpenProject.Handlers
 
         private string GetTestRunner(Microsoft.CodeAnalysis.Project testProject, string fileConfigTestRunner)
         {
-            //This is a bit hackish but it's until I fix so you can specify test runner in file config. 
+            // This is a bit hackish but it's until I fix so you can specify test runner in file config.
             LogTo.Info($"Looking for test runner for {testProject.Name}..");
             if (!string.IsNullOrEmpty(fileConfigTestRunner))
             {

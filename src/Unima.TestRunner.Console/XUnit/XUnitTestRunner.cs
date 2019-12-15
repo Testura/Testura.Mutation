@@ -48,7 +48,7 @@ namespace Unima.TestRunner.Console.XUnit
             {
                runner.Start();
             }
-            catch (Exception ex)
+            catch
             {
                 /* LogTo.ErrorException("Failed to unload test runner", ex); */
                 _finished.Set();

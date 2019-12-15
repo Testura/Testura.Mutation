@@ -50,7 +50,7 @@ namespace Unima.Application.Commands.Project.OpenProject
 
                 var handler = new OpenProjectExistHandler(_gitCloner);
 
-                    handler
+                handler
                     .SetNext(new OpenProjectBuildHandler(_solutionBuilder))
                     .SetNext(new OpenProjectMutatorsHandler())
                     .SetNext(new OpenProjectGitFilterHandler(_diffCreator))

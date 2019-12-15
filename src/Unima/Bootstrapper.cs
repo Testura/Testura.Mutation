@@ -47,6 +47,7 @@ namespace Unima
                 {
                     viewName = viewName.Remove(viewName.LastIndexOf("View"));
                 }
+
                 viewName = viewName.Replace("View", "ViewModel");
                 var viewModelName = $"{viewName}ViewModel, {viewAssemblyName}";
                 return Type.GetType(viewModelName);

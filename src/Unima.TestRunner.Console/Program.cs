@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 namespace Unima.TestRunner.Console
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var testRunnerFactory = new TestRunnerFactory();
 

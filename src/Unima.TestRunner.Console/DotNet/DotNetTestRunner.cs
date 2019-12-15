@@ -33,7 +33,7 @@ namespace Unima.TestRunner.Console.DotNet
             return Task.Run(() =>
             {
                 using (var command = Command.Run(
-                     GetDotNetExe(),
+                    GetDotNetExe(),
                     new[] { "vstest", dllPath, $"--logger:trx;LogFileName={_resultId}", $"--ResultsDirectory:{directoryPath}" },
                     o =>
                     {

@@ -36,38 +36,46 @@ namespace Unima.VsExtension
     /// </para>
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [Guid(UnimaVsExtensionPackage.PackageGuidString)]
+    [Guid(PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideToolWindow(typeof(MutationExplorerWindow))]
     public sealed class UnimaVsExtensionPackage : AsyncPackage
     {
+        public const string PackageGuidString = "eb1b49be-0389-4dee-995a-cf1854262fa9";
+
         private OutputLoggerService _outputLoggerService;
         private Bootstrapper _bootstrapper;
-
-        public const string PackageGuidString = "eb1b49be-0389-4dee-995a-cf1854262fa9";
 
         public UnimaVsExtensionPackage()
         {
             _bootstrapper = new Bootstrapper();
             _bootstrapper.Run();
-
-            XmlConfigurator.Configure(new FileInfo(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName + @"\Log4Net.Config"));
-            _outputLoggerService = new OutputLoggerService(new LogWatcher());
         }
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            var componentModel = (IComponentModel)this.GetService(typeof(SComponentModel));
+            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+
+            var componentModel = (IComponentModel)await GetServiceAsync(typeof(SComponentModel));
+
+            if (componentModel == null)
+            {
+                throw new Exception("WAAA");
+            }
+
             var workspace = componentModel.GetService<VisualStudioWorkspace>();
+            var dte = (DTE)await GetServiceAsync(typeof(DTE));
+
+            XmlConfigurator.Configure(new FileInfo(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName + @"\Log4Net.Config"));
+            _outputLoggerService = new OutputLoggerService(JoinableTaskFactory, new LogWatcher());
 
             _bootstrapper.Container.RegisterInstance(typeof(ISolutionOpener), new VisualStudioSolutionOpener(workspace));
-            _bootstrapper.Container.RegisterInstance(typeof(ISolutionBuilder), new VisualStudioSolutionBuilder((DTE)GetService(typeof(DTE))));
+            _bootstrapper.Container.RegisterInstance(typeof(ISolutionBuilder), new VisualStudioSolutionBuilder(dte, JoinableTaskFactory));
 
             _outputLoggerService.StartLogger();
 
-            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await MutationExplorerWindowCommand.InitializeAsync(this);
-            await Unima.VsExtension.Sections.SelectProjectFile.SelectProjectFileCommand.InitializeAsync(this);
+            await Sections.SelectProjectFile.SelectProjectFileCommand.InitializeAsync(this);
         }
 
         protected override WindowPane InstantiateToolWindow(Type toolWindowType) => (WindowPane)GetService(toolWindowType);

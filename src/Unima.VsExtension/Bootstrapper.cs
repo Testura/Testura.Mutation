@@ -2,7 +2,6 @@
 using System.Reflection;
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;
-using Prism.Regions;
 using Prism.Unity;
 using Unima.Application.Extensions;
 using Unima.Core.Execution.Compilation;
@@ -11,7 +10,6 @@ using Unima.Core.Git;
 using Unima.Core.Solution;
 using Unima.Infrastructure;
 using Unima.Infrastructure.Git;
-using Unima.Infrastructure.Solution;
 using Unima.TestRunner;
 using Unima.VsExtension.Sections.MutationExplorer;
 
@@ -42,6 +40,7 @@ namespace Unima.VsExtension
                 {
                     viewName = viewName.Remove(viewName.LastIndexOf("View"));
                 }
+
                 viewName = viewName.Replace("View", "ViewModel");
                 var viewModelName = $"{viewName}ViewModel, {viewAssemblyName}";
                 return Type.GetType(viewModelName);

@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Threading;
 
 namespace Unima.VsExtension.Sections.MutationExplorer
 {
@@ -19,24 +20,21 @@ namespace Unima.VsExtension.Sections.MutationExplorer
     [Guid("ee8fe630-e2c0-4867-a4ba-112709e71d52")]
     public class MutationExplorerWindow : ToolWindowPane
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MutationExplorerWindow"/> class.
-        /// </summary>
         public MutationExplorerWindow(MutationExplorerWindowControl mutationToolWindowControl)
             : base(null)
         {
-            this.Caption = "MutationToolWindow";
-            this.Content = mutationToolWindowControl;
+            Caption = "MutationToolWindow";
+            Content = mutationToolWindowControl;
         }
 
-        public void InitializeWindow(DTE dte)
-        { 
-            ((MutationExplorerWindowControl)Content).Initialize(dte);
-        }
-
-        public void InitializeWindow(DTE dte, IEnumerable<string> files)
+        public void InitializeWindow(DTE dte, JoinableTaskFactory packageJoinableTaskFactory)
         {
-            ((MutationExplorerWindowControl)Content).Initialize(dte, files);
+            ((MutationExplorerWindowControl)Content).Initialize(dte, packageJoinableTaskFactory);
+        }
+
+        public void InitializeWindow(DTE dte, JoinableTaskFactory packageJoinableTaskFactory, IEnumerable<string> files)
+        {
+            ((MutationExplorerWindowControl)Content).Initialize(dte, packageJoinableTaskFactory, files);
         }
     }
 }
