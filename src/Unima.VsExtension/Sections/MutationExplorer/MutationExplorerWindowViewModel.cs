@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using EnvDTE;
 using MediatR;
 using Microsoft.VisualStudio.PlatformUI;
@@ -13,6 +14,7 @@ using Unima.Application.Commands.Mutation.CreateMutations;
 using Unima.Application.Commands.Project.OpenProject;
 using Unima.Application.Models;
 using Unima.Core;
+using Unima.Core.Creator.Filter;
 using Unima.Wpf.Shared.Models;
 using Task = System.Threading.Tasks.Task;
 
@@ -21,12 +23,13 @@ namespace Unima.VsExtension.Sections.MutationExplorer
     public class MutationExplorerWindowViewModel : BindableBase, INotifyPropertyChanged
     {
         private readonly IMediator _mediator;
-        private string _solutionPath;
         private DTE _dte;
+        private List<string> _files;
 
         public MutationExplorerWindowViewModel(IMediator mediator)
         {
             _mediator = mediator;
+            _files = new List<string>();
             Mutations = new ObservableCollection<TestRunDocument>();
             RunMutationsCommand = new DelegateCommand(() => Do());
             MutationSelectedCommand = new DelegateCommand<TestRunDocument>(GoToMutationFile);
@@ -44,12 +47,13 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             {
                 var m = new UnimaFileConfig
                 {
-                    SolutionPath = _solutionPath,
+                    SolutionPath = _dte.Solution.FullName,
                     TestProjects = new List<string> {"*.Tests*"},
-                    TestRunner = "dotnet"
+                    TestRunner = "dotnet",
+                    Filter = CreateFilter()
                 };
 
-                var o = Path.GetDirectoryName(_solutionPath);
+                var o = Path.GetDirectoryName(_dte.Solution.FullName);
                 var configPath = Path.Combine(o, "mutationConfig.json");
 
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(m));
@@ -73,7 +77,6 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         public void Initialize(DTE dte)
         {
             _dte = dte;
-            _solutionPath = dte.Solution.FullName;
         }
 
         private void GoToMutationFile(TestRunDocument obj)
@@ -82,6 +85,33 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             var isOpen = projItem.IsOpen[EnvDTE.Constants.vsViewKindPrimary];
             var window = _dte.OpenFile(EnvDTE.Constants.vsViewKindPrimary, obj.Document.FilePath);
             window.Visible = true;
+        }
+
+        public void Initialize(DTE dte, IEnumerable<string> files)
+        {
+            _dte = dte;
+            _files = new List<string>(files);
+        }
+
+        private MutationDocumentFilter CreateFilter()
+        {
+            if (!_files.Any())
+            {
+                return null;
+            }
+
+            var mutationFilter = new MutationDocumentFilter {FilterItems = new List<MutationDocumentFilterItem>()};
+
+            foreach (var file in _files)
+            {
+                mutationFilter.FilterItems.Add(new MutationDocumentFilterItem
+                {
+                    Effect = MutationDocumentFilterItem.FilterEffect.Allow,
+                    Resource = $"*/{file}"
+                });
+            }
+
+            return mutationFilter;
         }
     }
 }

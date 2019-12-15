@@ -88,28 +88,20 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         {
             this.package.JoinableTaskFactory.RunAsync(async delegate
             {
-                try
+                var window =
+                    await this.package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true,
+                        this.package.DisposalToken) as MutationExplorerWindow;
+                if ((null == window) || (null == window.Frame))
                 {
-                    var window =
-                        await this.package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true,
-                            this.package.DisposalToken) as MutationExplorerWindow;
-                    if ((null == window) || (null == window.Frame))
-                    {
-                        throw new NotSupportedException("Cannot create tool window");
-                    }
-
-                    IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
-                    Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
-
-                    var o = (DTE) await ServiceProvider.GetServiceAsync(typeof(DTE));
-
-                    window.InitializeWindow(o);
-                }
-                catch (Exception ex)
-                {
-
+                    throw new NotSupportedException("Cannot create tool window");
                 }
 
+                IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
+                Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+
+                var o = (DTE)await ServiceProvider.GetServiceAsync(typeof(DTE));
+
+                window.InitializeWindow(o);
             });
         }
     }

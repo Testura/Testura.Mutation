@@ -67,6 +67,7 @@ namespace Unima.VsExtension
 
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await MutationExplorerWindowCommand.InitializeAsync(this);
+            await Unima.VsExtension.Sections.SelectProjectFile.SelectProjectFileCommand.InitializeAsync(this);
         }
 
         protected override WindowPane InstantiateToolWindow(Type toolWindowType) => (WindowPane)GetService(toolWindowType);

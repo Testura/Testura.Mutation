@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 
@@ -31,6 +32,11 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         public void InitializeWindow(DTE dte)
         { 
             ((MutationExplorerWindowControl)Content).Initialize(dte);
+        }
+
+        public void InitializeWindow(DTE dte, IEnumerable<string> files)
+        {
+            ((MutationExplorerWindowControl)Content).Initialize(dte, files);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Collections.Generic;
+using System.Windows.Controls;
 using System.Windows.Media;
 using Dragablz;
 using EnvDTE;
@@ -23,6 +24,11 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         public void Initialize(DTE dte)
         {
             ((MutationExplorerWindowViewModel)DataContext).Initialize(dte);
+        }
+
+        public void Initialize(DTE dte, IEnumerable<string> files)
+        {
+            ((MutationExplorerWindowViewModel)DataContext).Initialize(dte, files);
         }
     }
 }
