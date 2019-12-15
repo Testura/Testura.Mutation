@@ -11,6 +11,7 @@ using Unima.Core.Solution;
 using Unima.Infrastructure;
 using Unima.Infrastructure.Git;
 using Unima.TestRunner;
+using Unima.VsExtension.Sections.Config;
 using Unima.VsExtension.Sections.MutationExplorer;
 
 namespace Unima.VsExtension
@@ -58,6 +59,8 @@ namespace Unima.VsExtension
             Container.RegisterType<ITestRunnerClient, TestRunnerConsoleClient>();
             Container.RegisterType<MutationExplorerWindow>();
             Container.RegisterType<MutationExplorerWindowControl>();
+            Container.RegisterType<UnimaConfigWindow>();
+            Container.RegisterType<UnimaConfigWindowControl>();
             Container.RegisterType<ISolutionOpener, MsBuildSolutionOpener>();
 
             base.ConfigureContainer();

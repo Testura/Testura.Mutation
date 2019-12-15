@@ -39,6 +39,7 @@ namespace Unima.VsExtension
     [Guid(PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideToolWindow(typeof(MutationExplorerWindow))]
+    [ProvideToolWindow(typeof(Unima.VsExtension.Sections.Config.UnimaConfigWindow))]
     public sealed class UnimaVsExtensionPackage : AsyncPackage
     {
         public const string PackageGuidString = "eb1b49be-0389-4dee-995a-cf1854262fa9";
@@ -76,6 +77,7 @@ namespace Unima.VsExtension
 
             await MutationExplorerWindowCommand.InitializeAsync(this);
             await Sections.SelectProjectFile.SelectProjectFileCommand.InitializeAsync(this);
+            await Sections.Config.UnimaConfigWindowCommand.InitializeAsync(this);
         }
 
         protected override WindowPane InstantiateToolWindow(Type toolWindowType) => (WindowPane)GetService(toolWindowType);

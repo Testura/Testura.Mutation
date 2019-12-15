@@ -48,6 +48,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Sections\Config\UnimaConfigWindow.cs" />
+    <Compile Include="Sections\Config\UnimaConfigWindowCommand.cs" />
+    <Compile Include="Sections\Config\UnimaConfigWindowControl.xaml.cs">
+      <DependentUpon>UnimaConfigWindowControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sections\MutationExplorer\MutationExplorerWindow.cs" />
     <Compile Include="Sections\MutationExplorer\MutationExplorerWindowCommand.cs" />
     <Compile Include="Sections\MutationExplorer\MutationExplorerWindowControl.xaml.cs">
@@ -67,6 +72,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Resources\SelectProjectFileCommand.png" />
+    <Content Include="Resources\UnimaConfigWindowCommand.png" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
@@ -131,6 +137,10 @@
     <Page Include="Resources\MaterialDesign.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\Config\UnimaConfigWindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Sections\MutationExplorer\MutationExplorerWindowControl.xaml">
       <SubType>Designer</SubType>

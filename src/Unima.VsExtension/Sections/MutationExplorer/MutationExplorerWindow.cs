@@ -23,7 +23,7 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         public MutationExplorerWindow(MutationExplorerWindowControl mutationToolWindowControl)
             : base(null)
         {
-            Caption = "MutationToolWindow";
+            Caption = "Unima mutation explorer";
             Content = mutationToolWindowControl;
         }
 
