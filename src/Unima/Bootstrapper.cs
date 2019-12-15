@@ -86,6 +86,7 @@ namespace Unima
             Container.RegisterType<IGitCloner, GitCloner>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IGitDiff, GitDIff>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ISolutionBuilder, DotNetSolutionBuilder>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ISolutionOpener, MsBuildSolutionOpener>();
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Unima.Helpers.Converts
+namespace Unima.Wpf.Shared.Converters
 {
     public class IsZeroConverter : IValueConverter
     {

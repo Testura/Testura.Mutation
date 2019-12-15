@@ -6,7 +6,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using DiffPlex.DiffBuilder.Model;
 
-namespace Unima.Helpers.CodeDiff
+namespace Unima.Wpf.Shared.CodeDiff
 {
     public class SideBySideDiffModelVisualizer
     {

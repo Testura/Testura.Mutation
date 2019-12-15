@@ -46,7 +46,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Helpers\Converts\IsZeroConverter.cs" />
     <Compile Include="Sections\MutationExplorer\MutationExplorerWindow.cs" />
     <Compile Include="Sections\MutationExplorer\MutationExplorerWindowCommand.cs" />
     <Compile Include="Sections\MutationExplorer\MutationExplorerWindowControl.xaml.cs">
@@ -84,6 +83,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DiffPlex">
+      <Version>1.4.1</Version>
+    </PackageReference>
     <PackageReference Include="Dragablz">
       <Version>0.0.3.203</Version>
     </PackageReference>

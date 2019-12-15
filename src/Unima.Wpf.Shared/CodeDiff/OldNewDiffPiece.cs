@@ -1,6 +1,6 @@
 ﻿using DiffPlex.DiffBuilder.Model;
 
-namespace Unima.Helpers.CodeDiff
+namespace Unima.Wpf.Shared.CodeDiff
 {
     public class OldNewDiffPiece
     {

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:codeDiff="clr-namespace:Unima.Helpers.CodeDiff"
+             xmlns:codeDiff="clr-namespace:Unima.Wpf.Shared.CodeDiff;assembly=Unima.Wpf.Shared"
              prism:ViewModelLocator.AutoWireViewModel="True"
              Header="{Binding Title}">
     <Grid>
