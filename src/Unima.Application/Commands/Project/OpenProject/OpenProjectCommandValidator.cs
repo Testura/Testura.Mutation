@@ -6,8 +6,6 @@ namespace Unima.Application.Commands.Project.OpenProject
     {
         public OpenProjectCommandValidator()
         {
-            RuleFor(o => o.Path).NotEmpty().WithMessage("Path can't be empty. ");
-            RuleFor(o => o.Path).NotNull().WithMessage("Path can't be null");
         }
     }
 }

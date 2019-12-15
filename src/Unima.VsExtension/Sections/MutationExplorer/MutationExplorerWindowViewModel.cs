@@ -45,20 +45,12 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             {
                 await _joinableTaskFactory.SwitchToMainThreadAsync();
 
-                var m = new UnimaFileConfig
-                {
-                    SolutionPath = _dte.Solution.FullName,
-                    TestProjects = new List<string> { "*.Tests*" },
-                    TestRunner = "dotnet",
-                    Filter = CreateFilter()
-                };
+                var baseConfig = JsonConvert.DeserializeObject<UnimaFileConfig>(
+                    File.ReadAllText(Path.Combine(Path.GetDirectoryName(_dte.Solution.FullName), UnimaVsExtensionPackage.BaseConfigName)));
 
-                var directoryName = Path.GetDirectoryName(_dte.Solution.FullName);
-                var configPath = Path.Combine(directoryName, "mutationConfig.json");
+                baseConfig.Filter = CreateFilter();
 
-                File.WriteAllText(configPath, JsonConvert.SerializeObject(m));
-
-                var config = await _mediator.Send(new OpenProjectCommand(configPath));
+                var config = await _mediator.Send(new OpenProjectCommand(baseConfig));
 
                 var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(config));
 

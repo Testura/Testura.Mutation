@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Unima.Application.Models;
 using Unima.Core.Config;
 
 namespace Unima.Application.Commands.Project.OpenProject
@@ -10,6 +11,13 @@ namespace Unima.Application.Commands.Project.OpenProject
             Path = path;
         }
 
+        public OpenProjectCommand(UnimaFileConfig config)
+        {
+            Config = config;
+        }
+
         public string Path { get; set; }
+
+        public UnimaFileConfig Config { get; set; }
     }
 }

@@ -42,11 +42,11 @@ namespace Unima.Application.Commands.Project.OpenProject
         {
             var path = command.Path;
 
-            LogTo.Info($"Opening project at {path}");
+            LogTo.Info($"Opening project at {command.Config?.SolutionPath ?? path}");
 
             try
             {
-                var (fileConfig, applicationConfig) = LoadConfigs(path);
+                var (fileConfig, applicationConfig) = LoadConfigs(path, command.Config);
 
                 var handler = new OpenProjectExistHandler(_gitCloner);
 
@@ -69,13 +69,18 @@ namespace Unima.Application.Commands.Project.OpenProject
             }
         }
 
-        private (UnimaFileConfig fileConfig, UnimaConfig applicationConfig) LoadConfigs(string path)
+        private (UnimaFileConfig fileConfig, UnimaConfig applicationConfig) LoadConfigs(
+            string path,
+            UnimaFileConfig fileConfig)
         {
-            var fileContent = File.ReadAllText(path);
+            if (fileConfig == null)
+            {
+                var fileContent = File.ReadAllText(path);
 
-            LogTo.Info($"Loading configuration: {fileContent}");
+                LogTo.Info($"Loading configuration: {fileContent}");
 
-            var fileConfig = JsonConvert.DeserializeObject<UnimaFileConfig>(fileContent);
+                fileConfig = JsonConvert.DeserializeObject<UnimaFileConfig>(fileContent);
+            }
 
             var config = new UnimaConfig
             {
