@@ -36,9 +36,21 @@
                 </ColumnDefinition.Style>
             </ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <materialDesign:Card Margin="8, 16, 16, 8" Height="90" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" IsEnabled="{Binding TestNotStarted}">
+
+        <materialDesign:Card Margin="8, 16, 16, 8" Height="90" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" IsEnabled="{Binding TestNotStarted}">
             <StackPanel Orientation="Horizontal">
                 <Button Content="Run mutations" Command="{Binding RunMutationsCommand}" Margin="16, 0, 16, 0"/>
+            </StackPanel>
+        </materialDesign:Card>
+
+        <materialDesign:Card Margin="8, 16, 8, 8" Height="90" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Width="250" Visibility="{Binding IsLoadingVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Orientation="Horizontal" Margin="25, 0, 0, 0">
+                <ProgressBar
+                    Style="{StaticResource MaterialDesignCircularProgressBar}"
+                    IsIndeterminate="True"
+                    Width="25"
+                    Grid.Row="0"/>
+                <Label Content="{Binding LoadingMessage}" FontSize="11" Foreground="White" HorizontalAlignment="Center" Margin="10, 24, 0, 0" Grid.Row="1"/>
             </StackPanel>
         </materialDesign:Card>
 

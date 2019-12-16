@@ -34,7 +34,7 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             _mediator = mediator;
             _files = new List<string>();
             Mutations = new ObservableCollection<TestRunDocument>();
-            RunMutationsCommand = new DelegateCommand(() => Do());
+            /* RunMutationsCommand = new DelegateCommand(() => Do()); */
             MutationSelectedCommand = new DelegateCommand<TestRunDocument>(GoToMutationFile);
             ToggleMutation = new DelegateCommand(() => IsMutationVisible = !IsMutationVisible);
         }
@@ -55,10 +55,18 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
         public SideBySideDiffModel Diff { get; private set; }
 
-        public void Do()
+        public bool IsLoadingVisible { get; set; }
+
+        public string LoadingMessage { get; set; }
+
+        public void CreateMutations()
         {
             _joinableTaskFactory.RunAsync(async () =>
             {
+                Mutations.Clear();
+                IsLoadingVisible = true;
+                LoadingMessage = "Loading mutations..";
+
                 await _joinableTaskFactory.SwitchToMainThreadAsync();
 
                 var baseConfig = JsonConvert.DeserializeObject<UnimaFileConfig>(
@@ -78,6 +86,8 @@ namespace Unima.VsExtension.Sections.MutationExplorer
                         Status = TestRunDocument.TestRunStatusEnum.Waiting
                     });
                 }
+
+                IsLoadingVisible = false;
             });
         }
 
@@ -92,6 +102,8 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             _dte = dte;
             _joinableTaskFactory = joinableTaskFactory;
             _files = new List<string>(files);
+
+            CreateMutations();
         }
 
         private void GoToMutationFile(TestRunDocument obj)
