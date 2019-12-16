@@ -33,5 +33,11 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         {
             ((MutationExplorerWindowViewModel)DataContext).Initialize(dte, joinableTaskFactory, files);
         }
+
+        private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            AfterTxt.ScrollToVerticalOffset(e.VerticalOffset);
+            AfterTxt.ScrollToHorizontalOffset(e.HorizontalOffset);
+        }
     }
 }

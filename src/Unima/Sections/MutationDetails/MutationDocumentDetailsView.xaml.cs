@@ -5,7 +5,7 @@ using Unima.Core.Config;
 namespace Unima.Sections.MutationDetails
 {
     /// <summary>
-    /// Interaction logic for MutationDetailsView
+    /// Interaction logic for MutationDetailsView.
     /// </summary>
     public partial class MutationDocumentDetailsView : TabItem
     {

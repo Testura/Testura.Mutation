@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using DiffPlex;
+using DiffPlex.DiffBuilder;
+using DiffPlex.DiffBuilder.Model;
 using EnvDTE;
 using MediatR;
 using Microsoft.VisualStudio.PlatformUI;
@@ -12,6 +16,7 @@ using Prism.Mvvm;
 using Unima.Application.Commands.Mutation.CreateMutations;
 using Unima.Application.Commands.Project.OpenProject;
 using Unima.Application.Models;
+using Unima.Core;
 using Unima.Core.Creator.Filter;
 using Unima.Wpf.Shared.Models;
 
@@ -31,13 +36,24 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             Mutations = new ObservableCollection<TestRunDocument>();
             RunMutationsCommand = new DelegateCommand(() => Do());
             MutationSelectedCommand = new DelegateCommand<TestRunDocument>(GoToMutationFile);
+            ToggleMutation = new DelegateCommand(() => IsMutationVisible = !IsMutationVisible);
         }
 
         public DelegateCommand RunMutationsCommand { get; set; }
 
         public DelegateCommand<TestRunDocument> MutationSelectedCommand { get; set; }
 
+        public DelegateCommand ToggleMutation { get; set; }
+
         public ObservableCollection<TestRunDocument> Mutations { get; set; }
+
+        public bool IsMutationVisible { get; set; }
+
+        public string CodeAfterMutation { get; set; }
+
+        public string CodeBeforeMutation { get; set; }
+
+        public SideBySideDiffModel Diff { get; private set; }
 
         public void Do()
         {
@@ -80,15 +96,26 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
         private void GoToMutationFile(TestRunDocument obj)
         {
+            ShowFullCode(false, obj.Document);
+
             _joinableTaskFactory.Run(async () =>
             {
                 await _joinableTaskFactory.SwitchToMainThreadAsync();
 
-                var projItem = _dte.Solution.FindProjectItem(obj.Document.FilePath);
-                var isOpen = projItem.IsOpen[Constants.vsViewKindPrimary];
                 var window = _dte.OpenFile(Constants.vsViewKindPrimary, obj.Document.FilePath);
+                var line = obj.Document.MutationDetails.Location.Line.Split(new[] { "@(", ":" }, StringSplitOptions.RemoveEmptyEntries);
                 window.Visible = true;
+
+                ((TextSelection)window.Document.Selection).GotoLine(int.Parse(line[0]), true);
             });
+        }
+
+        private void ShowFullCode(bool? showFullCode, MutationDocument mutationDocument)
+        {
+            CodeBeforeMutation = showFullCode.Value ? mutationDocument.MutationDetails.FullOrginal.ToFullString() : mutationDocument.MutationDetails.Orginal.ToFullString();
+            CodeAfterMutation = showFullCode.Value ? mutationDocument.MutationDetails.FullMutation.ToFullString() : mutationDocument.MutationDetails.Mutation.ToFullString();
+            var diffBuilder = new SideBySideDiffBuilder(new Differ());
+            Diff = diffBuilder.BuildDiffModel(CodeBeforeMutation, CodeAfterMutation);
         }
 
         private MutationDocumentFilter CreateFilter()

@@ -41,22 +41,30 @@ namespace Unima.VsExtension.Sections.Config
         {
             _package.JoinableTaskFactory.RunAsync(async () =>
             {
-                var window =
-                    await _package.FindToolWindowAsync(typeof(UnimaConfigWindow), 0, true, _package.DisposalToken) as UnimaConfigWindow;
-
-                if (window?.Frame == null)
+                try
                 {
-                    throw new NotSupportedException("Cannot create tool window");
+                    var window =
+                        await _package.FindToolWindowAsync(typeof(UnimaConfigWindow), 0, true, _package.DisposalToken)
+                            as UnimaConfigWindow;
+
+                    if (window?.Frame == null)
+                    {
+                        throw new NotSupportedException("Cannot create tool window");
+                    }
+
+                    await _package.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+                    var windowFrame = (IVsWindowFrame)window.Frame;
+                    Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+
+                    var dte = (DTE)await ServiceProvider.GetServiceAsync(typeof(DTE));
+
+                    window.InitializeWindow(dte, _package.JoinableTaskFactory);
                 }
-
-                await _package.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-                var windowFrame = (IVsWindowFrame)window.Frame;
-                Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
-
-                var dte = (DTE)await ServiceProvider.GetServiceAsync(typeof(DTE));
-
-                window.InitializeWindow(dte, _package.JoinableTaskFactory);
+                catch (Exception ex)
+                {
+                    var o = ex.Message;
+                }
             });
         }
     }
