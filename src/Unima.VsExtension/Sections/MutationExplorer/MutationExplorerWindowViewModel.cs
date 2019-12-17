@@ -10,7 +10,6 @@ using DiffPlex.DiffBuilder.Model;
 using EnvDTE;
 using MediatR;
 using Microsoft.VisualStudio.PlatformUI;
-using Microsoft.VisualStudio.Threading;
 using Newtonsoft.Json;
 using Prism.Mvvm;
 using Unima.Application.Commands.Mutation.CreateMutations;
@@ -20,20 +19,21 @@ using Unima.Application.Models;
 using Unima.Core;
 using Unima.Core.Config;
 using Unima.Core.Creator.Filter;
+using Unima.VsExtension.Wrappers;
 using Unima.Wpf.Shared.Models;
 
 namespace Unima.VsExtension.Sections.MutationExplorer
 {
     public class MutationExplorerWindowViewModel : BindableBase, INotifyPropertyChanged
     {
+        private readonly EnvironmentWrapper _environmentWrapper;
         private readonly IMediator _mediator;
-        private DTE _dte;
         private List<string> _files;
-        private JoinableTaskFactory _joinableTaskFactory;
         private UnimaConfig _config;
 
-        public MutationExplorerWindowViewModel(IMediator mediator)
+        public MutationExplorerWindowViewModel(EnvironmentWrapper environmentWrapper, IMediator mediator)
         {
+            _environmentWrapper = environmentWrapper;
             _mediator = mediator;
             _files = new List<string>();
             Mutations = new ObservableCollection<TestRunDocument>();
@@ -66,15 +66,15 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
         public void CreateMutations()
         {
-            _joinableTaskFactory.RunAsync(async () =>
+            _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
             {
                 Mutations.Clear();
                 StartLoading("Loading mutations..");
 
-                await _joinableTaskFactory.SwitchToMainThreadAsync();
+                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 var baseConfig = JsonConvert.DeserializeObject<UnimaFileConfig>(
-                    File.ReadAllText(Path.Combine(Path.GetDirectoryName(_dte.Solution.FullName), UnimaVsExtensionPackage.BaseConfigName)));
+                    File.ReadAllText(Path.Combine(Path.GetDirectoryName(_environmentWrapper.Dte.Solution.FullName), UnimaVsExtensionPackage.BaseConfigName)));
 
                 baseConfig.Filter = CreateFilter();
 
@@ -95,24 +95,19 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             });
         }
 
-        public void Initialize(DTE dte, JoinableTaskFactory joinableTaskFactory)
+        public void Initialize(IEnumerable<string> files)
         {
-            _dte = dte;
-            _joinableTaskFactory = joinableTaskFactory;
+            _files = new List<string>(files);
+            CreateMutations();
         }
 
-        public void Initialize(DTE dte, JoinableTaskFactory joinableTaskFactory, IEnumerable<string> files)
+        public void Initialize()
         {
-            _dte = dte;
-            _joinableTaskFactory = joinableTaskFactory;
-            _files = new List<string>(files);
-
-            CreateMutations();
         }
 
         private void RunMutations()
         {
-            _joinableTaskFactory.RunAsync(async () =>
+            _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
             {
                 StartLoading("Running mutations");
 
@@ -129,9 +124,9 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
         private void MutationDocumentCompleted(MutationDocumentResult result)
         {
-            _joinableTaskFactory.RunAsync(async () =>
+            _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
             {
-                await _joinableTaskFactory.SwitchToMainThreadAsync();
+                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 var runDocument = Mutations.FirstOrDefault(r => r.Document.Id == result.Id);
 
@@ -144,9 +139,9 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
         private void MutationDocumentStarted(MutationDocument mutationDocument)
         {
-            _joinableTaskFactory.RunAsync(async () =>
+            _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
             {
-                await _joinableTaskFactory.SwitchToMainThreadAsync();
+                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 var testRunDocument = Mutations.FirstOrDefault(r => r.Document == mutationDocument);
                 if (testRunDocument != null)
@@ -160,11 +155,11 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         {
             ShowFullCode(false, obj.Document);
 
-            _joinableTaskFactory.RunAsync(async () =>
+            _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
             {
-                await _joinableTaskFactory.SwitchToMainThreadAsync();
+                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                var window = _dte.OpenFile(Constants.vsViewKindPrimary, obj.Document.FilePath);
+                var window = _environmentWrapper.Dte.OpenFile(Constants.vsViewKindPrimary, obj.Document.FilePath);
                 var line = obj.Document.MutationDetails.Location.Line.Split(new[] { "@(", ":" }, StringSplitOptions.RemoveEmptyEntries);
                 window.Visible = true;
 

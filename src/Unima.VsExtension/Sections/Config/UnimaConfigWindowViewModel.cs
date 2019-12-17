@@ -2,25 +2,27 @@
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using EnvDTE;
 using Microsoft.VisualStudio.PlatformUI;
-using Microsoft.VisualStudio.Threading;
 using Newtonsoft.Json;
 using Prism.Mvvm;
 using Unima.Application.Models;
 using Unima.Core.Solution;
+using Unima.VsExtension.Wrappers;
 using Unima.Wpf.Shared.Models;
 
 namespace Unima.VsExtension.Sections.Config
 {
     public class UnimaConfigWindowViewModel : BindableBase, INotifyPropertyChanged
     {
+        private readonly EnvironmentWrapper _environmentWrapper;
         private readonly SolutionInfoService _solutionInfoService;
         private string _solutionPath;
 
-        public UnimaConfigWindowViewModel(SolutionInfoService solutionInfoService)
+        public UnimaConfigWindowViewModel(EnvironmentWrapper environmentWrapper, SolutionInfoService solutionInfoService)
         {
+            _environmentWrapper = environmentWrapper;
             _solutionInfoService = solutionInfoService;
+
             TestRunnerTypes = new List<string> { "DotNet", "xUnit", "NUnit" };
             ProjectNamesInSolution = new List<string>();
             IgnoredProjectsInSolution = new List<ProjectListItem>();
@@ -41,12 +43,12 @@ namespace Unima.VsExtension.Sections.Config
 
         public bool RunBaseline { get; set; }
 
-        public void Initialize(DTE dte, JoinableTaskFactory joinableTaskFactory)
+        public void Initialize()
         {
-            joinableTaskFactory.RunAsync(async () =>
+            _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
             {
-                await joinableTaskFactory.SwitchToMainThreadAsync();
-                _solutionPath = dte.Solution.FullName;
+                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                _solutionPath = _environmentWrapper.Dte.Solution.FullName;
 
                 var filePath = GetConfigPath();
                 UnimaFileConfig unimaFileConfig = null;
@@ -76,6 +78,10 @@ namespace Unima.VsExtension.Sections.Config
             };
 
             File.WriteAllText(GetConfigPath(), JsonConvert.SerializeObject(config));
+
+            /*
+            _userNotificationService.ShowMessage("Config updated.");
+            */
         }
 
         private ProjectListItem ConvertToProjectListItem(SolutionProjectInfo solutionProjectInfo, IList<string> projects)

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
-using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.Threading;
 using Task = System.Threading.Tasks.Task;
 
 namespace Unima.VsExtension.Sections.MutationExplorer
@@ -64,9 +62,7 @@ namespace Unima.VsExtension.Sections.MutationExplorer
                 var windowFrame = (IVsWindowFrame)window.Frame;
                 Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
 
-                var dte = (DTE)await ServiceProvider.GetServiceAsync(typeof(DTE));
-
-                window.InitializeWindow(dte, _package.JoinableTaskFactory);
+                window.InitializeWindow();
             });
         }
     }

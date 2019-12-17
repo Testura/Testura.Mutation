@@ -8,12 +8,14 @@ using log4net.Config;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.LanguageServices;
+using Microsoft.VisualStudio.ProjectSystem;
 using Microsoft.VisualStudio.Shell;
 using Unima.Application.Logs;
 using Unima.Core.Solution;
 using Unima.VsExtension.Sections.MutationExplorer;
 using Unima.VsExtension.Services;
 using Unima.VsExtension.Solution;
+using Unima.VsExtension.Wrappers;
 using Task = System.Threading.Tasks.Task;
 
 namespace Unima.VsExtension
@@ -50,10 +52,13 @@ namespace Unima.VsExtension
 
             var workspace = componentModel.GetService<VisualStudioWorkspace>();
             var dte = (DTE)await GetServiceAsync(typeof(DTE));
+            var serviceProvider = (SVsServiceProvider)await GetServiceAsync(typeof(SVsServiceProvider));
+            var projectThreadingService = (IProjectThreadingService)await GetServiceAsync(typeof(IProjectThreadingService));
 
             XmlConfigurator.Configure(new FileInfo(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName + @"\Log4Net.Config"));
             _outputLoggerService = new OutputLoggerService(JoinableTaskFactory, new LogWatcher());
 
+            _bootstrapper.Container.RegisterInstance(new EnvironmentWrapper(dte, JoinableTaskFactory, new UserNotificationService(serviceProvider, projectThreadingService)));
             _bootstrapper.Container.RegisterInstance(typeof(ISolutionOpener), new VisualStudioSolutionOpener(workspace));
             _bootstrapper.Container.RegisterInstance(typeof(ISolutionBuilder), new VisualStudioSolutionBuilder(dte, JoinableTaskFactory));
 

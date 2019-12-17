@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using EnvDTE;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Threading;
 
 namespace Unima.VsExtension.Sections.MutationExplorer
 {
@@ -27,14 +25,14 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             Content = mutationToolWindowControl;
         }
 
-        public void InitializeWindow(DTE dte, JoinableTaskFactory packageJoinableTaskFactory)
+        public void InitializeWindow()
         {
-            ((MutationExplorerWindowControl)Content).Initialize(dte, packageJoinableTaskFactory);
+            ((MutationExplorerWindowControl)Content).Initialize();
         }
 
-        public void InitializeWindow(DTE dte, JoinableTaskFactory packageJoinableTaskFactory, IEnumerable<string> files)
+        public void InitializeWindow(IEnumerable<string> files)
         {
-            ((MutationExplorerWindowControl)Content).Initialize(dte, packageJoinableTaskFactory, files);
+            ((MutationExplorerWindowControl)Content).Initialize(files);
         }
     }
 }

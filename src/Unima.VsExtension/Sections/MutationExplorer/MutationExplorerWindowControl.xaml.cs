@@ -2,10 +2,8 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using Dragablz;
-using EnvDTE;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
-using Microsoft.VisualStudio.Threading;
 
 namespace Unima.VsExtension.Sections.MutationExplorer
 {
@@ -16,28 +14,34 @@ namespace Unima.VsExtension.Sections.MutationExplorer
     {
         public MutationExplorerWindowControl()
         {
+            RunDummyCode();
             InitializeComponent();
-
-            // Need this or we will get dll problems later on..
-            ShadowAssist.SetShadowDepth(this, ShadowDepth.Depth0);
-            var hue = new Hue("Dummy", Colors.AliceBlue, Colors.AntiqueWhite);
-            var o = new TabablzControl();
         }
 
-        public void Initialize(DTE dte, JoinableTaskFactory joinableTaskFactory)
+        public void Initialize()
         {
-            ((MutationExplorerWindowViewModel)DataContext).Initialize(dte, joinableTaskFactory);
+            var viewModel = DataContext as MutationExplorerWindowViewModel;
+            viewModel?.Initialize();
         }
 
-        public void Initialize(DTE dte, JoinableTaskFactory joinableTaskFactory, IEnumerable<string> files)
+        public void Initialize(IEnumerable<string> files)
         {
-            ((MutationExplorerWindowViewModel)DataContext).Initialize(dte, joinableTaskFactory, files);
+            var viewModel = DataContext as MutationExplorerWindowViewModel;
+            viewModel?.Initialize(files);
         }
 
         private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             AfterTxt.ScrollToVerticalOffset(e.VerticalOffset);
             AfterTxt.ScrollToHorizontalOffset(e.HorizontalOffset);
+        }
+
+        private void RunDummyCode()
+        {
+            // Need this or we will get dll problems later on..
+            ShadowAssist.SetShadowDepth(this, ShadowDepth.Depth0);
+            var hue = new Hue("Dummy", Colors.AliceBlue, Colors.AntiqueWhite);
+            var o = new TabablzControl();
         }
     }
 }

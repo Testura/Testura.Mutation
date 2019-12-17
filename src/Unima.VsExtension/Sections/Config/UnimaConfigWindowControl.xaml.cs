@@ -1,9 +1,7 @@
 ﻿using System.Windows.Media;
 using Dragablz;
-using EnvDTE;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
-using Microsoft.VisualStudio.Threading;
 
 namespace Unima.VsExtension.Sections.Config
 {
@@ -19,17 +17,19 @@ namespace Unima.VsExtension.Sections.Config
         /// </summary>
         public UnimaConfigWindowControl()
         {
+            RunDummyCode();
             InitializeComponent();
 
+            var viewModel = DataContext as UnimaConfigWindowViewModel;
+            viewModel?.Initialize();
+        }
+
+        private void RunDummyCode()
+        {
             // Need this or we will get dll problems later on..
             ShadowAssist.SetShadowDepth(this, ShadowDepth.Depth0);
             var hue = new Hue("Dummy", Colors.AliceBlue, Colors.AntiqueWhite);
             var o = new TabablzControl();
-        }
-
-        public void Initialize(DTE dte, JoinableTaskFactory joinableTaskFactory)
-        {
-            ((UnimaConfigWindowViewModel)DataContext).Initialize(dte, joinableTaskFactory);
         }
     }
 }

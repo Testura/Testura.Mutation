@@ -82,7 +82,7 @@ namespace Unima.VsExtension.Sections.SelectProjectFile
                     var windowFrame = (IVsWindowFrame)window.Frame;
                     Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
 
-                    window.InitializeWindow(dte, _package.JoinableTaskFactory, files);
+                    window.InitializeWindow(files);
                 }
             });
         }

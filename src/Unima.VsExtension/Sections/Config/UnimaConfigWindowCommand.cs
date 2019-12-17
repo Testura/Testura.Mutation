@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.Design;
-using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using IAsyncServiceProvider = Microsoft.VisualStudio.Shell.IAsyncServiceProvider;
@@ -56,10 +55,6 @@ namespace Unima.VsExtension.Sections.Config
 
                     var windowFrame = (IVsWindowFrame)window.Frame;
                     Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
-
-                    var dte = (DTE)await ServiceProvider.GetServiceAsync(typeof(DTE));
-
-                    window.InitializeWindow(dte, _package.JoinableTaskFactory);
                 }
                 catch (Exception ex)
                 {
