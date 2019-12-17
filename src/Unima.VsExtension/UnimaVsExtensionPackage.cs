@@ -21,8 +21,8 @@ namespace Unima.VsExtension
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideToolWindow(typeof(MutationExplorerWindow))]
-    [ProvideToolWindow(typeof(Unima.VsExtension.Sections.Config.UnimaConfigWindow))]
+    [ProvideToolWindow(typeof(MutationExplorerWindow), MultiInstances = false, DocumentLikeTool = true)]
+    [ProvideToolWindow(typeof(Unima.VsExtension.Sections.Config.UnimaConfigWindow), MultiInstances = false, DocumentLikeTool = true)]
     public sealed class UnimaVsExtensionPackage : AsyncPackage
     {
         public const string PackageGuidString = "eb1b49be-0389-4dee-995a-cf1854262fa9";
