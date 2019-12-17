@@ -76,7 +76,7 @@ A list of all test projects that we should run (we won't mutate test projects). 
 
 ```c#
     "TestProjects":  [
-						 "*\src\sometestproject.csproj"
+			"MyTestProject"
                          "*.Tests"
                      ],
 ```
