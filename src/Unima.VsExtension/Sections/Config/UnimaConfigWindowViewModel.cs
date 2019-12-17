@@ -79,9 +79,7 @@ namespace Unima.VsExtension.Sections.Config
 
             File.WriteAllText(GetConfigPath(), JsonConvert.SerializeObject(config));
 
-            /*
-            _userNotificationService.ShowMessage("Config updated.");
-            */
+            _environmentWrapper.UserNotificationService.ShowMessage("Config updated. Updates won't affect any currently open mutation windows.");
         }
 
         private ProjectListItem ConvertToProjectListItem(SolutionProjectInfo solutionProjectInfo, IList<string> projects)

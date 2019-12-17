@@ -19,6 +19,7 @@ using Unima.Application.Models;
 using Unima.Core;
 using Unima.Core.Config;
 using Unima.Core.Creator.Filter;
+using Unima.VsExtension.Sections.Config;
 using Unima.VsExtension.Wrappers;
 using Unima.Wpf.Shared.Models;
 
@@ -97,12 +98,35 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
         public void Initialize(IEnumerable<string> files)
         {
+            if (!VerifyConfigExist())
+            {
+                return;
+            }
+
             _files = new List<string>(files);
             CreateMutations();
         }
 
         public void Initialize()
         {
+            if (!VerifyConfigExist())
+            {
+                return;
+            }
+
+            var result = _environmentWrapper.UserNotificationService.Confirm("You have not selected any file(s) so we will mutate the whole project. Is this okay?");
+
+            if (result)
+            {
+                CreateMutations();
+                return;
+            }
+
+            _environmentWrapper.JoinableTaskFactory.Run(async () =>
+            {
+                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                _environmentWrapper.Dte.ActiveWindow.Close();
+            });
         }
 
         private void RunMutations()
@@ -207,6 +231,29 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         {
             IsLoadingVisible = false;
             IsRunButtonEnabled = true;
+        }
+
+        private bool VerifyConfigExist()
+        {
+            return _environmentWrapper.JoinableTaskFactory.Run(async () =>
+            {
+                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+                if (!File.Exists(Path.Combine(Path.GetDirectoryName(_environmentWrapper.Dte.Solution.FullName), UnimaVsExtensionPackage.BaseConfigName)))
+                {
+                    _environmentWrapper.UserNotificationService.ShowWarning(
+                        "Could not find base config. Please configure unima before running any mutation(s).");
+
+                    await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                    _environmentWrapper.Dte.ActiveWindow.Close();
+
+                    _environmentWrapper.OpenWindow<UnimaConfigWindow>();
+
+                    return false;
+                }
+
+                return true;
+            });
         }
     }
 }

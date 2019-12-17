@@ -8,7 +8,6 @@ using log4net.Config;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.LanguageServices;
-using Microsoft.VisualStudio.ProjectSystem;
 using Microsoft.VisualStudio.Shell;
 using Unima.Application.Logs;
 using Unima.Core.Solution;
@@ -41,27 +40,10 @@ namespace Unima.VsExtension
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-
-            var componentModel = (IComponentModel)await GetServiceAsync(typeof(SComponentModel));
-
-            if (componentModel == null)
-            {
-                throw new Exception("WAAA");
-            }
-
-            var workspace = componentModel.GetService<VisualStudioWorkspace>();
-            var dte = (DTE)await GetServiceAsync(typeof(DTE));
-            var serviceProvider = (SVsServiceProvider)await GetServiceAsync(typeof(SVsServiceProvider));
-            var projectThreadingService = (IProjectThreadingService)await GetServiceAsync(typeof(IProjectThreadingService));
+            await ConfigureWithEnvironmentServicesAsync(cancellationToken);
 
             XmlConfigurator.Configure(new FileInfo(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName + @"\Log4Net.Config"));
             _outputLoggerService = new OutputLoggerService(JoinableTaskFactory, new LogWatcher());
-
-            _bootstrapper.Container.RegisterInstance(new EnvironmentWrapper(dte, JoinableTaskFactory, new UserNotificationService(serviceProvider, projectThreadingService)));
-            _bootstrapper.Container.RegisterInstance(typeof(ISolutionOpener), new VisualStudioSolutionOpener(workspace));
-            _bootstrapper.Container.RegisterInstance(typeof(ISolutionBuilder), new VisualStudioSolutionBuilder(dte, JoinableTaskFactory));
-
             _outputLoggerService.StartLogger();
 
             await MutationExplorerWindowCommand.InitializeAsync(this);
@@ -79,6 +61,26 @@ namespace Unima.VsExtension
             }
 
             return base.GetService(serviceType);
+        }
+
+        private async Task ConfigureWithEnvironmentServicesAsync(CancellationToken cancellationToken)
+        {
+            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+
+            var componentModel = (IComponentModel)await GetServiceAsync(typeof(SComponentModel));
+
+            if (componentModel == null)
+            {
+                throw new Exception("WAAA");
+            }
+
+            var workspace = componentModel.GetService<VisualStudioWorkspace>();
+            var dte = (DTE)await GetServiceAsync(typeof(DTE));
+            var asyncPackage = (AsyncPackage)await GetServiceAsync(typeof(AsyncPackage));
+
+            _bootstrapper.Container.RegisterInstance(new EnvironmentWrapper(dte, JoinableTaskFactory, asyncPackage, new UserNotificationService(asyncPackage, JoinableTaskFactory)));
+            _bootstrapper.Container.RegisterInstance(typeof(ISolutionOpener), new VisualStudioSolutionOpener(workspace));
+            _bootstrapper.Container.RegisterInstance(typeof(ISolutionBuilder), new VisualStudioSolutionBuilder(dte, JoinableTaskFactory));
         }
     }
 }
