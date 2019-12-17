@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -6,8 +8,10 @@ using Microsoft.VisualStudio.PlatformUI;
 using Newtonsoft.Json;
 using Prism.Mvvm;
 using Unima.Application.Models;
+using Unima.Core;
 using Unima.Core.Solution;
 using Unima.VsExtension.Wrappers;
+using Unima.Wpf.Shared.Extensions;
 using Unima.Wpf.Shared.Models;
 
 namespace Unima.VsExtension.Sections.Config
@@ -16,6 +20,7 @@ namespace Unima.VsExtension.Sections.Config
     {
         private readonly EnvironmentWrapper _environmentWrapper;
         private readonly SolutionInfoService _solutionInfoService;
+        private List<string> _projectNamesInSolution;
         private string _solutionPath;
 
         public UnimaConfigWindowViewModel(EnvironmentWrapper environmentWrapper, SolutionInfoService solutionInfoService)
@@ -24,18 +29,23 @@ namespace Unima.VsExtension.Sections.Config
             _solutionInfoService = solutionInfoService;
 
             TestRunnerTypes = new List<string> { "DotNet", "xUnit", "NUnit" };
-            ProjectNamesInSolution = new List<string>();
-            IgnoredProjectsInSolution = new List<ProjectListItem>();
             UpdateConfigCommand = new DelegateCommand(UpdateConfig);
+            ProjectGridItems = new ObservableCollection<ConfigProjectGridItem>();
+            MutationOperatorGridItems = new ObservableCollection<MutationOperatorGridItem>(Enum
+                .GetValues(typeof(MutationOperators)).Cast<MutationOperators>().Select(m =>
+                    new MutationOperatorGridItem
+                    {
+                        IsSelected = true,
+                        MutationOperator = m,
+                        Description = m.GetValue()
+                    }));
         }
 
+        public ObservableCollection<ConfigProjectGridItem> ProjectGridItems { get; set; }
+
+        public ObservableCollection<MutationOperatorGridItem> MutationOperatorGridItems { get; set; }
+
         public DelegateCommand UpdateConfigCommand { get; set; }
-
-        public List<ProjectListItem> SelectedTestProjectInSolution { get; set; }
-
-        public List<string> ProjectNamesInSolution { get; set; }
-
-        public List<ProjectListItem> IgnoredProjectsInSolution { get; set; }
 
         public List<string> TestRunnerTypes { get; set; }
 
@@ -59,10 +69,19 @@ namespace Unima.VsExtension.Sections.Config
                 }
 
                 var projects = await _solutionInfoService.GetSolutionInfoAsync(_solutionPath);
-                ProjectNamesInSolution = projects.Select(p => p.Name).ToList();
-                SelectedTestProjectInSolution = projects.Select(p => ConvertToProjectListItem(p, unimaFileConfig?.TestProjects)).ToList();
-                IgnoredProjectsInSolution = projects.Select(p => ConvertToProjectListItem(p, unimaFileConfig?.IgnoredProjects)).ToList();
-                RunBaseline = unimaFileConfig != null ? unimaFileConfig.CreateBaseline : true;
+                _projectNamesInSolution = projects.Select(p => p.Name).ToList();
+
+                foreach (var projectName in _projectNamesInSolution)
+                {
+                    ProjectGridItems.Add(new ConfigProjectGridItem
+                    {
+                        IsIgnored = unimaFileConfig?.IgnoredProjects.Any(u => u == projectName) ?? false,
+                        IsTestProject = unimaFileConfig?.TestProjects.Any(u => u == projectName) ?? false,
+                        Name = projectName
+                    });
+                }
+
+                RunBaseline = unimaFileConfig?.CreateBaseline ?? true;
             });
         }
 
@@ -70,9 +89,9 @@ namespace Unima.VsExtension.Sections.Config
         {
             var config = new UnimaFileConfig
             {
-                IgnoredProjects = IgnoredProjectsInSolution.Where(s => s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
+                IgnoredProjects = ProjectGridItems.Where(s => s.IsIgnored).Select(s => s.Name).ToList(),
                 SolutionPath = _solutionPath,
-                TestProjects = SelectedTestProjectInSolution.Where(s => s.IsSelected).Select(s => s.ProjectInfo.Name).ToList(),
+                TestProjects = ProjectGridItems.Where(s => s.IsTestProject).Select(s => s.Name).ToList(),
                 TestRunner = TestRunnerTypes[SelectedTestRunnerIndex],
                 CreateBaseline = RunBaseline
             };

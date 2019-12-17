@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Unima.Helpers.Extensions
+namespace Unima.Wpf.Shared.Extensions
 {
     public static class EnumExtensions
     {

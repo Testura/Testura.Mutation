@@ -11,8 +11,8 @@ using Unima.Core;
 using Unima.Core.Config;
 using Unima.Core.Exceptions;
 using Unima.Helpers.Displayers;
-using Unima.Helpers.Extensions;
 using Unima.Helpers.Openers.Tabs;
+using Unima.Wpf.Shared.Extensions;
 using Unima.Wpf.Shared.Models;
 
 namespace Unima.Sections.MutationDocumentsOverview

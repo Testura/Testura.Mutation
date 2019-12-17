@@ -94,7 +94,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\Behavior\AutoScrollBehavior.cs" />
-    <Compile Include="Helpers\Extensions\EnumExtensions.cs" />
     <Compile Include="Helpers\Displayers\ILoadingDisplayer.cs" />
     <Compile Include="Models\MutationDocumentsExecutionResultModel.cs" />
     <Compile Include="RegionNames.cs" />

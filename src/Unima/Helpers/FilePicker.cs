@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Windows.Forms;
-using Unima.Helpers.Extensions;
+using Unima.Wpf.Shared.Extensions;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace Unima.Helpers
