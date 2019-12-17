@@ -14,9 +14,11 @@ using Microsoft.VisualStudio.Threading;
 using Newtonsoft.Json;
 using Prism.Mvvm;
 using Unima.Application.Commands.Mutation.CreateMutations;
+using Unima.Application.Commands.Mutation.ExecuteMutations;
 using Unima.Application.Commands.Project.OpenProject;
 using Unima.Application.Models;
 using Unima.Core;
+using Unima.Core.Config;
 using Unima.Core.Creator.Filter;
 using Unima.Wpf.Shared.Models;
 
@@ -28,13 +30,14 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         private DTE _dte;
         private List<string> _files;
         private JoinableTaskFactory _joinableTaskFactory;
+        private UnimaConfig _config;
 
         public MutationExplorerWindowViewModel(IMediator mediator)
         {
             _mediator = mediator;
             _files = new List<string>();
             Mutations = new ObservableCollection<TestRunDocument>();
-            /* RunMutationsCommand = new DelegateCommand(() => Do()); */
+            RunMutationsCommand = new DelegateCommand(RunMutations);
             MutationSelectedCommand = new DelegateCommand<TestRunDocument>(GoToMutationFile);
             ToggleMutation = new DelegateCommand(() => IsMutationVisible = !IsMutationVisible);
         }
@@ -57,6 +60,8 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
         public bool IsLoadingVisible { get; set; }
 
+        public bool IsRunButtonEnabled { get; set; }
+
         public string LoadingMessage { get; set; }
 
         public void CreateMutations()
@@ -64,8 +69,7 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             _joinableTaskFactory.RunAsync(async () =>
             {
                 Mutations.Clear();
-                IsLoadingVisible = true;
-                LoadingMessage = "Loading mutations..";
+                StartLoading("Loading mutations..");
 
                 await _joinableTaskFactory.SwitchToMainThreadAsync();
 
@@ -74,9 +78,9 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
                 baseConfig.Filter = CreateFilter();
 
-                var config = await _mediator.Send(new OpenProjectCommand(baseConfig));
+                _config = await _mediator.Send(new OpenProjectCommand(baseConfig));
 
-                var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(config));
+                var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(_config));
 
                 foreach (var mutationDocument in mutationDocuments)
                 {
@@ -87,7 +91,7 @@ namespace Unima.VsExtension.Sections.MutationExplorer
                     });
                 }
 
-                IsLoadingVisible = false;
+                StopLoading();
             });
         }
 
@@ -106,11 +110,57 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             CreateMutations();
         }
 
+        private void RunMutations()
+        {
+            _joinableTaskFactory.RunAsync(async () =>
+            {
+                StartLoading("Running mutations");
+
+                var latestResult = await _mediator.Send(
+                    new ExecuteMutationsCommand(
+                        _config,
+                        Mutations.Select(r => r.Document).ToList(),
+                        MutationDocumentStarted,
+                        MutationDocumentCompleted));
+
+                StopLoading();
+            });
+        }
+
+        private void MutationDocumentCompleted(MutationDocumentResult result)
+        {
+            _joinableTaskFactory.RunAsync(async () =>
+            {
+                await _joinableTaskFactory.SwitchToMainThreadAsync();
+
+                var runDocument = Mutations.FirstOrDefault(r => r.Document.Id == result.Id);
+
+                if (runDocument != null)
+                {
+                    runDocument.Status = TestRunDocument.TestRunStatusEnum.Completed;
+                }
+            });
+        }
+
+        private void MutationDocumentStarted(MutationDocument mutationDocument)
+        {
+            _joinableTaskFactory.RunAsync(async () =>
+            {
+                await _joinableTaskFactory.SwitchToMainThreadAsync();
+
+                var testRunDocument = Mutations.FirstOrDefault(r => r.Document == mutationDocument);
+                if (testRunDocument != null)
+                {
+                    testRunDocument.Status = TestRunDocument.TestRunStatusEnum.Running;
+                }
+            });
+        }
+
         private void GoToMutationFile(TestRunDocument obj)
         {
             ShowFullCode(false, obj.Document);
 
-            _joinableTaskFactory.Run(async () =>
+            _joinableTaskFactory.RunAsync(async () =>
             {
                 await _joinableTaskFactory.SwitchToMainThreadAsync();
 
@@ -149,6 +199,19 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             }
 
             return mutationFilter;
+        }
+
+        private void StartLoading(string message)
+        {
+            IsLoadingVisible = true;
+            IsRunButtonEnabled = false;
+            LoadingMessage = message;
+        }
+
+        private void StopLoading()
+        {
+            IsLoadingVisible = false;
+            IsRunButtonEnabled = true;
         }
     }
 }

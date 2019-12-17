@@ -8,6 +8,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:codeDiff="clr-namespace:Unima.Wpf.Shared.CodeDiff;assembly=Unima.Wpf.Shared"
+             xmlns:converters="clr-namespace:Unima.Wpf.Shared.Converters;assembly=Unima.Wpf.Shared"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
@@ -39,7 +40,7 @@
 
         <materialDesign:Card Margin="8, 16, 16, 8" Height="90" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" IsEnabled="{Binding TestNotStarted}">
             <StackPanel Orientation="Horizontal">
-                <Button Content="Run mutations" Command="{Binding RunMutationsCommand}" Margin="16, 0, 16, 0"/>
+                <Button Content="Run mutations" Command="{Binding RunMutationsCommand}" Margin="16, 0, 16, 0" IsEnabled="{Binding IsRunButtonEnabled}"/>
             </StackPanel>
         </materialDesign:Card>
 

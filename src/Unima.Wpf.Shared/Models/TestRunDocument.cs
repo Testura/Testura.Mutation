@@ -12,7 +12,8 @@ namespace Unima.Wpf.Shared.Models
         public enum TestRunStatusEnum
         {
             Running,
-            Waiting
+            Waiting,
+            Completed
         }
 
         public MutationDocument Document { get; set; }
