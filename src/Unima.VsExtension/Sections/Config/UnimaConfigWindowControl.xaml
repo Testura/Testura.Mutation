@@ -25,7 +25,7 @@
         <TabItem Header="General" IsSelected="False">
             <Grid Margin="16">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="150" />
+                    <RowDefinition Height="120" />
                     <RowDefinition Height="100" />
                 </Grid.RowDefinitions>
                 <GroupBox
