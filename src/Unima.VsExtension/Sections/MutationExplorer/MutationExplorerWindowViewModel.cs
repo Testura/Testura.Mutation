@@ -4,12 +4,14 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using DiffPlex;
 using DiffPlex.DiffBuilder;
 using DiffPlex.DiffBuilder.Model;
 using EnvDTE;
 using MediatR;
 using Microsoft.VisualStudio.PlatformUI;
+using Microsoft.VisualStudio.Threading;
 using Newtonsoft.Json;
 using Prism.Mvvm;
 using Unima.Application.Commands.Mutation.CreateMutations;
@@ -77,11 +79,14 @@ namespace Unima.VsExtension.Sections.MutationExplorer
                 var baseConfig = JsonConvert.DeserializeObject<UnimaFileConfig>(
                     File.ReadAllText(Path.Combine(Path.GetDirectoryName(_environmentWrapper.Dte.Solution.FullName), UnimaVsExtensionPackage.BaseConfigName)));
 
-                baseConfig.Filter = CreateFilter();
+                await TaskScheduler.Default;
 
+                baseConfig.Filter = CreateFilter();
                 _config = await _mediator.Send(new OpenProjectCommand(baseConfig));
 
                 var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(_config));
+
+                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 foreach (var mutationDocument in mutationDocuments)
                 {
