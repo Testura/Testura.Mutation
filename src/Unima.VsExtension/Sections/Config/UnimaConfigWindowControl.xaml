@@ -70,7 +70,7 @@
                                 <DataGridCheckBoxColumn Header="Test project"
                                                         Binding="{Binding IsTestProject, UpdateSourceTrigger=PropertyChanged}" Width="100" IsReadOnly="False" />
                             <DataGridCheckBoxColumn Header="Ignored"
-                                                    Binding="{Binding IsIgnored}" Width="75" IsReadOnly="False" />
+                                                    Binding="{Binding IsIgnored, UpdateSourceTrigger=PropertyChanged}" Width="75" IsReadOnly="False" />
 
                                 <DataGridTextColumn Header="Name"
                                                     Binding="{Binding Name}" Width="*" IsReadOnly="True"/>

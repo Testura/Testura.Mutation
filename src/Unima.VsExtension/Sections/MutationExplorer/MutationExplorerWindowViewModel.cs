@@ -81,23 +81,33 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
                 await TaskScheduler.Default;
 
-                baseConfig.Filter = CreateFilter();
-                _config = await _mediator.Send(new OpenProjectCommand(baseConfig));
-
-                var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(_config));
-
-                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-                foreach (var mutationDocument in mutationDocuments)
+                try
                 {
-                    Mutations.Add(new TestRunDocument
-                    {
-                        Document = mutationDocument,
-                        Status = TestRunDocument.TestRunStatusEnum.Waiting
-                    });
-                }
+                    baseConfig.Filter = CreateFilter();
+                    _config = await _mediator.Send(new OpenProjectCommand(baseConfig));
 
-                StopLoading();
+                    var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(_config));
+
+                    await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+                    foreach (var mutationDocument in mutationDocuments)
+                    {
+                        Mutations.Add(new TestRunDocument
+                        {
+                            Document = mutationDocument,
+                            Status = TestRunDocument.TestRunStatusEnum.Waiting
+                        });
+                    }
+                }
+                catch (Exception)
+                {
+                    _environmentWrapper.UserNotificationService.ShowError(
+                        "Failed to create mutations. Check output log for more information.");
+                }
+                finally
+                {
+                    StopLoading();
+                }
             });
         }
 
@@ -138,16 +148,26 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         {
             _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
             {
-                StartLoading("Running mutations");
+                try
+                {
+                    StartLoading("Running mutations");
 
-                var latestResult = await _mediator.Send(
-                    new ExecuteMutationsCommand(
-                        _config,
-                        Mutations.Select(r => r.Document).ToList(),
-                        MutationDocumentStarted,
-                        MutationDocumentCompleted));
-
-                StopLoading();
+                    var latestResult = await _mediator.Send(
+                        new ExecuteMutationsCommand(
+                            _config,
+                            Mutations.Select(r => r.Document).ToList(),
+                            MutationDocumentStarted,
+                            MutationDocumentCompleted));
+                }
+                catch (Exception)
+                {
+                    _environmentWrapper.UserNotificationService.ShowError(
+                        "Failed run mutations. Please check output for more information. ");
+                }
+                finally
+                {
+                    StopLoading();
+                }
             });
         }
 

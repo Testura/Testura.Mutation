@@ -49,6 +49,7 @@ namespace Unima.TestRunner.Console.DotNet
                     }))
                 {
                     var success = ReadToEnd(command.StandardError, out var error);
+                    ReadToEnd(command.StandardOutput, out var message);
 
                     if (!success)
                     {
@@ -60,15 +61,15 @@ namespace Unima.TestRunner.Console.DotNet
                         return TestSuiteResult.Error(error, TimeSpan.Zero);
                     }
 
-                    return CreateResult(Path.GetFileNameWithoutExtension(dllPath), directoryPath);
+                    return CreateResult(Path.GetFileNameWithoutExtension(dllPath), directoryPath, message);
                 }
             });
         }
 
-        private TestSuiteResult CreateResult(string name, string directoryPath)
+        private TestSuiteResult CreateResult(string name, string directoryPath, string message)
         {
             var serializer = new XmlSerializer(typeof(TestRunType));
-            var resultPath = Directory.GetFiles(directoryPath).First(f => f.Contains(_resultId));
+            var resultPath = Directory.GetFiles(directoryPath).FirstOrDefault(f => f.Contains(_resultId));
 
             using (var fileStream = new FileStream(resultPath, FileMode.Open))
             {
@@ -76,6 +77,13 @@ namespace Unima.TestRunner.Console.DotNet
                 var time = (TestRunTypeTimes)testRun.Items[0];
 
                 var results = testRun.Items[2] as ResultsType;
+
+                // If the path something probably have gone bad and we got it on standard output.
+                if (results == null)
+                {
+                    return TestSuiteResult.Error(message, TimeSpan.Zero);
+                }
+
                 var tests = results.Items.Select(i => i as UnitTestResultType);
 
                 var testDefinitions = testRun.Items[3] as TestDefinitionType;
