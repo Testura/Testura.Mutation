@@ -48,8 +48,10 @@ namespace Unima.TestRunner.Console.DotNet
                         o.DisposeOnExit();
                     }))
                 {
-                    var success = ReadToEnd(command.StandardError, out var error);
+                    ReadToEnd(command.StandardError, out var error);
                     ReadToEnd(command.StandardOutput, out var message);
+
+                    var success = message.Contains("Test Run Successful");
 
                     if (!success)
                     {
@@ -58,7 +60,7 @@ namespace Unima.TestRunner.Console.DotNet
 
                     if (!success || (!command.Result.Success && !error.ToLower().Contains("test run failed")))
                     {
-                        return TestSuiteResult.Error(error, TimeSpan.Zero);
+                        return TestSuiteResult.Error($"{{ Message = \"{message}\", Error = \"{error}\"", TimeSpan.Zero);
                     }
 
                     return CreateResult(Path.GetFileNameWithoutExtension(dllPath), directoryPath, message);
