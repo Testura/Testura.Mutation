@@ -59,6 +59,7 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutations
                         catch (Exception ex)
                         {
                             LogTo.WarnException($"Unexpected exception when running {document.MutationName}", ex);
+                            LogTo.Info("Will put it in the unknown category.");
 
                             result = new MutationDocumentResult
                             {

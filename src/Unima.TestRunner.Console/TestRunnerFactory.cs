@@ -26,7 +26,7 @@ namespace Unima.TestRunner
 
             if (testRunnerName.Equals(DotNet, StringComparison.InvariantCultureIgnoreCase))
             {
-                return new DotNetTestRunner(dotNetPath, TimeSpan.FromSeconds(10));
+                return new DotNetTestRunner(dotNetPath, maxTime);
             }
 
             throw new ArgumentException($"Could not find any test runner with the name {testRunnerName}.");

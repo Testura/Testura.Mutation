@@ -28,9 +28,14 @@ namespace Unima.TestRunner.Console.DotNet
 
         public Task<TestSuiteResult> RunTestsAsync(string dllPath)
         {
+            return RunTestWithRetries(dllPath, 2);
+        }
+
+        public Task<TestSuiteResult> RunTestWithRetries(string dllPath, int retries)
+        {
             var directoryPath = Path.GetDirectoryName(dllPath);
 
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 using (var command = Command.Run(
                     GetDotNetExe(),
@@ -51,19 +56,30 @@ namespace Unima.TestRunner.Console.DotNet
                     ReadToEnd(command.StandardError, out var error);
                     ReadToEnd(command.StandardOutput, out var message);
 
-                    var success = message.Contains("Test Run Successful");
+                    var resultFile = GetResultFile(directoryPath);
+                    var success = !string.IsNullOrEmpty(resultFile);
 
                     if (!success)
                     {
                         command.Kill();
-                    }
 
-                    if (!success || (!command.Result.Success && !error.ToLower().Contains("test run failed")))
-                    {
+                        // Let's do a retry if we get error from both message and error stream.
+                        if (error.Contains("Error reading from stream") && message.Contains("Error reading from stream") && retries > 0)
+                        {
+                            return await RunTestWithRetries(dllPath, retries - 1);
+                        }
+
                         return TestSuiteResult.Error($"{{ Message = \"{message}\", Error = \"{error}\"", TimeSpan.Zero);
                     }
 
-                    return CreateResult(Path.GetFileNameWithoutExtension(dllPath), directoryPath, message);
+                    try
+                    {
+                        return CreateResult(Path.GetFileNameWithoutExtension(dllPath), directoryPath, message);
+                    }
+                    catch (Exception ex)
+                    {
+                        return TestSuiteResult.Error($"Unexpected error when parsing test result. {{ Exception: \"{ex.Message}\" Message = \"{message}\", Error = \"{error}\"", TimeSpan.Zero);
+                    }
                 }
             });
         }
@@ -136,13 +152,18 @@ namespace Unima.TestRunner.Console.DotNet
             var readStreamTask = Task.Run(() => processStream.ReadToEnd());
             var successful = readStreamTask.Wait(_maxTime);
 
-            message = successful ? readStreamTask.Result : "Error reading from stream";
+            message = successful ? readStreamTask.Result : "Error reading from stream because of timeout";
             return successful;
         }
 
         private string GetDotNetExe()
         {
             return string.IsNullOrEmpty(_dotNetPath) ? "dotnet.exe" : _dotNetPath;
+        }
+
+        private string GetResultFile(string directoryPath)
+        {
+            return Directory.GetFiles(directoryPath).FirstOrDefault(f => f.Contains(_resultId));
         }
     }
 }
