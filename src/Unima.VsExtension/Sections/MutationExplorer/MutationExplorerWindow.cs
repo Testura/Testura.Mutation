@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
+using Unima.Core.Creator.Filter;
 
 namespace Unima.VsExtension.Sections.MutationExplorer
 {
@@ -30,9 +31,9 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             ((MutationExplorerWindowControl)Content).Initialize();
         }
 
-        public void InitializeWindow(IEnumerable<string> files)
+        public void InitializeWindow(IEnumerable<MutationDocumentFilterItem> filterItems)
         {
-            ((MutationExplorerWindowControl)Content).Initialize(files);
+            ((MutationExplorerWindowControl)Content).Initialize(filterItems);
         }
     }
 }

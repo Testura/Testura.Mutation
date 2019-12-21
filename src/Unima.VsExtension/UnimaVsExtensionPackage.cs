@@ -47,7 +47,7 @@ namespace Unima.VsExtension
             _outputLoggerService.StartLogger();
 
             await MutationExplorerWindowCommand.InitializeAsync(this);
-            await Sections.SelectProjectFile.SelectProjectFileCommand.InitializeAsync(this);
+            await Sections.SelectProjectFile.SelectProjectFileCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<MutationFilterItemCreatorService>());
             await Sections.Config.UnimaConfigWindowCommand.InitializeAsync(this);
         }
 

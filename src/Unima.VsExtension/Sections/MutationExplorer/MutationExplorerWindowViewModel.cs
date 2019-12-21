@@ -31,17 +31,19 @@ namespace Unima.VsExtension.Sections.MutationExplorer
     {
         private readonly EnvironmentWrapper _environmentWrapper;
         private readonly IMediator _mediator;
-        private List<string> _files;
+        private List<MutationDocumentFilterItem> _filterItems;
         private UnimaConfig _config;
 
         public MutationExplorerWindowViewModel(EnvironmentWrapper environmentWrapper, IMediator mediator)
         {
             _environmentWrapper = environmentWrapper;
             _mediator = mediator;
-            _files = new List<string>();
+            _filterItems = new List<MutationDocumentFilterItem>();
             Mutations = new ObservableCollection<TestRunDocument>();
             RunMutationsCommand = new DelegateCommand(RunMutations);
-            MutationSelectedCommand = new DelegateCommand<TestRunDocument>(GoToMutationFile);
+            MutationSelectedCommand = new DelegateCommand<TestRunDocument>(UpdateSelectedMutation);
+            GoToMutationCommand = new DelegateCommand<TestRunDocument>(GoToMutationFile);
+
             ToggleMutation = new DelegateCommand(() => IsMutationVisible = !IsMutationVisible);
         }
 
@@ -50,6 +52,8 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         public DelegateCommand<TestRunDocument> MutationSelectedCommand { get; set; }
 
         public DelegateCommand ToggleMutation { get; set; }
+
+        public DelegateCommand<TestRunDocument> GoToMutationCommand { get; set; }
 
         public ObservableCollection<TestRunDocument> Mutations { get; set; }
 
@@ -83,7 +87,7 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
                 try
                 {
-                    baseConfig.Filter = CreateFilter();
+                    baseConfig.Filter = new MutationDocumentFilter { FilterItems = _filterItems ?? new List<MutationDocumentFilterItem>() };
                     _config = await _mediator.Send(new OpenProjectCommand(baseConfig));
 
                     var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(_config));
@@ -111,14 +115,14 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             });
         }
 
-        public void Initialize(IEnumerable<string> files)
+        public void Initialize(IEnumerable<MutationDocumentFilterItem> filterItems)
         {
             if (!VerifyConfigExist())
             {
                 return;
             }
 
-            _files = new List<string>(files);
+            _filterItems = new List<MutationDocumentFilterItem>(filterItems);
             CreateMutations();
         }
 
@@ -181,7 +185,17 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
                 if (runDocument != null)
                 {
-                    runDocument.Status = TestRunDocument.TestRunStatusEnum.Completed;
+                    runDocument.Status = result.Survived
+                        ? TestRunDocument.TestRunStatusEnum.CompletedWithFailure
+                        : TestRunDocument.TestRunStatusEnum.CompletedWithSuccess;
+
+                    if (!result.CompilationResult.IsSuccess)
+                    {
+                        runDocument.InfoText = "Failed to compile.";
+                        return;
+                    }
+
+                    runDocument.InfoText = $"{result.FailedTests.Count} of {result.TestsRunCount} tests failed";
                 }
             });
         }
@@ -200,10 +214,16 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             });
         }
 
+        private void UpdateSelectedMutation(TestRunDocument obj)
+        {
+            CodeBeforeMutation = obj.Document.MutationDetails.FullOrginal.ToFullString();
+            CodeAfterMutation = obj.Document.MutationDetails.FullMutation.ToFullString();
+            var diffBuilder = new SideBySideDiffBuilder(new Differ());
+            Diff = diffBuilder.BuildDiffModel(CodeBeforeMutation, CodeAfterMutation);
+        }
+
         private void GoToMutationFile(TestRunDocument obj)
         {
-            ShowFullCode(false, obj.Document);
-
             _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
@@ -214,35 +234,6 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
                 ((TextSelection)window.Document.Selection).GotoLine(int.Parse(line[0]), true);
             });
-        }
-
-        private void ShowFullCode(bool? showFullCode, MutationDocument mutationDocument)
-        {
-            CodeBeforeMutation = showFullCode.Value ? mutationDocument.MutationDetails.FullOrginal.ToFullString() : mutationDocument.MutationDetails.Orginal.ToFullString();
-            CodeAfterMutation = showFullCode.Value ? mutationDocument.MutationDetails.FullMutation.ToFullString() : mutationDocument.MutationDetails.Mutation.ToFullString();
-            var diffBuilder = new SideBySideDiffBuilder(new Differ());
-            Diff = diffBuilder.BuildDiffModel(CodeBeforeMutation, CodeAfterMutation);
-        }
-
-        private MutationDocumentFilter CreateFilter()
-        {
-            if (!_files.Any())
-            {
-                return null;
-            }
-
-            var mutationFilter = new MutationDocumentFilter { FilterItems = new List<MutationDocumentFilterItem>() };
-
-            foreach (var file in _files)
-            {
-                mutationFilter.FilterItems.Add(new MutationDocumentFilterItem
-                {
-                    Effect = MutationDocumentFilterItem.FilterEffect.Allow,
-                    Resource = $"*/{file}"
-                });
-            }
-
-            return mutationFilter;
         }
 
         private void StartLoading(string message)

@@ -5,6 +5,7 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Unima.VsExtension.Sections.MutationExplorer;
+using Unima.VsExtension.Services;
 using Task = System.Threading.Tasks.Task;
 
 namespace Unima.VsExtension.Sections.SelectProjectFile
@@ -15,10 +16,15 @@ namespace Unima.VsExtension.Sections.SelectProjectFile
         public static readonly Guid CommandSet = new Guid("4dd019e1-138b-43cd-b2d9-686d466ef14c");
 
         private readonly AsyncPackage _package;
+        private readonly MutationFilterItemCreatorService _mutationFilterItemCreatorService;
 
-        private SelectProjectFileCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private SelectProjectFileCommand(
+            AsyncPackage package,
+            OleMenuCommandService commandService,
+            MutationFilterItemCreatorService mutationFilterItemCreatorService)
         {
             _package = package ?? throw new ArgumentNullException(nameof(package));
+            _mutationFilterItemCreatorService = mutationFilterItemCreatorService;
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
@@ -30,12 +36,12 @@ namespace Unima.VsExtension.Sections.SelectProjectFile
 
         private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider => _package;
 
-        public static async Task InitializeAsync(AsyncPackage package)
+        public static async Task InitializeAsync(AsyncPackage package, MutationFilterItemCreatorService mutationFilterItemCreatorService)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new SelectProjectFileCommand(package, commandService);
+            Instance = new SelectProjectFileCommand(package, commandService, mutationFilterItemCreatorService);
         }
 
         /// <summary>
@@ -82,7 +88,7 @@ namespace Unima.VsExtension.Sections.SelectProjectFile
                     var windowFrame = (IVsWindowFrame)window.Frame;
                     Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
 
-                    window.InitializeWindow(files);
+                    window.InitializeWindow(_mutationFilterItemCreatorService.CreateFilterFromFilePaths(files));
                 }
             });
         }

@@ -13,11 +13,14 @@ namespace Unima.Wpf.Shared.Models
         {
             Running,
             Waiting,
-            Completed
+            CompletedWithSuccess,
+            CompletedWithFailure
         }
 
         public MutationDocument Document { get; set; }
 
         public TestRunStatusEnum Status { get; set; }
+
+        public string InfoText { get; set; }
     }
 }

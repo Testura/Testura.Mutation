@@ -186,6 +186,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behavior\AutoScrollBehavior.cs" />
     <Compile Include="CodeDiff\OldNewDiffPiece.cs" />
     <Compile Include="CodeDiff\SideBySideDiffModelVisualizer.cs" />
     <Compile Include="Converters\InvertBooleanConverter.cs" />
@@ -216,6 +217,7 @@
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Fody.6.0.5\build\Fody.targets" Condition="Exists('..\..\packages\Fody.6.0.5\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

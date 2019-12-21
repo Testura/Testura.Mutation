@@ -4,6 +4,7 @@ using System.Windows.Media;
 using Dragablz;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
+using Unima.Core.Creator.Filter;
 
 namespace Unima.VsExtension.Sections.MutationExplorer
 {
@@ -24,10 +25,10 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             viewModel?.Initialize();
         }
 
-        public void Initialize(IEnumerable<string> files)
+        public void Initialize(IEnumerable<MutationDocumentFilterItem> filterItems)
         {
             var viewModel = DataContext as MutationExplorerWindowViewModel;
-            viewModel?.Initialize(files);
+            viewModel?.Initialize(filterItems);
         }
 
         private void OnScrollChanged(object sender, ScrollChangedEventArgs e)

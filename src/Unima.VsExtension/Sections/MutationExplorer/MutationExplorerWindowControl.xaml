@@ -70,14 +70,70 @@
                         Grid.Row="1">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDoubleClick">
-                                <i:InvokeCommandAction Command="{Binding MutationSelectedCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" x:Name="Dummy" />
+                                <i:InvokeCommandAction Command="{Binding GoToMutationCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" x:Name="Dummy" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding MutationSelectedCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" x:Name="SecondDummy" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="" Width="60" IsReadOnly="True" MaxWidth="60" MinWidth="60">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ContentControl Width="15">
+                                            <ContentControl.Style>
+                                                <Style TargetType="{x:Type ContentControl}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Waiting">
+                                                            <Setter Property="ContentTemplate">
+                                                                <Setter.Value>
+                                                                    <DataTemplate>
+                                                                        <Image Source="../../Resources/notrun.png" Width="12" />
+                                                                    </DataTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Running">
+                                                            <Setter Property="ContentTemplate">
+                                                                <Setter.Value>
+                                                                    <DataTemplate>
+                                                                        <ProgressBar
+                                                                            Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                                                            IsIndeterminate="True"
+                                                                            Width="15"/>
+                                                                    </DataTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status}" Value="CompletedWithFailure">
+                                                            <Setter Property="ContentTemplate">
+                                                                <Setter.Value>
+                                                                    <DataTemplate>
+                                                                        <Image Source="../../Resources/error.png" Width="12" />
+                                                                    </DataTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status}" Value="CompletedWithSuccess">
+                                                            <Setter Property="ContentTemplate">
+                                                                <Setter.Value>
+                                                                    <DataTemplate>
+                                                                        <Image Source="../../Resources/checked.png" Width="12" />
+                                                                    </DataTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ContentControl.Style>
+                                        </ContentControl>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Header="File" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Where" Binding="{Binding Document.MutationDetails.Location.Where}" Width="*" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Line" Binding="{Binding Document.MutationDetails.Location.Line}" Width="*" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Info" Binding="{Binding InfoText}" Width="*" IsReadOnly="True"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </ScrollViewer>

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Unima.Helpers.Behavior
+namespace Unima.Wpf.Shared.Behavior
 {
     public static class AutoScrollBehavior
     {
