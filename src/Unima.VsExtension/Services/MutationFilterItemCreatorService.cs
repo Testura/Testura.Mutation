@@ -15,7 +15,7 @@ namespace Unima.VsExtension.Services
                 mutationFilterItems.Add(new MutationDocumentFilterItem
                 {
                     Effect = MutationDocumentFilterItem.FilterEffect.Allow,
-                    Resource = $"*/{file}"
+                    Resource = file
                 });
             }
 
@@ -24,14 +24,14 @@ namespace Unima.VsExtension.Services
 
         public IEnumerable<MutationDocumentFilterItem> CreateFilterFromLines(string file, int startLine, int endLine)
         {
-            var actualStartLine = startLine > endLine ? startLine : endLine;
+            var actualStartLine = startLine > endLine ? endLine : startLine;
 
             var mutationFilterItems = new List<MutationDocumentFilterItem>
             {
                 new MutationDocumentFilterItem
                 {
                     Effect = MutationDocumentFilterItem.FilterEffect.Allow,
-                    Resource = $"/{file}",
+                    Resource = file,
                     Lines = new List<string> { $"{actualStartLine},{Math.Abs(startLine - endLine)}" }
                 }
             };

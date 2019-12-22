@@ -50,7 +50,7 @@ namespace Unima.VsExtension
             await MutationExplorerWindowCommand.InitializeAsync(this);
             await SelectProjectFileCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<MutationFilterItemCreatorService>());
             await Sections.Config.UnimaConfigWindowCommand.InitializeAsync(this);
-            await SelectLineCommand.InitializeAsync(this);
+            await SelectLineCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<MutationFilterItemCreatorService>());
         }
 
         protected override WindowPane InstantiateToolWindow(Type toolWindowType) => (WindowPane)GetService(toolWindowType);

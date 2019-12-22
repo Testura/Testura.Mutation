@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TextManager.Interop;
@@ -55,6 +56,15 @@ namespace Unima.VsExtension.Sections.Selects
 
                 view.GetSelection(out int startLine, out var startColumn, out var endLine, out var endColumn);
 
+                var dte = await ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
+
+                if (dte == null)
+                {
+                    return;
+                }
+
+                var file = dte.ActiveDocument.FullName;
+
                 var window =
                     await _package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true, _package.DisposalToken) as MutationExplorerWindow;
                 if (window?.Frame == null)
@@ -65,7 +75,7 @@ namespace Unima.VsExtension.Sections.Selects
                 var windowFrame = (IVsWindowFrame)window.Frame;
                 Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
 
-                window.InitializeWindow(_mutationFilterItemCreatorService.CreateFilterFromLines(startLine, endLine));
+                window.InitializeWindow(_mutationFilterItemCreatorService.CreateFilterFromLines(file, startLine, endLine));
             });
         }
     }

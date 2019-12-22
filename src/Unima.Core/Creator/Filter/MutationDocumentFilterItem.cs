@@ -95,7 +95,8 @@ namespace Unima.Core.Creator.Filter
 
         private string FormattedResource()
         {
-            return "^" + Regex.Escape(Resource).Replace("\\*", ".*") + "$";
+            var formattedResource = Resource.Replace('\\', '/');
+            return "^" + Regex.Escape(formattedResource).Replace("\\*", ".*") + "$";
         }
     }
 }

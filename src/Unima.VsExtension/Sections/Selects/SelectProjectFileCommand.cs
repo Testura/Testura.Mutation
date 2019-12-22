@@ -74,7 +74,7 @@ namespace Unima.VsExtension.Sections.Selects
                     {
                         if (selectedItem.ProjectItem is ProjectItem projectItem)
                         {
-                            files.Add(projectItem.Name);
+                            files.Add(projectItem.Document.FullName);
                         }
                     }
 
