@@ -1,7 +1,10 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TextManager.Interop;
+using Unima.VsExtension.Sections.MutationExplorer;
+using Unima.VsExtension.Services;
 using Task = System.Threading.Tasks.Task;
 
 namespace Unima.VsExtension.Sections.Selects
@@ -10,11 +13,17 @@ namespace Unima.VsExtension.Sections.Selects
     {
         public const int CommandId = 256;
         public static readonly Guid CommandSet = new Guid("ecfde8a8-d072-4335-b4fb-f268abaecb97");
-        private readonly AsyncPackage _package;
 
-        private SelectLineCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private readonly AsyncPackage _package;
+        private readonly MutationFilterItemCreatorService _mutationFilterItemCreatorService;
+
+        private SelectLineCommand(
+            AsyncPackage package,
+            OleMenuCommandService commandService,
+            MutationFilterItemCreatorService mutationFilterItemCreatorService)
         {
             _package = package ?? throw new ArgumentNullException(nameof(package));
+            _mutationFilterItemCreatorService = mutationFilterItemCreatorService;
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
@@ -26,12 +35,12 @@ namespace Unima.VsExtension.Sections.Selects
 
         private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider => _package;
 
-        public static async Task InitializeAsync(AsyncPackage package)
+        public static async Task InitializeAsync(AsyncPackage package, MutationFilterItemCreatorService mutationFilterItemCreatorService)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             var commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new SelectLineCommand(package, commandService);
+            Instance = new SelectLineCommand(package, commandService, mutationFilterItemCreatorService);
         }
 
         private void Execute(object sender, EventArgs e)
@@ -42,9 +51,21 @@ namespace Unima.VsExtension.Sections.Selects
 
                 var service = await ServiceProvider.GetServiceAsync(typeof(SVsTextManager));
                 var textManager = service as IVsTextManager2;
-                var result = textManager.GetActiveView2(1, null, (uint)_VIEWFRAMETYPE.vftCodeWindow, out var view);
+                textManager.GetActiveView2(1, null, (uint)_VIEWFRAMETYPE.vftCodeWindow, out var view);
 
                 view.GetSelection(out int startLine, out var startColumn, out var endLine, out var endColumn);
+
+                var window =
+                    await _package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true, _package.DisposalToken) as MutationExplorerWindow;
+                if (window?.Frame == null)
+                {
+                    throw new NotSupportedException("Cannot create tool window");
+                }
+
+                var windowFrame = (IVsWindowFrame)window.Frame;
+                Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+
+                window.InitializeWindow(_mutationFilterItemCreatorService.CreateFilterFromLines(startLine, endLine));
             });
         }
     }

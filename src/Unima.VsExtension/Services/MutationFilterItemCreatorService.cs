@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Unima.Core.Creator.Filter;
 
 namespace Unima.VsExtension.Services
@@ -17,6 +18,23 @@ namespace Unima.VsExtension.Services
                     Resource = $"*/{file}"
                 });
             }
+
+            return mutationFilterItems;
+        }
+
+        public IEnumerable<MutationDocumentFilterItem> CreateFilterFromLines(string file, int startLine, int endLine)
+        {
+            var actualStartLine = startLine > endLine ? startLine : endLine;
+
+            var mutationFilterItems = new List<MutationDocumentFilterItem>
+            {
+                new MutationDocumentFilterItem
+                {
+                    Effect = MutationDocumentFilterItem.FilterEffect.Allow,
+                    Resource = $"/{file}",
+                    Lines = new List<string> { $"{actualStartLine},{Math.Abs(startLine - endLine)}" }
+                }
+            };
 
             return mutationFilterItems;
         }
