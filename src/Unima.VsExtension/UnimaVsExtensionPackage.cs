@@ -12,6 +12,7 @@ using Microsoft.VisualStudio.Shell;
 using Unima.Application.Logs;
 using Unima.Core.Solution;
 using Unima.VsExtension.Sections.MutationExplorer;
+using Unima.VsExtension.Sections.Selects;
 using Unima.VsExtension.Services;
 using Unima.VsExtension.Solution;
 using Unima.VsExtension.Wrappers;
@@ -47,8 +48,9 @@ namespace Unima.VsExtension
             _outputLoggerService.StartLogger();
 
             await MutationExplorerWindowCommand.InitializeAsync(this);
-            await Sections.SelectProjectFile.SelectProjectFileCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<MutationFilterItemCreatorService>());
+            await SelectProjectFileCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<MutationFilterItemCreatorService>());
             await Sections.Config.UnimaConfigWindowCommand.InitializeAsync(this);
+            await SelectLineCommand.InitializeAsync(this);
         }
 
         protected override WindowPane InstantiateToolWindow(Type toolWindowType) => (WindowPane)GetService(toolWindowType);

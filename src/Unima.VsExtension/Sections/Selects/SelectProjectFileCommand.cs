@@ -8,7 +8,7 @@ using Unima.VsExtension.Sections.MutationExplorer;
 using Unima.VsExtension.Services;
 using Task = System.Threading.Tasks.Task;
 
-namespace Unima.VsExtension.Sections.SelectProjectFile
+namespace Unima.VsExtension.Sections.Selects
 {
     internal sealed class SelectProjectFileCommand
     {

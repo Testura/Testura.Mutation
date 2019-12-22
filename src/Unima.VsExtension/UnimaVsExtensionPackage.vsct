@@ -20,6 +20,9 @@
       </Group>
       <Group guid="guidUnimaVsExtensionPackageCmdSet1" id="MyContextGroup" priority="0x0600">
       </Group>
+      <Group guid="guidUnimaVsExtensionPackageCmdSet2" id="EditorContextMenuGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
+      </Group>
     </Groups>
 
     <Buttons>
@@ -46,6 +49,13 @@
         </Strings>
       </Button>
 
+      <Button guid="guidUnimaVsExtensionPackageCmdSet2" id="cmdidSelectLineCommand" priority="0x0100" type="Button">
+        <Parent guid="guidUnimaVsExtensionPackageCmdSet2" id="EditorContextMenuGroup" />
+        <Icon guid="guidImages2" id="bmpPic1" />
+        <Strings>
+          <ButtonText>Mutate line(s)...</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
 
     <Bitmaps>
@@ -124,6 +134,11 @@
       <IDSymbol name="bmpPicX" value="4" />
       <IDSymbol name="bmpPicArrows" value="5" />
       <IDSymbol name="bmpPicStrikethrough" value="6" />
+    </GuidSymbol>
+  
+    <GuidSymbol value="{ecfde8a8-d072-4335-b4fb-f268abaecb97}" name="guidUnimaVsExtensionPackageCmdSet2">
+      <IDSymbol value="4128" name="EditorContextMenuGroup" />
+      <IDSymbol value="256" name="cmdidSelectLineCommand" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>
