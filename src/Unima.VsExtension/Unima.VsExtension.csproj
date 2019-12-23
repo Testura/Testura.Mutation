@@ -48,6 +48,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="MutationHighlight\MutationCodeHighlightFormatDefinition.cs" />
+    <Compile Include="MutationHighlight\MutationCodeHighlightHandler.cs" />
+    <Compile Include="MutationHighlight\MutationCodeHighlightTag.cs" />
+    <Compile Include="MutationHighlight\MutationCodeHighlightTagger.cs" />
+    <Compile Include="MutationHighlight\MutationCodeHighlightTaggerProvider.cs" />
+    <Compile Include="MutationHighlight\MutationHightlight.cs" />
     <Compile Include="Sections\Config\UnimaConfigWindow.cs" />
     <Compile Include="Sections\Config\UnimaConfigWindowCommand.cs" />
     <Compile Include="Sections\Config\UnimaConfigWindowControl.xaml.cs">

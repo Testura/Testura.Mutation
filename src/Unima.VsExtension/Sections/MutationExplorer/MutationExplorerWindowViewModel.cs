@@ -21,6 +21,7 @@ using Unima.Application.Models;
 using Unima.Core;
 using Unima.Core.Config;
 using Unima.Core.Creator.Filter;
+using Unima.VsExtension.MutationHighlight;
 using Unima.VsExtension.Sections.Config;
 using Unima.VsExtension.Wrappers;
 using Unima.Wpf.Shared.Models;
@@ -31,13 +32,15 @@ namespace Unima.VsExtension.Sections.MutationExplorer
     {
         private readonly EnvironmentWrapper _environmentWrapper;
         private readonly IMediator _mediator;
+        private readonly MutationCodeHighlightHandler _mutationCodeHighlightHandler;
         private List<MutationDocumentFilterItem> _filterItems;
         private UnimaConfig _config;
 
-        public MutationExplorerWindowViewModel(EnvironmentWrapper environmentWrapper, IMediator mediator)
+        public MutationExplorerWindowViewModel(EnvironmentWrapper environmentWrapper, IMediator mediator, MutationCodeHighlightHandler mutationCodeHighlightHandler)
         {
             _environmentWrapper = environmentWrapper;
             _mediator = mediator;
+            _mutationCodeHighlightHandler = mutationCodeHighlightHandler;
             _filterItems = new List<MutationDocumentFilterItem>();
             Mutations = new ObservableCollection<TestRunDocument>();
             RunMutationsCommand = new DelegateCommand(RunMutations);
@@ -102,6 +105,15 @@ namespace Unima.VsExtension.Sections.MutationExplorer
                             Status = TestRunDocument.TestRunStatusEnum.Waiting
                         });
                     }
+
+                    _mutationCodeHighlightHandler.UpdateMutationHighlightList(new List<MutationHightlight>(Mutations.Select(m =>
+                         new MutationHightlight
+                         {
+                             FilePath = m.Document.FilePath,
+                             Line = int.Parse(m.Document.MutationDetails.Location.Line.Split(new[] { "@(", ":" }, StringSplitOptions.RemoveEmptyEntries)[0]),
+                             Start = m.Document.MutationDetails.Orginal.FullSpan.Start,
+                             Length = m.Document.MutationDetails.Orginal.FullSpan.Length
+                         })));
                 }
                 catch (Exception)
                 {
