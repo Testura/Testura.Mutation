@@ -11,5 +11,10 @@ namespace Unima.VsExtension.MutationHighlight
         {
             OnMutationHighlightUpdate?.Invoke(typeof(MutationCodeHighlightHandler), new List<MutationHightlight>(mutationHightlights));
         }
+
+        public void ClearHighlights()
+        {
+            OnMutationHighlightUpdate?.Invoke(typeof(MutationCodeHighlightHandler), new List<MutationHightlight>());
+        }
     }
 }

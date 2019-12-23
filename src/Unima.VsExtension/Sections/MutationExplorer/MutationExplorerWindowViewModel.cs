@@ -35,9 +35,12 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         private readonly MutationCodeHighlightHandler _mutationCodeHighlightHandler;
         private List<MutationDocumentFilterItem> _filterItems;
         private UnimaConfig _config;
+        private bool _showhighlight;
+        private IList<TestRunDocument> _survivedMutations;
 
         public MutationExplorerWindowViewModel(EnvironmentWrapper environmentWrapper, IMediator mediator, MutationCodeHighlightHandler mutationCodeHighlightHandler)
         {
+            _survivedMutations = new List<TestRunDocument>();
             _environmentWrapper = environmentWrapper;
             _mediator = mediator;
             _mutationCodeHighlightHandler = mutationCodeHighlightHandler;
@@ -46,7 +49,7 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             RunMutationsCommand = new DelegateCommand(RunMutations);
             MutationSelectedCommand = new DelegateCommand<TestRunDocument>(UpdateSelectedMutation);
             GoToMutationCommand = new DelegateCommand<TestRunDocument>(GoToMutationFile);
-
+            HighlightChangedCommand = new DelegateCommand<bool>(HightlightChanged);
             ToggleMutation = new DelegateCommand(() => IsMutationVisible = !IsMutationVisible);
         }
 
@@ -57,6 +60,8 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         public DelegateCommand ToggleMutation { get; set; }
 
         public DelegateCommand<TestRunDocument> GoToMutationCommand { get; set; }
+
+        public DelegateCommand<bool> HighlightChangedCommand { get; set; }
 
         public ObservableCollection<TestRunDocument> Mutations { get; set; }
 
@@ -105,15 +110,6 @@ namespace Unima.VsExtension.Sections.MutationExplorer
                             Status = TestRunDocument.TestRunStatusEnum.Waiting
                         });
                     }
-
-                    _mutationCodeHighlightHandler.UpdateMutationHighlightList(new List<MutationHightlight>(Mutations.Select(m =>
-                         new MutationHightlight
-                         {
-                             FilePath = m.Document.FilePath,
-                             Line = int.Parse(m.Document.MutationDetails.Location.Line.Split(new[] { "@(", ":" }, StringSplitOptions.RemoveEmptyEntries)[0]),
-                             Start = m.Document.MutationDetails.Orginal.FullSpan.Start,
-                             Length = m.Document.MutationDetails.Orginal.FullSpan.Length
-                         })));
                 }
                 catch (Exception)
                 {
@@ -207,7 +203,19 @@ namespace Unima.VsExtension.Sections.MutationExplorer
                         return;
                     }
 
+                    if (result.Survived)
+                    {
+                        _survivedMutations.Add(runDocument);
+                    }
+
                     runDocument.InfoText = $"{result.FailedTests.Count} of {result.TestsRunCount} tests failed";
+
+                    if (Mutations.All(m =>
+                        m.Status == TestRunDocument.TestRunStatusEnum.CompletedWithFailure ||
+                        m.Status == TestRunDocument.TestRunStatusEnum.CompletedWithSuccess))
+                    {
+                        UpdateHighlightedMutations();
+                    }
                 }
             });
         }
@@ -282,6 +290,34 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
                 return true;
             });
+        }
+
+        private void HightlightChanged(bool isChecked)
+        {
+            _showhighlight = isChecked;
+
+            if (_survivedMutations.Any() && !IsLoadingVisible)
+            {
+                UpdateHighlightedMutations();
+            }
+        }
+
+        private void UpdateHighlightedMutations()
+        {
+            if (_showhighlight)
+            {
+                _mutationCodeHighlightHandler.UpdateMutationHighlightList(new List<MutationHightlight>(_survivedMutations.Select(m =>
+                    new MutationHightlight
+                    {
+                        FilePath = m.Document.FilePath,
+                        Line = int.Parse(m.Document.MutationDetails.Location.Line.Split(new[] { "@(", ":" }, StringSplitOptions.RemoveEmptyEntries)[0]),
+                        Start = m.Document.MutationDetails.Orginal.FullSpan.Start,
+                        Length = m.Document.MutationDetails.Orginal.FullSpan.Length
+                    })));
+                return;
+            }
+
+            _mutationCodeHighlightHandler.ClearHighlights();
         }
     }
 }

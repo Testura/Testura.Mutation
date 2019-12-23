@@ -38,11 +38,34 @@
             </ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <materialDesign:Card Margin="8, 16, 16, 8" Height="90" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" IsEnabled="{Binding TestNotStarted}">
-            <StackPanel Orientation="Horizontal">
-                <Button Content="Run mutations" Command="{Binding RunMutationsCommand}" Margin="16, 0, 16, 0" IsEnabled="{Binding IsRunButtonEnabled}"/>
-            </StackPanel>
-        </materialDesign:Card>
+        <Grid HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180" />
+                <ColumnDefinition Width="305" />
+            </Grid.ColumnDefinitions>
+
+            <materialDesign:Card Margin="8, 16, 0, 8" Height="90" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding TestNotStarted}">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Run mutations" Command="{Binding RunMutationsCommand}" Margin="16, 0, 16, 0" IsEnabled="{Binding IsRunButtonEnabled}"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+
+            <materialDesign:Card Margin="8, 16, 16, 8" Height="90" Grid.Row="0" Grid.Column="1" IsEnabled="{Binding TestNotStarted}">
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Style="{StaticResource MaterialDesignCheckBox}"
+                              IsChecked="{Binding RunBaseline}"
+                              Margin="16, 0, 16, 0"
+                              Foreground="White"
+                              Command="{Binding HighlightChangedCommand}"
+                              CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}">
+                        Highlight surviving mutations in code
+                    </CheckBox>
+                </StackPanel>
+            </materialDesign:Card>
+        </Grid>
+
+
 
         <materialDesign:Card Margin="8, 16, 8, 8" Height="90" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Width="250" Visibility="{Binding IsLoadingVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel Orientation="Horizontal" Margin="25, 0, 0, 0">

@@ -1,27 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Unima.Core.Creator.Filter;
+using Unima.VsExtension.MutationHighlight;
 
 namespace Unima.VsExtension.Sections.MutationExplorer
 {
-    /// <summary>
-    /// This class implements the tool window exposed by this package and hosts a user control.
-    /// </summary>
-    /// <remarks>
-    /// In Visual Studio tool windows are composed of a frame (implemented by the shell) and a pane,
-    /// usually implemented by the package implementer.
-    /// <para>
-    /// This class derives from the ToolWindowPane class provided from the MPF in order to use its
-    /// implementation of the IVsUIElementPane interface.
-    /// </para>
-    /// </remarks>
     [Guid("ee8fe630-e2c0-4867-a4ba-112709e71d52")]
-    public class MutationExplorerWindow : ToolWindowPane
+    public class MutationExplorerWindow : ToolWindowPane, IVsWindowFrameNotify3
     {
-        public MutationExplorerWindow(MutationExplorerWindowControl mutationToolWindowControl)
+        private readonly MutationCodeHighlightHandler _mutationCodeHighlightHandler;
+
+        public MutationExplorerWindow(
+            MutationExplorerWindowControl mutationToolWindowControl,
+            MutationCodeHighlightHandler mutationCodeHighlightHandler)
             : base(null)
         {
+            _mutationCodeHighlightHandler = mutationCodeHighlightHandler;
             Caption = "Unima mutation explorer";
             Content = mutationToolWindowControl;
         }
@@ -34,6 +30,33 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         public void InitializeWindow(IEnumerable<MutationDocumentFilterItem> filterItems)
         {
             ((MutationExplorerWindowControl)Content).Initialize(filterItems);
+        }
+
+        public int OnShow(int fShow)
+        {
+            return Microsoft.VisualStudio.VSConstants.S_OK;
+        }
+
+        public int OnMove(int x, int y, int w, int h)
+        {
+            return Microsoft.VisualStudio.VSConstants.S_OK;
+        }
+
+        public int OnSize(int x, int y, int w, int h)
+        {
+            return Microsoft.VisualStudio.VSConstants.S_OK;
+        }
+
+        public int OnDockableChange(int fDockable, int x, int y, int w, int h)
+        {
+            return Microsoft.VisualStudio.VSConstants.S_OK;
+        }
+
+        public int OnClose(ref uint pgrfSaveOptions)
+        {
+            _mutationCodeHighlightHandler.ClearHighlights();
+
+            return Microsoft.VisualStudio.VSConstants.S_OK;
         }
     }
 }
