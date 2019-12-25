@@ -119,7 +119,14 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutations
 
         private double GetMutationScore(List<MutationDocumentResult> results)
         {
-            return Math.Round((double)results.Count(r => !r.Survived) / results.Count(r => r.CompilationResult != null && r.CompilationResult.IsSuccess && r.UnexpectedError == null) * 100);
+            var validMutations = results.Where(r => r.CompilationResult != null && r.CompilationResult.IsSuccess && r.UnexpectedError == null).ToList();
+
+            if (!validMutations.Any())
+            {
+                return 100;
+            }
+
+            return Math.Round((double)validMutations.Count(r => !r.Survived) / validMutations.Count * 100);
         }
     }
 }

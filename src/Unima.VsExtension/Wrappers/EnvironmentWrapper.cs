@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Threading;
 using Unima.VsExtension.Services;
+using Constants = EnvDTE.Constants;
 
 namespace Unima.VsExtension.Wrappers
 {
@@ -44,6 +45,28 @@ namespace Unima.VsExtension.Wrappers
 
                 var windowFrame = (IVsWindowFrame)window.Frame;
                 Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+            });
+        }
+
+        public void CloseActiveWindow()
+        {
+            JoinableTaskFactory.Run(async () =>
+            {
+                await JoinableTaskFactory.SwitchToMainThreadAsync();
+                Dte.ActiveWindow.Close();
+            });
+        }
+
+        public void GoToLine(string filePath, int line)
+        {
+            JoinableTaskFactory.RunAsync(async () =>
+            {
+                await JoinableTaskFactory.SwitchToMainThreadAsync();
+
+                var window = Dte.OpenFile(Constants.vsViewKindPrimary, filePath);
+                window.Visible = true;
+
+                ((TextSelection)window.Document.Selection).GotoLine(line, true);
             });
         }
     }

@@ -69,6 +69,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sections\Selects\SelectLineCommand.cs" />
     <Compile Include="Sections\Selects\SelectProjectFileCommand.cs" />
+    <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\MutationFilterItemCreatorService.cs" />
     <Compile Include="Wrappers\EnvironmentWrapper.cs" />
     <Compile Include="Services\OutputLoggerService.cs" />

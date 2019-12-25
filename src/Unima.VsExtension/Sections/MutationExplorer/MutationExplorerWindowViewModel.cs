@@ -2,28 +2,22 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using DiffPlex;
 using DiffPlex.DiffBuilder;
 using DiffPlex.DiffBuilder.Model;
-using EnvDTE;
 using MediatR;
 using Microsoft.VisualStudio.PlatformUI;
-using Microsoft.VisualStudio.Threading;
-using Newtonsoft.Json;
 using Prism.Mvvm;
 using Unima.Application.Commands.Mutation.CreateMutations;
 using Unima.Application.Commands.Mutation.ExecuteMutations;
 using Unima.Application.Commands.Project.OpenProject;
-using Unima.Application.Models;
 using Unima.Core;
 using Unima.Core.Config;
 using Unima.Core.Creator.Filter;
 using Unima.VsExtension.MutationHighlight;
-using Unima.VsExtension.Sections.Config;
+using Unima.VsExtension.Services;
 using Unima.VsExtension.Wrappers;
 using Unima.Wpf.Shared.Models;
 
@@ -32,25 +26,37 @@ namespace Unima.VsExtension.Sections.MutationExplorer
     public class MutationExplorerWindowViewModel : BindableBase, INotifyPropertyChanged
     {
         private readonly EnvironmentWrapper _environmentWrapper;
+        private readonly ConfigService _configService;
         private readonly IMediator _mediator;
         private readonly MutationCodeHighlightHandler _mutationCodeHighlightHandler;
+
         private List<MutationDocumentFilterItem> _filterItems;
         private UnimaConfig _config;
         private bool _showhighlight;
-        private IList<TestRunDocument> _survivedMutations;
         private CancellationTokenSource _tokenSource;
+        private IList<MutationDocumentResult> _mutationRunResult;
 
-        public MutationExplorerWindowViewModel(EnvironmentWrapper environmentWrapper, IMediator mediator, MutationCodeHighlightHandler mutationCodeHighlightHandler)
+        public MutationExplorerWindowViewModel(
+            EnvironmentWrapper environmentWrapper,
+            ConfigService configService,
+            MutationCodeHighlightHandler mutationCodeHighlightHandler,
+            IMediator mediator)
         {
-            _survivedMutations = new List<TestRunDocument>();
             _environmentWrapper = environmentWrapper;
+            _configService = configService;
             _mediator = mediator;
             _mutationCodeHighlightHandler = mutationCodeHighlightHandler;
             _filterItems = new List<MutationDocumentFilterItem>();
+            _mutationRunResult = new List<MutationDocumentResult>();
+
             Mutations = new ObservableCollection<TestRunDocument>();
+
             RunMutationsCommand = new DelegateCommand(RunMutations);
             MutationSelectedCommand = new DelegateCommand<TestRunDocument>(UpdateSelectedMutation);
-            GoToMutationCommand = new DelegateCommand<TestRunDocument>(GoToMutationFile);
+
+            GoToMutationCommand = new DelegateCommand<TestRunDocument>(
+                mutation => _environmentWrapper.GoToLine(mutation.Document.FilePath, mutation.Document.MutationDetails.Location.GetLineNumber()));
+
             HighlightChangedCommand = new DelegateCommand<bool>(HightlightChanged);
             ToggleMutation = new DelegateCommand(() => IsMutationVisible = !IsMutationVisible);
         }
@@ -83,23 +89,18 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
         public void CreateMutations()
         {
+            var baseFileConfig = _configService.GetBaseFileConfig();
+
+            Mutations.Clear();
+            ShowLoading("Loading mutations..");
+
+            baseFileConfig.Filter = new MutationDocumentFilter { FilterItems = _filterItems ?? new List<MutationDocumentFilterItem>() };
+
             _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
             {
-                Mutations.Clear();
-                StartLoading("Loading mutations..");
-
-                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-                var baseConfig = JsonConvert.DeserializeObject<UnimaFileConfig>(
-                    File.ReadAllText(Path.Combine(Path.GetDirectoryName(_environmentWrapper.Dte.Solution.FullName), UnimaVsExtensionPackage.BaseConfigName)));
-
-                await TaskScheduler.Default;
-
                 try
                 {
-                    baseConfig.Filter = new MutationDocumentFilter { FilterItems = _filterItems ?? new List<MutationDocumentFilterItem>() };
-                    _config = await _mediator.Send(new OpenProjectCommand(baseConfig));
-
+                    _config = await _mediator.Send(new OpenProjectCommand(baseFileConfig));
                     var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(_config), _tokenSource.Token);
 
                     await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
@@ -120,46 +121,34 @@ namespace Unima.VsExtension.Sections.MutationExplorer
                 }
                 finally
                 {
-                    StopLoading();
+                    HideLoading();
                 }
             });
         }
 
-        public void Initialize(IEnumerable<MutationDocumentFilterItem> filterItems)
+        public void Initialize(IEnumerable<MutationDocumentFilterItem> filterItems = null)
         {
             _tokenSource = new CancellationTokenSource();
 
-            if (!VerifyConfigExist())
+            if (!_configService.ConfigExist())
             {
                 return;
             }
 
-            _filterItems = new List<MutationDocumentFilterItem>(filterItems);
+            if (filterItems == null || !filterItems.Any())
+            {
+                var result = _environmentWrapper.UserNotificationService.Confirm("You have not selected any file(s) or line(s) so we will mutate the whole project. Is this okay?");
+                if (!result)
+                {
+                    _environmentWrapper.CloseActiveWindow();
+                    return;
+                }
+            }
+
+            _filterItems = new List<MutationDocumentFilterItem>(
+                filterItems ?? new List<MutationDocumentFilterItem>());
+
             CreateMutations();
-        }
-
-        public void Initialize()
-        {
-            _tokenSource = new CancellationTokenSource();
-
-            if (!VerifyConfigExist())
-            {
-                return;
-            }
-
-            var result = _environmentWrapper.UserNotificationService.Confirm("You have not selected any file(s) so we will mutate the whole project. Is this okay?");
-
-            if (result)
-            {
-                CreateMutations();
-                return;
-            }
-
-            _environmentWrapper.JoinableTaskFactory.Run(async () =>
-            {
-                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
-                _environmentWrapper.Dte.ActiveWindow.Close();
-            });
         }
 
         public void Close()
@@ -174,15 +163,17 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             {
                 try
                 {
-                    StartLoading("Running mutations");
+                    ShowLoading("Running mutations");
 
-                    var latestResult = await _mediator.Send(
+                    _mutationRunResult = await _mediator.Send(
                         new ExecuteMutationsCommand(
                             _config,
                             Mutations.Select(r => r.Document).ToList(),
                             MutationDocumentStarted,
                             MutationDocumentCompleted),
                         _tokenSource.Token);
+
+                    UpdateHighlightedMutations();
                 }
                 catch (Exception)
                 {
@@ -191,7 +182,7 @@ namespace Unima.VsExtension.Sections.MutationExplorer
                 }
                 finally
                 {
-                    StopLoading();
+                    HideLoading();
                 }
             });
         }
@@ -210,25 +201,13 @@ namespace Unima.VsExtension.Sections.MutationExplorer
                         ? TestRunDocument.TestRunStatusEnum.CompletedWithFailure
                         : TestRunDocument.TestRunStatusEnum.CompletedWithSuccess;
 
-                    if (!result.CompilationResult.IsSuccess)
+                    if (result.CompilationResult != null && !result.CompilationResult.IsSuccess)
                     {
                         runDocument.InfoText = "Failed to compile.";
                         return;
                     }
 
-                    if (result.Survived)
-                    {
-                        _survivedMutations.Add(runDocument);
-                    }
-
                     runDocument.InfoText = $"{result.FailedTests.Count} of {result.TestsRunCount} tests failed";
-
-                    if (Mutations.All(m =>
-                        m.Status == TestRunDocument.TestRunStatusEnum.CompletedWithFailure ||
-                        m.Status == TestRunDocument.TestRunStatusEnum.CompletedWithSuccess))
-                    {
-                        UpdateHighlightedMutations();
-                    }
                 }
             });
         }
@@ -255,61 +234,24 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             Diff = diffBuilder.BuildDiffModel(CodeBeforeMutation, CodeAfterMutation);
         }
 
-        private void GoToMutationFile(TestRunDocument obj)
-        {
-            _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
-            {
-                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-                var window = _environmentWrapper.Dte.OpenFile(Constants.vsViewKindPrimary, obj.Document.FilePath);
-                var line = obj.Document.MutationDetails.Location.Line.Split(new[] { "@(", ":" }, StringSplitOptions.RemoveEmptyEntries);
-                window.Visible = true;
-
-                ((TextSelection)window.Document.Selection).GotoLine(int.Parse(line[0]), true);
-            });
-        }
-
-        private void StartLoading(string message)
+        private void ShowLoading(string message)
         {
             IsLoadingVisible = true;
             IsRunButtonEnabled = false;
             LoadingMessage = message;
         }
 
-        private void StopLoading()
+        private void HideLoading()
         {
             IsLoadingVisible = false;
             IsRunButtonEnabled = true;
-        }
-
-        private bool VerifyConfigExist()
-        {
-            return _environmentWrapper.JoinableTaskFactory.Run(async () =>
-            {
-                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-                if (!File.Exists(Path.Combine(Path.GetDirectoryName(_environmentWrapper.Dte.Solution.FullName), UnimaVsExtensionPackage.BaseConfigName)))
-                {
-                    _environmentWrapper.UserNotificationService.ShowWarning(
-                        "Could not find base config. Please configure unima before running any mutation(s).");
-
-                    await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
-                    _environmentWrapper.Dte.ActiveWindow.Close();
-
-                    _environmentWrapper.OpenWindow<UnimaConfigWindow>();
-
-                    return false;
-                }
-
-                return true;
-            });
         }
 
         private void HightlightChanged(bool isChecked)
         {
             _showhighlight = isChecked;
 
-            if (_survivedMutations.Any() && !IsLoadingVisible)
+            if (_mutationRunResult.Any(m => m.Survived) && !IsLoadingVisible)
             {
                 UpdateHighlightedMutations();
             }
@@ -319,14 +261,9 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         {
             if (_showhighlight)
             {
-                _mutationCodeHighlightHandler.UpdateMutationHighlightList(new List<MutationHightlight>(_survivedMutations.Select(m =>
-                    new MutationHightlight
-                    {
-                        FilePath = m.Document.FilePath,
-                        Line = int.Parse(m.Document.MutationDetails.Location.Line.Split(new[] { "@(", ":" }, StringSplitOptions.RemoveEmptyEntries)[0]),
-                        Start = m.Document.MutationDetails.Orginal.FullSpan.Start,
-                        Length = m.Document.MutationDetails.Orginal.FullSpan.Length
-                    })));
+                var survivedMutations =
+                    Mutations.Where(m => _mutationRunResult.Any(r => r.Id == m.Document.Id && r.Survived));
+                _mutationCodeHighlightHandler.UpdateMutationHighlightList(survivedMutations);
                 return;
             }
 
