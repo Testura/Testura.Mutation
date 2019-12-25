@@ -386,7 +386,7 @@
     <Compile Include="Logs\LogWatcher.cs" />
     <Compile Include="Logs\MemoryAppenderWithEvents.cs" />
     <Compile Include="Models\GitInfo.cs" />
-    <Compile Include="Models\TesturaMutationFileConfig.cs" />
+    <Compile Include="Models\MutationFileConfig.cs" />
     <Compile Include="Extensions\UnityContainerExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

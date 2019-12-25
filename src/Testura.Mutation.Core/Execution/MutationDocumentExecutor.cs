@@ -28,7 +28,7 @@ namespace Testura.Mutation.Core.Execution
         }
 
         public async Task<MutationDocumentResult> ExecuteMutationAsync(
-            TesturaMutationConfig config,
+            MutationConfig config,
             MutationDocument mutationDocument,
             CancellationToken cancellationToken = default(CancellationToken))
         {

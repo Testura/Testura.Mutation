@@ -19,18 +19,18 @@ namespace Testura.Mutation.Wpf.Helpers.Openers.Tabs
             _mainTabContainer = mainTabContainer;
         }
 
-        public void OpenOverviewTab(TesturaMutationConfig config)
+        public void OpenOverviewTab(MutationConfig config)
         {
             _mainTabContainer.RemoveAllTabs();
             _mainTabContainer.AddTab(new MutationDocumentsOverviewView(config));
         }
 
-        public void OpenDocumentDetailsTab(MutationDocument document, TesturaMutationConfig config)
+        public void OpenDocumentDetailsTab(MutationDocument document, MutationConfig config)
         {
             _mainTabContainer.AddTab(new MutationDocumentDetailsView(document, config));
         }
 
-        public void OpenTestRunTab(IReadOnlyList<MutationDocument> documents, TesturaMutationConfig config)
+        public void OpenTestRunTab(IReadOnlyList<MutationDocument> documents, MutationConfig config)
         {
             _mainTabContainer.AddTab(new MutationDocumentsExecutionView(documents, config));
         }
@@ -45,7 +45,7 @@ namespace Testura.Mutation.Wpf.Helpers.Openers.Tabs
             _mainTabContainer.AddTab(new MutationDocumentResultView(result));
         }
 
-        public void OpenFileDetailsTab(FileMutationsModel file, TesturaMutationConfig config)
+        public void OpenFileDetailsTab(FileMutationsModel file, MutationConfig config)
         {
             _mainTabContainer.AddTab(new MutationFileDetailsView(file, config));
         }

@@ -17,7 +17,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             _diffCreator = diffCreator;
         }
 
-        public override Task HandleAsync(TesturaMutationFileConfig fileConfig, TesturaMutationConfig applicationConfig)
+        public override Task HandleAsync(MutationFileConfig fileConfig, MutationConfig applicationConfig)
         {
             if (fileConfig.Git != null && fileConfig.Git.GenerateFilterFromDiffWithMaster)
             {

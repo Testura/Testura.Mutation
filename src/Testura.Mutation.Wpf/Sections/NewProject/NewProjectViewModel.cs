@@ -106,7 +106,7 @@ namespace Testura.Mutation.Sections.NewProject
         {
             var projectPath = Path.Combine(ProjectPath, $"{ProjectName}.json");
 
-            var config = new TesturaMutationFileConfig
+            var config = new MutationFileConfig
             {
                 IgnoredProjects = new List<string>(),
                 SolutionPath = SolutionPath,

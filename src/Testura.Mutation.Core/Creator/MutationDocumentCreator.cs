@@ -20,7 +20,7 @@ namespace Testura.Mutation.Core.Creator
             _solutionOpener = solutionOpener;
         }
 
-        public async Task<IList<MutationDocument>> CreateMutationsAsync(TesturaMutationConfig config, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IList<MutationDocument>> CreateMutationsAsync(MutationConfig config, CancellationToken cancellationToken = default(CancellationToken))
         {
             try
             {
@@ -69,7 +69,7 @@ namespace Testura.Mutation.Core.Creator
             }
         }
 
-        private IList<MutationDocument> CreateMutationsForDocument(TesturaMutationConfig config, Project currentProject, DocumentId documentId)
+        private IList<MutationDocument> CreateMutationsForDocument(MutationConfig config, Project currentProject, DocumentId documentId)
         {
             var mutations = new List<MutationDocument>();
             try

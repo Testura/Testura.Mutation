@@ -8,7 +8,7 @@ namespace Testura.Mutation.Sections.MutationDocumentsOverview
     /// </summary>
     public partial class MutationDocumentsOverviewView : TabItem
     {
-        public MutationDocumentsOverviewView(TesturaMutationConfig config)
+        public MutationDocumentsOverviewView(MutationConfig config)
         {
             InitializeComponent();
 

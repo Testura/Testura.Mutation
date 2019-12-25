@@ -9,7 +9,7 @@ namespace Testura.Mutation.Application.Commands.Mutation.ExecuteMutations
     public class ExecuteMutationsCommand : IRequest<IList<MutationDocumentResult>>
     {
         public ExecuteMutationsCommand(
-            TesturaMutationConfig config,
+            MutationConfig config,
             IList<MutationDocument> mutationDocuments,
             Action<MutationDocument> mutationDocumentStartedCallback = null,
             Action<MutationDocumentResult> mutationDocumentCompledtedCallback = null)
@@ -20,7 +20,7 @@ namespace Testura.Mutation.Application.Commands.Mutation.ExecuteMutations
             MutationDocumentCompledtedCallback = mutationDocumentCompledtedCallback;
         }
 
-        public TesturaMutationConfig Config { get; }
+        public MutationConfig Config { get; }
 
         public IList<MutationDocument> MutationDocuments { get; }
 

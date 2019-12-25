@@ -12,7 +12,7 @@ namespace Testura.Mutation.Sections.MutationDetails
     public class MutationFileDetailsViewModel : BindableBase, INotifyPropertyChanged
     {
         private readonly IMutationModuleTabOpener _tabOpener;
-        private TesturaMutationConfig _config;
+        private MutationConfig _config;
 
         public MutationFileDetailsViewModel(IMutationModuleTabOpener tabOpener)
         {
@@ -29,7 +29,7 @@ namespace Testura.Mutation.Sections.MutationDetails
 
         public DelegateCommand<MutationDocument> MutationSelectedCommand { get; set; }
 
-        public void Initialize(FileMutationsModel file, TesturaMutationConfig config)
+        public void Initialize(FileMutationsModel file, MutationConfig config)
         {
             _config = config;
             File = file;

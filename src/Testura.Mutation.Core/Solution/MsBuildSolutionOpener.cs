@@ -12,7 +12,7 @@ namespace Testura.Mutation.Core.Solution
 {
     public class MsBuildSolutionOpener : ISolutionOpener
     {
-        public async Task<Microsoft.CodeAnalysis.Solution> GetSolutionAsync(TesturaMutationConfig config)
+        public async Task<Microsoft.CodeAnalysis.Solution> GetSolutionAsync(MutationConfig config)
         {
             using (var workspace = MSBuildWorkspace.Create(config.TargetFramework.CreateProperties()))
             {

@@ -31,7 +31,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         private readonly MutationCodeHighlightHandler _mutationCodeHighlightHandler;
 
         private List<MutationDocumentFilterItem> _filterItems;
-        private TesturaMutationConfig _config;
+        private MutationConfig _config;
         private bool _showhighlight;
         private CancellationTokenSource _tokenSource;
         private IList<MutationDocumentResult> _mutationRunResult;

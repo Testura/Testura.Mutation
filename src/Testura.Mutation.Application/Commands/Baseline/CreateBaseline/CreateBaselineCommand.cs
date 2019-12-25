@@ -7,11 +7,11 @@ namespace Testura.Mutation.Application.Commands.Baseline.CreateBaseline
 {
     public class CreateBaselineCommand : IRequest<IList<BaselineInfo>>
     {
-        public CreateBaselineCommand(TesturaMutationConfig config)
+        public CreateBaselineCommand(MutationConfig config)
         {
             Config = config;
         }
 
-        public TesturaMutationConfig Config { get; }
+        public MutationConfig Config { get; }
     }
 }

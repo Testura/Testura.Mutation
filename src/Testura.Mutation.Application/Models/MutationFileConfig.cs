@@ -5,9 +5,9 @@ using Testura.Mutation.Core.Creator.Filter;
 
 namespace Testura.Mutation.Application.Models
 {
-    public class TesturaMutationFileConfig
+    public class MutationFileConfig
     {
-        public TesturaMutationFileConfig()
+        public MutationFileConfig()
         {
             NumberOfTestRunInstances = 3;
             MaxTestTimeMin = 5;

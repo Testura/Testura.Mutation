@@ -9,7 +9,7 @@ namespace Testura.Mutation.Sections.MutationDetails
     /// </summary>
     public partial class MutationFileDetailsView : TabItem
     {
-        public MutationFileDetailsView(FileMutationsModel file, TesturaMutationConfig config)
+        public MutationFileDetailsView(FileMutationsModel file, MutationConfig config)
         {
             InitializeComponent();
 

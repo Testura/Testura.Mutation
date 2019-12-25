@@ -16,7 +16,7 @@ using Testura.Mutation.Core.Solution;
 
 namespace Testura.Mutation.Application.Commands.Project.OpenProject
 {
-    public class OpenProjectCommandHandler : IRequestHandler<OpenProjectCommand, TesturaMutationConfig>
+    public class OpenProjectCommandHandler : IRequestHandler<OpenProjectCommand, MutationConfig>
     {
         private readonly BaselineCreator _baselineCreator;
         private readonly IGitCloner _gitCloner;
@@ -38,7 +38,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
             _solutionOpener = solutionOpener;
         }
 
-        public async Task<TesturaMutationConfig> Handle(OpenProjectCommand command, CancellationToken cancellationToken)
+        public async Task<MutationConfig> Handle(OpenProjectCommand command, CancellationToken cancellationToken)
         {
             var path = command.Path;
 
@@ -69,9 +69,9 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
             }
         }
 
-        private (TesturaMutationFileConfig fileConfig, TesturaMutationConfig applicationConfig) LoadConfigs(
+        private (MutationFileConfig fileConfig, MutationConfig applicationConfig) LoadConfigs(
             string path,
-            TesturaMutationFileConfig fileConfig)
+            MutationFileConfig fileConfig)
         {
             if (fileConfig == null)
             {
@@ -79,10 +79,10 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
 
                 LogTo.Info($"Loading configuration: {fileContent}");
 
-                fileConfig = JsonConvert.DeserializeObject<TesturaMutationFileConfig>(fileContent);
+                fileConfig = JsonConvert.DeserializeObject<MutationFileConfig>(fileContent);
             }
 
-            var config = new TesturaMutationConfig
+            var config = new MutationConfig
             {
                 SolutionPath = fileConfig.SolutionPath,
                 Filter = fileConfig.Filter,

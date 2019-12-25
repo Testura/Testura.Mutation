@@ -29,7 +29,7 @@ namespace Testura.Mutation.Wpf.Helpers.Openers
         public async void OpenProject(string path)
         {
             _loadingDisplayer.ShowLoading($"Opening project at {Path.GetFileName(path)}");
-            TesturaMutationConfig config = null;
+            MutationConfig config = null;
 
             try
             {

@@ -15,7 +15,7 @@ namespace Testura.Mutation.Sections.MutationDetails
     {
         private readonly IMutationModuleTabOpener _tabOpener;
         private MutationDocument _document;
-        private TesturaMutationConfig _config;
+        private MutationConfig _config;
 
         public MutationDocumentDetailsViewModel(IMutationModuleTabOpener tabOpener)
         {
@@ -40,7 +40,7 @@ namespace Testura.Mutation.Sections.MutationDetails
 
         public string Title { get; set; }
 
-        public void Initialize(MutationDocument document, TesturaMutationConfig config)
+        public void Initialize(MutationDocument document, MutationConfig config)
         {
             _config = config;
             _document = document;

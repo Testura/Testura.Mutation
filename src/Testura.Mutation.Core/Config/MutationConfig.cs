@@ -6,9 +6,9 @@ using Testura.Mutation.Core.Solution;
 
 namespace Testura.Mutation.Core.Config
 {
-    public class TesturaMutationConfig
+    public class MutationConfig
     {
-        public TesturaMutationConfig()
+        public MutationConfig()
         {
             MutationProjects = new List<SolutionProjectInfo>();
             TestProjects = new List<TestProject>();

@@ -13,7 +13,7 @@ namespace Testura.Mutation.Core.Solution
             _visualStudioWorkspace = visualStudioWorkspace;
         }
 
-        public Task<Microsoft.CodeAnalysis.Solution> GetSolutionAsync(TesturaMutationConfig config)
+        public Task<Microsoft.CodeAnalysis.Solution> GetSolutionAsync(MutationConfig config)
         {
             return Task.FromResult(_visualStudioWorkspace.CurrentSolution);
         }

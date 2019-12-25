@@ -8,7 +8,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
     {
         public OpenProjectHandler Next { get; set; }
 
-        public virtual Task HandleAsync(TesturaMutationFileConfig fileConfig, TesturaMutationConfig applicationConfig)
+        public virtual Task HandleAsync(MutationFileConfig fileConfig, MutationConfig applicationConfig)
         {
             return Next?.HandleAsync(fileConfig, applicationConfig) ?? Task.CompletedTask;
         }

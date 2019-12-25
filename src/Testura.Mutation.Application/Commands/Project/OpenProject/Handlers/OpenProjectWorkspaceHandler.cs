@@ -26,7 +26,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             _solutionOpener = solutionOpener;
         }
 
-        public override async Task HandleAsync(TesturaMutationFileConfig fileConfig, TesturaMutationConfig applicationConfig)
+        public override async Task HandleAsync(MutationFileConfig fileConfig, MutationConfig applicationConfig)
         {
             var solution = await _solutionOpener.GetSolutionAsync(applicationConfig);
 
@@ -41,7 +41,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             await base.HandleAsync(fileConfig, applicationConfig);
         }
 
-        private void InitializeMutationProjects(TesturaMutationFileConfig fileConfig, TesturaMutationConfig config, Microsoft.CodeAnalysis.Solution solution)
+        private void InitializeMutationProjects(MutationFileConfig fileConfig, MutationConfig config, Microsoft.CodeAnalysis.Solution solution)
         {
             if (fileConfig.IgnoredProjects == null)
             {
@@ -81,7 +81,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             return !content.ToLower().Contains(targetFramework.Name.ToLower());
         }
 
-        private void InitializeTestProjects(TesturaMutationFileConfig fileConfig, TesturaMutationConfig config, Solution solution)
+        private void InitializeTestProjects(MutationFileConfig fileConfig, MutationConfig config, Solution solution)
         {
             if (fileConfig.TestProjects == null || !fileConfig.TestProjects.Any())
             {

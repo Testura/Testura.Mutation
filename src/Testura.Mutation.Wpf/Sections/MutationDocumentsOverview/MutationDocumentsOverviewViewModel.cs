@@ -22,7 +22,7 @@ namespace Testura.Mutation.Sections.MutationDocumentsOverview
         private readonly IMediator _mediator;
         private readonly IMutationModuleTabOpener _tabOpener;
         private readonly ILoadingDisplayer _loadingDisplayer;
-        private TesturaMutationConfig _config;
+        private MutationConfig _config;
 
         public MutationDocumentsOverviewViewModel(IMediator mediator, IMutationModuleTabOpener tabOpener, ILoadingDisplayer loadingDisplayer)
         {
@@ -53,7 +53,7 @@ namespace Testura.Mutation.Sections.MutationDocumentsOverview
 
         public ObservableCollection<MutationOperatorGridItem> MutationOperatorGridItems { get; set; }
 
-        public void Initialize(TesturaMutationConfig config)
+        public void Initialize(MutationConfig config)
         {
             _config = config;
         }

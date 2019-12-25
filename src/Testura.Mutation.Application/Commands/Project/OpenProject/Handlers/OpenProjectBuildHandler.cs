@@ -14,7 +14,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             _solutionBuilder = solutionBuilder;
         }
 
-        public override Task HandleAsync(TesturaMutationFileConfig fileConfig, TesturaMutationConfig applicationConfig)
+        public override Task HandleAsync(MutationFileConfig fileConfig, MutationConfig applicationConfig)
         {
             _solutionBuilder.BuildSolution(fileConfig.SolutionPath);
 

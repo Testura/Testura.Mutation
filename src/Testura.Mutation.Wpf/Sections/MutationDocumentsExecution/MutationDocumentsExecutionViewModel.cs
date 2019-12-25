@@ -33,7 +33,7 @@ namespace Testura.Mutation.Wpf.Sections.MutationDocumentsExecution
         private readonly IMediator _mediator;
         private readonly IMutationModuleTabOpener _mutationModuleTabOpener;
         private readonly FilePicker _filePicker;
-        private TesturaMutationConfig _config;
+        private MutationConfig _config;
         private IList<MutationDocumentResult> _latestResult;
 
         public MutationDocumentsExecutionViewModel(
@@ -95,7 +95,7 @@ namespace Testura.Mutation.Wpf.Sections.MutationDocumentsExecution
 
         public DelegateCommand SeeAllMutationsCommand { get; set; }
 
-        public void SetDocuments(IReadOnlyList<MutationDocument> documents, TesturaMutationConfig config)
+        public void SetDocuments(IReadOnlyList<MutationDocument> documents, MutationConfig config)
         {
             _config = config;
             RunningDocuments.AddRange(documents.Select(d => new TestRunDocument { Document = d, Status = TestRunDocument.TestRunStatusEnum.Waiting }));

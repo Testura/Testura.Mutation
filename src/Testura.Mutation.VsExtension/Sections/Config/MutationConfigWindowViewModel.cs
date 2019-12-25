@@ -61,11 +61,11 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                 _solutionPath = _environmentWrapper.Dte.Solution.FullName;
 
                 var filePath = GetConfigPath();
-                TesturaMutationFileConfig testuraMutationFileConfig = null;
+                MutationFileConfig mutationFileConfig = null;
 
                 if (File.Exists(filePath))
                 {
-                    testuraMutationFileConfig = JsonConvert.DeserializeObject<TesturaMutationFileConfig>(File.ReadAllText(filePath));
+                    mutationFileConfig = JsonConvert.DeserializeObject<MutationFileConfig>(File.ReadAllText(filePath));
                 }
 
                 var projects = await _solutionInfoService.GetSolutionInfoAsync(_solutionPath);
@@ -75,19 +75,19 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                 {
                     ProjectGridItems.Add(new ConfigProjectGridItem
                     {
-                        IsIgnored = testuraMutationFileConfig?.IgnoredProjects.Any(u => u == projectName) ?? false,
-                        IsTestProject = testuraMutationFileConfig?.TestProjects.Any(u => u == projectName) ?? false,
+                        IsIgnored = mutationFileConfig?.IgnoredProjects.Any(u => u == projectName) ?? false,
+                        IsTestProject = mutationFileConfig?.TestProjects.Any(u => u == projectName) ?? false,
                         Name = projectName
                     });
                 }
 
-                RunBaseline = testuraMutationFileConfig?.CreateBaseline ?? true;
+                RunBaseline = mutationFileConfig?.CreateBaseline ?? true;
             });
         }
 
         private void UpdateConfig()
         {
-            var config = new TesturaMutationFileConfig
+            var config = new MutationFileConfig
             {
                 IgnoredProjects = ProjectGridItems.Where(s => s.IsIgnored).Select(s => s.Name).ToList(),
                 SolutionPath = _solutionPath,

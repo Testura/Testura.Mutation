@@ -38,7 +38,7 @@ namespace Testura.Mutation.VsExtension.Services
             });
         }
 
-        public TesturaMutationFileConfig GetBaseFileConfig()
+        public MutationFileConfig GetBaseFileConfig()
         {
             return _environmentWrapper.JoinableTaskFactory.Run(async () =>
                 {
@@ -46,7 +46,7 @@ namespace Testura.Mutation.VsExtension.Services
 
                     var solutionPath = _environmentWrapper.Dte.Solution.FullName;
 
-                    return JsonConvert.DeserializeObject<TesturaMutationFileConfig>(
+                    return JsonConvert.DeserializeObject<MutationFileConfig>(
                         File.ReadAllText(Path.Combine(Path.GetDirectoryName(solutionPath), TesturaMutationVsExtensionPackage.BaseConfigName)));
                 });
         }

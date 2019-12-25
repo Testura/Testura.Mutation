@@ -7,11 +7,11 @@ namespace Testura.Mutation.Application.Commands.Mutation.CreateMutations
 {
     public class CreateMutationsCommand : IRequest<IList<MutationDocument>>
     {
-        public CreateMutationsCommand(TesturaMutationConfig config)
+        public CreateMutationsCommand(MutationConfig config)
         {
             Config = config;
         }
 
-        public TesturaMutationConfig Config { get; set; }
+        public MutationConfig Config { get; set; }
     }
 }

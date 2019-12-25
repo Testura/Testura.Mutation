@@ -6,13 +6,13 @@ namespace Testura.Mutation.Application.Commands.Mutation.ExecuteMutation
 {
     public class ExecuteMutationCommand : IRequest<MutationDocumentResult>
     {
-        public ExecuteMutationCommand(TesturaMutationConfig config, MutationDocument mutation)
+        public ExecuteMutationCommand(MutationConfig config, MutationDocument mutation)
         {
             Config = config;
             Mutation = mutation;
         }
 
-        public TesturaMutationConfig Config { get; }
+        public MutationConfig Config { get; }
 
         public MutationDocument Mutation { get; }
     }

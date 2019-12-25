@@ -5,7 +5,7 @@ namespace Testura.Mutation.Application.Commands.Project.CreateProject
 {
     public class CreateProjectCommand : IRequest<bool>
     {
-        public CreateProjectCommand(string savePath, TesturaMutationFileConfig config)
+        public CreateProjectCommand(string savePath, MutationFileConfig config)
         {
             SavePath = savePath;
             Config = config;
@@ -13,6 +13,6 @@ namespace Testura.Mutation.Application.Commands.Project.CreateProject
 
         public string SavePath { get; set; }
 
-        public TesturaMutationFileConfig Config { get; set; }
+        public MutationFileConfig Config { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 {
     public class OpenProjectMutatorsHandler : OpenProjectHandler
     {
-        public override Task HandleAsync(TesturaMutationFileConfig fileConfig, TesturaMutationConfig applicationConfig)
+        public override Task HandleAsync(MutationFileConfig fileConfig, MutationConfig applicationConfig)
         {
             LogTo.Info("Loading mutators..");
 
@@ -30,7 +30,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             return base.HandleAsync(fileConfig, applicationConfig);
         }
 
-        private void LoadCustomMutatorList(TesturaMutationFileConfig fileConfig, TesturaMutationConfig applicationConfig)
+        private void LoadCustomMutatorList(MutationFileConfig fileConfig, MutationConfig applicationConfig)
         {
             LogTo.Info("..found mutators in config.");
             var mutators = new List<IMutator>();
@@ -50,7 +50,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             applicationConfig.Mutators = mutators;
         }
 
-        private void LoadDefaultMutators(TesturaMutationConfig applicationConfig)
+        private void LoadDefaultMutators(MutationConfig applicationConfig)
         {
             LogTo.Info("..did not find any mutators in config so loading default ones.");
 

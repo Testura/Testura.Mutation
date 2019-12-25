@@ -38,14 +38,14 @@ namespace Testura.Mutation.Core.Baseline
 
         private string BaselineDirectoryPath => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestRun", "Baseline");
 
-        public async Task<IList<BaselineInfo>> CreateBaselineAsync(TesturaMutationConfig config)
+        public async Task<IList<BaselineInfo>> CreateBaselineAsync(MutationConfig config)
         {
             LogTo.Info("Opening solution..");
             var solution = await _solutionOpener.GetSolutionAsync(config);
             return await CreateBaselineAsync(config, solution);
         }
 
-        public async Task<IList<BaselineInfo>> CreateBaselineAsync(TesturaMutationConfig config, Microsoft.CodeAnalysis.Solution solution)
+        public async Task<IList<BaselineInfo>> CreateBaselineAsync(MutationConfig config, Microsoft.CodeAnalysis.Solution solution)
         {
             LogTo.Info("Creating baseline and verifying solution/tests..");
 

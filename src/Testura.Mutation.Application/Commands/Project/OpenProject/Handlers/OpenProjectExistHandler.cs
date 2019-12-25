@@ -17,7 +17,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             _gitCloner = gitCloner;
         }
 
-        public override async Task HandleAsync(TesturaMutationFileConfig fileConfig, TesturaMutationConfig applicationConfig)
+        public override async Task HandleAsync(MutationFileConfig fileConfig, MutationConfig applicationConfig)
         {
             var fileExist = File.Exists(fileConfig.SolutionPath);
 

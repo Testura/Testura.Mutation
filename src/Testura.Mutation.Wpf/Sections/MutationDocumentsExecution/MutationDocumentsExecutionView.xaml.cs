@@ -11,7 +11,7 @@ namespace Testura.Mutation.Wpf.Sections.MutationDocumentsExecution
     /// </summary>
     public partial class MutationDocumentsExecutionView : TabItem
     {
-        public MutationDocumentsExecutionView(IReadOnlyList<MutationDocument> documents, TesturaMutationConfig config)
+        public MutationDocumentsExecutionView(IReadOnlyList<MutationDocument> documents, MutationConfig config)
         {
             InitializeComponent();
 
