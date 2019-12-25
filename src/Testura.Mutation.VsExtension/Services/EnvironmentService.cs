@@ -3,16 +3,15 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Threading;
-using Testura.Mutation.VsExtension.Services;
 using Constants = EnvDTE.Constants;
 
-namespace Testura.Mutation.VsExtension.Wrappers
+namespace Testura.Mutation.VsExtension.Services
 {
-    public class EnvironmentWrapper
+    public class EnvironmentService
     {
         private readonly AsyncPackage _asyncPackage;
 
-        public EnvironmentWrapper(
+        public EnvironmentService(
             DTE dte,
             JoinableTaskFactory joinableTaskFactory,
             AsyncPackage asyncPackage,

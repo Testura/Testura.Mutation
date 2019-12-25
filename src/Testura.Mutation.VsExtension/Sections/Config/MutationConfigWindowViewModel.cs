@@ -10,7 +10,7 @@ using Prism.Mvvm;
 using Testura.Mutation.Application.Models;
 using Testura.Mutation.Core;
 using Testura.Mutation.Core.Solution;
-using Testura.Mutation.VsExtension.Wrappers;
+using Testura.Mutation.VsExtension.Services;
 using Testura.Mutation.Wpf.Shared.Extensions;
 using Testura.Mutation.Wpf.Shared.Models;
 
@@ -18,14 +18,14 @@ namespace Testura.Mutation.VsExtension.Sections.Config
 {
     public class MutationConfigWindowViewModel : BindableBase, INotifyPropertyChanged
     {
-        private readonly EnvironmentWrapper _environmentWrapper;
+        private readonly EnvironmentService _environmentService;
         private readonly SolutionInfoService _solutionInfoService;
         private List<string> _projectNamesInSolution;
         private string _solutionPath;
 
-        public MutationConfigWindowViewModel(EnvironmentWrapper environmentWrapper, SolutionInfoService solutionInfoService)
+        public MutationConfigWindowViewModel(EnvironmentService environmentService, SolutionInfoService solutionInfoService)
         {
-            _environmentWrapper = environmentWrapper;
+            _environmentService = environmentService;
             _solutionInfoService = solutionInfoService;
 
             TestRunnerTypes = new List<string> { "DotNet", "xUnit", "NUnit" };
@@ -55,10 +55,10 @@ namespace Testura.Mutation.VsExtension.Sections.Config
 
         public void Initialize()
         {
-            _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
+            _environmentService.JoinableTaskFactory.RunAsync(async () =>
             {
-                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
-                _solutionPath = _environmentWrapper.Dte.Solution.FullName;
+                await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
+                _solutionPath = _environmentService.Dte.Solution.FullName;
 
                 var filePath = GetConfigPath();
                 MutationFileConfig mutationFileConfig = null;
@@ -98,7 +98,7 @@ namespace Testura.Mutation.VsExtension.Sections.Config
 
             File.WriteAllText(GetConfigPath(), JsonConvert.SerializeObject(config));
 
-            _environmentWrapper.UserNotificationService.ShowMessage("Config updated. Updates won't affect any currently open mutation windows.");
+            _environmentService.UserNotificationService.ShowMessage("Config updated. Updates won't affect any currently open mutation windows.");
         }
 
         private ProjectListItem ConvertToProjectListItem(SolutionProjectInfo solutionProjectInfo, IList<string> projects)

@@ -2,34 +2,33 @@
 using Newtonsoft.Json;
 using Testura.Mutation.Application.Models;
 using Testura.Mutation.VsExtension.Sections.Config;
-using Testura.Mutation.VsExtension.Wrappers;
 
 namespace Testura.Mutation.VsExtension.Services
 {
     public class ConfigService
     {
-        private readonly EnvironmentWrapper _environmentWrapper;
+        private readonly EnvironmentService _environmentService;
 
-        public ConfigService(EnvironmentWrapper environmentWrapper)
+        public ConfigService(EnvironmentService environmentService)
         {
-            _environmentWrapper = environmentWrapper;
+            _environmentService = environmentService;
         }
 
         public bool ConfigExist()
         {
-            return _environmentWrapper.JoinableTaskFactory.Run(async () =>
+            return _environmentService.JoinableTaskFactory.Run(async () =>
             {
-                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                if (!File.Exists(Path.Combine(Path.GetDirectoryName(_environmentWrapper.Dte.Solution.FullName), TesturaMutationVsExtensionPackage.BaseConfigName)))
+                if (!File.Exists(Path.Combine(Path.GetDirectoryName(_environmentService.Dte.Solution.FullName), TesturaMutationVsExtensionPackage.BaseConfigName)))
                 {
-                    _environmentWrapper.UserNotificationService.ShowWarning(
+                    _environmentService.UserNotificationService.ShowWarning(
                         "Could not find base config. Please configure Testura.Mutation before running any mutation(s).");
 
-                    await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                    await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                    _environmentWrapper.Dte.ActiveWindow.Close();
-                    _environmentWrapper.OpenWindow<MutationConfigWindow>();
+                    _environmentService.Dte.ActiveWindow.Close();
+                    _environmentService.OpenWindow<MutationConfigWindow>();
 
                     return false;
                 }
@@ -40,11 +39,11 @@ namespace Testura.Mutation.VsExtension.Services
 
         public MutationFileConfig GetBaseFileConfig()
         {
-            return _environmentWrapper.JoinableTaskFactory.Run(async () =>
+            return _environmentService.JoinableTaskFactory.Run(async () =>
                 {
-                    await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                    await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                    var solutionPath = _environmentWrapper.Dte.Solution.FullName;
+                    var solutionPath = _environmentService.Dte.Solution.FullName;
 
                     return JsonConvert.DeserializeObject<MutationFileConfig>(
                         File.ReadAllText(Path.Combine(Path.GetDirectoryName(solutionPath), TesturaMutationVsExtensionPackage.BaseConfigName)));

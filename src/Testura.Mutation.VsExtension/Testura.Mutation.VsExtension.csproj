@@ -71,7 +71,7 @@
     <Compile Include="Sections\Selects\SelectProjectFileCommand.cs" />
     <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\MutationFilterItemCreatorService.cs" />
-    <Compile Include="Wrappers\EnvironmentWrapper.cs" />
+    <Compile Include="Services\EnvironmentService.cs" />
     <Compile Include="Services\OutputLoggerService.cs" />
     <Compile Include="Services\UserNotificationService.cs" />
     <Compile Include="Solution\VisualStudioSolutionBuilder.cs" />

@@ -18,14 +18,13 @@ using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Creator.Filter;
 using Testura.Mutation.VsExtension.MutationHighlight;
 using Testura.Mutation.VsExtension.Services;
-using Testura.Mutation.VsExtension.Wrappers;
 using Testura.Mutation.Wpf.Shared.Models;
 
 namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 {
     public class MutationExplorerWindowViewModel : BindableBase, INotifyPropertyChanged
     {
-        private readonly EnvironmentWrapper _environmentWrapper;
+        private readonly EnvironmentService _environmentService;
         private readonly ConfigService _configService;
         private readonly IMediator _mediator;
         private readonly MutationCodeHighlightHandler _mutationCodeHighlightHandler;
@@ -37,12 +36,12 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         private IList<MutationDocumentResult> _mutationRunResult;
 
         public MutationExplorerWindowViewModel(
-            EnvironmentWrapper environmentWrapper,
+            EnvironmentService environmentService,
             ConfigService configService,
             MutationCodeHighlightHandler mutationCodeHighlightHandler,
             IMediator mediator)
         {
-            _environmentWrapper = environmentWrapper;
+            _environmentService = environmentService;
             _configService = configService;
             _mediator = mediator;
             _mutationCodeHighlightHandler = mutationCodeHighlightHandler;
@@ -55,7 +54,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             MutationSelectedCommand = new DelegateCommand<TestRunDocument>(UpdateSelectedMutation);
 
             GoToMutationCommand = new DelegateCommand<TestRunDocument>(
-                mutation => _environmentWrapper.GoToLine(mutation.Document.FilePath, mutation.Document.MutationDetails.Location.GetLineNumber()));
+                mutation => _environmentService.GoToLine(mutation.Document.FilePath, mutation.Document.MutationDetails.Location.GetLineNumber()));
 
             HighlightChangedCommand = new DelegateCommand<bool>(HightlightChanged);
             ToggleMutation = new DelegateCommand(() => IsMutationVisible = !IsMutationVisible);
@@ -96,14 +95,14 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
             baseFileConfig.Filter = new MutationDocumentFilter { FilterItems = _filterItems ?? new List<MutationDocumentFilterItem>() };
 
-            _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
+            _environmentService.JoinableTaskFactory.RunAsync(async () =>
             {
                 try
                 {
                     _config = await _mediator.Send(new OpenProjectCommand(baseFileConfig));
                     var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(_config), _tokenSource.Token);
 
-                    await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                    await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                     foreach (var mutationDocument in mutationDocuments)
                     {
@@ -116,7 +115,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                 }
                 catch (Exception)
                 {
-                    _environmentWrapper.UserNotificationService.ShowError(
+                    _environmentService.UserNotificationService.ShowError(
                         "Failed to create mutations. Check output log for more information.");
                 }
                 finally
@@ -137,10 +136,10 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
             if (filterItems == null || !filterItems.Any())
             {
-                var result = _environmentWrapper.UserNotificationService.Confirm("You have not selected any file(s) or line(s) so we will mutate the whole project. Is this okay?");
+                var result = _environmentService.UserNotificationService.Confirm("You have not selected any file(s) or line(s) so we will mutate the whole project. Is this okay?");
                 if (!result)
                 {
-                    _environmentWrapper.CloseActiveWindow();
+                    _environmentService.CloseActiveWindow();
                     return;
                 }
             }
@@ -159,7 +158,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
         private void RunMutations()
         {
-            _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
+            _environmentService.JoinableTaskFactory.RunAsync(async () =>
             {
                 try
                 {
@@ -177,7 +176,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                 }
                 catch (Exception)
                 {
-                    _environmentWrapper.UserNotificationService.ShowError(
+                    _environmentService.UserNotificationService.ShowError(
                         "Failed run mutations. Please check output for more information. ");
                 }
                 finally
@@ -189,9 +188,9 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
         private void MutationDocumentCompleted(MutationDocumentResult result)
         {
-            _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
+            _environmentService.JoinableTaskFactory.RunAsync(async () =>
             {
-                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 var runDocument = Mutations.FirstOrDefault(r => r.Document.Id == result.Id);
 
@@ -214,9 +213,9 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
         private void MutationDocumentStarted(MutationDocument mutationDocument)
         {
-            _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
+            _environmentService.JoinableTaskFactory.RunAsync(async () =>
             {
-                await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 var testRunDocument = Mutations.FirstOrDefault(r => r.Document == mutationDocument);
                 if (testRunDocument != null)
