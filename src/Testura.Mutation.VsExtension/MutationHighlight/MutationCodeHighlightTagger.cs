@@ -57,6 +57,11 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
 
         private void MutationCodeHighlightHandlerOnOnMutationHighlightUpdate(object sender, IList<MutationHightlight> e)
         {
+            if (_mutations.Count == 0 && e.Count == 0)
+            {
+                return;
+            }
+
             _mutations = e;
             TagsChanged?.Invoke(this, new SnapshotSpanEventArgs(new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(0, SourceBuffer.CurrentSnapshot.Length - 1))));
         }

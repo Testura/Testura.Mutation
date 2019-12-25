@@ -14,7 +14,8 @@ namespace Testura.Mutation.Wpf.Shared.Models
             Running,
             Waiting,
             CompletedWithSuccess,
-            CompletedWithFailure
+            CompletedWithFailure,
+            CompletedWithUnknownReason
         }
 
         public MutationDocument Document { get; set; }

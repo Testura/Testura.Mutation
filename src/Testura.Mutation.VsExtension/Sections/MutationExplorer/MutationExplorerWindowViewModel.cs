@@ -219,14 +219,14 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                 {
                     if (result.CompilationResult != null && !result.CompilationResult.IsSuccess)
                     {
-                        runDocument.Status = TestRunDocument.TestRunStatusEnum.CompletedWithFailure;
+                        runDocument.Status = TestRunDocument.TestRunStatusEnum.CompletedWithUnknownReason;
                         runDocument.InfoText = "Failed to compile.";
                         return;
                     }
 
                     if (result.UnexpectedError != null)
                     {
-                        runDocument.Status = TestRunDocument.TestRunStatusEnum.CompletedWithFailure;
+                        runDocument.Status = TestRunDocument.TestRunStatusEnum.CompletedWithUnknownReason;
                         runDocument.InfoText = result.UnexpectedError;
                         return;
                     }
