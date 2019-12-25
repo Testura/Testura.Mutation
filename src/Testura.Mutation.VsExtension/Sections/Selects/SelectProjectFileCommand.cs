@@ -55,40 +55,47 @@ namespace Testura.Mutation.VsExtension.Sections.Selects
         {
             _package.JoinableTaskFactory.RunAsync(async () =>
             {
-                await _package.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-                var dte = await ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
-
-                if (dte == null)
+                try
                 {
-                    throw new NotSupportedException("Cannot create tool window");
-                }
+                    await _package.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                var selectedItems = dte.SelectedItems;
+                    var dte = await ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
 
-                if (selectedItems != null)
-                {
-                    var files = new List<string>();
-
-                    foreach (SelectedItem selectedItem in selectedItems)
-                    {
-                        if (selectedItem.ProjectItem is ProjectItem projectItem)
-                        {
-                            files.Add(projectItem.Document.FullName);
-                        }
-                    }
-
-                    var window =
-                        await _package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true, _package.DisposalToken) as MutationExplorerWindow;
-                    if (window?.Frame == null)
+                    if (dte == null)
                     {
                         throw new NotSupportedException("Cannot create tool window");
                     }
 
-                    var windowFrame = (IVsWindowFrame)window.Frame;
-                    Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+                    var selectedItems = dte.SelectedItems;
 
-                    window.InitializeWindow(_mutationFilterItemCreatorService.CreateFilterFromFilePaths(files));
+                    if (selectedItems != null)
+                    {
+                        var files = new List<string>();
+
+                        foreach (SelectedItem selectedItem in selectedItems)
+                        {
+                            if (selectedItem.ProjectItem is ProjectItem projectItem)
+                            {
+                                files.Add(projectItem.Document.FullName);
+                            }
+                        }
+
+                        var window =
+                            await _package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true, _package.DisposalToken) as MutationExplorerWindow;
+                        if (window?.Frame == null)
+                        {
+                            throw new NotSupportedException("Cannot create tool window");
+                        }
+
+                        var windowFrame = (IVsWindowFrame)window.Frame;
+                        Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+
+                        window.InitializeWindow(_mutationFilterItemCreatorService.CreateFilterFromFilePaths(files));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var o = ex.Message;
                 }
             });
         }

@@ -58,6 +58,8 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
             HighlightChangedCommand = new DelegateCommand<bool>(HightlightChanged);
             ToggleMutation = new DelegateCommand(() => IsMutationVisible = !IsMutationVisible);
+
+            StopCommand = new DelegateCommand(() => _tokenSource.Cancel());
         }
 
         public DelegateCommand RunMutationsCommand { get; set; }
@@ -69,6 +71,8 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         public DelegateCommand<TestRunDocument> GoToMutationCommand { get; set; }
 
         public DelegateCommand<bool> HighlightChangedCommand { get; set; }
+
+        public DelegateCommand StopCommand { get; set; }
 
         public ObservableCollection<TestRunDocument> Mutations { get; set; }
 
@@ -83,6 +87,8 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         public bool IsLoadingVisible { get; set; }
 
         public bool IsRunButtonEnabled { get; set; }
+
+        public bool IsStopButtonEnabled { get; set; }
 
         public string LoadingMessage { get; set; }
 
@@ -127,6 +133,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
         public void Initialize(IEnumerable<MutationDocumentFilterItem> filterItems = null)
         {
+            IsStopButtonEnabled = false;
             _tokenSource = new CancellationTokenSource();
 
             if (!_configService.ConfigExist())
@@ -158,10 +165,19 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
         private void RunMutations()
         {
+            _tokenSource = new CancellationTokenSource();
+
+            foreach (var testRunDocument in Mutations)
+            {
+                testRunDocument.Status = TestRunDocument.TestRunStatusEnum.Waiting;
+                testRunDocument.InfoText = string.Empty;
+            }
+
             _environmentService.JoinableTaskFactory.RunAsync(async () =>
             {
                 try
                 {
+                    IsStopButtonEnabled = true;
                     ShowLoading("Running mutations");
 
                     _mutationRunResult = await _mediator.Send(
@@ -181,6 +197,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                 }
                 finally
                 {
+                    IsStopButtonEnabled = false;
                     HideLoading();
                 }
             });
@@ -203,6 +220,12 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                     if (result.CompilationResult != null && !result.CompilationResult.IsSuccess)
                     {
                         runDocument.InfoText = "Failed to compile.";
+                        return;
+                    }
+
+                    if (result.UnexpectedError != null)
+                    {
+                        runDocument.InfoText = result.UnexpectedError;
                         return;
                     }
 

@@ -41,18 +41,41 @@
 
         <Grid HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="180" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="305" />
             </Grid.ColumnDefinitions>
 
-            <materialDesign:Card Margin="8, 16, 0, 8" Height="90" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding TestNotStarted}">
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="Run mutations" Command="{Binding RunMutationsCommand}" Margin="16, 0, 16, 0" IsEnabled="{Binding IsRunButtonEnabled}"/>
+            <materialDesign:Card Margin="8, 16, 0, 8" Height="90" Grid.Row="0" Grid.Column="0">
+                <StackPanel Orientation="Horizontal" Margin="8, 0, 8, 0">
+                    <Button
+                        Command="{Binding RunMutationsCommand}"
+                        IsEnabled="{Binding IsRunButtonEnabled}"
+                        HorizontalAlignment="Left"
+                        ToolTip="Start mutation run">
+                        <materialDesign:PackIcon
+                            Kind="Play"
+                            Height="24"
+                            Width="24"
+                            />
+                    </Button>
+
+                    <Button
+                        HorizontalAlignment="Left"
+                        ToolTip="Stop mutation run"
+                        IsEnabled="{Binding IsStopButtonEnabled}"
+                        Margin="8, 0, 0, 0"
+                        Command="{Binding StopCommand}">
+                        <materialDesign:PackIcon
+                            Kind="Stop"
+                            Height="24"
+                            Width="24"
+                        />
+                    </Button>
                 </StackPanel>
             </materialDesign:Card>
 
 
-            <materialDesign:Card Margin="8, 16, 16, 8" Height="90" Grid.Row="0" Grid.Column="1" IsEnabled="{Binding TestNotStarted}">
+            <materialDesign:Card Margin="8, 16, 16, 8" Height="90" Grid.Row="0" Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Style="{StaticResource MaterialDesignCheckBox}"
                               IsChecked="{Binding RunBaseline}"
