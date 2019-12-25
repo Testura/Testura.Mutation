@@ -31,6 +31,12 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             viewModel?.Initialize(filterItems);
         }
 
+        public void Close()
+        {
+            var viewModel = DataContext as MutationExplorerWindowViewModel;
+            viewModel?.Close();
+        }
+
         private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             AfterTxt.ScrollToVerticalOffset(e.VerticalOffset);

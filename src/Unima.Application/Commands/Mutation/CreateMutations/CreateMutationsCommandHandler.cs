@@ -18,7 +18,7 @@ namespace Unima.Application.Commands.Mutation.CreateMutations
 
         public Task<IList<MutationDocument>> Handle(CreateMutationsCommand command, CancellationToken cancellationToken)
         {
-            return _mutationsCreator.CreateMutationsAsync(command.Config);
+            return _mutationsCreator.CreateMutationsAsync(command.Config, cancellationToken);
         }
     }
 }

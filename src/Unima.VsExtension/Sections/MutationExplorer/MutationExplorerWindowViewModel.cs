@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using DiffPlex;
 using DiffPlex.DiffBuilder;
@@ -37,6 +38,7 @@ namespace Unima.VsExtension.Sections.MutationExplorer
         private UnimaConfig _config;
         private bool _showhighlight;
         private IList<TestRunDocument> _survivedMutations;
+        private CancellationTokenSource _tokenSource;
 
         public MutationExplorerWindowViewModel(EnvironmentWrapper environmentWrapper, IMediator mediator, MutationCodeHighlightHandler mutationCodeHighlightHandler)
         {
@@ -98,7 +100,7 @@ namespace Unima.VsExtension.Sections.MutationExplorer
                     baseConfig.Filter = new MutationDocumentFilter { FilterItems = _filterItems ?? new List<MutationDocumentFilterItem>() };
                     _config = await _mediator.Send(new OpenProjectCommand(baseConfig));
 
-                    var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(_config));
+                    var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(_config), _tokenSource.Token);
 
                     await _environmentWrapper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
@@ -125,6 +127,8 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
         public void Initialize(IEnumerable<MutationDocumentFilterItem> filterItems)
         {
+            _tokenSource = new CancellationTokenSource();
+
             if (!VerifyConfigExist())
             {
                 return;
@@ -136,6 +140,8 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
         public void Initialize()
         {
+            _tokenSource = new CancellationTokenSource();
+
             if (!VerifyConfigExist())
             {
                 return;
@@ -156,6 +162,12 @@ namespace Unima.VsExtension.Sections.MutationExplorer
             });
         }
 
+        public void Close()
+        {
+            _mutationCodeHighlightHandler.ClearHighlights();
+            _tokenSource.Cancel();
+        }
+
         private void RunMutations()
         {
             _environmentWrapper.JoinableTaskFactory.RunAsync(async () =>
@@ -169,7 +181,8 @@ namespace Unima.VsExtension.Sections.MutationExplorer
                             _config,
                             Mutations.Select(r => r.Document).ToList(),
                             MutationDocumentStarted,
-                            MutationDocumentCompleted));
+                            MutationDocumentCompleted),
+                        _tokenSource.Token);
                 }
                 catch (Exception)
                 {

@@ -41,6 +41,12 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutations
             {
                 while (mutationDocuments.Any())
                 {
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        LogTo.Info("Cancellation requested (mutation run)");
+                        return;
+                    }
+
                     semaphoreSlim.Wait();
                     var document = mutationDocuments.Dequeue();
 
@@ -53,7 +59,7 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutations
                             mutationRunLoggers.ForEach(m => m.LogBeforeMutation(document));
                             command.MutationDocumentStartedCallback?.Invoke(document);
 
-                            var resultTask = _mutationDocumentExecutor.ExecuteMutationAsync(command.Config, document);
+                            var resultTask = _mutationDocumentExecutor.ExecuteMutationAsync(command.Config, document, cancellationToken);
                             result = await resultTask;
                         }
                         catch (Exception ex)
@@ -93,9 +99,14 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutations
             // Wait for the final ones
             await Task.WhenAll(currentRunningDocuments);
 
-            if (results.Any())
+            if (results.Any() && !cancellationToken.IsCancellationRequested)
             {
                 LogTo.Info($"Your mutation score: {GetMutationScore(results)}%");
+            }
+
+            if (cancellationToken.IsCancellationRequested)
+            {
+                LogTo.Info("Mutation run was cancelled");
             }
 
             return results;

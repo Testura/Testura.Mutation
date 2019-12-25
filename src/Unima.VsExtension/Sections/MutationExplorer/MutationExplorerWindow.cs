@@ -3,21 +3,15 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Unima.Core.Creator.Filter;
-using Unima.VsExtension.MutationHighlight;
 
 namespace Unima.VsExtension.Sections.MutationExplorer
 {
     [Guid("ee8fe630-e2c0-4867-a4ba-112709e71d52")]
     public class MutationExplorerWindow : ToolWindowPane, IVsWindowFrameNotify3
     {
-        private readonly MutationCodeHighlightHandler _mutationCodeHighlightHandler;
-
-        public MutationExplorerWindow(
-            MutationExplorerWindowControl mutationToolWindowControl,
-            MutationCodeHighlightHandler mutationCodeHighlightHandler)
+        public MutationExplorerWindow(MutationExplorerWindowControl mutationToolWindowControl)
             : base(null)
         {
-            _mutationCodeHighlightHandler = mutationCodeHighlightHandler;
             Caption = "Unima mutation explorer";
             Content = mutationToolWindowControl;
         }
@@ -54,7 +48,7 @@ namespace Unima.VsExtension.Sections.MutationExplorer
 
         public int OnClose(ref uint pgrfSaveOptions)
         {
-            _mutationCodeHighlightHandler.ClearHighlights();
+            ((MutationExplorerWindowControl)Content).Close();
 
             return Microsoft.VisualStudio.VSConstants.S_OK;
         }

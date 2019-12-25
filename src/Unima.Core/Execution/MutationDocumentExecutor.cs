@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Unima.Core.Config;
@@ -26,7 +27,10 @@ namespace Unima.Core.Execution
             _testRunnerClient = testRunnerClient;
         }
 
-        public async Task<MutationDocumentResult> ExecuteMutationAsync(UnimaConfig config, MutationDocument mutationDocument)
+        public async Task<MutationDocumentResult> ExecuteMutationAsync(
+            UnimaConfig config,
+            MutationDocument mutationDocument,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             var mutationResult = new MutationDocumentResult
             {
@@ -55,44 +59,55 @@ namespace Unima.Core.Execution
 
             Directory.CreateDirectory(mutationDirectoryPath);
 
-            mutationResult.CompilationResult = await _compiler.CompileAsync(mutationDllPath, mutationDocument);
-            if (!mutationResult.CompilationResult.IsSuccess)
-            {
-                return mutationResult;
-            }
-
-            foreach (var testProject in config.TestProjects)
-            {
-                var baseline = config.BaselineInfos.FirstOrDefault(b => b.TestProjectName.Equals(testProject.Project.Name, StringComparison.OrdinalIgnoreCase));
-                var result = await RunTestAsync(testProject, mutationDirectoryPath, mutationDllPath, config.DotNetPath, baseline?.GetTestProjectTimeout() ?? TimeSpan.FromMinutes(config.MaxTestTimeMin));
-                results.Add(result);
-
-                if (results.Any(r => !r.IsSuccess))
-                {
-                    break;
-                }
-            }
-
             try
             {
-                Directory.Delete(mutationDirectoryPath, true);
+                cancellationToken.ThrowIfCancellationRequested();
+
+                mutationResult.CompilationResult = await _compiler.CompileAsync(mutationDllPath, mutationDocument);
+                if (!mutationResult.CompilationResult.IsSuccess)
+                {
+                    return mutationResult;
+                }
+
+                foreach (var testProject in config.TestProjects)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    var baseline = config.BaselineInfos.FirstOrDefault(b => b.TestProjectName.Equals(testProject.Project.Name, StringComparison.OrdinalIgnoreCase));
+                    var result = await RunTestAsync(testProject, mutationDirectoryPath, mutationDllPath, config.DotNetPath, baseline?.GetTestProjectTimeout() ?? TimeSpan.FromMinutes(config.MaxTestTimeMin));
+                    results.Add(result);
+
+                    if (results.Any(r => !r.IsSuccess))
+                    {
+                        break;
+                    }
+                }
+
+                var final = CombineResult(mutationDocument.FileName, results);
+
+                if (final.TestResults.Count == 0)
+                {
+                    throw new MutationDocumentException("Unknown error when running, we should not have 0 tests.");
+                }
+
+                LogTo.Info($"\"{mutationDocument.MutationName}\" done. Ran {final.TestResults.Count} tests and {final.TestResults.Count(t => !t.IsSuccess)} failed.");
+
+                mutationResult.FailedTests = final.TestResults.Where(t => !t.IsSuccess).ToList();
+                mutationResult.TestsRunCount = final.TestResults.Count;
             }
-            catch (Exception ex)
+            catch (OperationCanceledException)
             {
-                LogTo.Error($"Failed to delete test directory: {ex.Message}");
+                LogTo.Info("Cancellation requested (single mutation)");
+                mutationResult.UnexpectedError = "Mutation cancelled";
             }
-
-            var final = CombineResult(mutationDocument.FileName, results);
-
-            if (final.TestResults.Count == 0)
+            catch (Exception)
             {
-                throw new MutationDocumentException("Unknown error when running, we should not have 0 tests.");
+                throw;
             }
-
-            LogTo.Info($"\"{mutationDocument.MutationName}\" done. Ran {final.TestResults.Count} tests and {final.TestResults.Count(t => !t.IsSuccess)} failed.");
-
-            mutationResult.FailedTests = final.TestResults.Where(t => !t.IsSuccess).ToList();
-            mutationResult.TestsRunCount = final.TestResults.Count;
+            finally
+            {
+                DeleteMutationDirectory(mutationDirectoryPath);
+            }
 
             return mutationResult;
         }
@@ -116,6 +131,18 @@ namespace Unima.Core.Execution
             File.Copy(mutationDllPath, Path.Combine(mutationTestDirectoryPath, Path.GetFileName(mutationDllPath)), true);
 
             return await _testRunnerClient.RunTestsAsync(testProject.TestRunner, testDllPath, dotNetPath, testTimout);
+        }
+
+        private void DeleteMutationDirectory(string mutationDirectoryPath)
+        {
+            try
+            {
+                Directory.Delete(mutationDirectoryPath, true);
+            }
+            catch (Exception ex)
+            {
+                LogTo.Error($"Failed to delete test directory: {ex.Message}");
+            }
         }
 
         private TestSuiteResult CombineResult(string name, IList<TestSuiteResult> testResult)

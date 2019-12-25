@@ -17,7 +17,7 @@ namespace Unima.Application.Commands.Mutation.ExecuteMutation
 
         public async Task<MutationDocumentResult> Handle(ExecuteMutationCommand command, CancellationToken cancellationToken)
         {
-            return await _mutationDocumentExecutor.ExecuteMutationAsync(command.Config, command.Mutation);
+            return await _mutationDocumentExecutor.ExecuteMutationAsync(command.Config, command.Mutation, cancellationToken);
         }
     }
 }

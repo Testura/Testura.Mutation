@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
+using Microsoft.CodeAnalysis;
 using Unima.Core.Config;
 using Unima.Core.Exceptions;
 using Unima.Core.Solution;
@@ -18,7 +20,7 @@ namespace Unima.Core.Creator
             _solutionOpener = solutionOpener;
         }
 
-        public async Task<IList<MutationDocument>> CreateMutationsAsync(UnimaConfig config)
+        public async Task<IList<MutationDocument>> CreateMutationsAsync(UnimaConfig config, CancellationToken cancellationToken = default(CancellationToken))
         {
             try
             {
@@ -26,7 +28,7 @@ namespace Unima.Core.Creator
                 var solution = await _solutionOpener.GetSolutionAsync(config);
                 LogTo.Info("Starting to analyze test..");
 
-                var list = new List<MutationDocument>();
+                var mutations = new List<MutationDocument>();
 
                 foreach (var mutationProjectInfo in config.MutationProjects)
                 {
@@ -43,50 +45,61 @@ namespace Unima.Core.Creator
                     LogTo.Info($"Starting to create mutations for {currentProject.Name}..");
                     foreach (var documentId in documentIds)
                     {
-                        try
-                        {
-                            var document = currentProject.GetDocument(documentId);
-
-                            if (config.Filter != null && !config.Filter.ResourceAllowed(document.FilePath))
-                            {
-                                LogTo.Info($"Ignoring {document.Name}.");
-                                continue;
-                            }
-
-                            LogTo.Info($"Creating mutation for {document.Name}..");
-
-                            var root = document.GetSyntaxRootAsync().Result;
-                            var mutationDocuments = new List<MutationDocument>();
-
-                            foreach (var mutationOperator in config.Mutators)
-                            {
-                                var mutatedDocuments = mutationOperator.GetMutatedDocument(root, document);
-                                mutationDocuments.AddRange(mutatedDocuments.Where(m =>
-                                    config.Filter == null ||
-                                    config.Filter.ResourceLinesAllowed(document.FilePath, GetDocumentLine(m))));
-                            }
-
-                            list.AddRange(mutationDocuments);
-                        }
-                        catch (Exception ex)
-                        {
-                            LogTo.Error("Error when creating mutation: " + ex.Message);
-                        }
+                        cancellationToken.ThrowIfCancellationRequested();
+                        mutations.AddRange(CreateMutationsForDocument(config, currentProject, documentId));
                     }
                 }
 
-                if (!list.Any())
+                if (!mutations.Any())
                 {
                     LogTo.Warn("Could not find a single mutation. Maybe check your filter?");
                 }
 
-                return list;
+                return mutations;
+            }
+            catch (OperationCanceledException)
+            {
+                LogTo.Info("Cancellation requested");
+                return new List<MutationDocument>();
             }
             catch (Exception ex)
             {
                 LogTo.ErrorException("Unknown exception when creating mutation documents", ex);
                 throw new MutationDocumentException("Unknown exception when creating mutation documents", ex);
             }
+        }
+
+        private IList<MutationDocument> CreateMutationsForDocument(UnimaConfig config, Project currentProject, DocumentId documentId)
+        {
+            var mutations = new List<MutationDocument>();
+            try
+            {
+                var document = currentProject.GetDocument(documentId);
+
+                if (config.Filter != null && !config.Filter.ResourceAllowed(document.FilePath))
+                {
+                    LogTo.Info($"Ignoring {document.Name}.");
+                    return mutations;
+                }
+
+                LogTo.Info($"Creating mutation for {document.Name}..");
+
+                var root = document.GetSyntaxRootAsync().Result;
+
+                foreach (var mutationOperator in config.Mutators)
+                {
+                    var mutatedDocuments = mutationOperator.GetMutatedDocument(root, document);
+                    mutations.AddRange(mutatedDocuments.Where(m =>
+                        config.Filter == null ||
+                        config.Filter.ResourceLinesAllowed(document.FilePath, GetDocumentLine(m))));
+                }
+            }
+            catch (Exception ex)
+            {
+                LogTo.Error("Error when creating mutation: " + ex.Message);
+            }
+
+            return mutations;
         }
 
         private int GetDocumentLine(MutationDocument mutationDocument)
