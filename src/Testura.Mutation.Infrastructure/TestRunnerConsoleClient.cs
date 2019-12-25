@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Medallion.Shell;
@@ -13,9 +14,8 @@ using Testura.Mutation.Core.Execution.Runners;
 namespace Testura.Mutation.Infrastructure
 {
     public class TestRunnerConsoleClient : ITestRunnerClient
-
     {
-        public Task<TestSuiteResult> RunTestsAsync(string runner, string dllPath, string dotNetPath, TimeSpan maxTime)
+        public Task<TestSuiteResult> RunTestsAsync(string runner, string dllPath, string dotNetPath, TimeSpan maxTime, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Task.Run(() =>
             {
@@ -42,6 +42,7 @@ namespace Testura.Mutation.Infrastructure
                                 si.RedirectStandardInput = true;
                                 si.RedirectStandardOutput = true;
                             });
+                            o.CancellationToken(cancellationToken);
                             o.Timeout(maxTime);
                             o.DisposeOnExit();
                         }))
@@ -75,6 +76,11 @@ namespace Testura.Mutation.Infrastructure
                         {
                             LogTo.Info("Test client timed out. Infinite loop?");
                             return TestSuiteResult.Error("TIMEOUT", maxTime);
+                        }
+                        catch (TaskCanceledException)
+                        {
+                            LogTo.Info("Test runner was cancelled by request");
+                            return TestSuiteResult.Error("Cancelled by request", TimeSpan.Zero);
                         }
 
                         return JsonConvert.DeserializeObject<TestSuiteResult>(output);

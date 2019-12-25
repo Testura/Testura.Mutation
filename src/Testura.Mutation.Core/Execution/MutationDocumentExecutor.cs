@@ -74,7 +74,14 @@ namespace Testura.Mutation.Core.Execution
                     cancellationToken.ThrowIfCancellationRequested();
 
                     var baseline = config.BaselineInfos.FirstOrDefault(b => b.TestProjectName.Equals(testProject.Project.Name, StringComparison.OrdinalIgnoreCase));
-                    var result = await RunTestAsync(testProject, mutationDirectoryPath, mutationDllPath, config.DotNetPath, baseline?.GetTestProjectTimeout() ?? TimeSpan.FromMinutes(config.MaxTestTimeMin));
+                    var result = await RunTestAsync(
+                        testProject,
+                        mutationDirectoryPath,
+                        mutationDllPath,
+                        config.DotNetPath,
+                        baseline?.GetTestProjectTimeout() ?? TimeSpan.FromMinutes(config.MaxTestTimeMin),
+                        cancellationToken);
+
                     results.Add(result);
 
                     if (results.Any(r => !r.IsSuccess))
@@ -82,6 +89,8 @@ namespace Testura.Mutation.Core.Execution
                         break;
                     }
                 }
+
+                cancellationToken.ThrowIfCancellationRequested();
 
                 var final = CombineResult(mutationDocument.FileName, results);
 
@@ -117,7 +126,8 @@ namespace Testura.Mutation.Core.Execution
             string mutationDirectoryPath,
             string mutationDllPath,
             string dotNetPath,
-            TimeSpan testTimout)
+            TimeSpan testTimout,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             LogTo.Info($"Starting to run tests in {testProject.Project.OutputFileName}");
             var mutationTestDirectoryPath = Path.Combine(mutationDirectoryPath, Guid.NewGuid().ToString());
@@ -130,7 +140,9 @@ namespace Testura.Mutation.Core.Execution
             // Copy the mutation to our mutation test directory (and override the orginal file)
             File.Copy(mutationDllPath, Path.Combine(mutationTestDirectoryPath, Path.GetFileName(mutationDllPath)), true);
 
-            return await _testRunnerClient.RunTestsAsync(testProject.TestRunner, testDllPath, dotNetPath, testTimout);
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return await _testRunnerClient.RunTestsAsync(testProject.TestRunner, testDllPath, dotNetPath, testTimout, cancellationToken);
         }
 
         private void DeleteMutationDirectory(string mutationDirectoryPath)

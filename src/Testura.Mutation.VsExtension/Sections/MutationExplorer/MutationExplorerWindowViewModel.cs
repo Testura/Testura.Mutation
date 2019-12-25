@@ -59,7 +59,11 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             HighlightChangedCommand = new DelegateCommand<bool>(HightlightChanged);
             ToggleMutation = new DelegateCommand(() => IsMutationVisible = !IsMutationVisible);
 
-            StopCommand = new DelegateCommand(() => _tokenSource.Cancel());
+            StopCommand = new DelegateCommand(() =>
+            {
+                IsStopButtonEnabled = false;
+                _tokenSource.Cancel();
+            });
         }
 
         public DelegateCommand RunMutationsCommand { get; set; }
@@ -213,22 +217,23 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
                 if (runDocument != null)
                 {
-                    runDocument.Status = result.Survived
-                        ? TestRunDocument.TestRunStatusEnum.CompletedWithFailure
-                        : TestRunDocument.TestRunStatusEnum.CompletedWithSuccess;
-
                     if (result.CompilationResult != null && !result.CompilationResult.IsSuccess)
                     {
+                        runDocument.Status = TestRunDocument.TestRunStatusEnum.CompletedWithFailure;
                         runDocument.InfoText = "Failed to compile.";
                         return;
                     }
 
                     if (result.UnexpectedError != null)
                     {
+                        runDocument.Status = TestRunDocument.TestRunStatusEnum.CompletedWithFailure;
                         runDocument.InfoText = result.UnexpectedError;
                         return;
                     }
 
+                    runDocument.Status = result.Survived
+                        ? TestRunDocument.TestRunStatusEnum.CompletedWithFailure
+                        : TestRunDocument.TestRunStatusEnum.CompletedWithSuccess;
                     runDocument.InfoText = $"{result.FailedTests.Count} of {result.TestsRunCount} tests failed";
                 }
             });
