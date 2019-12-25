@@ -21,9 +21,9 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="100" />
         </Grid.RowDefinitions>
-        <dragablz:TabablzControl HeaderMemberPath="Text" FixedHeaderCount="3" BorderThickness="0">
-        <TabItem Header="General" IsSelected="False">
-            <Grid Margin="16">
+        <dragablz:TabablzControl HeaderMemberPath="Text" FixedHeaderCount="3" BorderThickness="0" Background="#2d2d30">
+            <TabItem Header="General" IsSelected="False">
+                <Grid Margin="16">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="120" />
                     <RowDefinition Height="100" />
@@ -53,7 +53,7 @@
                 </GroupBox>
                 </Grid>
                 </TabItem>
-                <TabItem Header="Project info" IsSelected="False">
+            <TabItem Header="Project info" IsSelected="False">
                     <GroupBox
                     Header="Test projects"
                     Style="{DynamicResource MaterialDesignCardGroupBox}"
@@ -78,7 +78,7 @@
                         </DataGrid>
                 </GroupBox>
             </TabItem>
-        <TabItem Header="Mutations" IsSelected="False">
+            <TabItem Header="Mutations" IsSelected="False">
             <GroupBox
                 Header="Mutations"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"

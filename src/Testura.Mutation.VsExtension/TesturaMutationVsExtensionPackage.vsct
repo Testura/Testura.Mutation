@@ -28,7 +28,7 @@
     <Buttons>
       <Button guid="guidTesturaMutationVsExtensionPackageCmdSet" id="MutationToolWindowCommandId" priority="0x0100" type="Button">
         <Parent guid="guidTesturaMutationVsExtensionPackageCmdSet" id="MyMenuGroup" />
-        <Icon guid="guidImages" id="bmpPic1" />
+        <Icon guid="mainIconImage" id="icon" />
         <Strings>
           <ButtonText>Mutation explorer</ButtonText>
         </Strings>
@@ -36,14 +36,13 @@
 
       <Button guid="guidTesturaMutationVsExtensionPackageCmdSet" id="cmdidMutationConfigWindowCommand" priority="0x0100" type="Button">
         <Parent guid="guidTesturaMutationVsExtensionPackageCmdSet" id="MyMenuGroup" />
-        <Icon guid="guidImages2" id="bmpPic1" />
         <Strings>
           <ButtonText>Config...</ButtonText>
         </Strings>
       </Button>
 
       <Button guid="guidTesturaMutationVsExtensionPackageCmdSet1" id="cmdidSelectProjectFileCommand" priority="0x0100" type="Button">
-        <Icon guid="guidImages1" id="bmpPic1" />
+        <Icon guid="mainIconImage" id="icon" />
         <Strings>
           <ButtonText>Mutate file(s)...</ButtonText>
         </Strings>
@@ -51,7 +50,7 @@
 
       <Button guid="guidTesturaMutationVsExtensionPackageCmdSet2" id="cmdidSelectLineCommand" priority="0x0100" type="Button">
         <Parent guid="guidTesturaMutationVsExtensionPackageCmdSet2" id="EditorContextMenuGroup" />
-        <Icon guid="guidImages2" id="bmpPic1" />
+        <Icon guid="mainIconImage" id="icon" />
         <Strings>
           <ButtonText>Mutate line(s)...</ButtonText>
         </Strings>
@@ -59,9 +58,7 @@
     </Buttons>
 
     <Bitmaps>
-      <Bitmap guid="guidImages" href="Resources\MutationToolWindowCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
-      <Bitmap guid="guidImages1" href="Resources\SelectProjectFileCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
-      <Bitmap guid="guidImages2" href="Resources\MutationConfigWindowCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+      <Bitmap guid="mainIconImage" href="Resources\icon.png" usedList="icon" />
     </Bitmaps>
   </Commands>
 
@@ -104,38 +101,15 @@
       <IDSymbol value="4130" name="cmdidMutationConfigWindowCommand" />
     </GuidSymbol>
 
-    <GuidSymbol name="guidImages" value="{77dc4bcf-6668-4b8b-acc1-401192abc173}">
-      <IDSymbol name="bmpPic1" value="1" />
-      <IDSymbol name="bmpPic2" value="2" />
-      <IDSymbol name="bmpPicSearch" value="3" />
-      <IDSymbol name="bmpPicX" value="4" />
-      <IDSymbol name="bmpPicArrows" value="5" />
-      <IDSymbol name="bmpPicStrikethrough" value="6" />
+    <GuidSymbol name="mainIconImage" value="{77dc4bcf-6668-4b8b-acc1-401192abc173}">
+      <IDSymbol name="icon" value="1" />
     </GuidSymbol>
   
     <GuidSymbol value="{4dd019e1-138b-43cd-b2d9-686d466ef14c}" name="guidTesturaMutationVsExtensionPackageCmdSet1">
       <IDSymbol value="4128" name="MyContextGroup" />
       <IDSymbol value="256" name="cmdidSelectProjectFileCommand" />
     </GuidSymbol>
-  
-    <GuidSymbol value="{e419cef0-102d-463f-9076-1767c6413ecb}" name="guidImages1">
-      <IDSymbol name="bmpPic1" value="1" />
-      <IDSymbol name="bmpPic2" value="2" />
-      <IDSymbol name="bmpPicSearch" value="3" />
-      <IDSymbol name="bmpPicX" value="4" />
-      <IDSymbol name="bmpPicArrows" value="5" />
-      <IDSymbol name="bmpPicStrikethrough" value="6" />
-    </GuidSymbol>
-  
-    <GuidSymbol value="{7964bbba-a33c-4024-8a20-d1d02b664edd}" name="guidImages2">
-      <IDSymbol name="bmpPic1" value="1" />
-      <IDSymbol name="bmpPic2" value="2" />
-      <IDSymbol name="bmpPicSearch" value="3" />
-      <IDSymbol name="bmpPicX" value="4" />
-      <IDSymbol name="bmpPicArrows" value="5" />
-      <IDSymbol name="bmpPicStrikethrough" value="6" />
-    </GuidSymbol>
-  
+
     <GuidSymbol value="{ecfde8a8-d072-4335-b4fb-f268abaecb97}" name="guidTesturaMutationVsExtensionPackageCmdSet2">
       <IDSymbol value="4128" name="EditorContextMenuGroup" />
       <IDSymbol value="256" name="cmdidSelectLineCommand" />
