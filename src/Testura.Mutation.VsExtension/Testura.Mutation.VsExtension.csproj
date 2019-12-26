@@ -52,11 +52,13 @@
     <Compile Include="MutationHighlight\Definitions\MutationKilledFormatDefinition.cs" />
     <Compile Include="MutationHighlight\Definitions\MutationSurvivedFormatDefinition.cs" />
     <Compile Include="MutationHighlight\Definitions\MutationNotRunFormatDefinition.cs" />
+    <Compile Include="MutationHighlight\QuickInfo\MutationCodeHighlightQuckInfo.cs" />
     <Compile Include="MutationHighlight\MutationCodeHighlightHandler.cs" />
     <Compile Include="MutationHighlight\MutationCodeHighlightTag.cs" />
     <Compile Include="MutationHighlight\MutationCodeHighlightTagger.cs" />
     <Compile Include="MutationHighlight\MutationCodeHighlightTaggerProvider.cs" />
     <Compile Include="MutationHighlight\MutationHightlight.cs" />
+    <Compile Include="MutationHighlight\QuickInfo\MutationCodeHighlightQuickInfoProvider.cs" />
     <Compile Include="Sections\Config\MutationConfigWindow.cs" />
     <Compile Include="Sections\Config\MutationConfigWindowCommand.cs" />
     <Compile Include="Sections\Config\MutationConfigWindowControl.xaml.cs">

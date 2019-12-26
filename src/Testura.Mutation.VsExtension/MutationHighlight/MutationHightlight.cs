@@ -6,6 +6,8 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
     {
         public string FilePath { get; set; }
 
+        public string MutationText { get; set; }
+
         public int Line { get; set; }
 
         public int Start { get; set; }

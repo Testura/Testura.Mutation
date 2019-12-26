@@ -23,7 +23,8 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
                     Line = m.Document.MutationDetails.Location.GetLineNumber(),
                     Start = m.Document.MutationDetails.Orginal.FullSpan.Start,
                     Length = m.Document.MutationDetails.Orginal.FullSpan.Length,
-                    Status = m.Status
+                    Status = m.Status,
+                    MutationText = m.Document.MutationDetails.Mutation.ToFullString()
                 }));
         }
 
