@@ -3,7 +3,7 @@ using System.Windows.Media;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Utilities;
 
-namespace Testura.Mutation.VsExtension.MutationHighlight
+namespace Testura.Mutation.VsExtension.MutationHighlight.Definitions
 {
     [Export(typeof(EditorFormatDefinition))]
     [Name("MarkerFormatDefinition/MutationCodeHighlightFormatDefinition")]
