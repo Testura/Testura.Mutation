@@ -109,7 +109,13 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             {
                 try
                 {
-                    _config = await _mediator.Send(new OpenProjectCommand(baseFileConfig));
+                    _config = await _mediator.Send(new OpenProjectCommand(baseFileConfig), _tokenSource.Token);
+
+                    if (_tokenSource.Token.IsCancellationRequested)
+                    {
+                        return;
+                    }
+
                     var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(_config), _tokenSource.Token);
 
                     await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();

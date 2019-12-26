@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Microsoft.CodeAnalysis;
@@ -26,8 +27,10 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             _solutionOpener = solutionOpener;
         }
 
-        public override async Task HandleAsync(MutationFileConfig fileConfig, MutationConfig applicationConfig)
+        public override async Task HandleAsync(MutationFileConfig fileConfig, MutationConfig applicationConfig, CancellationToken cancellationToken = default(CancellationToken))
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             var solution = await _solutionOpener.GetSolutionAsync(applicationConfig);
 
             InitializeTestProjects(fileConfig, applicationConfig, solution);
@@ -35,10 +38,10 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 
             if (fileConfig.CreateBaseline)
             {
-                applicationConfig.BaselineInfos = new List<BaselineInfo>(await _baselineCreator.CreateBaselineAsync(applicationConfig, solution));
+                applicationConfig.BaselineInfos = new List<BaselineInfo>(await _baselineCreator.CreateBaselineAsync(applicationConfig, solution, cancellationToken));
             }
 
-            await base.HandleAsync(fileConfig, applicationConfig);
+            await base.HandleAsync(fileConfig, applicationConfig, cancellationToken);
         }
 
         private void InitializeMutationProjects(MutationFileConfig fileConfig, MutationConfig config, Microsoft.CodeAnalysis.Solution solution)

@@ -56,7 +56,14 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
                     .SetNext(new OpenProjectGitFilterHandler(_diffCreator))
                     .SetNext(new OpenProjectWorkspaceHandler(_baselineCreator, _solutionOpener));
 
-                await handler.HandleAsync(fileConfig, applicationConfig);
+                try
+                {
+                    await handler.HandleAsync(fileConfig, applicationConfig, cancellationToken);
+                }
+                catch (OperationCanceledException)
+                {
+                    LogTo.Info("Cancellation requested when opening project");
+                }
 
                 LogTo.Info("Opening project finished.");
 

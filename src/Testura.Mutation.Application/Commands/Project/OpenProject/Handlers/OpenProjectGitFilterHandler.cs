@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Testura.Mutation.Application.Models;
@@ -17,8 +18,10 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             _diffCreator = diffCreator;
         }
 
-        public override Task HandleAsync(MutationFileConfig fileConfig, MutationConfig applicationConfig)
+        public override Task HandleAsync(MutationFileConfig fileConfig, MutationConfig applicationConfig, CancellationToken cancellationToken = default(CancellationToken))
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             if (fileConfig.Git != null && fileConfig.Git.GenerateFilterFromDiffWithMaster)
             {
                 LogTo.Info("Creating filter items from git diff with master");
@@ -33,7 +36,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
                 applicationConfig.Filter.FilterItems.AddRange(filterItems);
             }
 
-            return base.HandleAsync(fileConfig, applicationConfig);
+            return base.HandleAsync(fileConfig, applicationConfig, cancellationToken);
         }
     }
 }
