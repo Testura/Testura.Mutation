@@ -64,6 +64,8 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                 IsStopButtonEnabled = false;
                 _tokenSource.Cancel();
             });
+
+            _showhighlight = true;
         }
 
         public DelegateCommand RunMutationsCommand { get; set; }
@@ -242,7 +244,9 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                     runDocument.Status = result.Survived
                         ? TestRunDocument.TestRunStatusEnum.CompleteAndSurvived
                         : TestRunDocument.TestRunStatusEnum.CompleteAndKilled;
+
                     runDocument.InfoText = $"{result.FailedTests.Count} of {result.TestsRunCount} tests failed";
+                    runDocument.InfoText += result.Survived ? " (mutation survived)" : " (mutation killed)";
                 }
             });
         }

@@ -4,6 +4,7 @@
         <Identity Id="Testura.MutationVsExtension.71e8249a-b76c-4035-af2b-0304cbf33623" Version="1.0" Language="en-US" Publisher="Mille Boström" />
         <DisplayName>Testura.Mutation</DisplayName>
         <Description xml:space="preserve">A mutation testing toolA mutation </Description>
+        <Icon>Resources\logo128-new.png</Icon>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />

@@ -83,7 +83,7 @@
                               Foreground="White"
                               Command="{Binding HighlightChangedCommand}"
                               CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}">
-                        Highlight surviving mutations in code
+                        Highlight mutations in code
                     </CheckBox>
                 </StackPanel>
             </materialDesign:Card>
@@ -127,7 +127,7 @@
                             <DataGridTemplateColumn Header="" Width="60" IsReadOnly="True" MaxWidth="60" MinWidth="60">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ContentControl Width="15">
+                                        <ContentControl Width="24">
                                             <ContentControl.Style>
                                                 <Style TargetType="{x:Type ContentControl}">
                                                     <Style.Triggers>
@@ -135,7 +135,7 @@
                                                             <Setter Property="ContentTemplate">
                                                                 <Setter.Value>
                                                                     <DataTemplate>
-                                                                        <Image Source="../../Resources/notrun.png" Width="12" />
+                                                                        <materialDesign:PackIcon Kind="AlertCircle" Foreground="#26a0da" Width="24"/>
                                                                     </DataTemplate>
                                                                 </Setter.Value>
                                                             </Setter>
@@ -156,7 +156,7 @@
                                                             <Setter Property="ContentTemplate">
                                                                 <Setter.Value>
                                                                     <DataTemplate>
-                                                                        <Image Source="../../Resources/error.png" Width="12" />
+                                                                        <materialDesign:PackIcon Kind="CloseCircle" Foreground="#d75a4a" Width="24"/>
                                                                     </DataTemplate>
                                                                 </Setter.Value>
                                                             </Setter>
@@ -165,7 +165,7 @@
                                                             <Setter Property="ContentTemplate">
                                                                 <Setter.Value>
                                                                     <DataTemplate>
-                                                                        <Image Source="../../Resources/checked.png" Width="12" />
+                                                                        <materialDesign:PackIcon Kind="CheckCircle" Foreground="#6ac259" Width="24"/>
                                                                     </DataTemplate>
                                                                 </Setter.Value>
                                                             </Setter>
@@ -174,7 +174,7 @@
                                                             <Setter Property="ContentTemplate">
                                                                 <Setter.Value>
                                                                     <DataTemplate>
-                                                                        <Image Source="../../Resources/unknown.png" Width="12" />
+                                                                        <materialDesign:PackIcon Kind="HelpCircle" Foreground="#753f76" Width="24"/>
                                                                     </DataTemplate>
                                                                 </Setter.Value>
                                                             </Setter>
