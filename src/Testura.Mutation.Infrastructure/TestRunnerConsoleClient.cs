@@ -80,7 +80,7 @@ namespace Testura.Mutation.Infrastructure
                         catch (TaskCanceledException)
                         {
                             LogTo.Info("Test runner was cancelled by request");
-                            return TestSuiteResult.Error("Cancelled by request", TimeSpan.Zero);
+                            cancellationToken.ThrowIfCancellationRequested();
                         }
 
                         return JsonConvert.DeserializeObject<TestSuiteResult>(output);

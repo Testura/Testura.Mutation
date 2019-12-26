@@ -90,8 +90,6 @@ namespace Testura.Mutation.Core.Execution
                     }
                 }
 
-                cancellationToken.ThrowIfCancellationRequested();
-
                 var final = CombineResult(mutationDocument.FileName, results);
 
                 if (final.TestResults.Count == 0)

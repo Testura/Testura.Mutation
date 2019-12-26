@@ -62,7 +62,8 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
                 }
                 catch (OperationCanceledException)
                 {
-                    LogTo.Info("Cancellation requested when opening project");
+                    LogTo.Info("Open project was cancelled by request");
+                    return applicationConfig;
                 }
 
                 LogTo.Info("Opening project finished.");

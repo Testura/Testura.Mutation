@@ -84,8 +84,6 @@ namespace Testura.Mutation.Core.Baseline
 
                     var result = await RunTestAsync(testProject, config.DotNetPath, config.MaxTestTimeMin, cancellationToken);
 
-                    cancellationToken.ThrowIfCancellationRequested();
-
                     if (!result.IsSuccess)
                     {
                         var failedTests = result.TestResults.Where(t => !t.IsSuccess);
@@ -111,8 +109,8 @@ namespace Testura.Mutation.Core.Baseline
             }
             catch (OperationCanceledException)
             {
-                LogTo.Info("Cancellation request when running baseline.");
-                return new List<BaselineInfo>();
+                LogTo.Info("Creating baseline was cancelled by request.");
+                throw;
             }
             finally
             {

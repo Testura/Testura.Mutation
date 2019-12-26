@@ -101,7 +101,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             var baseFileConfig = _configService.GetBaseFileConfig();
 
             Mutations.Clear();
-            ShowLoading("Loading mutations..");
+            ShowLoading("Creating mutations..");
 
             baseFileConfig.Filter = new MutationDocumentFilter { FilterItems = _filterItems ?? new List<MutationDocumentFilterItem>() };
 
