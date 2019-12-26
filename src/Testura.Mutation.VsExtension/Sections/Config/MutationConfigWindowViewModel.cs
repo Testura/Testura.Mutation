@@ -98,7 +98,7 @@ namespace Testura.Mutation.VsExtension.Sections.Config
 
             File.WriteAllText(GetConfigPath(), JsonConvert.SerializeObject(config));
 
-            _environmentService.UserNotificationService.ShowMessage("Config updated. Updates won't affect any currently open mutation windows.");
+            _environmentService.UserNotificationService.ShowInfoBar<MutationConfigWindow>("Config updated. Note that updates won't affect any currently open mutation windows.");
         }
 
         private ProjectListItem ConvertToProjectListItem(SolutionProjectInfo solutionProjectInfo, IList<string> projects)

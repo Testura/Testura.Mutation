@@ -147,6 +147,12 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
         public void Initialize(IEnumerable<MutationDocumentFilterItem> filterItems = null)
         {
+            if (IsLoadingVisible)
+            {
+                _environmentService.UserNotificationService.ShowInfoBar<MutationExplorerWindow>("Please stop your current mutation execution before starting a new one.");
+                return;
+            }
+
             IsStopButtonEnabled = false;
             _tokenSource = new CancellationTokenSource();
 

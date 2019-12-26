@@ -78,7 +78,7 @@
             <materialDesign:Card Margin="8, 16, 16, 8" Height="90" Grid.Row="0" Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Style="{StaticResource MaterialDesignCheckBox}"
-                              IsChecked="{Binding RunBaseline}"
+                              IsChecked="True"
                               Margin="16, 0, 16, 0"
                               Foreground="White"
                               Command="{Binding HighlightChangedCommand}"

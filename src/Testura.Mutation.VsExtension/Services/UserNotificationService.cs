@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio;
+﻿using System;
+using EnvDTE;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Threading;
@@ -9,11 +11,13 @@ namespace Testura.Mutation.VsExtension.Services
     {
         private readonly AsyncPackage _asyncPackage;
         private readonly JoinableTaskFactory _joinableTaskFactory;
+        private readonly DTE _dte;
 
-        public UserNotificationService(AsyncPackage asyncPackage, JoinableTaskFactory joinableTaskFactory)
+        public UserNotificationService(AsyncPackage asyncPackage, JoinableTaskFactory joinableTaskFactory, DTE dte)
         {
             _asyncPackage = asyncPackage;
             _joinableTaskFactory = joinableTaskFactory;
+            _dte = dte;
         }
 
         public void ShowMessage(string message)
@@ -23,6 +27,23 @@ namespace Testura.Mutation.VsExtension.Services
                 await _joinableTaskFactory.SwitchToMainThreadAsync();
 
                 ShowMessageBox(message, OLEMSGICON.OLEMSGICON_QUERY, OLEMSGBUTTON.OLEMSGBUTTON_OK, VSConstants.MessageBoxResult.IDYES);
+            });
+        }
+
+        public void ShowInfoBar<T>(string text)
+        {
+            _joinableTaskFactory.Run(async () =>
+            {
+                await _joinableTaskFactory.SwitchToMainThreadAsync();
+
+                var window = await _asyncPackage.FindToolWindowAsync(typeof(T), 0, true, _asyncPackage.DisposalToken);
+
+                if (window?.Frame == null)
+                {
+                    throw new NotSupportedException("Cannot create tool window");
+                }
+
+                window.AddInfoBar(new InfoBarModel(text));
             });
         }
 
