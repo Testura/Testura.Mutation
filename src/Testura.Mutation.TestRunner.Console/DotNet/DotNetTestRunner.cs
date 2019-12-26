@@ -154,7 +154,7 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
                 {
                     var streamMessage = string.Empty;
 
-                    while (processStream.Peek() != -1)
+                    while (processStream.Peek() >= 0)
                     {
                         streamMessage += processStream.ReadLine();
                     }

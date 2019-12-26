@@ -15,7 +15,14 @@
              Background="#2d2d30"
              Name="MyToolWindow">
     <UserControl.Resources>
-        <ResourceDictionary Source="/Testura.Mutation.VsExtension;component/Resources.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Testura.Mutation.VsExtension;component/Resources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Storyboard x:Key="imageRotationStoryboard" Storyboard.TargetName="myImage" Storyboard.TargetProperty="RenderTransform.(RotateTransform.Angle)">
+                <DoubleAnimation From="0" To="360" BeginTime="0:0:0" Duration="0:0:2" RepeatBehavior="Forever" />
+            </Storyboard>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -91,14 +98,20 @@
 
 
 
-        <materialDesign:Card Margin="8, 16, 8, 8" Height="90" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Width="250" Visibility="{Binding IsLoadingVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <StackPanel Orientation="Horizontal" Margin="25, 0, 0, 0">
-                <ProgressBar
-                    Style="{StaticResource MaterialDesignCircularProgressBar}"
-                    IsIndeterminate="True"
-                    Width="25"
-                    Grid.Row="0"/>
-                <Label Content="{Binding LoadingMessage}" FontSize="11" Foreground="White" HorizontalAlignment="Center" Margin="10, 24, 0, 0" Grid.Row="1"/>
+        <materialDesign:Card Margin="8, 20, 8, 8" Height="74" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Width="75" Visibility="{Binding IsLoadingVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Orientation="Horizontal" Margin="17, 0, 0, 0">
+                <Image x:Name="myImage" Source="../../Resources/bigIcon.png" Width="26" Height="Auto" RenderTransformOrigin="0.5, 0.5" ToolTip="{Binding LoadingMessage}">
+                    <Image.Triggers>
+                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard Storyboard="{StaticResource imageRotationStoryboard}" />
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Image.Triggers>
+                    <Image.RenderTransform>
+                        <RotateTransform Angle="0" />
+                    </Image.RenderTransform>
+                </Image>
             </StackPanel>
         </materialDesign:Card>
 
@@ -144,10 +157,18 @@
                                                             <Setter Property="ContentTemplate">
                                                                 <Setter.Value>
                                                                     <DataTemplate>
-                                                                        <ProgressBar
-                                                                            Style="{StaticResource MaterialDesignCircularProgressBar}"
-                                                                            IsIndeterminate="True"
-                                                                            Width="15"/>
+                                                                        <Image x:Name="myImage" Source="../../Resources/bigIcon.png" Width="20" Height="Auto" RenderTransformOrigin="0.5, 0.5">
+                                                                            <Image.Triggers>
+                                                                                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                                                                    <EventTrigger.Actions>
+                                                                                        <BeginStoryboard Storyboard="{StaticResource imageRotationStoryboard}" />
+                                                                                    </EventTrigger.Actions>
+                                                                                </EventTrigger>
+                                                                            </Image.Triggers>
+                                                                            <Image.RenderTransform>
+                                                                                <RotateTransform Angle="0" />
+                                                                            </Image.RenderTransform>
+                                                                        </Image>
                                                                     </DataTemplate>
                                                                 </Setter.Value>
                                                             </Setter>
