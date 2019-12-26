@@ -5,12 +5,15 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.Text.Tagging;
+using Testura.Mutation.VsExtension.MutationHighlight.Definitions;
+using Testura.Mutation.Wpf.Shared.Models;
 
 namespace Testura.Mutation.VsExtension.MutationHighlight
 {
     public class MutationCodeHighlightTagger : ITagger<MutationCodeHighlightTag>
     {
         private IList<MutationHightlight> _mutations;
+        private Dictionary<TestRunDocument.TestRunStatusEnum, string> _mutationDefinitions;
 
         public MutationCodeHighlightTagger(
             ITextView view,
@@ -22,7 +25,17 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
             SourceBuffer = sourceBuffer;
             TextSearchService = textSearchService;
             TextStructureNavigator = textStructureNavigator;
+
             _mutations = new List<MutationHightlight>();
+            _mutationDefinitions = new Dictionary<TestRunDocument.TestRunStatusEnum, string>
+            {
+                [TestRunDocument.TestRunStatusEnum.Waiting] = nameof(MutationNotRunFormatDefinition),
+                [TestRunDocument.TestRunStatusEnum.Running] = nameof(MutationNotRunFormatDefinition),
+                [TestRunDocument.TestRunStatusEnum.CompleteAndKilled] = nameof(MutationKilledFormatDefinition),
+                [TestRunDocument.TestRunStatusEnum.CompleteAndSurvived] = nameof(MutationSurvivedFormatDefinition),
+                [TestRunDocument.TestRunStatusEnum.CompletedWithUnknownReason] = nameof(MutationUnknownErrorFormatDefinition)
+            };
+
             MutationCodeHighlightHandler.OnMutationHighlightUpdate += MutationCodeHighlightHandlerOnOnMutationHighlightUpdate;
         }
 
@@ -49,7 +62,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
             foreach (var mutationHightlight in mutations)
             {
                 var span = new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(mutationHightlight.Start, mutationHightlight.Length));
-                res.Add(new TagSpan<MutationCodeHighlightTag>(span, new MutationCodeHighlightTag()));
+                res.Add(new TagSpan<MutationCodeHighlightTag>(span, new MutationCodeHighlightTag(_mutationDefinitions[mutationHightlight.Status])));
             }
 
             return res;

@@ -17,7 +17,8 @@ namespace Testura.Mutation.Infrastructure
     {
         public Task<TestSuiteResult> RunTestsAsync(string runner, string dllPath, string dotNetPath, TimeSpan maxTime, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return Task.Run(() =>
+            return Task.Run(
+                () =>
             {
                 var allArguments = new List<string>
                 {
@@ -42,13 +43,18 @@ namespace Testura.Mutation.Infrastructure
                                 si.RedirectStandardInput = true;
                                 si.RedirectStandardOutput = true;
                             });
-                            o.CancellationToken(cancellationToken);
                             o.Timeout(maxTime);
                             o.DisposeOnExit();
                         }))
                     {
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            command.Kill();
+                            cancellationToken.ThrowIfCancellationRequested();
+                        }
+
                         var error = string.Empty;
-                        var success = ReadToEnd(command.StandardOutput, maxTime, out var output) && ReadToEnd(command.StandardError, maxTime, out error);
+                        var success = ReadToEnd(command.StandardOutput, maxTime, cancellationToken, out var output) && ReadToEnd(command.StandardError, maxTime, cancellationToken, out error);
 
                         if (!success)
                         {
@@ -94,12 +100,25 @@ namespace Testura.Mutation.Infrastructure
             });
         }
 
-        private bool ReadToEnd(ProcessStreamReader processStream, TimeSpan maxTime, out string message)
+        private bool ReadToEnd(ProcessStreamReader processStream, TimeSpan maxTime, CancellationToken cancellationToken, out string message)
         {
-            var readStreamTask = Task.Run(() => processStream.ReadToEnd());
-            // We also have a max time in the test runner so add a bit of extra here 
+            var readStreamTask = Task.Run(
+                () =>
+                {
+                    var streamMessage = string.Empty;
+
+                    while (processStream.Peek() != -1)
+                    {
+                        streamMessage += processStream.ReadLine();
+                    }
+
+                    return streamMessage;
+                },
+                cancellationToken);
+
+            // We also have a max time in the test runner so add a bit of extra here
             // just in case so we don't fail it to early.
-            var successful = readStreamTask.Wait(maxTime.Add(TimeSpan.FromSeconds(30))); 
+            var successful = readStreamTask.Wait((int)maxTime.Add(TimeSpan.FromSeconds(30)).TotalMilliseconds, cancellationToken);
 
             message = successful ? readStreamTask.Result : "Stuck when reading from stream!";
             return successful;

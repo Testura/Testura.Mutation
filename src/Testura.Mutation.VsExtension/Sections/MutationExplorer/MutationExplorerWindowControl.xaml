@@ -152,7 +152,7 @@
                                                                 </Setter.Value>
                                                             </Setter>
                                                         </DataTrigger>
-                                                        <DataTrigger Binding="{Binding Status}" Value="CompletedWithFailure">
+                                                        <DataTrigger Binding="{Binding Status}" Value="CompleteAndSurvived">
                                                             <Setter Property="ContentTemplate">
                                                                 <Setter.Value>
                                                                     <DataTemplate>
@@ -161,7 +161,7 @@
                                                                 </Setter.Value>
                                                             </Setter>
                                                         </DataTrigger>
-                                                        <DataTrigger Binding="{Binding Status}" Value="CompletedWithSuccess">
+                                                        <DataTrigger Binding="{Binding Status}" Value="CompleteAndKilled">
                                                             <Setter Property="ContentTemplate">
                                                                 <Setter.Value>
                                                                     <DataTemplate>

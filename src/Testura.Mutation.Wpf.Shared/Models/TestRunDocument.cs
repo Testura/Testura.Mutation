@@ -13,8 +13,8 @@ namespace Testura.Mutation.Wpf.Shared.Models
         {
             Running,
             Waiting,
-            CompletedWithSuccess,
-            CompletedWithFailure,
+            CompleteAndKilled,
+            CompleteAndSurvived,
             CompletedWithUnknownReason
         }
 

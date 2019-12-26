@@ -48,7 +48,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="MutationHighlight\Definitions\MutationCodeHighlightFormatDefinition.cs" />
+    <Compile Include="MutationHighlight\Definitions\MutationUnknownErrorFormatDefinition.cs" />
+    <Compile Include="MutationHighlight\Definitions\MutationKilledFormatDefinition.cs" />
+    <Compile Include="MutationHighlight\Definitions\MutationSurvivedFormatDefinition.cs" />
+    <Compile Include="MutationHighlight\Definitions\MutationNotRunFormatDefinition.cs" />
     <Compile Include="MutationHighlight\MutationCodeHighlightHandler.cs" />
     <Compile Include="MutationHighlight\MutationCodeHighlightTag.cs" />
     <Compile Include="MutationHighlight\MutationCodeHighlightTagger.cs" />

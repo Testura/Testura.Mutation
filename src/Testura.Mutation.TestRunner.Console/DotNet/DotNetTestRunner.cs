@@ -149,10 +149,22 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
 
         private bool ReadToEnd(ProcessStreamReader processStream, out string message)
         {
-            var readStreamTask = Task.Run(() => processStream.ReadToEnd());
+            var readStreamTask = Task.Run(
+                () =>
+                {
+                    var streamMessage = string.Empty;
+
+                    while (processStream.Peek() != -1)
+                    {
+                        streamMessage += processStream.ReadLine();
+                    }
+
+                    return streamMessage;
+                });
+
             var successful = readStreamTask.Wait(_maxTime);
 
-            message = successful ? readStreamTask.Result : "Error reading from stream because of timeout";
+            message = successful ? readStreamTask.Result : "Stuck when reading from stream!";
             return successful;
         }
 

@@ -6,15 +6,15 @@ using Microsoft.VisualStudio.Utilities;
 namespace Testura.Mutation.VsExtension.MutationHighlight.Definitions
 {
     [Export(typeof(EditorFormatDefinition))]
-    [Name("MarkerFormatDefinition/MutationCodeHighlightFormatDefinition")]
+    [Name("MarkerFormatDefinition/MutationNotRunFormatDefinition")]
     [UserVisible(true)]
-    public class MutationCodeHighlightFormatDefinition : MarkerFormatDefinition
+    public class MutationNotRunFormatDefinition : MarkerFormatDefinition
     {
-        public MutationCodeHighlightFormatDefinition()
+        public MutationNotRunFormatDefinition()
         {
-            var orange = Brushes.IndianRed.Clone();
-            orange.Opacity = 0.25;
-            Fill = orange;
+            var color = Brushes.Yellow.Clone();
+            color.Opacity = 0.25;
+            Fill = color;
             Border = new Pen(Brushes.Gray, 1.0);
             DisplayName = "Highlight Word";
             ZOrder = 5;

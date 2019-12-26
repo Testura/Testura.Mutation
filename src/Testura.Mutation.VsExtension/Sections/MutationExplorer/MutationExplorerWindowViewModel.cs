@@ -128,6 +128,8 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                             Status = TestRunDocument.TestRunStatusEnum.Waiting
                         });
                     }
+
+                    UpdateHighlightedMutations();
                 }
                 catch (Exception)
                 {
@@ -197,8 +199,6 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                             MutationDocumentStarted,
                             MutationDocumentCompleted),
                         _tokenSource.Token);
-
-                    UpdateHighlightedMutations();
                 }
                 catch (Exception)
                 {
@@ -209,6 +209,8 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                 {
                     IsStopButtonEnabled = false;
                     HideLoading();
+
+                    UpdateHighlightedMutations();
                 }
             });
         }
@@ -238,8 +240,8 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                     }
 
                     runDocument.Status = result.Survived
-                        ? TestRunDocument.TestRunStatusEnum.CompletedWithFailure
-                        : TestRunDocument.TestRunStatusEnum.CompletedWithSuccess;
+                        ? TestRunDocument.TestRunStatusEnum.CompleteAndSurvived
+                        : TestRunDocument.TestRunStatusEnum.CompleteAndKilled;
                     runDocument.InfoText = $"{result.FailedTests.Count} of {result.TestsRunCount} tests failed";
                 }
             });
@@ -284,7 +286,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         {
             _showhighlight = isChecked;
 
-            if (_mutationRunResult.Any(m => m.Survived) && !IsLoadingVisible)
+            if (!IsLoadingVisible)
             {
                 UpdateHighlightedMutations();
             }
@@ -294,9 +296,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         {
             if (_showhighlight)
             {
-                var survivedMutations =
-                    Mutations.Where(m => _mutationRunResult.Any(r => r.Id == m.Document.Id && r.Survived));
-                _mutationCodeHighlightHandler.UpdateMutationHighlightList(survivedMutations);
+                _mutationCodeHighlightHandler.UpdateMutationHighlightList(Mutations);
                 return;
             }
 

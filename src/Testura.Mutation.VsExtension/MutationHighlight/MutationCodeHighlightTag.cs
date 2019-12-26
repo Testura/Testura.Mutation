@@ -4,8 +4,8 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
 {
     public class MutationCodeHighlightTag : TextMarkerTag
     {
-        public MutationCodeHighlightTag()
-            : base("MarkerFormatDefinition/MutationCodeHighlightFormatDefinition")
+        public MutationCodeHighlightTag(string type)
+            : base($"MarkerFormatDefinition/{type}")
         {
         }
     }
