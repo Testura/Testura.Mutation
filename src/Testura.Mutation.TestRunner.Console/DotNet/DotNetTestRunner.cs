@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -34,6 +35,7 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
         public Task<TestSuiteResult> RunTestWithRetries(string dllPath, int retries)
         {
             var directoryPath = Path.GetDirectoryName(dllPath);
+            var cancellationToken = new CancellationTokenSource(_maxTime).Token;
 
             return Task.Run(async () =>
             {
@@ -51,10 +53,13 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
                             si.RedirectStandardOutput = true;
                         });
                         o.DisposeOnExit();
+                        o.CancellationToken(cancellationToken);
                     }))
                 {
-                    ReadToEnd(command.StandardError, out var error);
-                    ReadToEnd(command.StandardOutput, out var message);
+                    command.Wait();
+
+                    ReadToEnd(command.StandardError, cancellationToken, out var error);
+                    ReadToEnd(command.StandardOutput, cancellationToken, out var message);
 
                     var resultFile = GetResultFile(directoryPath);
                     var success = !string.IsNullOrEmpty(resultFile);
@@ -147,7 +152,7 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
             return message[0].Value ?? string.Empty;
         }
 
-        private bool ReadToEnd(ProcessStreamReader processStream, out string message)
+        private bool ReadToEnd(ProcessStreamReader processStream, CancellationToken cancellationToken, out string message)
         {
             var readStreamTask = Task.Run(
                 () =>
@@ -162,7 +167,7 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
                     return streamMessage;
                 });
 
-            var successful = readStreamTask.Wait(_maxTime);
+            var successful = readStreamTask.Wait((int)_maxTime.TotalMilliseconds, cancellationToken);
 
             message = successful ? readStreamTask.Result : "Stuck when reading from stream!";
             return successful;

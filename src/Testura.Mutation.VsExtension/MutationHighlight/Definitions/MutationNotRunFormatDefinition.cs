@@ -12,7 +12,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight.Definitions
     {
         public MutationNotRunFormatDefinition()
         {
-            var color = Brushes.Yellow.Clone();
+            var color = new SolidColorBrush(Color.FromArgb(255, 60, 141, 197));
             color.Opacity = 0.25;
             Fill = color;
             Border = new Pen(Brushes.Gray, 1.0);

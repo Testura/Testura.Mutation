@@ -148,7 +148,7 @@
                                                             <Setter Property="ContentTemplate">
                                                                 <Setter.Value>
                                                                     <DataTemplate>
-                                                                        <materialDesign:PackIcon Kind="AlertCircle" Foreground="#26a0da" Width="24"/>
+                                                                        <Image Source="../../Resources/iconWithoutGlass.png" Width="18 " Height="Auto" />
                                                                     </DataTemplate>
                                                                 </Setter.Value>
                                                             </Setter>

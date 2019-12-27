@@ -271,10 +271,10 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             });
         }
 
-        private void UpdateSelectedMutation(TestRunDocument obj)
+        private void UpdateSelectedMutation(TestRunDocument testRunDocument)
         {
-            CodeBeforeMutation = obj.Document.MutationDetails.FullOrginal.ToFullString();
-            CodeAfterMutation = obj.Document.MutationDetails.FullMutation.ToFullString();
+            CodeBeforeMutation = testRunDocument?.Document?.MutationDetails?.FullOrginal?.ToFullString() ?? string.Empty;
+            CodeAfterMutation = testRunDocument?.Document?.MutationDetails?.FullMutation?.ToFullString() ?? string.Empty;
             var diffBuilder = new SideBySideDiffBuilder(new Differ());
             Diff = diffBuilder.BuildDiffModel(CodeBeforeMutation, CodeAfterMutation);
         }

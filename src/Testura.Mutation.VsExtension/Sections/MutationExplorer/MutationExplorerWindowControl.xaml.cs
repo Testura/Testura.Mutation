@@ -39,8 +39,10 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
         private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            AfterTxt.ScrollToVerticalOffset(e.VerticalOffset);
-            AfterTxt.ScrollToHorizontalOffset(e.HorizontalOffset);
+            var textToSync = (sender == BeforeTxt) ? AfterTxt : BeforeTxt;
+
+            textToSync.ScrollToVerticalOffset(e.VerticalOffset);
+            textToSync.ScrollToHorizontalOffset(e.HorizontalOffset);
         }
 
         private void RunDummyCode()

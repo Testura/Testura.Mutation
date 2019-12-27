@@ -9,7 +9,7 @@ namespace Testura.Mutation.Core.Creator.Filter
 
         public bool ResourceAllowed(string resource)
         {
-            if (FilterItems == null)
+            if (FilterItems == null || !FilterItems.Any())
             {
                 return true;
             }

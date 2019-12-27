@@ -47,11 +47,7 @@ namespace Testura.Mutation.Infrastructure
                             o.DisposeOnExit();
                         }))
                     {
-                        if (cancellationToken.IsCancellationRequested)
-                        {
-                            command.Kill();
-                            cancellationToken.ThrowIfCancellationRequested();
-                        }
+                        command.Wait();
 
                         var error = string.Empty;
                         var success = ReadToEnd(command.StandardOutput, maxTime, cancellationToken, out var output) && ReadToEnd(command.StandardError, maxTime, cancellationToken, out error);
@@ -59,7 +55,7 @@ namespace Testura.Mutation.Infrastructure
                         if (!success)
                         {
                             command.Kill();
-                             throw new MutationDocumentException("We have a problem reading from stream. Killing this mutation");
+                            throw new MutationDocumentException("We have a problem reading from stream. Killing this mutation");
                         }
 
                         try
