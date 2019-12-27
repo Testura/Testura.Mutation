@@ -76,6 +76,13 @@ namespace Testura.Mutation.VsExtension.Sections.Selects
                     {
                         if (selectedItem.ProjectItem is ProjectItem projectItem)
                         {
+                            // If it have project items it must be a directory
+                            if (projectItem.ProjectItems.Count > 0)
+                            {
+                                files.Add($"{projectItem.FileNames[0]}*");
+                                continue;
+                            }
+
                             files.Add(projectItem.FileNames[0]);
                             continue;
                         }

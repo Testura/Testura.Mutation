@@ -95,6 +95,12 @@
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIPROJ"/>
     </CommandPlacement>
 
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_FOLDERNODE"/>
+    </CommandPlacement>
+
+
+
     <CommandPlacement guid="SelectFilePackageCmdSet" id="cmdidSelectProjectFileCommand" priority="0x0001">
       <Parent guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" />
     </CommandPlacement>
