@@ -49,28 +49,20 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         {
             _package.JoinableTaskFactory.RunAsync(async () =>
             {
-                try
+                var window =
+                    await _package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true, _package.DisposalToken) as MutationExplorerWindow;
+
+                if (window?.Frame == null)
                 {
-                    var window =
-                        await _package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true, _package.DisposalToken) as MutationExplorerWindow;
-
-                    if (window?.Frame == null)
-                    {
-                        throw new NotSupportedException("Cannot create tool window");
-                    }
-
-                    await _package.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-                    var windowFrame = (IVsWindowFrame)window.Frame;
-                    Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
-
-                    window.InitializeWindow();
+                    throw new NotSupportedException("Cannot create tool window");
                 }
-                catch (Exception ex)
-                {
-                    var o = ex.Message;
-                    return;
-                }
+
+                await _package.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+                var windowFrame = (IVsWindowFrame)window.Frame;
+                Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+
+                window.InitializeWindow();
             });
         }
     }
