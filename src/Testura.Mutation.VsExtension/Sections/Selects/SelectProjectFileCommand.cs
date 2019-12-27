@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.IO;
 using System.Linq;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
@@ -76,6 +77,12 @@ namespace Testura.Mutation.VsExtension.Sections.Selects
                         if (selectedItem.ProjectItem is ProjectItem projectItem)
                         {
                             files.Add(projectItem.FileNames[0]);
+                            continue;
+                        }
+
+                        if (selectedItem.Project is Project project)
+                        {
+                            files.Add($"{Path.GetDirectoryName(project.FileName)}/*");
                         }
                     }
 

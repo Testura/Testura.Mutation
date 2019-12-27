@@ -23,7 +23,7 @@
       <Group guid="EditorPackageCmdSet" id="EditorContextMenuGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
       </Group>
-    </Groups>
+      </Groups>
 
     <Buttons>
       <Button guid="TopLevelMenuPackageCmdSet" id="MutationToolWindowCommandId" priority="0x0100" type="Button">
@@ -62,7 +62,6 @@
           <ButtonText>Mutate solution..</ButtonText>
         </Strings>
       </Button>
-
     </Buttons>
 
     <Bitmaps>
@@ -85,15 +84,25 @@
     <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIITEM" />
     </CommandPlacement>
+
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+    </CommandPlacement>
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBPROJECT"/>
+    </CommandPlacement>
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIPROJ"/>
+    </CommandPlacement>
+
     <CommandPlacement guid="SelectFilePackageCmdSet" id="cmdidSelectProjectFileCommand" priority="0x0001">
       <Parent guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" />
     </CommandPlacement>
 
     <!-- SOLUTION CONTEXT MENU -->
     <CommandPlacement guid="TopLevelMenuPackageCmdSet" id="MyTopLevelMenuGroup" priority="0x1000">
-      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE"/>
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE" />
     </CommandPlacement>
-
   </CommandPlacements>
 
 
@@ -120,5 +129,6 @@
       <IDSymbol value="4128" name="EditorContextMenuGroup" />
       <IDSymbol value="256" name="cmdidSelectLineCommand" />
     </GuidSymbol>
+
   </Symbols>
 </CommandTable>
