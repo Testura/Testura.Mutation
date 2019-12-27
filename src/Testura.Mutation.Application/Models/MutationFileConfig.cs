@@ -14,6 +14,7 @@ namespace Testura.Mutation.Application.Models
             BuildConfiguration = "debug";
             CreateBaseline = true;
             Mutators = new List<string>();
+            Filter = new MutationDocumentFilter();
         }
 
         public string SolutionPath { get; set; }

@@ -102,7 +102,15 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             Mutations.Clear();
             ShowLoading("Creating mutations..");
 
-            baseFileConfig.Filter = new MutationDocumentFilter { FilterItems = _filterItems ?? new List<MutationDocumentFilterItem>() };
+            if (_filterItems != null)
+            {
+                if (baseFileConfig.Filter == null)
+                {
+                    baseFileConfig.Filter = new MutationDocumentFilter();
+                }
+
+                baseFileConfig.Filter.FilterItems.AddRange(_filterItems);
+            }
 
             _environmentService.JoinableTaskFactory.RunAsync(async () =>
             {

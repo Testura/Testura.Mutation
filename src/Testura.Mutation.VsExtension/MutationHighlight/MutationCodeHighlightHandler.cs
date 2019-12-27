@@ -34,7 +34,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
 
         public static void ClearHighlights()
         {
-            MutationHighlights.Clear();
+            MutationHighlights?.Clear();
             OnMutationHighlightUpdate?.Invoke(typeof(MutationCodeHighlightHandler), new List<MutationHightlight>());
         }
     }

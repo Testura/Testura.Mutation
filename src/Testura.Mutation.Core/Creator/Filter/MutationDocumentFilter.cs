@@ -5,6 +5,11 @@ namespace Testura.Mutation.Core.Creator.Filter
 {
     public class MutationDocumentFilter
     {
+        public MutationDocumentFilter()
+        {
+            FilterItems = new List<MutationDocumentFilterItem>();
+        }
+
         public List<MutationDocumentFilterItem> FilterItems { get; set; }
 
         public bool ResourceAllowed(string resource)

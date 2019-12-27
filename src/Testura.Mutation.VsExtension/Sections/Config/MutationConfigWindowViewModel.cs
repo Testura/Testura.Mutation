@@ -76,9 +76,17 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                     ProjectGridItems.Add(new ConfigProjectGridItem
                     {
                         IsIgnored = mutationFileConfig?.IgnoredProjects.Any(u => u == projectName) ?? false,
-                        IsTestProject = mutationFileConfig?.TestProjects.Any(u => u == projectName) ?? false,
+                        IsTestProject = mutationFileConfig?.TestProjects.Any(u => u == projectName) ?? projectName.EndsWith("Test") || projectName.EndsWith("Tests"),
                         Name = projectName
                     });
+                }
+
+                if (mutationFileConfig?.Mutators != null)
+                {
+                    foreach (var mutator in MutationOperatorGridItems)
+                    {
+                        mutator.IsSelected = mutationFileConfig.Mutators.FirstOrDefault(m => m == mutator.MutationOperator.ToString()) != null;
+                    }
                 }
 
                 RunBaseline = mutationFileConfig?.CreateBaseline ?? true;
@@ -87,13 +95,16 @@ namespace Testura.Mutation.VsExtension.Sections.Config
 
         private void UpdateConfig()
         {
+            var settings = MutationOperatorGridItems.Where(m => m.IsSelected).Select(m => m.MutationOperator.ToString());
+
             var config = new MutationFileConfig
             {
                 IgnoredProjects = ProjectGridItems.Where(s => s.IsIgnored).Select(s => s.Name).ToList(),
                 SolutionPath = _solutionPath,
                 TestProjects = ProjectGridItems.Where(s => s.IsTestProject).Select(s => s.Name).ToList(),
                 TestRunner = TestRunnerTypes[SelectedTestRunnerIndex],
-                CreateBaseline = RunBaseline
+                CreateBaseline = RunBaseline,
+                Mutators = settings.ToList()
             };
 
             File.WriteAllText(GetConfigPath(), JsonConvert.SerializeObject(config));
