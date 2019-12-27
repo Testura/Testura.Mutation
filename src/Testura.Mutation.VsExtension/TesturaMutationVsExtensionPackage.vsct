@@ -55,6 +55,14 @@
           <ButtonText>Mutate line(s)...</ButtonText>
         </Strings>
       </Button>
+
+      <Button guid="TopLevelMenuPackageCmdSet" id="MutationToolWindowCommandId" type="Button">
+        <Icon guid="mainIconImage" id="icon" />
+        <Strings>
+          <ButtonText>Mutate solution..</ButtonText>
+        </Strings>
+      </Button>
+
     </Buttons>
 
     <Bitmaps>
@@ -64,30 +72,28 @@
 
   <CommandPlacements>
 
-    <!-- Placement for group. The parent of a group is a menu, context menu or toolbar. 
-           The priority sets the position of the group compared to the priority of other existing groups in the menu.    
-      -->
+    <!-- FILE CONTEXT MENU -->
     <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
-      <!-- The parent of the group will be the file context menu -->
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
     </CommandPlacement>
     <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
-      <!-- The parent of the group will be the Web file context menu -->
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBITEMNODE" />
     </CommandPlacement>
     <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
-      <!-- The parent of the group will be the file context menu when more than one file is selected in the same project -->
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_PROJITEM" />
     </CommandPlacement>
     <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
-      <!-- The parent of the group will be the file context menu when more than one file is selected in different projects -->
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIITEM" />
     </CommandPlacement>
-
-    <!-- Placement for command. The parent of a command is always a group, never a menu, context menu or toolbar. -->
     <CommandPlacement guid="SelectFilePackageCmdSet" id="cmdidSelectProjectFileCommand" priority="0x0001">
       <Parent guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" />
     </CommandPlacement>
+
+    <!-- SOLUTION CONTEXT MENU -->
+    <CommandPlacement guid="TopLevelMenuPackageCmdSet" id="MyTopLevelMenuGroup" priority="0x1000">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE"/>
+    </CommandPlacement>
+
   </CommandPlacements>
 
 
