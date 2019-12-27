@@ -10,10 +10,10 @@ using Testura.Mutation.Wpf.Shared.Models;
 
 namespace Testura.Mutation.VsExtension.MutationHighlight
 {
-    public class MutationCodeHighlightTagger : ITagger<MutationCodeHighlightTag>
+    public class MutationCodeHighlightTagger : ITagger<MutationCodeHighlightTag>, IDisposable
     {
+        private readonly Dictionary<TestRunDocument.TestRunStatusEnum, string> _mutationDefinitions;
         private IList<MutationHightlight> _mutations;
-        private Dictionary<TestRunDocument.TestRunStatusEnum, string> _mutationDefinitions;
 
         public MutationCodeHighlightTagger(
             ITextView view,
@@ -26,7 +26,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
             TextSearchService = textSearchService;
             TextStructureNavigator = textStructureNavigator;
 
-            _mutations = new List<MutationHightlight>();
+            _mutations = MutationCodeHighlightHandler.MutationHighlights ?? new List<MutationHightlight>();
             _mutationDefinitions = new Dictionary<TestRunDocument.TestRunStatusEnum, string>
             {
                 [TestRunDocument.TestRunStatusEnum.Waiting] = nameof(MutationNotRunFormatDefinition),
@@ -68,6 +68,11 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
             return res;
         }
 
+        public void Dispose()
+        {
+            MutationCodeHighlightHandler.OnMutationHighlightUpdate -= MutationCodeHighlightHandlerOnOnMutationHighlightUpdate;
+        }
+
         private void MutationCodeHighlightHandlerOnOnMutationHighlightUpdate(object sender, IList<MutationHightlight> e)
         {
             if (_mutations.Count == 0 && e.Count == 0)
@@ -75,7 +80,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
                 return;
             }
 
-            _mutations = e;
+            _mutations = new List<MutationHightlight>(e);
             TagsChanged?.Invoke(this, new SnapshotSpanEventArgs(new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(0, SourceBuffer.CurrentSnapshot.Length - 1))));
         }
     }

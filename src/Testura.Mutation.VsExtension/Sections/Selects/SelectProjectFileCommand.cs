@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -76,8 +77,13 @@ namespace Testura.Mutation.VsExtension.Sections.Selects
                         {
                             if (selectedItem.ProjectItem is ProjectItem projectItem)
                             {
-                                files.Add(projectItem.Document.FullName);
+                                files.Add(projectItem.FileNames[0]);
                             }
+                        }
+
+                        if (!files.Any())
+                        {
+                            return;
                         }
 
                         var window =

@@ -27,7 +27,6 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         private readonly EnvironmentService _environmentService;
         private readonly ConfigService _configService;
         private readonly IMediator _mediator;
-        private readonly MutationCodeHighlightHandler _mutationCodeHighlightHandler;
 
         private List<MutationDocumentFilterItem> _filterItems;
         private MutationConfig _config;
@@ -38,13 +37,11 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         public MutationExplorerWindowViewModel(
             EnvironmentService environmentService,
             ConfigService configService,
-            MutationCodeHighlightHandler mutationCodeHighlightHandler,
             IMediator mediator)
         {
             _environmentService = environmentService;
             _configService = configService;
             _mediator = mediator;
-            _mutationCodeHighlightHandler = mutationCodeHighlightHandler;
             _filterItems = new List<MutationDocumentFilterItem>();
             _mutationRunResult = new List<MutationDocumentResult>();
 
@@ -179,7 +176,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
         public void Close()
         {
-            _mutationCodeHighlightHandler.ClearHighlights();
+            MutationCodeHighlightHandler.ClearHighlights();
             _tokenSource.Cancel();
         }
 
@@ -306,11 +303,11 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         {
             if (_showhighlight)
             {
-                _mutationCodeHighlightHandler.UpdateMutationHighlightList(Mutations);
+                MutationCodeHighlightHandler.UpdateMutationHighlightList(Mutations);
                 return;
             }
 
-            _mutationCodeHighlightHandler.ClearHighlights();
+            MutationCodeHighlightHandler.ClearHighlights();
         }
     }
 }

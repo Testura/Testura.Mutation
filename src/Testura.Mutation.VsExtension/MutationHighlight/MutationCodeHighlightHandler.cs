@@ -5,18 +5,20 @@ using Testura.Mutation.Wpf.Shared.Models;
 
 namespace Testura.Mutation.VsExtension.MutationHighlight
 {
-    public class MutationCodeHighlightHandler
+    public static class MutationCodeHighlightHandler
     {
         public static event EventHandler<IList<MutationHightlight>> OnMutationHighlightUpdate;
 
-        public void UpdateMutationHighlightList(IEnumerable<MutationHightlight> mutationHightlights)
+        public static IList<MutationHightlight> MutationHighlights { get; private set; }
+
+        public static void UpdateMutationHighlightList(IEnumerable<MutationHightlight> mutationHightlights)
         {
             OnMutationHighlightUpdate?.Invoke(typeof(MutationCodeHighlightHandler), new List<MutationHightlight>(mutationHightlights));
         }
 
-        public void UpdateMutationHighlightList(IEnumerable<TestRunDocument> testRunDocument)
+        public static void UpdateMutationHighlightList(IEnumerable<TestRunDocument> testRunDocument)
         {
-            UpdateMutationHighlightList(testRunDocument.Select(m =>
+            MutationHighlights = testRunDocument.Select(m =>
                 new MutationHightlight
                 {
                     FilePath = m.Document.FilePath,
@@ -25,11 +27,14 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
                     Length = m.Document.MutationDetails.Orginal.FullSpan.Length,
                     Status = m.Status,
                     MutationText = m.Document.MutationDetails.Mutation.ToFullString()
-                }));
+                }).ToList();
+
+            UpdateMutationHighlightList(MutationHighlights);
         }
 
-        public void ClearHighlights()
+        public static void ClearHighlights()
         {
+            MutationHighlights.Clear();
             OnMutationHighlightUpdate?.Invoke(typeof(MutationCodeHighlightHandler), new List<MutationHightlight>());
         }
     }

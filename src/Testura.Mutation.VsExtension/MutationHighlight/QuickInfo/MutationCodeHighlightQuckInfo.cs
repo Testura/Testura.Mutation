@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Language.StandardClassification;
 using Microsoft.VisualStudio.Text;
@@ -18,7 +17,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight.QuickInfo
         public MutationCodeHighlightQuckInfo(ITextBuffer textBuffer)
         {
             _textBuffer = textBuffer;
-            _mutations = new List<MutationHightlight>();
+            _mutations = MutationCodeHighlightHandler.MutationHighlights ?? new List<MutationHightlight>();
 
             MutationCodeHighlightHandler.OnMutationHighlightUpdate += MutationCodeHighlightHandlerOnOnMutationHighlightUpdate;
         }
@@ -59,7 +58,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight.QuickInfo
 
         private void MutationCodeHighlightHandlerOnOnMutationHighlightUpdate(object sender, IList<MutationHightlight> e)
         {
-            _mutations = e;
+            _mutations = new List<MutationHightlight>(e);
         }
 
         private bool InsideSpan(int position, ITextSnapshotLine line)
