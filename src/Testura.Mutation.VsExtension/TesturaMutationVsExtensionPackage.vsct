@@ -5,7 +5,7 @@
   <Commands package="guidTesturaMutationVsExtensionPackage">
 
     <Menus>
-      <Menu guid="guidTesturaMutationVsExtensionPackageCmdSet" id="TopLevelMenu" priority="0x700" type="Menu">
+      <Menu guid="TopLevelMenuPackageCmdSet" id="TopLevelMenu" priority="0x700" type="Menu">
         <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS" />
         <Strings>
           <ButtonText>Testura.Mutation</ButtonText>
@@ -15,41 +15,41 @@
     </Menus>
 
     <Groups>
-      <Group guid="guidTesturaMutationVsExtensionPackageCmdSet" id="MyMenuGroup" priority="0x0600">
-        <Parent guid="guidTesturaMutationVsExtensionPackageCmdSet" id="TopLevelMenu" />
+      <Group guid="TopLevelMenuPackageCmdSet" id="MyTopLevelMenuGroup" priority="0x0600">
+        <Parent guid="TopLevelMenuPackageCmdSet" id="TopLevelMenu" />
       </Group>
-      <Group guid="guidTesturaMutationVsExtensionPackageCmdSet1" id="MyContextGroup" priority="0x0600">
+      <Group guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0x0600">
       </Group>
-      <Group guid="guidTesturaMutationVsExtensionPackageCmdSet2" id="EditorContextMenuGroup" priority="0x0600">
+      <Group guid="EditorPackageCmdSet" id="EditorContextMenuGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
       </Group>
     </Groups>
 
     <Buttons>
-      <Button guid="guidTesturaMutationVsExtensionPackageCmdSet" id="MutationToolWindowCommandId" priority="0x0100" type="Button">
-        <Parent guid="guidTesturaMutationVsExtensionPackageCmdSet" id="MyMenuGroup" />
+      <Button guid="TopLevelMenuPackageCmdSet" id="MutationToolWindowCommandId" priority="0x0100" type="Button">
+        <Parent guid="TopLevelMenuPackageCmdSet" id="MyTopLevelMenuGroup" />
         <Icon guid="mainIconImage" id="icon" />
         <Strings>
           <ButtonText>Mutation explorer</ButtonText>
         </Strings>
       </Button>
 
-      <Button guid="guidTesturaMutationVsExtensionPackageCmdSet" id="cmdidMutationConfigWindowCommand" priority="0x0100" type="Button">
-        <Parent guid="guidTesturaMutationVsExtensionPackageCmdSet" id="MyMenuGroup" />
+      <Button guid="TopLevelMenuPackageCmdSet" id="cmdidMutationConfigWindowCommand" priority="0x0100" type="Button">
+        <Parent guid="TopLevelMenuPackageCmdSet" id="MyTopLevelMenuGroup" />
         <Strings>
           <ButtonText>Config...</ButtonText>
         </Strings>
       </Button>
 
-      <Button guid="guidTesturaMutationVsExtensionPackageCmdSet1" id="cmdidSelectProjectFileCommand" priority="0x0100" type="Button">
+      <Button guid="SelectFilePackageCmdSet" id="cmdidSelectProjectFileCommand" priority="0x0100" type="Button">
         <Icon guid="mainIconImage" id="icon" />
         <Strings>
           <ButtonText>Mutate file(s)...</ButtonText>
         </Strings>
       </Button>
 
-      <Button guid="guidTesturaMutationVsExtensionPackageCmdSet2" id="cmdidSelectLineCommand" priority="0x0100" type="Button">
-        <Parent guid="guidTesturaMutationVsExtensionPackageCmdSet2" id="EditorContextMenuGroup" />
+      <Button guid="EditorPackageCmdSet" id="cmdidSelectLineCommand" priority="0x0100" type="Button">
+        <Parent guid="EditorPackageCmdSet" id="EditorContextMenuGroup" />
         <Icon guid="mainIconImage" id="icon" />
         <Strings>
           <ButtonText>Mutate line(s)...</ButtonText>
@@ -67,26 +67,26 @@
     <!-- Placement for group. The parent of a group is a menu, context menu or toolbar. 
            The priority sets the position of the group compared to the priority of other existing groups in the menu.    
       -->
-    <CommandPlacement guid="guidTesturaMutationVsExtensionPackageCmdSet1" id="MyContextGroup" priority="0xFFFF">
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
       <!-- The parent of the group will be the file context menu -->
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
     </CommandPlacement>
-    <CommandPlacement guid="guidTesturaMutationVsExtensionPackageCmdSet1" id="MyContextGroup" priority="0xFFFF">
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
       <!-- The parent of the group will be the Web file context menu -->
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBITEMNODE" />
     </CommandPlacement>
-    <CommandPlacement guid="guidTesturaMutationVsExtensionPackageCmdSet1" id="MyContextGroup" priority="0xFFFF">
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
       <!-- The parent of the group will be the file context menu when more than one file is selected in the same project -->
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_PROJITEM" />
     </CommandPlacement>
-    <CommandPlacement guid="guidTesturaMutationVsExtensionPackageCmdSet1" id="MyContextGroup" priority="0xFFFF">
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
       <!-- The parent of the group will be the file context menu when more than one file is selected in different projects -->
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIITEM" />
     </CommandPlacement>
 
     <!-- Placement for command. The parent of a command is always a group, never a menu, context menu or toolbar. -->
-    <CommandPlacement guid="guidTesturaMutationVsExtensionPackageCmdSet1" id="cmdidSelectProjectFileCommand" priority="0x0001">
-      <Parent guid="guidTesturaMutationVsExtensionPackageCmdSet1" id="MyContextGroup" />
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="cmdidSelectProjectFileCommand" priority="0x0001">
+      <Parent guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" />
     </CommandPlacement>
   </CommandPlacements>
 
@@ -94,8 +94,8 @@
   <Symbols>
     <GuidSymbol name="guidTesturaMutationVsExtensionPackage" value="{eb1b49be-0389-4dee-995a-cf1854262fa9}" />
 
-    <GuidSymbol name="guidTesturaMutationVsExtensionPackageCmdSet" value="{eb065996-2187-4c2c-8ecf-947ac6264c49}">
-      <IDSymbol name="MyMenuGroup" value="0x1020" />
+    <GuidSymbol name="TopLevelMenuPackageCmdSet" value="{eb065996-2187-4c2c-8ecf-947ac6264c49}">
+      <IDSymbol name="MyTopLevelMenuGroup" value="0x1020" />
       <IDSymbol name="TopLevelMenu" value="0x1021" />
       <IDSymbol name="MutationToolWindowCommandId" value="0x0100" />
       <IDSymbol value="4130" name="cmdidMutationConfigWindowCommand" />
@@ -105,12 +105,12 @@
       <IDSymbol name="icon" value="1" />
     </GuidSymbol>
   
-    <GuidSymbol value="{4dd019e1-138b-43cd-b2d9-686d466ef14c}" name="guidTesturaMutationVsExtensionPackageCmdSet1">
-      <IDSymbol value="4128" name="MyContextGroup" />
+    <GuidSymbol value="{4dd019e1-138b-43cd-b2d9-686d466ef14c}" name="SelectFilePackageCmdSet">
+      <IDSymbol value="4128" name="SelectFileContextMenuGroup" />
       <IDSymbol value="256" name="cmdidSelectProjectFileCommand" />
     </GuidSymbol>
 
-    <GuidSymbol value="{ecfde8a8-d072-4335-b4fb-f268abaecb97}" name="guidTesturaMutationVsExtensionPackageCmdSet2">
+    <GuidSymbol value="{ecfde8a8-d072-4335-b4fb-f268abaecb97}" name="EditorPackageCmdSet">
       <IDSymbol value="4128" name="EditorContextMenuGroup" />
       <IDSymbol value="256" name="cmdidSelectLineCommand" />
     </GuidSymbol>

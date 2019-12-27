@@ -75,7 +75,7 @@ namespace Testura.Mutation.VsExtension.Sections.Selects
                 var windowFrame = (IVsWindowFrame)window.Frame;
                 Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
 
-                window.InitializeWindow(_mutationFilterItemCreatorService.CreateFilterFromLines(file, startLine, endLine));
+                window.InitializeWindow(_mutationFilterItemCreatorService.CreateFilterFromLines(file, startLine + 1, endLine + 1));
             });
         }
     }
