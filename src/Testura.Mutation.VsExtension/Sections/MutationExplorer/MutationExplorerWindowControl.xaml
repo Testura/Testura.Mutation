@@ -157,7 +157,7 @@
                                                             <Setter Property="ContentTemplate">
                                                                 <Setter.Value>
                                                                     <DataTemplate>
-                                                                        <Image x:Name="myImage" Source="../../Resources/bigIcon.png" Width="20" Height="Auto" RenderTransformOrigin="0.5, 0.5">
+                                                                        <Image x:Name="myImage" Source="../../Resources/bigIcon.png" Width="18" Height="Auto" RenderTransformOrigin="0.5, 0.5">
                                                                             <Image.Triggers>
                                                                                 <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                                                                                     <EventTrigger.Actions>
@@ -177,7 +177,7 @@
                                                             <Setter Property="ContentTemplate">
                                                                 <Setter.Value>
                                                                     <DataTemplate>
-                                                                        <materialDesign:PackIcon Kind="CloseCircle" Foreground="#d75a4a" Width="24"/>
+                                                                        <Image Source="../../Resources/iconSurvived.png" Width="18" />
                                                                     </DataTemplate>
                                                                 </Setter.Value>
                                                             </Setter>
@@ -186,7 +186,7 @@
                                                             <Setter Property="ContentTemplate">
                                                                 <Setter.Value>
                                                                     <DataTemplate>
-                                                                        <materialDesign:PackIcon Kind="CheckCircle" Foreground="#6ac259" Width="24"/>
+                                                                        <Image Source="../../Resources/iconKilled.png" Width="18" />
                                                                     </DataTemplate>
                                                                 </Setter.Value>
                                                             </Setter>
@@ -195,7 +195,7 @@
                                                             <Setter Property="ContentTemplate">
                                                                 <Setter.Value>
                                                                     <DataTemplate>
-                                                                        <materialDesign:PackIcon Kind="HelpCircle" Foreground="#753f76" Width="24"/>
+                                                                        <Image Source="../../Resources/iconUnknowned.png" Width="18" />
                                                                     </DataTemplate>
                                                                 </Setter.Value>
                                                             </Setter>

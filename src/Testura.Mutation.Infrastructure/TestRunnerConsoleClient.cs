@@ -59,7 +59,7 @@ namespace Testura.Mutation.Infrastructure
                         if (!success)
                         {
                             command.Kill();
-                            throw new MutationDocumentException("We have a problem reading from stream. Killing this mutation");
+                             throw new MutationDocumentException("We have a problem reading from stream. Killing this mutation");
                         }
 
                         try
