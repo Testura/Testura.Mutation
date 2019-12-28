@@ -61,7 +61,7 @@
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon_Inx_icon.ico</ApplicationIcon>
+    <ApplicationIcon>iconWithoutGlass.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>false</GenerateManifests>
@@ -429,7 +429,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
-    <Content Include="icon_Inx_icon.ico" />
+    <Content Include="iconWithoutGlass.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

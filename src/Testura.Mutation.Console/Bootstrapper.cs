@@ -24,6 +24,8 @@ namespace Testura.Mutation.Console
             unityContainer.RegisterType<IProjectCompiler, Compiler>();
             unityContainer.RegisterType<IMutationDocumentCompiler, Compiler>();
             unityContainer.RegisterType<ITestRunnerClient, TestRunnerConsoleClient>();
+            unityContainer.RegisterType<ISolutionBuilder, DotNetSolutionBuilder>(new ContainerControlledLifetimeManager());
+            unityContainer.RegisterType<ISolutionOpener, MsBuildSolutionOpener>();
             return unityContainer;
         }
     }
