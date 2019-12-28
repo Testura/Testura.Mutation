@@ -1,4 +1,4 @@
-![Testura Logo](https://i.imgur.com/WWqfdbo.png)
+![Testura Logo](https://i.imgur.com/MC35ew9.png)
 
 Are you looking for ways to improve the quality and test coverage of your unit tests? Then Testura and mutation testing may be something for you.
 
