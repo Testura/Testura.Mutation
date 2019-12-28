@@ -65,7 +65,7 @@
     </Buttons>
 
     <Bitmaps>
-      <Bitmap guid="mainIconImage" href="Resources\tryIcon2.png" usedList="icon" />
+      <Bitmap guid="mainIconImage" href="Resources\icon.png" usedList="icon" />
     </Bitmaps>
   </Commands>
 
