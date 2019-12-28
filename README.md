@@ -1,27 +1,31 @@
-![Unima Logo](https://i.imgur.com/ELDUHai.png)
+![Unima Logo](https://i.imgur.com/WWqfdbo.png)
 
-Are you looking for ways to improve the quality and test coverage of your unit tests? Then Unima and mutation testing may be something for you.
+Are you looking for ways to improve the quality and test coverage of your unit tests? Then Testura and mutation testing may be something for you.
 
-Unima is a mutation testing tool for C# that verifies the quality of your unit tests by injecting different mutations in your production code and then checks whether your unit tests catch them. If your unit tests: 
+Testura is a mutation testing tool/visual studio extension for C# that verifies the quality of your unit tests by injecting different mutations in your production code and then checks whether your unit tests catch them. If your unit tests: 
 
-- Fail it mean that your tests found the mutation and you have good coverage.
-- Pass it means that the mutant survived and you do not have sufficient coverage of the specific functionality.
+- Fail and it means that your tests found the mutation and you have good coverage.
+- Pass and it means that the mutant survived and you do not have sufficient coverage of the specific functionality.
 
 ![Example of mutation](https://i.imgur.com/ZFPbEyI.png)
 *Example of a mutation* 
 
-## Why should I use Unima?
+## Why should I use Testura?
  
 - Quick and easy to set up.
 - Very flexible and it's easy to set up which files and lines you want to mutate.
 - Can take your test coverage from good to great.
-- Two different versions - Console and a WPF application. 
+- Can use it directly in visual studio (by extension) or in pipline (with console application)
 
 # Install
 
-Simply go to releases and download the latest version (or build from source).
+-
 
 ## Usage
+
+### Visual studio extension 
+
+
 
 ### Console application 
 
