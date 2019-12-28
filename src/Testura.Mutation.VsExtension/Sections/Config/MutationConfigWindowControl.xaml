@@ -27,7 +27,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="120" />
                     <RowDefinition Height="100" />
-                </Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    </Grid.RowDefinitions>
                 <GroupBox
                     Header="Test framework"
                     Style="{DynamicResource MaterialDesignCardGroupBox}"
@@ -51,6 +52,24 @@
                             Create baseline (I.E Run unit test before creating mutations)
                         </CheckBox>
                 </GroupBox>
+
+                    <GroupBox
+                        Header="Number of parallel test runs"
+                        Style="{DynamicResource MaterialDesignCardGroupBox}"
+                        Margin="0, 15, 0, 0"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                        BorderThickness="0"
+                        Foreground="White"
+                        Grid.Row="2">
+                        <Slider
+                            Minimum="1"
+                            Maximum="15"
+                            Style="{StaticResource MaterialDesignDiscreteSlider}"
+                            ToolTip="MaterialDesignDiscreteSlider"
+                            Value="{Binding NumberOfParallelTestRuns}"
+                            Width="280"
+                            HorizontalAlignment="Left"/>
+                    </GroupBox>
                 </Grid>
                 </TabItem>
             <TabItem Header="Project info" IsSelected="False">

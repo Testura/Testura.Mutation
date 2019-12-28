@@ -80,7 +80,13 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
                 return;
             }
 
+            if (SourceBuffer?.CurrentSnapshot == null || SourceBuffer.CurrentSnapshot.Length == 0)
+            {
+                return;
+            }
+
             _mutations = new List<MutationHightlight>(e);
+
             TagsChanged?.Invoke(this, new SnapshotSpanEventArgs(new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(0, SourceBuffer.CurrentSnapshot.Length - 1))));
         }
     }

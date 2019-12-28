@@ -88,6 +88,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
         {
             if (fileConfig.TestProjects == null || !fileConfig.TestProjects.Any())
             {
+                LogTo.Error("Test project list is null or empty");
                 throw new ProjectSetUpException("Test project list is null or empty");
             }
 

@@ -31,6 +31,7 @@ namespace Testura.Mutation.VsExtension.Sections.Config
             TestRunnerTypes = new List<string> { "DotNet", "xUnit", "NUnit" };
             UpdateConfigCommand = new DelegateCommand(UpdateConfig);
             ProjectGridItems = new ObservableCollection<ConfigProjectGridItem>();
+            NumberOfParallelTestRuns = 3;
             MutationOperatorGridItems = new ObservableCollection<MutationOperatorGridItem>(Enum
                 .GetValues(typeof(MutationOperators)).Cast<MutationOperators>().Select(m =>
                     new MutationOperatorGridItem
@@ -52,6 +53,8 @@ namespace Testura.Mutation.VsExtension.Sections.Config
         public int SelectedTestRunnerIndex { get; set; }
 
         public bool RunBaseline { get; set; }
+
+        public int NumberOfParallelTestRuns { get; set; }
 
         public void Initialize()
         {
@@ -83,6 +86,9 @@ namespace Testura.Mutation.VsExtension.Sections.Config
 
                 if (mutationFileConfig?.Mutators != null)
                 {
+                    var indexOfTestRunnerTypes = TestRunnerTypes.Select(t => t.ToLower()).ToList().IndexOf(mutationFileConfig.TestRunner.ToLower());
+                    SelectedTestRunnerIndex = indexOfTestRunnerTypes != -1 ? indexOfTestRunnerTypes : 0;
+                    NumberOfParallelTestRuns = mutationFileConfig.NumberOfTestRunInstances > 0 ? mutationFileConfig.NumberOfTestRunInstances : NumberOfParallelTestRuns;
                     foreach (var mutator in MutationOperatorGridItems)
                     {
                         mutator.IsSelected = mutationFileConfig.Mutators.FirstOrDefault(m => m == mutator.MutationOperator.ToString()) != null;
@@ -104,22 +110,13 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                 TestProjects = ProjectGridItems.Where(s => s.IsTestProject).Select(s => s.Name).ToList(),
                 TestRunner = TestRunnerTypes[SelectedTestRunnerIndex],
                 CreateBaseline = RunBaseline,
-                Mutators = settings.ToList()
+                Mutators = settings.ToList(),
+                NumberOfTestRunInstances = NumberOfParallelTestRuns,
             };
 
             File.WriteAllText(GetConfigPath(), JsonConvert.SerializeObject(config));
 
             _environmentService.UserNotificationService.ShowInfoBar<MutationConfigWindow>("Config updated. Note that updates won't affect any currently open mutation windows.");
-        }
-
-        private ProjectListItem ConvertToProjectListItem(SolutionProjectInfo solutionProjectInfo, IList<string> projects)
-        {
-            if (projects == null)
-            {
-                return new ProjectListItem(solutionProjectInfo, false);
-            }
-
-            return new ProjectListItem(solutionProjectInfo, projects.Any(p => p == solutionProjectInfo.Name));
         }
 
         private string GetConfigPath()
