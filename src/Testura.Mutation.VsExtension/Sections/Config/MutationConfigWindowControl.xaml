@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="Testura.Mutation.VsExtension.Sections.Config.MutationConfigWindowControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
+             xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             Background="#2d2d30"
+             Name="MyToolWindow">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Testura.Mutation.VsExtension;component/Resources.xaml" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <dragablz:TabablzControl HeaderMemberPath="Text" FixedHeaderCount="3" BorderThickness="0" Background="#2d2d30">
+            <TabItem Header="General" IsSelected="False">
+                <Grid Margin="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="120" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    </Grid.RowDefinitions>
+                <GroupBox
+                    Header="Test framework"
+                    Style="{DynamicResource MaterialDesignCardGroupBox}"
+                    Margin="0, 10, 0, 0"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                    BorderThickness="0"
+                    Foreground="White"
+                    Grid.Row="0">
+                    <ComboBox materialDesign:HintAssist.Hint="Test framework" Margin="0, 20, 0, 10" SelectedIndex="{Binding SelectedTestRunnerIndex}" ItemsSource="{Binding TestRunnerTypes}" Grid.Row="0">
+                        </ComboBox>
+                </GroupBox>
+                <GroupBox
+                    Header="Baseline"
+                    Style="{DynamicResource MaterialDesignCardGroupBox}"
+                    Margin="0, 15, 0, 0"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                    BorderThickness="0"
+                    Foreground="White"
+                    Grid.Row="1">
+                    <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding RunBaseline}" Grid.Row="1">
+                            Create baseline (I.E Run unit test before creating mutations)
+                        </CheckBox>
+                </GroupBox>
+
+                    <GroupBox
+                        Header="Number of parallel test runs"
+                        Style="{DynamicResource MaterialDesignCardGroupBox}"
+                        Margin="0, 15, 0, 0"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                        BorderThickness="0"
+                        Foreground="White"
+                        Grid.Row="2">
+                        <Slider
+                            Minimum="1"
+                            Maximum="15"
+                            Style="{StaticResource MaterialDesignDiscreteSlider}"
+                            ToolTip="MaterialDesignDiscreteSlider"
+                            Value="{Binding NumberOfParallelTestRuns}"
+                            Width="280"
+                            HorizontalAlignment="Left"/>
+                    </GroupBox>
+                </Grid>
+                </TabItem>
+            <TabItem Header="Project info" IsSelected="False">
+                    <GroupBox
+                    Header="Test projects"
+                    Style="{DynamicResource MaterialDesignCardGroupBox}"
+                    Margin="0, 10, 0, 0"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                    Foreground="White"
+                    BorderThickness="0">
+                    <DataGrid
+                            SelectionUnit="FullRow"
+                            AutoGenerateColumns="False"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding ProjectGridItems}">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Header="Test project"
+                                                        Binding="{Binding IsTestProject, UpdateSourceTrigger=PropertyChanged}" Width="100" IsReadOnly="False" />
+                            <DataGridCheckBoxColumn Header="Ignored"
+                                                    Binding="{Binding IsIgnored, UpdateSourceTrigger=PropertyChanged}" Width="75" IsReadOnly="False" />
+
+                                <DataGridTextColumn Header="Name"
+                                                    Binding="{Binding Name}" Width="*" IsReadOnly="True"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                </GroupBox>
+            </TabItem>
+            <TabItem Header="Mutations" IsSelected="False">
+            <GroupBox
+                Header="Mutations"
+                Style="{DynamicResource MaterialDesignCardGroupBox}"
+                Margin="8, 10, 0, 0">
+                <DataGrid
+                    SelectionUnit="FullRow"
+                    AutoGenerateColumns="False"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding MutationOperatorGridItems}">
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Header="Selected"
+                                                Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" Width="100" IsReadOnly="False" />
+                        <DataGridTextColumn Header="Operator"
+                                            Binding="{Binding MutationOperator}" Width="150" IsReadOnly="True"/>
+
+                        <DataGridTextColumn Header="Description"
+                                            Binding="{Binding Description}" Width="*" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </GroupBox>
+        </TabItem>
+    </dragablz:TabablzControl>
+        <Button Content="Update config" Margin="0, 0, 16, 0" HorizontalAlignment="Right" Width="200" Command="{Binding UpdateConfigCommand }" Grid.Row="1" />
+    </Grid>
+</UserControl>

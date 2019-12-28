@@ -1,31 +1,63 @@
-![Unima Logo](https://i.imgur.com/ELDUHai.png)
+![Testura Logo](https://i.imgur.com/WWqfdbo.png)
 
-Are you looking for ways to improve the quality and test coverage of your unit tests? Then Unima and mutation testing may be something for you.
+Are you looking for ways to improve the quality and test coverage of your unit tests? Then Testura and mutation testing may be something for you.
 
-Unima is a mutation testing tool for C# that verifies the quality of your unit tests by injecting different mutations in your production code and then checks whether your unit tests catch them. If your unit tests: 
+Testura is a mutation testing tool/visual studio extension for C# that verifies the quality of your unit tests by injecting different mutations in your production code and then checks whether your unit tests catch them. If your unit tests: 
 
-- Fail it mean that your tests found the mutation and you have good coverage.
-- Pass it means that the mutant survived and you do not have sufficient coverage of the specific functionality.
+- Fail and it means that your tests found the mutation and you have good coverage.
+- Pass and it means that the mutant survived and you do not have sufficient coverage of the specific functionality.
 
 ![Example of mutation](https://i.imgur.com/ZFPbEyI.png)
 *Example of a mutation* 
 
-## Why should I use Unima?
+## Why should I use Testura?
  
 - Quick and easy to set up.
 - Very flexible and it's easy to set up which files and lines you want to mutate.
 - Can take your test coverage from good to great.
-- Two different versions - Console and a WPF application. 
+- Can use it directly in visual studio (by extension) or in pipline (with console application)
 
 # Install
 
-Simply go to releases and download the latest version (or build from source).
+-
 
 ## Usage
 
+### Visual studio extension 
+
+![Mutation explorer](https://i.imgur.com/rH8Kj8v.png)
+
+#### Configuration
+
+The first thing you need to do is to configure the extension at `Extensions > Testura.Mutation > Config..`.
+
+#### Create mutations 
+
+You can run mutations in three different ways: 
+
+- Go to `Extensions > Testura.Mutation > Mutate solution..` to mutate the whole solution (except for ignored/test projects).
+- Right-click on solution, project, directory or files in the solution explorer and pick `Mutate files...`
+- Go to a file, select lines that you want to mutate and then right-lick and pick `Mutate lines`
+
+It may take a while to create your mutations depending on number of files/lines.
+
+When they are done you see how the mutation look by clicking the small blue button the the right or doubble click and hover over the statemen (if you have highlight on).
+
+### Run mutations
+
+Click the play icon in the mutation explorer to run your mutations. The mutations will either: 
+
+- Survive (red icon) which means that you don't have unit test that cover this mutation.
+- Die (green icon) which means that your unit test found the mutation.
+- Finish with unknown error (purple icon), this are usually because of compilation error (bad mutation).
+
+### Debug 
+
+Please check the output window.
+
 ### Console application 
 
-![Console application](https://i.imgur.com/0xVUmXi.png)
+![Console application](https://i.imgur.com/KlWLGID.png)
 
 First you have to create a json run config, for example: 
 
@@ -45,7 +77,7 @@ First you have to create a json run config, for example:
 Then you run the exe from for example cmd by writing: 
 
 ```c#
-path\to\Unima.Console.exe local --configPath "path/To/Json/Config" --outputPath "path/to/output/directory"
+path\to\Tetura.Mutation.Console.exe local --configPath "path/To/Json/Config" --outputPath "path/to/output/directory"
 ```
 
 It will then:
@@ -83,11 +115,11 @@ A list of all test projects that we should run (we won't mutate test projects). 
 
 #### BuildConfiguration
 
-If we should mutate "Debug" or "Release" (it's important to build your project before trying to run Unima!)
+If we should mutate "Debug" or "Release" (it's important to build your project before trying to run Testura)
 
 #### TestRunner
 
-Unima offers three different flags for the test runner: 
+Testura offers three different flags for the test runner: 
 
 - dotnet: Supports all test frameworks and .NET Core 
 - nunit: Supports nunit non-core 
@@ -109,7 +141,7 @@ List of projects that we shouldn't mutate or run tests from. For example:
 ```
 #### Filter
 
-Filter is a way for you to decide which files or lines that Unima will mutate. You can both allow and deny resources,
+Filter is a way for you to decide which files or lines that Testura will mutate. You can both allow and deny resources,
 but it's important to know that when you add a filter, all files will be ignored by default and you have to allow them.
 
 For example: 
@@ -136,7 +168,7 @@ For example:
                },
 ```
 
-In this example, Unima will: 
+In this example, Testura will: 
 
 - Allow */src/some/files.cs but only line 59 to 69
 - Allow any files that contains "SuperFile" as long as they don't contain "mock"
@@ -146,7 +178,7 @@ We use filter a lot to run mutation operators on specific subsets for example ne
 
 #### DotNetPath
 
-If you use dotnet as the test runner and Unima can't find dotnet.exe automatically it is possible to set it manually with this property.
+If you use dotnet as the test runner and Testura can't find dotnet.exe automatically it is possible to set it manually with this property.
 
 #### Mutators
 
@@ -206,19 +238,7 @@ Current run loggers:
 
 - Azure: This logger will log progress to azure devops/VSO. Example of log line: 
 
-```2019-05-16 14:50:29,251: Unima.Core.Loggers.AzureMutationRunLogger: ##vso[task.setprogress value=67;]Mutation execution progress```
-
-### WPF Application 
-
-The WPF is in a very early stage but it is possible to: 
-
-- Create new projects 
-- Create and see all the different mutation operators
-- Apply mutation operators and see result details 
-
-Simply run Unima.exe, click new project and follow the instructions.
-
-![Example of result](https://i.imgur.com/sAISq0h.jpg)
+```2019-05-16 14:50:29,251: Testura.Mutation.Core.Loggers.AzureMutationRunLogger: ##vso[task.setprogress value=67;]Mutation execution progress```
 
 ## Available mutation operators
 

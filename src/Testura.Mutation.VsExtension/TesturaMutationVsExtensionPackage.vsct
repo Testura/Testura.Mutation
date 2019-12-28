@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <Extern href="stdidcmd.h" />
+  <Extern href="vsshlids.h" />
+  <Commands package="guidTesturaMutationVsExtensionPackage">
+
+    <Menus>
+      <Menu guid="TopLevelMenuPackageCmdSet" id="TopLevelMenu" priority="0x700" type="Menu">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS" />
+        <Strings>
+          <ButtonText>Testura.Mutation</ButtonText>
+          <CommandName>Testura.Mutation</CommandName>
+        </Strings>
+      </Menu>
+    </Menus>
+
+    <Groups>
+      <Group guid="TopLevelMenuPackageCmdSet" id="MyTopLevelMenuGroup" priority="0x0600">
+        <Parent guid="TopLevelMenuPackageCmdSet" id="TopLevelMenu" />
+      </Group>
+      <Group guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0x0600">
+      </Group>
+      <Group guid="EditorPackageCmdSet" id="EditorContextMenuGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
+      </Group>
+      </Groups>
+
+    <Buttons>
+      <Button guid="TopLevelMenuPackageCmdSet" id="MutationToolWindowCommandId" priority="0x0100" type="Button">
+        <Parent guid="TopLevelMenuPackageCmdSet" id="MyTopLevelMenuGroup" />
+        <Icon guid="mainIconImage" id="icon" />
+        <Strings>
+          <ButtonText>Mutation explorer</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="TopLevelMenuPackageCmdSet" id="cmdidMutationConfigWindowCommand" priority="0x0100" type="Button">
+        <Parent guid="TopLevelMenuPackageCmdSet" id="MyTopLevelMenuGroup" />
+        <Strings>
+          <ButtonText>Config...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="SelectFilePackageCmdSet" id="cmdidSelectProjectFileCommand" priority="0x0100" type="Button">
+        <Icon guid="mainIconImage" id="icon" />
+        <Strings>
+          <ButtonText>Mutate file(s)...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="EditorPackageCmdSet" id="cmdidSelectLineCommand" priority="0x0100" type="Button">
+        <Parent guid="EditorPackageCmdSet" id="EditorContextMenuGroup" />
+        <Icon guid="mainIconImage" id="icon" />
+        <Strings>
+          <ButtonText>Mutate line(s)...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="TopLevelMenuPackageCmdSet" id="MutationToolWindowCommandId" type="Button">
+        <Icon guid="mainIconImage" id="icon" />
+        <Strings>
+          <ButtonText>Mutate solution..</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+
+    <Bitmaps>
+      <Bitmap guid="mainIconImage" href="Resources\icon.png" usedList="icon" />
+    </Bitmaps>
+  </Commands>
+
+  <CommandPlacements>
+
+    <!-- FILE CONTEXT MENU -->
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
+    </CommandPlacement>
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBITEMNODE" />
+    </CommandPlacement>
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_PROJITEM" />
+    </CommandPlacement>
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIITEM" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+    </CommandPlacement>
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBPROJECT"/>
+    </CommandPlacement>
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIPROJ"/>
+    </CommandPlacement>
+
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" priority="0xFFFF">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_FOLDERNODE"/>
+    </CommandPlacement>
+
+
+
+    <CommandPlacement guid="SelectFilePackageCmdSet" id="cmdidSelectProjectFileCommand" priority="0x0001">
+      <Parent guid="SelectFilePackageCmdSet" id="SelectFileContextMenuGroup" />
+    </CommandPlacement>
+
+    <!-- SOLUTION CONTEXT MENU -->
+    <CommandPlacement guid="TopLevelMenuPackageCmdSet" id="MyTopLevelMenuGroup" priority="0x1000">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE" />
+    </CommandPlacement>
+  </CommandPlacements>
+
+
+  <Symbols>
+    <GuidSymbol name="guidTesturaMutationVsExtensionPackage" value="{eb1b49be-0389-4dee-995a-cf1854262fa9}" />
+
+    <GuidSymbol name="TopLevelMenuPackageCmdSet" value="{eb065996-2187-4c2c-8ecf-947ac6264c49}">
+      <IDSymbol name="MyTopLevelMenuGroup" value="0x1020" />
+      <IDSymbol name="TopLevelMenu" value="0x1021" />
+      <IDSymbol name="MutationToolWindowCommandId" value="0x0100" />
+      <IDSymbol value="4130" name="cmdidMutationConfigWindowCommand" />
+    </GuidSymbol>
+
+    <GuidSymbol name="mainIconImage" value="{77dc4bcf-6668-4b8b-acc1-401192abc173}">
+      <IDSymbol name="icon" value="1" />
+    </GuidSymbol>
+  
+    <GuidSymbol value="{4dd019e1-138b-43cd-b2d9-686d466ef14c}" name="SelectFilePackageCmdSet">
+      <IDSymbol value="4128" name="SelectFileContextMenuGroup" />
+      <IDSymbol value="256" name="cmdidSelectProjectFileCommand" />
+    </GuidSymbol>
+
+    <GuidSymbol value="{ecfde8a8-d072-4335-b4fb-f268abaecb97}" name="EditorPackageCmdSet">
+      <IDSymbol value="4128" name="EditorContextMenuGroup" />
+      <IDSymbol value="256" name="cmdidSelectLineCommand" />
+    </GuidSymbol>
+
+  </Symbols>
+</CommandTable>

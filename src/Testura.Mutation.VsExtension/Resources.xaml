@@ -1,0 +1,14 @@
+﻿
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:markup="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+                    xmlns:converters="clr-namespace:Testura.Mutation.Wpf.Shared.Converters;assembly=Testura.Mutation.Wpf.Shared">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Blue.xaml" />
+        <ResourceDictionary Source="Resources/MaterialDesign.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    <Style TargetType="{markup:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" />
+</ResourceDictionary>
