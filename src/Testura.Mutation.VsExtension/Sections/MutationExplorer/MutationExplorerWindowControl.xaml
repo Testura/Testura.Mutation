@@ -93,7 +93,7 @@
 
         <materialDesign:Card Margin="8, 20, 8, 8" Height="74" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Width="75" Visibility="{Binding IsLoadingVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel Orientation="Horizontal" Margin="17, 0, 0, 0">
-                <Image x:Name="myImage" Source="../../Resources/bigIcon.png" Width="26" Height="Auto" RenderTransformOrigin="0.5, 0.5" ToolTip="{Binding LoadingMessage}">
+                <Image x:Name="myImage" Source="../../Resources/iconWithoutDot.png" Width="26" Height="Auto" RenderTransformOrigin="0.5, 0.5" ToolTip="{Binding LoadingMessage}">
                     <Image.Triggers>
                         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                             <EventTrigger.Actions>
@@ -150,7 +150,7 @@
                                                             <Setter Property="ContentTemplate">
                                                                 <Setter.Value>
                                                                     <DataTemplate>
-                                                                        <Image x:Name="myImage" Source="../../Resources/bigIcon.png" Width="18" Height="Auto" RenderTransformOrigin="0.5, 0.5">
+                                                                        <Image x:Name="myImage" Source="../../Resources/iconWithoutDot.png" Width="18" Height="Auto" RenderTransformOrigin="0.5, 0.5">
                                                                             <Image.Triggers>
                                                                                 <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                                                                                     <EventTrigger.Actions>
