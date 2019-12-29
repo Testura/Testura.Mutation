@@ -3,15 +3,23 @@
     <Metadata>
         <Identity Id="Testura.MutationVsExtension.71e8249a-b76c-4035-af2b-0304cbf33623" Version="1.0" Language="en-US" Publisher="Mille Boström" />
         <DisplayName>Testura.Mutation</DisplayName>
-        <Description xml:space="preserve">A mutation testing toolA mutation </Description>
+        <Description xml:space="preserve">Are you looking for ways to improve the quality and test coverage of your unit tests? Then Testura and mutation testing may be something for you.
+
+Testura is a mutation testing extension for visual studio that verifies the quality of your unit tests by injecting different mutations in your production code and then checks whether your unit tests catch them. If your unit tests:
+
+- Fail and it means that your tests found the mutation and you have good coverage.
+- Pass and it means that the mutant survived and you do not have sufficient coverage of the specific functionality.</Description>
+        <MoreInfo>https://github.com/Testura/Testura.Mutation</MoreInfo>
+        <ReleaseNotes />
         <Icon>Resources\bigIcon.png</Icon>
+        <PreviewImage>MutationWindow.PNG</PreviewImage>
+        <Tags>Mutation tesing unit tests</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
+        <InstallationTarget Version="[16.0,17.0)" Id="Microsoft.VisualStudio.Pro" />
+        <InstallationTarget Version="[16.0,17.0)" Id="Microsoft.VisualStudio.Enterprise" />
     </Installation>
-    <Dependencies>
-        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
-    </Dependencies>
     <Prerequisites>
         <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,17.0)" DisplayName="Visual Studio core editor" />
     </Prerequisites>

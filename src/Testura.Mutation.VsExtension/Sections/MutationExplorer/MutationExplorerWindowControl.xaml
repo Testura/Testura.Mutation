@@ -59,11 +59,7 @@
                         IsEnabled="{Binding IsRunButtonEnabled}"
                         HorizontalAlignment="Left"
                         ToolTip="Start mutation run">
-                        <materialDesign:PackIcon
-                            Kind="Play"
-                            Height="24"
-                            Width="24"
-                            />
+                        <Image Source="../../Resources/playicon.png" Width="16" />
                     </Button>
 
                     <Button
@@ -72,14 +68,11 @@
                         IsEnabled="{Binding IsStopButtonEnabled}"
                         Margin="8, 0, 0, 0"
                         Command="{Binding StopCommand}">
-                        <materialDesign:PackIcon
-                            Kind="Stop"
-                            Height="24"
-                            Width="24"
-                        />
+                        <Image Source="../../Resources/stopicon.png" Width="24" />
                     </Button>
                 </StackPanel>
             </materialDesign:Card>
+
 
 
             <materialDesign:Card Margin="8, 16, 16, 8" Height="90" Grid.Row="0" Grid.Column="1">
