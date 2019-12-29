@@ -12,5 +12,11 @@ namespace Testura.Mutation.VsExtension.Sections.Config
             Caption = "Testura mutation config";
             Content = mutationConfigWindowControl;
         }
+
+        public void InitializeWindow()
+        {
+            var viewModel = ((MutationConfigWindowControl)Content).DataContext as MutationConfigWindowViewModel;
+            viewModel?.Initialize();
+        }
     }
 }

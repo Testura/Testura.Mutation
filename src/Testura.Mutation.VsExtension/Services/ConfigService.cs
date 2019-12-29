@@ -28,7 +28,8 @@ namespace Testura.Mutation.VsExtension.Services
                     await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                     _environmentService.Dte.ActiveWindow.Close();
-                    _environmentService.OpenWindow<MutationConfigWindow>();
+                    var window = _environmentService.OpenWindow<MutationConfigWindow>();
+                    window.InitializeWindow();
 
                     return false;
                 }

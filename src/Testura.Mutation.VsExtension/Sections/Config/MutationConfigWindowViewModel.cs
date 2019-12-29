@@ -74,6 +74,7 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                 var projects = await _solutionInfoService.GetSolutionInfoAsync(_solutionPath);
                 _projectNamesInSolution = projects.Select(p => p.Name).ToList();
 
+                ProjectGridItems.Clear();
                 foreach (var projectName in _projectNamesInSolution)
                 {
                     ProjectGridItems.Add(new ConfigProjectGridItem
