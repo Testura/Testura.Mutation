@@ -136,6 +136,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                         });
                     }
 
+                    IsRunButtonEnabled = true;
                     UpdateHighlightedMutations();
                 }
                 catch (Exception)
@@ -145,7 +146,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                 }
                 finally
                 {
-                    HideLoading();
+                    IsLoadingVisible = false;
                 }
             });
         }
