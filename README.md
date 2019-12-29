@@ -39,6 +39,8 @@ You can run mutations in three different ways:
 - Right-click on solution, project, directory or files in the solution explorer and pick `Mutate files...`
 - Go to a file, select lines that you want to mutate and then right-lick and pick `Mutate lines`
 
+![Mutatate lines](https://i.imgur.com/9Cjma94.png)
+
 It may take a while to create your mutations depending on number of files/lines.
 
 When they are done you see how the mutation look by clicking the small blue button the the right or doubble click and hover over the statemen (if you have highlight on).
@@ -50,6 +52,11 @@ Click the play icon in the mutation explorer to run your mutations. The mutation
 - Survive (red icon) which means that you don't have unit test that cover this mutation.
 - Die (green icon) which means that your unit test found the mutation.
 - Finish with unknown error (purple icon), this are usually because of compilation error (bad mutation).
+
+
+### Highlights 
+
+![Mutatate highlights](https://i.imgur.com/BSKxi7R.png)
 
 ### Debug 
 
