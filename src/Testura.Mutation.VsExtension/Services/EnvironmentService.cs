@@ -29,11 +29,12 @@ namespace Testura.Mutation.VsExtension.Services
 
         public UserNotificationService UserNotificationService { get; }
 
-        public void OpenWindow<T>()
+        public T OpenWindow<T>()
+            where T : ToolWindowPane
         {
-            JoinableTaskFactory.Run(async () =>
+            return JoinableTaskFactory.Run(async () =>
             {
-                var window = await _asyncPackage.FindToolWindowAsync(typeof(T), 0, true, _asyncPackage.DisposalToken);
+                var window = await _asyncPackage.FindToolWindowAsync(typeof(T), 0, true, _asyncPackage.DisposalToken) as T;
 
                 if (window?.Frame == null)
                 {
@@ -44,6 +45,8 @@ namespace Testura.Mutation.VsExtension.Services
 
                 var windowFrame = (IVsWindowFrame)window.Frame;
                 Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+
+                return window;
             });
         }
 

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
@@ -17,6 +19,8 @@ namespace Testura.Mutation.Infrastructure
     {
         public Task<TestSuiteResult> RunTestsAsync(string runner, string dllPath, string dotNetPath, TimeSpan maxTime, CancellationToken cancellationToken = default(CancellationToken))
         {
+            var binPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase)?.Replace("file:\\", "");
+
             return Task.Run(
                 () =>
             {
@@ -31,7 +35,7 @@ namespace Testura.Mutation.Infrastructure
                 try
                 {
                     using (var command = Command.Run(
-                        "Testura.Mutation.TestRunner.Console.exe",
+                         Path.Combine(binPath, "Testura.Mutation.TestRunner.Console.exe"),
                         allArguments,
                         o =>
                         {

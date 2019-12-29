@@ -19,9 +19,6 @@ namespace Testura.Mutation.VsExtension.Sections.Config
         {
             RunDummyCode();
             InitializeComponent();
-
-            var viewModel = DataContext as MutationConfigWindowViewModel;
-            viewModel?.Initialize();
         }
 
         private void RunDummyCode()

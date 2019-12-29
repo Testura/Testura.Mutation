@@ -52,7 +52,10 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                 await _package.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 var windowFrame = (IVsWindowFrame)window.Frame;
+
                 Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+
+                window.InitializeWindow();
             });
         }
     }

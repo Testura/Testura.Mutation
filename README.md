@@ -4,8 +4,8 @@ Are you looking for ways to improve the quality and test coverage of your unit t
 
 Testura is a mutation testing tool/visual studio extension for C# that verifies the quality of your unit tests by injecting different mutations in your production code and then checks whether your unit tests catch them. If your unit tests: 
 
-- Fail and it means that your tests found the mutation and you have good coverage.
-- Pass and it means that the mutant survived and you do not have sufficient coverage of the specific functionality.
+- Fail it means that your tests found the mutation and you have good coverage.
+- Pass it means that the mutant survived and you do not have sufficient coverage of the specific functionality.
 
 ![Example of mutation](https://i.imgur.com/ZFPbEyI.png)
 *Example of a mutation* 

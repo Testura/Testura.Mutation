@@ -7,8 +7,8 @@
 
 Testura is a mutation testing extension for visual studio that verifies the quality of your unit tests by injecting different mutations in your production code and then checks whether your unit tests catch them. If your unit tests:
 
-- Fail and it means that your tests found the mutation and you have good coverage.
-- Pass and it means that the mutant survived and you do not have sufficient coverage of the specific functionality.</Description>
+- Fail it means that your tests found the mutation and you have good coverage.
+- Pass it means that the mutant survived and you do not have sufficient coverage of the specific functionality.</Description>
         <MoreInfo>https://github.com/Testura/Testura.Mutation</MoreInfo>
         <ReleaseNotes />
         <Icon>Resources\bigIcon.png</Icon>
@@ -26,5 +26,6 @@ Testura is a mutation testing extension for visual studio that verifies the qual
     <Assets>
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
         <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+        <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="Newtonsoft.Json.dll" AssemblyName="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed" />
     </Assets>
 </PackageManifest>
