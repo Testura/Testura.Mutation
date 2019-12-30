@@ -43,7 +43,7 @@ You can run mutations in three different ways:
 
 It may take a while to create your mutations depending on number of files/lines.
 
-When they are done you see how the mutation look by clicking the small blue button the the right or doubble click and hover over the statemen (if you have highlight on).
+When they are done you see how the mutation look by clicking the small blue button the the right or double click and hover over the statemen (if you have highlight on).
 
 ### Run mutations
 
