@@ -80,7 +80,7 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                     ProjectGridItems.Add(new ConfigProjectGridItem
                     {
                         IsIgnored = mutationFileConfig?.IgnoredProjects.Any(u => u == projectName) ?? false,
-                        IsTestProject = mutationFileConfig?.TestProjects.Any(u => u == projectName) ?? projectName.EndsWith("Test") || projectName.EndsWith("Tests"),
+                        IsTestProject = mutationFileConfig?.TestProjects.Any(u => u == projectName) ?? projectName.Contains(".Test"),
                         Name = projectName
                     });
                 }
@@ -106,8 +106,8 @@ namespace Testura.Mutation.VsExtension.Sections.Config
 
             var config = new MutationFileConfig
             {
+                SolutionPath = null,
                 IgnoredProjects = ProjectGridItems.Where(s => s.IsIgnored).Select(s => s.Name).ToList(),
-                SolutionPath = _solutionPath,
                 TestProjects = ProjectGridItems.Where(s => s.IsTestProject).Select(s => s.Name).ToList(),
                 TestRunner = TestRunnerTypes[SelectedTestRunnerIndex],
                 CreateBaseline = RunBaseline,
@@ -115,7 +115,7 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                 NumberOfTestRunInstances = NumberOfParallelTestRuns,
             };
 
-            File.WriteAllText(GetConfigPath(), JsonConvert.SerializeObject(config));
+            File.WriteAllText(GetConfigPath(), JsonConvert.SerializeObject(config, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
 
             _environmentService.UserNotificationService.ShowInfoBar<MutationConfigWindow>("Config updated. Note that updates won't affect any currently open mutation windows.");
         }

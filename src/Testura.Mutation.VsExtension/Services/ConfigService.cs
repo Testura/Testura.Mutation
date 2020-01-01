@@ -46,8 +46,11 @@ namespace Testura.Mutation.VsExtension.Services
 
                     var solutionPath = _environmentService.Dte.Solution.FullName;
 
-                    return JsonConvert.DeserializeObject<MutationFileConfig>(
+                    var baseConfig = JsonConvert.DeserializeObject<MutationFileConfig>(
                         File.ReadAllText(Path.Combine(Path.GetDirectoryName(solutionPath), TesturaMutationVsExtensionPackage.BaseConfigName)));
+
+                    baseConfig.SolutionPath = solutionPath;
+                    return baseConfig;
                 });
         }
     }

@@ -71,5 +71,14 @@ namespace Testura.Mutation.VsExtension.Services
                 ((TextSelection)window.Document.Selection).GotoLine(line, true);
             });
         }
+
+        public string GetSolutionPath()
+        {
+            return JoinableTaskFactory.Run(async () =>
+            {
+                await JoinableTaskFactory.SwitchToMainThreadAsync();
+                return Dte.Solution.FullName;
+            });
+        }
     }
 }
