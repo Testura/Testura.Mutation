@@ -12,7 +12,7 @@ namespace Testura.Mutation.Tests.Core.Mutation.Mutators
         [TestCase("1", "return 0;", TestName = "GetMutatedDocument_WhenHavingAMethodThatReturn1_ShouldReturn0")]
         [TestCase("0", "return 1;", TestName = "GetMutatedDocument_WhenHavingAMethodThatReturn0_ShouldReturn1")]
         [TestCase("30.2", "return 0;", TestName = "GetMutatedDocument_WhenHavingAMethodThatReturnBiggerNumber_ShouldReturn0")]
-        [TestCase("new Obj()", "return null;", TestName = "GetMutatedDocument_WhenHavingAMethodThatReturnNewObject_ShouldReturnNull")]
+        [TestCase("new Obj()", "return default(Obj);", TestName = "GetMutatedDocument_WhenHavingAMethodThatReturnNewObject_ShouldReturnDefault")]
         [TestCase("null", "throw new System.Exception(\"Mmmmutation\");", TestName = "GetMutatedDocument_WhenHavingAMethodThatReturnNull_ShouldThrowException")]
         [TestCase("\"test\"", "return \"Mutation\";", TestName = "GetMutatedDocument_WhenHavingAMethodThatReturnAString_ShouldNewString")]
         public void Positive(string preMutation, string postMutation)

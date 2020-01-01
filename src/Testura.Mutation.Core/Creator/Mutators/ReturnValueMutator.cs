@@ -58,7 +58,7 @@ namespace Testura.Mutation.Core.Creator.Mutators
             var objectCreationExpressions = node.DescendantNodes().OfType<ObjectCreationExpressionSyntax>().ToList();
             foreach (var objectCreationExpressionSyntax in objectCreationExpressions)
             {
-                var newNode = node.ReplaceNode(objectCreationExpressionSyntax, SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
+                var newNode = node.ReplaceNode(objectCreationExpressionSyntax, SyntaxFactory.DefaultExpression(objectCreationExpressionSyntax.Type));
                 Replacers.Add(new MutationDocumentDetails(node, newNode, GetWhere(node)));
             }
 
