@@ -19,7 +19,10 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            _solutionBuilder.BuildSolution(fileConfig.SolutionPath);
+            if (fileConfig.BuildSolution)
+            {
+                _solutionBuilder.BuildSolution(fileConfig.SolutionPath);
+            }
 
             return base.HandleAsync(fileConfig, applicationConfig, cancellationToken);
         }

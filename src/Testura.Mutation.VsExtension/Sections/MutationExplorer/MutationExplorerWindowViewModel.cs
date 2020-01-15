@@ -120,6 +120,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
                     if (_tokenSource.Token.IsCancellationRequested)
                     {
+                        IsStopButtonEnabled = false;
                         return;
                     }
 
@@ -159,7 +160,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                 return;
             }
 
-            IsStopButtonEnabled = false;
+            IsStopButtonEnabled = true;
             _tokenSource = new CancellationTokenSource();
 
             if (!_configService.ConfigExist())

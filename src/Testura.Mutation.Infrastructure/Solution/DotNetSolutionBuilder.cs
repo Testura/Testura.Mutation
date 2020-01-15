@@ -39,7 +39,7 @@ namespace Testura.Mutation.Infrastructure.Solution
                     LogTo.Error(standardOutput);
                     throw new Exception(error);
                 }
-                
+
                 LogTo.Info("..build was successful");
             }
         }
