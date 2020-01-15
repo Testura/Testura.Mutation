@@ -56,6 +56,8 @@ namespace Testura.Mutation.VsExtension.Sections.Config
 
         public int NumberOfParallelTestRuns { get; set; }
 
+        public bool BuildSolution { get; set; }
+
         public void Initialize()
         {
             _environmentService.JoinableTaskFactory.RunAsync(async () =>
@@ -97,6 +99,7 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                 }
 
                 RunBaseline = mutationFileConfig?.CreateBaseline ?? true;
+                BuildSolution = mutationFileConfig?.BuildSolution ?? true;
             });
         }
 
@@ -113,6 +116,7 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                 CreateBaseline = RunBaseline,
                 Mutators = settings.ToList(),
                 NumberOfTestRunInstances = NumberOfParallelTestRuns,
+                BuildSolution = BuildSolution
             };
 
             File.WriteAllText(GetConfigPath(), JsonConvert.SerializeObject(config, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));

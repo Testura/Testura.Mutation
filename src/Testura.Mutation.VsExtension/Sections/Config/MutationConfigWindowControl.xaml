@@ -23,13 +23,15 @@
         </Grid.RowDefinitions>
         <dragablz:TabablzControl HeaderMemberPath="Text" FixedHeaderCount="3" BorderThickness="0" Background="#2d2d30">
             <TabItem Header="General" IsSelected="False">
-                <Grid Margin="16">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="120" />
-                    <RowDefinition Height="100" />
-                    <RowDefinition Height="100" />
-                    </Grid.RowDefinitions>
-                <GroupBox
+                <ScrollViewer Margin="16">
+                    <Grid Margin="16">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="120" />
+                            <RowDefinition Height="100" />
+                            <RowDefinition Height="100" />
+                            <RowDefinition Height="100" />
+                        </Grid.RowDefinitions>
+                        <GroupBox
                     Header="Test framework"
                     Style="{DynamicResource MaterialDesignCardGroupBox}"
                     Margin="0, 10, 0, 0"
@@ -37,10 +39,10 @@
                     BorderThickness="0"
                     Foreground="White"
                     Grid.Row="0">
-                    <ComboBox materialDesign:HintAssist.Hint="Test framework" Margin="0, 20, 0, 10" SelectedIndex="{Binding SelectedTestRunnerIndex}" ItemsSource="{Binding TestRunnerTypes}" Grid.Row="0">
-                        </ComboBox>
-                </GroupBox>
-                <GroupBox
+                            <ComboBox materialDesign:HintAssist.Hint="Test framework" Margin="0, 20, 0, 10" SelectedIndex="{Binding SelectedTestRunnerIndex}" ItemsSource="{Binding TestRunnerTypes}" Grid.Row="0">
+                            </ComboBox>
+                        </GroupBox>
+                        <GroupBox
                     Header="Baseline"
                     Style="{DynamicResource MaterialDesignCardGroupBox}"
                     Margin="0, 15, 0, 0"
@@ -48,12 +50,12 @@
                     BorderThickness="0"
                     Foreground="White"
                     Grid.Row="1">
-                    <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding RunBaseline}" Grid.Row="1">
-                            Create baseline (I.E Run unit test before creating mutations)
-                        </CheckBox>
-                </GroupBox>
+                            <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding RunBaseline}" Grid.Row="1">
+                                Create baseline (I.E Run unit test before creating mutations)
+                            </CheckBox>
+                        </GroupBox>
 
-                    <GroupBox
+                        <GroupBox
                         Header="Number of parallel test runs"
                         Style="{DynamicResource MaterialDesignCardGroupBox}"
                         Margin="0, 15, 0, 0"
@@ -61,7 +63,7 @@
                         BorderThickness="0"
                         Foreground="White"
                         Grid.Row="2">
-                        <Slider
+                            <Slider
                             Minimum="1"
                             Maximum="15"
                             Style="{StaticResource MaterialDesignDiscreteSlider}"
@@ -69,9 +71,21 @@
                             Value="{Binding NumberOfParallelTestRuns}"
                             Width="280"
                             HorizontalAlignment="Left"/>
-                    </GroupBox>
-                </Grid>
-                </TabItem>
+                        </GroupBox>
+
+                        <GroupBox
+                        Header="Build"
+                        Style="{DynamicResource MaterialDesignCardGroupBox}"
+                        Margin="0, 15, 0, 0"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                        BorderThickness="0"
+                        Foreground="White"
+                        Grid.Row="3">
+                            <CheckBox IsChecked="{Binding BuildSolution}" Content="Build solution before creating mutations"></CheckBox>
+                        </GroupBox>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
             <TabItem Header="Project info" IsSelected="False">
                     <GroupBox
                     Header="Test projects"
