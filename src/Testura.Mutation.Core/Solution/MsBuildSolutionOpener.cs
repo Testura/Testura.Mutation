@@ -22,6 +22,8 @@ namespace Testura.Mutation.Core.Solution
 
                 if (workspace.Diagnostics.Any(w => w.Kind == WorkspaceDiagnosticKind.Failure && ContainsProjectName(w.Message, config.MutationProjects, config.TestProjects.Select(t => t.Project).ToList())))
                 {
+                    LogTo.Error("Failed to open solution because of diagnostic errors.");
+
                     foreach (var workspaceDiagnostic in workspace.Diagnostics.Where(d => d.Kind == WorkspaceDiagnosticKind.Failure))
                     {
                         LogTo.Error($"Workspace error: {workspaceDiagnostic.Message}");
@@ -46,7 +48,7 @@ namespace Testura.Mutation.Core.Solution
         {
             foreach (var configMutationProject in mutationProjects)
             {
-                if (message.Contains(configMutationProject.Name))
+                if (message.Contains(Path.GetFileName(configMutationProject.FilePath ?? string.Empty)))
                 {
                     return true;
                 }
@@ -54,7 +56,7 @@ namespace Testura.Mutation.Core.Solution
 
             foreach (var configMutationProject in testProjects)
             {
-                if (message.Contains(Path.GetFileNameWithoutExtension(configMutationProject.OutputFileName)))
+                if (message.Contains(Path.GetFileName(configMutationProject.FilePath ?? string.Empty)))
                 {
                     return true;
                 }

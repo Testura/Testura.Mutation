@@ -19,7 +19,7 @@ namespace Testura.Mutation.Core.Solution
             using (var workspace = MSBuildWorkspace.Create())
             {
                 var solution = await _solutionOpener.GetSolutionAsync(solutionPath);
-                return solution.Projects.Select(p => new SolutionProjectInfo(p.Name, p.OutputFilePath)).ToList();
+                return solution.Projects.Select(p => new SolutionProjectInfo(p.Name,  p.FilePath, p.OutputFilePath)).ToList();
             }
         }
     }
