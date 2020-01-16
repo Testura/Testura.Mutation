@@ -39,7 +39,7 @@ namespace Testura.Mutation.Console
             {
                 new TrxReportCreator(trxSavePath),
                 new MarkdownReportCreator(Path.ChangeExtension(trxSavePath, ".md")),
-                new TesturaMutationReportCreator(Path.ChangeExtension(trxSavePath, ".Testura")),
+                new TesturaMutationReportCreator(Path.ChangeExtension(trxSavePath, ".testura")),
                 new HtmlOnlyBodyReportCreator(Path.ChangeExtension(trxSavePath, ".html")),
                 new TextSummaryReportCreator(Path.ChangeExtension(trxSavePath, ".txt"))
             };
