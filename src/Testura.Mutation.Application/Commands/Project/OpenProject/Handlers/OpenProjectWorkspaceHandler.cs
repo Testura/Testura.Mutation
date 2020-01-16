@@ -165,12 +165,6 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
                 return false;
             }
 
-            if (projectName.Contains("deploy"))
-            {
-                var o = 0;
-                o++;
-            }
-
             return ignoredProjects.Any(ignoredProject => Regex.IsMatch(projectName, FormattedProjectName(ignoredProject), RegexOptions.IgnoreCase));
         }
 
