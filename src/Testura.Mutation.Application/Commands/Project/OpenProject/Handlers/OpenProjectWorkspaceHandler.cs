@@ -64,7 +64,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 
                 LogTo.Info($"Grabbing output info for {solutionProject.Name}.");
 
-                config.MutationProjects.Add(new SolutionProjectInfo(solutionProject.Name, UpdateOutputPathWithBuildConfiguration(solutionProject.OutputFilePath, config.BuildConfiguration)));
+                config.MutationProjects.Add(new SolutionProjectInfo(solutionProject.Name, solutionProject.FilePath, UpdateOutputPathWithBuildConfiguration(solutionProject.OutputFilePath, config.BuildConfiguration)));
             }
         }
 
@@ -122,7 +122,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 
                     var testProjectOutput = UpdateOutputPathWithBuildConfiguration(testProject.OutputFilePath, config.BuildConfiguration);
                     LogTo.Info($"Wanted build configuration is \"{config.BuildConfiguration}\". Setting test project output to \"{testProjectOutput}\"");
-                    config.TestProjects.Add(new TestProject { Project = new SolutionProjectInfo(testProject.Name, testProjectOutput), TestRunner = GetTestRunner(testProject, fileConfig.TestRunner) });
+                    config.TestProjects.Add(new TestProject { Project = new SolutionProjectInfo(testProject.Name, testProject.FilePath, testProjectOutput), TestRunner = GetTestRunner(testProject, fileConfig.TestRunner) });
                 }
             }
         }
