@@ -16,6 +16,7 @@ namespace Testura.Mutation.Application.Models
             Mutators = new List<string>();
             Filter = new MutationDocumentFilter();
             BuildSolution = true;
+            ProjectMappings = new List<ProjectMapping>();
         }
 
         public string SolutionPath { get; set; }
@@ -23,6 +24,8 @@ namespace Testura.Mutation.Application.Models
         public IList<string> TestProjects { get; set; }
 
         public IList<string> IgnoredProjects { get; set; }
+
+        public IList<ProjectMapping> ProjectMappings { get; set; }
 
         public MutationDocumentFilter Filter { get; set; }
 

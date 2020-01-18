@@ -8,6 +8,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
@@ -94,22 +95,95 @@
                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
                     Foreground="White"
                     BorderThickness="0">
-                    <DataGrid
-                            SelectionUnit="FullRow"
-                            AutoGenerateColumns="False"
-                            IsReadOnly="True"
-                            ItemsSource="{Binding ProjectGridItems}">
-                            <DataGrid.Columns>
-                                <DataGridCheckBoxColumn Header="Test project"
-                                                        Binding="{Binding IsTestProject, UpdateSourceTrigger=PropertyChanged}" Width="100" IsReadOnly="False" />
-                            <DataGridCheckBoxColumn Header="Ignored"
-                                                    Binding="{Binding IsIgnored, UpdateSourceTrigger=PropertyChanged}" Width="75" IsReadOnly="False" />
+                        <materialDesign:DialogHost>
+                        <materialDesign:DialogHost.DialogContent>
+                            <Grid Margin="16">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="75" />
+                                </Grid.RowDefinitions>
+                                <Label Content="Here you can map test project(s) to your mutation project. &#10;&#10;Leave all unchecked to run all tests.&#10;"></Label>
+                                <ScrollViewer Grid.Row="1">
+                                    <ItemsControl
+                                    ItemsSource="{Binding Source={x:Reference ProjectGrid}, Path=SelectedItem.ProjectMapping}"
+                                    Grid.IsSharedSizeScope="True"
+                                    Margin="12 0 12 0">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border
+                                                x:Name="Border"
+                                                Padding="8">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition
+                                                            SharedSizeGroup="Checkerz" />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <CheckBox
+                                                        VerticalAlignment="Center"
+                                                        IsChecked="{Binding IsSelected}" />
+                                                        <StackPanel
+                                                        Margin="8 0 0 0"
+                                                        Grid.Column="1">
+                                                            <TextBlock
+                                                            FontWeight="Bold"
+                                                            Text="{Binding Name}" />
 
-                                <DataGridTextColumn Header="Name"
-                                                    Binding="{Binding Name}" Width="*" IsReadOnly="True"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                </GroupBox>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
+                                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                            IsCancel="True"
+                                            Margin="0 8 8 0"
+                                            Command="materialDesign:DialogHost.CloseDialogCommand">
+                                        <Button.CommandParameter>
+                                            <system:Boolean>False</system:Boolean>
+                                        </Button.CommandParameter>
+                                        Close
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:DialogHost.DialogContent>
+                        <DataGrid
+                                SelectionUnit="FullRow"
+                                AutoGenerateColumns="False"
+                                IsReadOnly="True"
+                                ItemsSource="{Binding ProjectGridItems}"
+                                x:Name="ProjectGrid">
+                                <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Test project" Width="100" IsReadOnly="False">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding IsTestProject, UpdateSourceTrigger=PropertyChanged}" Command="{Binding DataContext.TestProjectChangedCommand, ElementName=MyToolWindow}" CommandParameter="{Binding Name}" HorizontalAlignment="Center"></CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Ignored" Width="75" IsReadOnly="False">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsIgnored, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"></CheckBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Name"
+                                                        Binding="{Binding Name}" Width="*" IsReadOnly="True"/>
+                                    <DataGridTemplateColumn Width="220">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                            <Button Content="Map test project(s)" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Visibility="{Binding IsTestProject, Converter={StaticResource BooleanToHiddenConverter}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </materialDesign:DialogHost>
+                    </GroupBox>
             </TabItem>
             <TabItem Header="Mutations" IsSelected="False">
             <GroupBox

@@ -32,11 +32,11 @@ namespace Testura.Mutation.Core.Creator
 
                 foreach (var mutationProjectInfo in config.MutationProjects)
                 {
-                    var currentProject = solution.Projects.FirstOrDefault(p => p.Name == mutationProjectInfo.Name);
+                    var currentProject = solution.Projects.FirstOrDefault(p => p.Name == mutationProjectInfo.Project.Name);
 
                     if (currentProject == null)
                     {
-                        LogTo.Error($"Could not find any project with the name {mutationProjectInfo.Name}");
+                        LogTo.Error($"Could not find any project with the name {mutationProjectInfo.Project.Name}");
                         continue;
                     }
 

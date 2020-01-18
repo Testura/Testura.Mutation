@@ -189,10 +189,12 @@
     <Compile Include="Behavior\AutoScrollBehavior.cs" />
     <Compile Include="CodeDiff\OldNewDiffPiece.cs" />
     <Compile Include="CodeDiff\SideBySideDiffModelVisualizer.cs" />
+    <Compile Include="Converters\BooleanToHiddenConverter.cs" />
     <Compile Include="Converters\InvertBooleanConverter.cs" />
     <Compile Include="Converters\IsZeroConverter.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Models\ConfigProjectGridItem.cs" />
+    <Compile Include="Models\ConfigProjectMappingGridItem.cs" />
     <Compile Include="Models\DocumentRowModel.cs" />
     <Compile Include="Models\MutationOperatorGridItem.cs" />
     <Compile Include="Models\ProjectListItem.cs" />

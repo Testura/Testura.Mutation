@@ -7,7 +7,7 @@ using Testura.Mutation.Core;
 using Testura.Mutation.Core.Config;
 using Testura.Mutation.Wpf.Helpers.Openers.Tabs;
 
-namespace Testura.Mutation.Sections.MutationDetails
+namespace Testura.Mutation.Wpf.Sections.MutationDetails
 {
     public class MutationFileDetailsViewModel : BindableBase, INotifyPropertyChanged
     {
