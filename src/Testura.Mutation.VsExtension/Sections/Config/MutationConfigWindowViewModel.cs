@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.VisualStudio.PlatformUI;
 using Newtonsoft.Json;
 using Prism.Mvvm;
@@ -30,6 +31,7 @@ namespace Testura.Mutation.VsExtension.Sections.Config
 
             TestRunnerTypes = new List<string> { "DotNet", "xUnit", "NUnit" };
             UpdateConfigCommand = new DelegateCommand(UpdateConfig);
+            TestProjectChangedCommand = new DelegateCommand<string>(TestProjectChanged);
             ProjectGridItems = new ObservableCollection<ConfigProjectGridItem>();
             NumberOfParallelTestRuns = 3;
             MutationOperatorGridItems = new ObservableCollection<MutationOperatorGridItem>(Enum
@@ -57,6 +59,8 @@ namespace Testura.Mutation.VsExtension.Sections.Config
         public int NumberOfParallelTestRuns { get; set; }
 
         public bool BuildSolution { get; set; }
+
+        public DelegateCommand<string> TestProjectChangedCommand { get; set; }
 
         public void Initialize()
         {
@@ -87,6 +91,8 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                     });
                 }
 
+                CreateMappings(mutationFileConfig);
+
                 if (mutationFileConfig?.Mutators != null)
                 {
                     var indexOfTestRunnerTypes = TestRunnerTypes.Select(t => t.ToLower()).ToList().IndexOf(mutationFileConfig.TestRunner.ToLower());
@@ -103,6 +109,26 @@ namespace Testura.Mutation.VsExtension.Sections.Config
             });
         }
 
+        private void CreateMappings(MutationFileConfig mutationFileConfig)
+        {
+            foreach (var projectGridItem in ProjectGridItems)
+            {
+                projectGridItem.ProjectMapping = new ObservableCollection<ConfigProjectMappingGridItem>(
+                    ProjectGridItems.Where(p => p.IsTestProject).Select(p => new ConfigProjectMappingGridItem { Name = p.Name }));
+
+                if (mutationFileConfig?.ProjectMappings != null &&
+                    mutationFileConfig.ProjectMappings.Any(p => p.ProjectName == projectGridItem.Name))
+                {
+                    var projectsMappingInConfig = mutationFileConfig.ProjectMappings.First(p => p.ProjectName == projectGridItem.Name);
+
+                    foreach (var configProjectMappingGridItem in projectGridItem.ProjectMapping)
+                    {
+                        configProjectMappingGridItem.IsSelected = projectsMappingInConfig.TestProjectNames.Contains(configProjectMappingGridItem.Name);
+                    }
+                }
+            }
+        }
+
         private void UpdateConfig()
         {
             var settings = MutationOperatorGridItems.Where(m => m.IsSelected).Select(m => m.MutationOperator.ToString());
@@ -112,6 +138,13 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                 SolutionPath = null,
                 IgnoredProjects = ProjectGridItems.Where(s => s.IsIgnored).Select(s => s.Name).ToList(),
                 TestProjects = ProjectGridItems.Where(s => s.IsTestProject).Select(s => s.Name).ToList(),
+                ProjectMappings = ProjectGridItems
+                    .Where(p => p.ProjectMapping.Any(pm => pm.IsSelected))
+                    .Select(p => new ProjectMapping
+                    {
+                        ProjectName = p.Name,
+                        TestProjectNames = p.ProjectMapping.Where(pm => pm.IsSelected).Select(pm => pm.Name).ToList()
+                    }).ToList(),
                 TestRunner = TestRunnerTypes[SelectedTestRunnerIndex],
                 CreateBaseline = RunBaseline,
                 Mutators = settings.ToList(),
@@ -127,6 +160,27 @@ namespace Testura.Mutation.VsExtension.Sections.Config
         private string GetConfigPath()
         {
             return Path.Combine(Path.GetDirectoryName(_solutionPath), TesturaMutationVsExtensionPackage.BaseConfigName);
+        }
+
+        private void TestProjectChanged(string name)
+        {
+            var project = ProjectGridItems.FirstOrDefault(p => p.Name == name);
+
+            if (project.IsTestProject)
+            {
+                ProjectGridItems.ForEach(p => p.ProjectMapping.Add(new ConfigProjectMappingGridItem { Name = name }));
+                return;
+            }
+
+            foreach (var configProjectGridItem in ProjectGridItems)
+            {
+                var item = configProjectGridItem.ProjectMapping.FirstOrDefault(m => m.Name == name);
+
+                if (item != null)
+                {
+                    configProjectGridItem.ProjectMapping.Remove(item);
+                }
+            }
         }
     }
 }

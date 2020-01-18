@@ -60,7 +60,7 @@ namespace Testura.Mutation.Core.Baseline
 
                 foreach (var mutationProject in config.MutationProjects)
                 {
-                    var project = solution.Projects.FirstOrDefault(p => p.Name == mutationProject.Name);
+                    var project = solution.Projects.FirstOrDefault(p => p.Name == mutationProject.Project.Name);
                     var result = await _projectCompiler.CompileAsync(BaselineDirectoryPath, project);
 
                     if (!result.IsSuccess)

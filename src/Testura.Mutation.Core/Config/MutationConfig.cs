@@ -2,7 +2,6 @@
 using Testura.Mutation.Core.Baseline;
 using Testura.Mutation.Core.Creator.Filter;
 using Testura.Mutation.Core.Creator.Mutators;
-using Testura.Mutation.Core.Solution;
 
 namespace Testura.Mutation.Core.Config
 {
@@ -10,7 +9,7 @@ namespace Testura.Mutation.Core.Config
     {
         public MutationConfig()
         {
-            MutationProjects = new List<SolutionProjectInfo>();
+            MutationProjects = new List<MutationProject>();
             TestProjects = new List<TestProject>();
             MaxTestTimeMin = 5;
             BaselineInfos = new List<BaselineInfo>();
@@ -18,7 +17,7 @@ namespace Testura.Mutation.Core.Config
 
         public string SolutionPath { get; set; }
 
-        public IList<SolutionProjectInfo> MutationProjects { get; set; }
+        public IList<MutationProject> MutationProjects { get; set; }
 
         public IList<TestProject> TestProjects { get; set; }
 

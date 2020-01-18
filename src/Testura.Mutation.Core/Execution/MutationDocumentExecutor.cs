@@ -55,7 +55,7 @@ namespace Testura.Mutation.Core.Execution
             var mutationDirectoryPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestRun", mutationDocument.Id.ToString());
 
             // Where we should save our compiled mutation
-            var mutationDllPath = Path.Combine(mutationDirectoryPath, $"{config.MutationProjects.FirstOrDefault(m => m.Name == mutationDocument.ProjectName).OutputFileName}");
+            var mutationDllPath = Path.Combine(mutationDirectoryPath, $"{config.MutationProjects.FirstOrDefault(m => m.Project.Name == mutationDocument.ProjectName).Project.OutputFileName}");
 
             Directory.CreateDirectory(mutationDirectoryPath);
 
@@ -72,6 +72,11 @@ namespace Testura.Mutation.Core.Execution
                 foreach (var testProject in config.TestProjects)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
+
+                    if (ShouldIgnoreTestProject(mutationDocument, config.MutationProjects, testProject))
+                    {
+                        continue;
+                    }
 
                     var baseline = config.BaselineInfos.FirstOrDefault(b => b.TestProjectName.Equals(testProject.Project.Name, StringComparison.OrdinalIgnoreCase));
                     var result = await RunTestAsync(
@@ -119,12 +124,29 @@ namespace Testura.Mutation.Core.Execution
             return mutationResult;
         }
 
+        private static bool ShouldIgnoreTestProject(MutationDocument mutationDocument, IList<MutationProject> mutationProjects, TestProject testProject)
+        {
+            var mutationProject = mutationProjects.FirstOrDefault(m => m.Project.Name == mutationDocument.ProjectName);
+
+            if (mutationProject?.MappedTestProjects != null && mutationProject.MappedTestProjects.Any())
+            {
+                if (!mutationProject.MappedTestProjects.Any(m => m == testProject.Project.Name))
+                {
+                    LogTo.Info($"Skipping tests in the the test project \"{testProject.Project.Name}\" as " +
+                               $"it didn't match the mapping list");
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private async Task<TestSuiteResult> RunTestAsync(
             TestProject testProject,
             string mutationDirectoryPath,
             string mutationDllPath,
             string dotNetPath,
-            TimeSpan testTimout,
+            TimeSpan testTimeout,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             LogTo.Info($"Starting to run tests in {testProject.Project.OutputFileName}");
@@ -140,7 +162,7 @@ namespace Testura.Mutation.Core.Execution
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            return await _testRunnerClient.RunTestsAsync(testProject.TestRunner, testDllPath, dotNetPath, testTimout, cancellationToken);
+            return await _testRunnerClient.RunTestsAsync(testProject.TestRunner, testDllPath, dotNetPath, testTimeout, cancellationToken);
         }
 
         private void DeleteMutationDirectory(string mutationDirectoryPath)

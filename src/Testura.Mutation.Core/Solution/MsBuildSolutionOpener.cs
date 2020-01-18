@@ -20,7 +20,7 @@ namespace Testura.Mutation.Core.Solution
 
                 var solution = await workspace.OpenSolutionAsync(config.SolutionPath);
 
-                if (workspace.Diagnostics.Any(w => w.Kind == WorkspaceDiagnosticKind.Failure && ContainsProjectName(w.Message, config.MutationProjects, config.TestProjects.Select(t => t.Project).ToList())))
+                if (workspace.Diagnostics.Any(w => w.Kind == WorkspaceDiagnosticKind.Failure && ContainsProjectName(w.Message, config.MutationProjects, config.TestProjects)))
                 {
                     LogTo.Error("Failed to open solution because of diagnostic errors.");
 
@@ -44,11 +44,11 @@ namespace Testura.Mutation.Core.Solution
             }
         }
 
-        private bool ContainsProjectName(string message, IList<SolutionProjectInfo> mutationProjects, IList<SolutionProjectInfo> testProjects)
+        private bool ContainsProjectName(string message, IList<MutationProject> mutationProjects, IList<TestProject> testProjects)
         {
-            foreach (var configMutationProject in mutationProjects)
+            foreach (var mutationProject in mutationProjects)
             {
-                if (message.Contains(Path.GetFileName(configMutationProject.FilePath ?? string.Empty)))
+                if (message.Contains(Path.GetFileName(mutationProject.Project.FilePath ?? string.Empty)))
                 {
                     return true;
                 }
@@ -56,7 +56,7 @@ namespace Testura.Mutation.Core.Solution
 
             foreach (var configMutationProject in testProjects)
             {
-                if (message.Contains(Path.GetFileName(configMutationProject.FilePath ?? string.Empty)))
+                if (message.Contains(Path.GetFileName(configMutationProject.Project.FilePath ?? string.Empty)))
                 {
                     return true;
                 }

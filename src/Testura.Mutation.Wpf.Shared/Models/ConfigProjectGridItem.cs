@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Testura.Mutation.Wpf.Shared.Models
 {
@@ -13,5 +14,7 @@ namespace Testura.Mutation.Wpf.Shared.Models
         public bool IsIgnored { get; set; }
 
         public string Name { get; set; }
+
+        public ObservableCollection<ConfigProjectMappingGridItem> ProjectMapping { get; set; }
     }
 }

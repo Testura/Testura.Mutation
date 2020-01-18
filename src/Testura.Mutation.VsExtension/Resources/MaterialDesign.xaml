@@ -3,9 +3,11 @@
                     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
                     xmlns:dockablz="http://dragablz.net/winfx/xaml/dockablz"
                     xmlns:converters="clr-namespace:Dragablz.Converters;assembly=Dragablz"
-                    xmlns:local="clr-namespace:Dragablz.Themes;assembly=Dragablz">
+                    xmlns:local="clr-namespace:Dragablz.Themes;assembly=Dragablz"
+                    xmlns:converters1="clr-namespace:Testura.Mutation.Wpf.Shared.Converters;assembly=Testura.Mutation.Wpf.Shared">
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <converters1:BooleanToHiddenConverter x:Key="BooleanToHiddenConverter" />
     <converters:EqualityToVisibilityConverter x:Key="EqualityToVisibilityConverter" />
     <converters:BooleanAndToVisibilityConverter x:Key="BooleanAndToVisibilityConverter" />
     <converters:EqualityToBooleanConverter x:Key="EqualityToBooleanConverter" />
