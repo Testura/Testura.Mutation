@@ -201,6 +201,20 @@ A list of all the mutators that you want to run (look further below for tags and
 "Mutators": [ "Increment" ]
 ```
 
+#### ProjectMappings
+
+You can map test project(s) to mutation projects like this: 
+
+```
+"ProjectMappings": [{
+		"ProjectName": "Testura.Code",
+		"TestProjectNames": ["Testura.Code.Tests"]
+	}
+],
+```
+
+This means that if we create a mutation in the `Testura.Code` project we will only verify it by executing tests in `Testura.Code.Tests`.
+
 #### Git
 
 Possible git values:
