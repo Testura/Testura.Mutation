@@ -31,20 +31,20 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var solution = await _solutionOpener.GetSolutionAsync(applicationConfig);
+            applicationConfig.Solution = await _solutionOpener.GetSolutionAsync(fileConfig.SolutionPath);
 
-            InitializeTestProjects(fileConfig, applicationConfig, solution);
-            InitializeMutationProjects(fileConfig, applicationConfig, solution);
+            InitializeTestProjects(fileConfig, applicationConfig);
+            InitializeMutationProjects(fileConfig, applicationConfig);
 
             if (fileConfig.CreateBaseline)
             {
-                applicationConfig.BaselineInfos = new List<BaselineInfo>(await _baselineCreator.CreateBaselineAsync(applicationConfig, solution, cancellationToken));
+                applicationConfig.BaselineInfos = new List<BaselineInfo>(await _baselineCreator.CreateBaselineAsync(applicationConfig, cancellationToken));
             }
 
             await base.HandleAsync(fileConfig, applicationConfig, cancellationToken);
         }
 
-        private void InitializeMutationProjects(MutationFileConfig fileConfig, MutationConfig config, Microsoft.CodeAnalysis.Solution solution)
+        private void InitializeMutationProjects(MutationFileConfig fileConfig, MutationConfig config)
         {
             if (fileConfig.IgnoredProjects == null)
             {
@@ -52,7 +52,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             }
 
             LogTo.Info("Setting up mutation projects.");
-            foreach (var solutionProject in solution.Projects)
+            foreach (var solutionProject in config.Solution.Projects)
             {
                 if (
                     IsIgnored(solutionProject.Name, fileConfig.IgnoredProjects) ||
@@ -88,7 +88,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             return !content.ToLower().Contains(targetFramework.Name.ToLower());
         }
 
-        private void InitializeTestProjects(MutationFileConfig fileConfig, MutationConfig config, Solution solution)
+        private void InitializeTestProjects(MutationFileConfig fileConfig, MutationConfig config)
         {
             if (fileConfig.TestProjects == null || !fileConfig.TestProjects.Any())
             {
@@ -99,11 +99,11 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             LogTo.Info("Setting up test projects.");
             foreach (var testProjectName in fileConfig.TestProjects)
             {
-                var testProjects = solution.Projects.Where(p => Regex.IsMatch(p.Name, FormattedProjectName(testProjectName), RegexOptions.IgnoreCase));
+                var testProjects = config.Solution.Projects.Where(p => Regex.IsMatch(p.Name, FormattedProjectName(testProjectName), RegexOptions.IgnoreCase));
 
                 if (!testProjects.Any())
                 {
-                    throw new ProjectSetUpException($"Could not find any project with the name {testProjectName} in the solution. List of project names: {string.Join(", ", solution.Projects.Select(p => p.Name))}");
+                    throw new ProjectSetUpException($"Could not find any project with the name {testProjectName} in the solution. List of project names: {string.Join(", ", config.Solution.Projects.Select(p => p.Name))}");
                 }
 
                 foreach (var testProject in testProjects)

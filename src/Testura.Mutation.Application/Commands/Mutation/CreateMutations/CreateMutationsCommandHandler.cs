@@ -18,7 +18,7 @@ namespace Testura.Mutation.Application.Commands.Mutation.CreateMutations
 
         public Task<IList<MutationDocument>> Handle(CreateMutationsCommand command, CancellationToken cancellationToken)
         {
-            return _mutationsCreator.CreateMutationsAsync(command.Config, cancellationToken);
+            return Task.FromResult(_mutationsCreator.CreateMutations(command.Config, cancellationToken));
         }
     }
 }

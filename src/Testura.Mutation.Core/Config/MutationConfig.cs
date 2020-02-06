@@ -15,7 +15,7 @@ namespace Testura.Mutation.Core.Config
             BaselineInfos = new List<BaselineInfo>();
         }
 
-        public string SolutionPath { get; set; }
+        public Microsoft.CodeAnalysis.Solution Solution { get; set; }
 
         public IList<MutationProject> MutationProjects { get; set; }
 

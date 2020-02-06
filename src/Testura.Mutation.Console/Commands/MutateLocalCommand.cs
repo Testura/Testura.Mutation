@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Build.Locator;
 using Microsoft.Practices.Unity;
 
 namespace Testura.Mutation.Console.Commands
@@ -17,7 +16,6 @@ namespace Testura.Mutation.Console.Commands
 
         public async Task<int> RunAsync()
         {
-            MSBuildLocator.RegisterDefaults();
             var mutationRunner = Bootstrapper.GetContainer().Resolve<ConsoleMutationExecutor>();
             var success = await mutationRunner.ExecuteMutationRunner(_configPath, _outputPath);
 

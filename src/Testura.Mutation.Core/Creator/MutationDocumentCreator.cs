@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Microsoft.CodeAnalysis;
 using Testura.Mutation.Core.Config;
@@ -20,19 +19,17 @@ namespace Testura.Mutation.Core.Creator
             _solutionOpener = solutionOpener;
         }
 
-        public async Task<IList<MutationDocument>> CreateMutationsAsync(MutationConfig config, CancellationToken cancellationToken = default(CancellationToken))
+        public IList<MutationDocument> CreateMutations(MutationConfig config, CancellationToken cancellationToken = default(CancellationToken))
         {
             try
             {
-                LogTo.Info("Opening solution..");
-                var solution = await _solutionOpener.GetSolutionAsync(config);
                 LogTo.Info("Starting to analyze test..");
 
                 var mutations = new List<MutationDocument>();
 
                 foreach (var mutationProjectInfo in config.MutationProjects)
                 {
-                    var currentProject = solution.Projects.FirstOrDefault(p => p.Name == mutationProjectInfo.Project.Name);
+                    var currentProject = config.Solution.Projects.FirstOrDefault(p => p.Name == mutationProjectInfo.Project.Name);
 
                     if (currentProject == null)
                     {

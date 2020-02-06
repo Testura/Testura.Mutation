@@ -92,7 +92,6 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
 
             var config = new MutationConfig
             {
-                SolutionPath = fileConfig.SolutionPath,
                 Filter = fileConfig.Filter,
                 NumberOfTestRunInstances = fileConfig.NumberOfTestRunInstances,
                 BuildConfiguration = fileConfig.BuildConfiguration,
