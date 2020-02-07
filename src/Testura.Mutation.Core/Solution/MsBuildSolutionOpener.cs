@@ -13,29 +13,28 @@ namespace Testura.Mutation.Core.Solution
     {
         public async Task<Microsoft.CodeAnalysis.Solution> GetSolutionAsync(string solutionPath)
         {
-            StringWriter log = new StringWriter();
-            AnalyzerManagerOptions options = new AnalyzerManagerOptions
+            var log = new StringWriter();
+            var analyzerOptions = new AnalyzerManagerOptions
             {
                 LogWriter = log
             };
-            var manager = new AnalyzerManager(solutionPath, options);
-            var workspace = new AdhocWorkspace();
-            foreach (var projectKeyValue in manager.Projects)
+
+            var manager = new AnalyzerManager(solutionPath, analyzerOptions);
+            using (var workspace = new AdhocWorkspace())
             {
-                LogTo.Info($"Building {Path.GetFileNameWithoutExtension(projectKeyValue.Key)}");
-                var project = projectKeyValue.Value;
+                var environmentOptions = new EnvironmentOptions { DesignTime = false };
+                environmentOptions.TargetsToBuild.Remove("Clean");
 
-                EnvironmentOptions options2 = new EnvironmentOptions();
-                options2.DesignTime = false;
+                foreach (var projectKeyValue in manager.Projects)
+                {
+                    var project = projectKeyValue.Value;
+                    var results = project.Build(environmentOptions);
 
-                var results = project.Build(options2);
+                    results.Results.First().AddToWorkspace(workspace);
+                }
 
-                results.Results.First().AddToWorkspace(workspace);
+                return await Task.FromResult(workspace.CurrentSolution);
             }
-
-            var o = log.ToString();
-
-            return await Task.FromResult(workspace.CurrentSolution);
         }
     }
 }
