@@ -19,23 +19,27 @@ namespace Testura.Mutation.Core.Solution
                 LogWriter = log
             };
             var manager = new AnalyzerManager(solutionPath, options);
-            var workspace = new AdhocWorkspace();
-            foreach (var projectKeyValue in manager.Projects)
+            using (var workspace = new AdhocWorkspace())
             {
-                LogTo.Info($"Building {Path.GetFileNameWithoutExtension(projectKeyValue.Key)}");
-                var project = projectKeyValue.Value;
+                var projectOptions = new EnvironmentOptions { DesignTime = false };
 
-                EnvironmentOptions options2 = new EnvironmentOptions();
-                options2.DesignTime = false;
+                foreach (var projectKeyValue in manager.Projects)
+                {
+                    LogTo.Info($"Building {Path.GetFileNameWithoutExtension(projectKeyValue.Key)}");
+                    var project = projectKeyValue.Value;
 
-                var results = project.Build(options2);
+                    var results = project.Build(projectOptions);
+                    if (!results.OverallSuccess)
+                    {
+                        LogTo.Error("Failed to build");
+                        LogTo.Error(log.ToString);
+                    }
 
-                results.Results.First().AddToWorkspace(workspace);
+                    results.Results.First().AddToWorkspace(workspace);
+                }
+
+                return await Task.FromResult(workspace.CurrentSolution);
             }
-
-            var o = log.ToString();
-
-            return await Task.FromResult(workspace.CurrentSolution);
         }
     }
 }
