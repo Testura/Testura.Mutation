@@ -19,18 +19,17 @@ namespace Testura.Mutation.Core.Solution
                 LogWriter = log
             };
 
+            var manager = new AnalyzerManager(solutionPath, analyzerOptions);
+
             using (var workspace = new AdhocWorkspace())
             {
-                var projectOptions = new EnvironmentOptions { DesignTime = false };
-
-                environmentOptions.TargetsToBuild.Remove("Clean");
+                var environmentOptions = new EnvironmentOptions { DesignTime = false };
 
                 foreach (var projectKeyValue in manager.Projects)
                 {
                     LogTo.Info($"Building {Path.GetFileNameWithoutExtension(projectKeyValue.Key)}");
                     var project = projectKeyValue.Value;
                     var results = project.Build(environmentOptions);
-                    var results = project.Build(projectOptions);
                     if (!results.OverallSuccess)
                     {
                         LogTo.Error("Failed to build");
