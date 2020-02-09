@@ -469,7 +469,6 @@
     <Compile Include="Commands\Project\History\GetProjectHistory\GetProjectHistoryCommand.cs" />
     <Compile Include="Commands\Project\History\GetProjectHistory\GetProjectHistoryCommandHandler.cs" />
     <Compile Include="Commands\Project\History\GetProjectHistory\GetProjectHistoryCommandValidator.cs" />
-    <Compile Include="Commands\Project\OpenProject\Handlers\OpenProjectBuildHandler.cs" />
     <Compile Include="Commands\Project\OpenProject\Handlers\OpenProjectHandler.cs" />
     <Compile Include="Commands\Project\OpenProject\Handlers\OpenProjectExistHandler.cs" />
     <Compile Include="Commands\Project\OpenProject\Handlers\OpenProjectGitFilterHandler.cs" />
