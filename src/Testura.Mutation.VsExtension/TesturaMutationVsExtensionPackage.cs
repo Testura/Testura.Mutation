@@ -80,7 +80,7 @@ namespace Testura.Mutation.VsExtension
             var asyncPackage = (AsyncPackage)await GetServiceAsync(typeof(AsyncPackage));
 
             _bootstrapper.Container.RegisterInstance(new EnvironmentService(dte, JoinableTaskFactory, asyncPackage, new UserNotificationService(asyncPackage, JoinableTaskFactory, dte)));
-            _bootstrapper.Container.RegisterInstance(typeof(ISolutionOpener), new VisualStudioSolutionOpener(workspace));
+            _bootstrapper.Container.RegisterInstance(typeof(ISolutionOpener), new VisualStudioSolutionOpener(workspace, new VisualStudioSolutionBuilder(dte, JoinableTaskFactory)));
             _bootstrapper.Container.RegisterInstance(typeof(ISolutionBuilder), new VisualStudioSolutionBuilder(dte, JoinableTaskFactory));
         }
     }
