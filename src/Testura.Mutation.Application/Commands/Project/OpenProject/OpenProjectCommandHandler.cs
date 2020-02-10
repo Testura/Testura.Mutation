@@ -51,7 +51,6 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
                 var handler = new OpenProjectExistHandler(_gitCloner);
 
                 handler
-                    .SetNext(new OpenProjectBuildHandler(_solutionBuilder))
                     .SetNext(new OpenProjectMutatorsHandler())
                     .SetNext(new OpenProjectGitFilterHandler(_diffCreator))
                     .SetNext(new OpenProjectWorkspaceHandler(_baselineCreator, _solutionOpener));
@@ -92,7 +91,6 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
 
             var config = new MutationConfig
             {
-                SolutionPath = fileConfig.SolutionPath,
                 Filter = fileConfig.Filter,
                 NumberOfTestRunInstances = fileConfig.NumberOfTestRunInstances,
                 BuildConfiguration = fileConfig.BuildConfiguration,

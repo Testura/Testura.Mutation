@@ -15,7 +15,6 @@ namespace Testura.Mutation.Application.Models
             CreateBaseline = true;
             Mutators = new List<string>();
             Filter = new MutationDocumentFilter();
-            BuildSolution = true;
             ProjectMappings = new List<ProjectMapping>();
         }
 
@@ -48,7 +47,5 @@ namespace Testura.Mutation.Application.Models
         public TargetFramework TargetFramework { get; set; }
 
         public bool CreateBaseline { get; set; }
-
-        public bool BuildSolution { get; set; }
     }
 }
