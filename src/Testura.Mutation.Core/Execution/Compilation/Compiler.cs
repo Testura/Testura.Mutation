@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Anotar.Log4Net;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Newtonsoft.Json.Linq;
 
 namespace Testura.Mutation.Core.Execution.Compilation
@@ -48,6 +49,15 @@ namespace Testura.Mutation.Core.Execution.Compilation
             Microsoft.CodeAnalysis.Compilation compilation)
         {
             var result = compilation.Emit(path, manifestResources: GetEmbeddedResources(assemblyName, filePath));
+
+            if (!result.Success)
+            {
+                if (result.Diagnostics.Any(d => d.GetMessage().Contains("does not contain a static 'Main'")))
+                {
+                    compilation = compilation.WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+                    result = compilation.Emit(path, manifestResources: GetEmbeddedResources(assemblyName, filePath));
+                }
+            }
 
             return new CompilationResult
             {

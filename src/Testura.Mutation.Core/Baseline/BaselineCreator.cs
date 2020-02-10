@@ -41,13 +41,6 @@ namespace Testura.Mutation.Core.Baseline
 
         public async Task<IList<BaselineInfo>> CreateBaselineAsync(MutationConfig config, CancellationToken cancellationToken = default(CancellationToken))
         {
-            LogTo.Info("Opening solution..");
-            var solution = await _solutionOpener.GetSolutionAsync(config);
-            return await CreateBaselineAsync(config, solution, cancellationToken);
-        }
-
-        public async Task<IList<BaselineInfo>> CreateBaselineAsync(MutationConfig config, Microsoft.CodeAnalysis.Solution solution, CancellationToken cancellationToken = default(CancellationToken))
-        {
             LogTo.Info("Creating baseline and verifying solution/tests..");
 
             DeleteBaselineDirectory();
@@ -60,7 +53,7 @@ namespace Testura.Mutation.Core.Baseline
 
                 foreach (var mutationProject in config.MutationProjects)
                 {
-                    var project = solution.Projects.FirstOrDefault(p => p.Name == mutationProject.Project.Name);
+                    var project = config.Solution.Projects.FirstOrDefault(p => p.Name == mutationProject.Project.Name);
                     var result = await _projectCompiler.CompileAsync(BaselineDirectoryPath, project);
 
                     if (!result.IsSuccess)

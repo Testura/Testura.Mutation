@@ -73,17 +73,6 @@
                             Width="280"
                             HorizontalAlignment="Left"/>
                         </GroupBox>
-
-                        <GroupBox
-                        Header="Build"
-                        Style="{DynamicResource MaterialDesignCardGroupBox}"
-                        Margin="0, 15, 0, 0"
-                        materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                        BorderThickness="0"
-                        Foreground="White"
-                        Grid.Row="3">
-                            <CheckBox IsChecked="{Binding BuildSolution}" Content="Build solution before creating mutations"></CheckBox>
-                        </GroupBox>
                     </Grid>
                 </ScrollViewer>
             </TabItem>
