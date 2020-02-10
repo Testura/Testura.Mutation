@@ -78,8 +78,7 @@ First you have to create a json run config, for example:
                      ],
     "BuildConfiguration":  "Debug",
     "TestRunner":  "dotnet",
-    "NumberOfTestRunInstances":  5,
-    "BuildSolution": false
+    "NumberOfTestRunInstances":  5
 }
 ```
 
@@ -139,10 +138,6 @@ In most cases it's best to run "dotnet".
 #### NumberOfTestRunInstances
 
 We run all unit tests for all mutants and this property tells us how many sessions we should run in parallel.
-
-#### BuildSolution
-
-If we should build the solution (using the `dotnet build` command) before creating mutations. In most cases it's best to just manually build the project and set this to false.
 
 #### IgnoredProjects
 
