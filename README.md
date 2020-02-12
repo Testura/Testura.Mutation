@@ -19,7 +19,7 @@ Testura is a mutation testing tool/visual studio extension for C# that verifies 
 
 # Install
 
-- Go [here](https://marketplace.visualstudio.com/items?itemName=Testura.TesturaMutation) for the visual studio extension.
+- Go [here](https://marketplace.visualstudio.com/items?itemName=Testura.TesturaMutation) for the visual studio extension (make sure your visual studio is updated to the latest version).
 - Go to releases for the latestest release of the console appliation.
 
 ## Usage
