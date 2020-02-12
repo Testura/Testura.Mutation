@@ -74,6 +74,7 @@
     <Compile Include="Execution\Runners\ITestRunnerFactory.cs" />
     <Compile Include="Execution\Runners\ITestRunnerClient.cs" />
     <Compile Include="Execution\TestRunnerDependencyFilesHandler.cs" />
+    <Compile Include="Extensions\AnalyzerResultExtensions.cs" />
     <Compile Include="Git\IGitCloner.cs" />
     <Compile Include="Git\IGitDiff.cs" />
     <Compile Include="Location\MutationLocationInfo.cs" />

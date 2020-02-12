@@ -1,11 +1,12 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Buildalyzer;
 using Buildalyzer.Environment;
-using Buildalyzer.Workspaces;
 using Microsoft.CodeAnalysis;
+using Testura.Mutation.Core.Extensions;
 
 namespace Testura.Mutation.Core.Solution
 {
