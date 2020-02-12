@@ -64,7 +64,7 @@ namespace Testura.Mutation.Core.Baseline
                         }
 
                         throw new BaselineException(
-                            "Failed to compile base line.",
+                            $"Failed to compile {project.Name} in base line.",
                             new CompilationException(result.Errors.Select(e => e.Message)));
                     }
                 }

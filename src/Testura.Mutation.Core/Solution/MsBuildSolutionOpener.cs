@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
@@ -25,7 +24,6 @@ namespace Testura.Mutation.Core.Solution
             using (var workspace = new AdhocWorkspace())
             {
                 var environmentOptions = new EnvironmentOptions { DesignTime = false };
-
                 foreach (var projectKeyValue in manager.Projects)
                 {
                     LogTo.Info($"Building {Path.GetFileNameWithoutExtension(projectKeyValue.Key)}");

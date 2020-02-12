@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,14 @@ using Buildalyzer;
 using Buildalyzer.Workspaces;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.Text;
 using Microsoft.CodeAnalysis.VisualBasic;
 
 namespace Testura.Mutation.Core.Extensions
 {
     public static class AnalyzerResultExtensions
     {
+        private static readonly char[] DirectorySplitChars = new char[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar };
+
         /// <summary>
         /// Gets a Roslyn workspace for the analyzed results.
         /// </summary>
@@ -219,17 +221,33 @@ namespace Testura.Mutation.Core.Extensions
                 .Where(x => x != null)
             ?? Array.Empty<ProjectAnalyzer>();
 
-        private static IEnumerable<DocumentInfo> GetDocuments(AnalyzerResult analyzerResult, ProjectId projectId) =>
-            analyzerResult
-                .SourceFiles?.Where(File.Exists)
-                .Select(x => DocumentInfo.Create(
-                    DocumentId.CreateNewId(projectId),
-                    Path.GetFileName(x),
-                    loader: TextLoader.From(
-                        TextAndVersion.Create(
-                            SourceText.From(File.ReadAllText(x, Encoding.Default), Encoding.Default), VersionStamp.Create())),
-                    filePath: x))
-            ?? Array.Empty<DocumentInfo>();
+        private static IEnumerable<DocumentInfo> GetDocuments(AnalyzerResult analyzerResult, ProjectId projectId)
+        {
+            var results = new List<DocumentInfo>();
+
+            if (analyzerResult.SourceFiles == null)
+            {
+                return Array.Empty<DocumentInfo>();
+            }
+
+            foreach (var file in analyzerResult.SourceFiles.Where(File.Exists))
+            {
+                GetDocumentNameAndFolders(file, out var name, out var folders);
+
+                var documentInfo = DocumentInfo.Create(
+                    DocumentId.CreateNewId(projectId, debugName: file),
+                    name,
+                    folders,
+                    SourceCodeKind.Regular,
+                    new FileTextLoader(file, GetEncoding(file)),
+                    file,
+                    false);
+
+                results.Add(documentInfo);
+            }
+
+            return results;
+        }
 
         private static IEnumerable<MetadataReference> GetMetadataReferences(AnalyzerResult analyzerResult) =>
             analyzerResult
@@ -247,6 +265,47 @@ namespace Testura.Mutation.Core.Extensions
                     return LanguageNames.VisualBasic;
                 default:
                     throw new InvalidOperationException("Could not determine supported language from project path");
+            }
+        }
+
+        private static void GetDocumentNameAndFolders(string logicalPath, out string name, out ImmutableArray<string> folders)
+        {
+            var pathNames = logicalPath.Split(DirectorySplitChars, StringSplitOptions.RemoveEmptyEntries);
+            if (pathNames.Length > 0)
+            {
+                if (pathNames.Length > 1)
+                {
+                    folders = pathNames.Take(pathNames.Length - 1).ToImmutableArray();
+                }
+                else
+                {
+                    folders = ImmutableArray<string>.Empty;
+                }
+
+                name = pathNames[pathNames.Length - 1];
+            }
+            else
+            {
+                name = logicalPath;
+                folders = ImmutableArray<string>.Empty;
+            }
+        }
+
+        private static Encoding GetEncoding(string filename)
+        {
+            using (var fs = File.OpenRead(filename))
+            {
+                Ude.CharsetDetector cdet = new Ude.CharsetDetector();
+                cdet.Feed(fs);
+                cdet.DataEnd();
+                if (cdet.Charset != null)
+                {
+                    return Encoding.GetEncoding(cdet.Charset);
+                }
+                else
+                {
+                    return Encoding.Default;
+                }
             }
         }
     }
