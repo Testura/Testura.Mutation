@@ -5,6 +5,7 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Buildalyzer;
 using Buildalyzer.Workspaces;
 using Microsoft.CodeAnalysis;
@@ -111,12 +112,14 @@ namespace Testura.Mutation.Core.Extensions
         private static ProjectInfo GetProjectInfo(AnalyzerResult analyzerResult, Workspace workspace, ProjectId projectId)
         {
             var projectName = Path.GetFileNameWithoutExtension(analyzerResult.ProjectFilePath);
+            var assemblyName = GetAssemblyName(analyzerResult.ProjectFilePath);
+
             var languageName = GetLanguageName(analyzerResult.ProjectFilePath);
             var projectInfo = ProjectInfo.Create(
                 projectId,
                 VersionStamp.Create(),
                 projectName,
-                projectName,
+                assemblyName,
                 languageName,
                 filePath: analyzerResult.ProjectFilePath,
                 outputFilePath: analyzerResult.GetProperty("TargetPath"),
@@ -306,6 +309,27 @@ namespace Testura.Mutation.Core.Extensions
                 {
                     return Encoding.Default;
                 }
+            }
+        }
+
+        private static string GetAssemblyName(string projectPath)
+        {
+            try
+            {
+                var fileContent = File.ReadAllText(projectPath);
+
+                var items = new List<string>();
+                foreach (Match match in Regex.Matches(fileContent, "<AssemblyName>(.*?)</AssemblyName>"))
+                {
+                    items.Add(match.Groups[1].Value);
+                }
+
+                var name = string.Join(" ", items);
+                return !string.IsNullOrEmpty(name) ? name : Path.GetFileNameWithoutExtension(projectPath);
+            }
+            catch (Exception)
+            {
+                return Path.GetFileNameWithoutExtension(projectPath);
             }
         }
     }
