@@ -29,6 +29,7 @@ namespace Testura.Mutation.Core.Solution
                     LogTo.Info($"Building {Path.GetFileNameWithoutExtension(projectKeyValue.Key)}");
                     var project = projectKeyValue.Value;
                     var results = project.Build(environmentOptions);
+
                     if (!results.OverallSuccess)
                     {
                         LogTo.Error("Failed to build");
