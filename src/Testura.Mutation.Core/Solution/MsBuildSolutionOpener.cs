@@ -1,11 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
-using Buildalyzer;
-using Buildalyzer.Environment;
-using Microsoft.CodeAnalysis;
-using Testura.Mutation.Core.Extensions;
+using Microsoft.Build.Locator;
+using Microsoft.CodeAnalysis.MSBuild;
 
 namespace Testura.Mutation.Core.Solution
 {
@@ -13,33 +12,35 @@ namespace Testura.Mutation.Core.Solution
     {
         public async Task<Microsoft.CodeAnalysis.Solution> GetSolutionAsync(string solutionPath)
         {
-            var log = new StringWriter();
-            var analyzerOptions = new AnalyzerManagerOptions
-            {
-                LogWriter = log
-            };
+            var visualStudioInstances = MSBuildLocator.QueryVisualStudioInstances().ToArray();
+            var instance = visualStudioInstances[2];
 
-            var manager = new AnalyzerManager(solutionPath, analyzerOptions);
+            MSBuildLocator.RegisterInstance(instance);
 
-            using (var workspace = new AdhocWorkspace())
+            LogTo.Info($"Using MSBuild at '{instance.MSBuildPath}' to load projects.");
+
+            using (var workspace = MSBuildWorkspace.Create())
             {
-                var environmentOptions = new EnvironmentOptions { DesignTime = false };
-                foreach (var projectKeyValue in manager.Projects)
+                // Print message for WorkspaceFailed event to help diagnosing project load failures.
+                workspace.WorkspaceFailed += (o, e) => LogTo.Warn(e.Diagnostic.Message);
+
+                // Attach progress reporter so we print projects as they are loaded.
+                var solution = await workspace.OpenSolutionAsync(solutionPath, new ConsoleProgressReporter());
+                return solution;
+            }
+        }
+
+        private class ConsoleProgressReporter : IProgress<ProjectLoadProgress>
+        {
+            public void Report(ProjectLoadProgress loadProgress)
+            {
+                var projectDisplay = Path.GetFileName(loadProgress.FilePath);
+                if (loadProgress.TargetFramework != null)
                 {
-                    LogTo.Info($"Building {Path.GetFileNameWithoutExtension(projectKeyValue.Key)}");
-                    var project = projectKeyValue.Value;
-                    var results = project.Build(environmentOptions);
-
-                    if (!results.OverallSuccess)
-                    {
-                        LogTo.Error("Failed to build");
-                        LogTo.Error(log.ToString);
-                    }
-
-                    results.Results.First().AddToWorkspace(workspace);
+                    projectDisplay += $" ({loadProgress.TargetFramework})";
                 }
 
-                return await Task.FromResult(workspace.CurrentSolution);
+                LogTo.Info($"{loadProgress.Operation,-15} {loadProgress.ElapsedTime,-15:m\\:ss\\.fffffff} {projectDisplay}");
             }
         }
     }

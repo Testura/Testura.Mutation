@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.LanguageServices">
+      <HintPath>..\..\..\..\..\.nuget\packages\microsoft.visualstudio.languageservices\3.4.0\lib\net472\Microsoft.VisualStudio.LanguageServices.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -74,7 +77,6 @@
     <Compile Include="Execution\Runners\ITestRunnerFactory.cs" />
     <Compile Include="Execution\Runners\ITestRunnerClient.cs" />
     <Compile Include="Execution\TestRunnerDependencyFilesHandler.cs" />
-    <Compile Include="Extensions\AnalyzerResultExtensions.cs" />
     <Compile Include="Git\IGitCloner.cs" />
     <Compile Include="Git\IGitDiff.cs" />
     <Compile Include="Location\MutationLocationInfo.cs" />
@@ -105,10 +107,10 @@
     <Compile Include="Solution\ISolutionBuilder.cs" />
     <Compile Include="Solution\SolutionInfoService.cs" />
     <Compile Include="Solution\SolutionProjectInfo.cs" />
+    <Compile Include="Solution\VisualStudioSolutionOpener.cs" />
     <Compile Include="Util\HashHelper.cs" />
     <Compile Include="Solution\ISolutionOpener.cs" />
     <Compile Include="Solution\MsBuildSolutionOpener.cs" />
-    <Compile Include="Solution\VisualStudioSolutionOpener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -126,9 +128,6 @@
     <PackageReference Include="Anotar.Log4Net.Fody">
       <Version>5.1.0</Version>
     </PackageReference>
-    <PackageReference Include="Buildalyzer.Workspaces">
-      <Version>2.5.0</Version>
-    </PackageReference>
     <PackageReference Include="ConsoleTables">
       <Version>2.2.0</Version>
     </PackageReference>
@@ -138,15 +137,15 @@
     <PackageReference Include="MediatR">
       <Version>7.0.0</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis">
-      <Version>3.4.0</Version>
+    <PackageReference Include="Microsoft.Build.Locator">
+      <Version>1.2.6</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
       <Version>2.9.8</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.Common">
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces">
       <Version>3.4.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild">
@@ -172,10 +171,22 @@
     <PackageReference Include="System.Reflection.Metadata">
       <Version>1.6.0</Version>
     </PackageReference>
+    <PackageReference Include="System.Threading.Tasks.Dataflow">
+      <Version>4.11.0</Version>
+    </PackageReference>
     <PackageReference Include="Ude.NetStandard">
       <Version>1.2.0</Version>
     </PackageReference>
   </ItemGroup>
+	<Target Name="DoNotCopyMSBuildDependencies" AfterTargets="ResolveAssemblyReferences">
+	<ItemGroup>
+	  <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)"
+							   Condition="'%(Filename)%(Extension)' == 'Microsoft.Build.dll'
+									   OR '%(Filename)%(Extension)' == 'Microsoft.Build.Framework.dll'
+									   OR '%(Filename)%(Extension)' == 'Microsoft.Build.Tasks.Core.dll'
+									   OR '%(Filename)%(Extension)' == 'Microsoft.Build.Utilities.Core.dll'" />
+	</ItemGroup>
+	</Target>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
