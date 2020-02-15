@@ -124,6 +124,11 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
                         continue;
                     }
 
+                    if (config.TestProjects.Any(t => t.Project.Name == testProject.Name))
+                    {
+                        continue;
+                    }
+
                     var testProjectOutput = UpdateOutputPathWithBuildConfiguration(testProject.OutputFilePath, config.BuildConfiguration);
                     LogTo.Info($"Wanted build configuration is \"{config.BuildConfiguration}\". Setting test project output to \"{testProjectOutput}\"");
                     config.TestProjects.Add(new TestProject
