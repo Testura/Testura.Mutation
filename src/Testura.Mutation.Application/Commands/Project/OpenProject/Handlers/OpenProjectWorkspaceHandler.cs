@@ -31,7 +31,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            applicationConfig.Solution = await _solutionOpener.GetSolutionAsync(fileConfig.SolutionPath);
+            applicationConfig.Solution = await _solutionOpener.GetSolutionAsync(fileConfig.SolutionPath, fileConfig.BuildConfiguration, true);
 
             InitializeTestProjects(fileConfig, applicationConfig);
             InitializeMutationProjects(fileConfig, applicationConfig);
@@ -121,6 +121,11 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
                         fileConfig.TargetFramework))
                     {
                         LogTo.Info("Project does not target expected framework");
+                        continue;
+                    }
+
+                    if (config.TestProjects.Any(t => t.Project.Name == testProject.Name))
+                    {
                         continue;
                     }
 

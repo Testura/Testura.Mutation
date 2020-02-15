@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testura.Mutation.Wpf", "src\Testura.Mutation.Wpf\Testura.Mutation.Wpf.csproj", "{5566D42B-8E32-473A-AD1B-1717B00FB092}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testura.Mutation.Application", "src\Testura.Mutation.Application\Testura.Mutation.Application.csproj", "{4E413455-59C5-4DA5-870A-A3481D2C6B8A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testura.Mutation.Core", "src\Testura.Mutation.Core\Testura.Mutation.Core.csproj", "{43EB1E4E-4F79-4554-B358-4A6D711CE39A}"
@@ -37,10 +35,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5566D42B-8E32-473A-AD1B-1717B00FB092}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5566D42B-8E32-473A-AD1B-1717B00FB092}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5566D42B-8E32-473A-AD1B-1717B00FB092}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5566D42B-8E32-473A-AD1B-1717B00FB092}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4E413455-59C5-4DA5-870A-A3481D2C6B8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4E413455-59C5-4DA5-870A-A3481D2C6B8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E413455-59C5-4DA5-870A-A3481D2C6B8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -78,7 +72,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{5566D42B-8E32-473A-AD1B-1717B00FB092} = {A4F21A57-015F-4673-A5A5-6AABEB01BC59}
 		{4E413455-59C5-4DA5-870A-A3481D2C6B8A} = {6018C720-2F71-47BC-BB8C-8205C14BF262}
 		{43EB1E4E-4F79-4554-B358-4A6D711CE39A} = {6018C720-2F71-47BC-BB8C-8205C14BF262}
 		{4930103E-0E46-474A-B1F5-4F9AA3943C27} = {FAEEF1CD-93F4-4F98-A66A-1B8CBEAECF19}

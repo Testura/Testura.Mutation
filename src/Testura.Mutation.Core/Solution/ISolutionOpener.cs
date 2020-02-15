@@ -4,6 +4,6 @@ namespace Testura.Mutation.Core.Solution
 {
     public interface ISolutionOpener
     {
-        Task<Microsoft.CodeAnalysis.Solution> GetSolutionAsync(string solutionPath);
+        Task<Microsoft.CodeAnalysis.Solution> GetSolutionAsync(string solutionPath, string configuration, bool buildSolution);
     }
 }
