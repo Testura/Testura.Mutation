@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,16 +11,16 @@ namespace Testura.Mutation.Core.Solution
 {
     public class MsBuildSolutionOpener : ISolutionOpener
     {
-        public async Task<Microsoft.CodeAnalysis.Solution> GetSolutionAsync(string solutionPath)
+        public async Task<Microsoft.CodeAnalysis.Solution> GetSolutionAsync(string solutionPath, string configuration, bool buildSolution)
         {
             var visualStudioInstances = MSBuildLocator.QueryVisualStudioInstances().ToArray();
-            var instance = visualStudioInstances[2];
+            var instance = visualStudioInstances.FirstOrDefault(vi => vi.Version == visualStudioInstances.Max(v => v.Version));
 
             MSBuildLocator.RegisterInstance(instance);
 
             LogTo.Info($"Using MSBuild at '{instance.MSBuildPath}' to load projects.");
 
-            using (var workspace = MSBuildWorkspace.Create())
+            using (var workspace = MSBuildWorkspace.Create(new Dictionary<string, string> { ["Configuration"] = string.IsNullOrEmpty(configuration) ? "debug" : configuration }))
             {
                 // Print message for WorkspaceFailed event to help diagnosing project load failures.
                 workspace.WorkspaceFailed += (o, e) => LogTo.Warn(e.Diagnostic.Message);

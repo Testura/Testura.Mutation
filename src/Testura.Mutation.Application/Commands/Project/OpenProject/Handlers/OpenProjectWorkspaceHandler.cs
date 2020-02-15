@@ -31,7 +31,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            applicationConfig.Solution = await _solutionOpener.GetSolutionAsync(fileConfig.SolutionPath);
+            applicationConfig.Solution = await _solutionOpener.GetSolutionAsync(fileConfig.SolutionPath, fileConfig.BuildConfiguration, true);
 
             InitializeTestProjects(fileConfig, applicationConfig);
             InitializeMutationProjects(fileConfig, applicationConfig);

@@ -14,9 +14,13 @@ namespace Testura.Mutation.Core.Solution
             _solutionBuilder = solutionBuilder;
         }
 
-        public Task<Microsoft.CodeAnalysis.Solution> GetSolutionAsync(string solutionPath)
+        public Task<Microsoft.CodeAnalysis.Solution> GetSolutionAsync(string solutionPath, string configuration, bool buildSolution)
         {
-            _solutionBuilder.BuildSolution(null);
+            if (buildSolution)
+            {
+                _solutionBuilder.BuildSolution(null);
+            }
+
             return Task.FromResult(_visualStudioWorkspace.CurrentSolution);
         }
     }
