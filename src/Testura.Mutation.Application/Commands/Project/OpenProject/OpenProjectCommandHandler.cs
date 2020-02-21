@@ -8,65 +8,48 @@ using Newtonsoft.Json;
 using Testura.Mutation.Application.Commands.Project.OpenProject.Handlers;
 using Testura.Mutation.Application.Exceptions;
 using Testura.Mutation.Application.Models;
-using Testura.Mutation.Core.Baseline;
 using Testura.Mutation.Core.Config;
-using Testura.Mutation.Core.Creator.Filter;
-using Testura.Mutation.Core.Git;
-using Testura.Mutation.Core.Solution;
 
 namespace Testura.Mutation.Application.Commands.Project.OpenProject
 {
     public class OpenProjectCommandHandler : IRequestHandler<OpenProjectCommand, MutationConfig>
     {
-        private readonly BaselineCreator _baselineCreator;
-        private readonly IGitCloner _gitCloner;
-        private readonly MutationDocumentFilterItemGitDiffCreator _diffCreator;
-        private readonly ISolutionBuilder _solutionBuilder;
-        private readonly ISolutionOpener _solutionOpener;
+        private readonly OpenProjectHandler _handler;
 
         public OpenProjectCommandHandler(
-            BaselineCreator baselineCreator,
-            IGitCloner gitCloner,
-            MutationDocumentFilterItemGitDiffCreator diffCreator,
-            ISolutionBuilder solutionBuilder,
-            ISolutionOpener solutionOpener)
+            OpenProjectExistHandler openProjectExistHandler,
+            OpenProjectMutatorsHandler openProjectMutatorsHandler,
+            OpenProjectGitFilterHandler openProjectGitFilterHandler,
+            OpenProjectWorkspaceHandler openProjectWorkspaceHandler)
         {
-            _baselineCreator = baselineCreator;
-            _gitCloner = gitCloner;
-            _diffCreator = diffCreator;
-            _solutionBuilder = solutionBuilder;
-            _solutionOpener = solutionOpener;
+            _handler = openProjectExistHandler;
+
+            _handler
+                .SetNext(openProjectMutatorsHandler)
+                .SetNext(openProjectGitFilterHandler)
+                .SetNext(openProjectWorkspaceHandler);
         }
 
         public async Task<MutationConfig> Handle(OpenProjectCommand command, CancellationToken cancellationToken)
         {
             var path = command.Path;
+            MutationConfig applicationConfig = null;
+            MutationFileConfig fileConfig = null;
 
             LogTo.Info($"Opening project at {command.Config?.SolutionPath ?? path}");
 
             try
             {
-                var (fileConfig, applicationConfig) = LoadConfigs(path, command.Config);
+                (fileConfig, applicationConfig) = LoadConfigs(path, command.Config);
 
-                var handler = new OpenProjectExistHandler(_gitCloner);
-
-                handler
-                    .SetNext(new OpenProjectMutatorsHandler())
-                    .SetNext(new OpenProjectGitFilterHandler(_diffCreator))
-                    .SetNext(new OpenProjectWorkspaceHandler(_baselineCreator, _solutionOpener));
-
-                try
-                {
-                    await handler.HandleAsync(fileConfig, applicationConfig, cancellationToken);
-                }
-                catch (OperationCanceledException)
-                {
-                    LogTo.Info("Open project was cancelled by request");
-                    return applicationConfig;
-                }
+                await _handler.HandleAsync(fileConfig, applicationConfig, cancellationToken);
 
                 LogTo.Info("Opening project finished.");
-
+                return applicationConfig;
+            }
+            catch (OperationCanceledException)
+            {
+                LogTo.Info("Open project was cancelled by request");
                 return applicationConfig;
             }
             catch (Exception ex)

@@ -49,6 +49,10 @@
   <ItemGroup>
     <Compile Include="Baseline\BaselineCreator.cs" />
     <Compile Include="Baseline\BaselineInfo.cs" />
+    <Compile Include="Baseline\Handlers\BaselineCreatorCompileMutationProjectsHandler.cs" />
+    <Compile Include="Baseline\Handlers\BaselineCreatorHandler.cs" />
+    <Compile Include="Baseline\Handlers\BaselineCreatorLogSummaryHandler.cs" />
+    <Compile Include="Baseline\Handlers\BaselineCreatorRunUnitTestsHandler.cs" />
     <Compile Include="Config\MutationProject.cs" />
     <Compile Include="Config\TargetFramework.cs" />
     <Compile Include="Config\MutationConfig.cs" />
@@ -108,6 +112,8 @@
     <Compile Include="Solution\SolutionInfoService.cs" />
     <Compile Include="Solution\SolutionProjectInfo.cs" />
     <Compile Include="Solution\VisualStudioSolutionOpener.cs" />
+    <Compile Include="Util\FileSystem\DirectoryHandler.cs" />
+    <Compile Include="Util\FileSystem\IDirectoryHandler.cs" />
     <Compile Include="Util\HashHelper.cs" />
     <Compile Include="Solution\ISolutionOpener.cs" />
     <Compile Include="Solution\MsBuildSolutionOpener.cs" />
