@@ -171,7 +171,12 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                 NumberOfTestRunInstances = NumberOfParallelTestRuns
             };
 
-            File.WriteAllText(GetConfigPath(), JsonConvert.SerializeObject(config, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
+            var jsonSettings = new JsonSerializerSettings();
+
+            jsonSettings.NullValueHandling = NullValueHandling.Ignore;
+            jsonSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+
+            File.WriteAllText(GetConfigPath(), JsonConvert.SerializeObject(config, jsonSettings));
 
             _environmentService.UserNotificationService.ShowInfoBar<MutationConfigWindow>("Config updated. Note that updates won't affect any currently open mutation windows.");
         }

@@ -72,9 +72,9 @@ namespace Testura.Mutation.Core.Creator.Filter
                 return true;
             }
 
-            var matchingFilterItems = FilterItems.Where(m => m.MatchResource(resource));
+            var matchingFilterItems = FilterItems.Where(m => m.MatchResource(resource) && !string.IsNullOrEmpty(m.CodeConstrain));
 
-            if (matchingFilterItems.All(m => string.IsNullOrEmpty(m.CodeConstrain)))
+            if (!matchingFilterItems.Any())
             {
                 return true;
             }
