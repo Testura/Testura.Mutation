@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Testura.Mutation.Application.Exceptions;
 using Testura.Mutation.Application.Models;
@@ -13,9 +12,9 @@ using Testura.Mutation.Core.Creator.Mutators.BinaryExpressionMutators;
 
 namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 {
-    public class OpenProjectMutatorsHandler : OpenProjectHandler
+    public class OpenProjectMutatorsHandler
     {
-        public override Task HandleAsync(MutationFileConfig fileConfig, MutationConfig applicationConfig, CancellationToken cancellationToken = default(CancellationToken))
+        public void InitializeMutators(MutationFileConfig fileConfig, MutationConfig applicationConfig, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -29,8 +28,6 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             {
                 LoadCustomMutatorList(fileConfig, applicationConfig);
             }
-
-            return base.HandleAsync(fileConfig, applicationConfig, cancellationToken);
         }
 
         private void LoadCustomMutatorList(MutationFileConfig fileConfig, MutationConfig applicationConfig)

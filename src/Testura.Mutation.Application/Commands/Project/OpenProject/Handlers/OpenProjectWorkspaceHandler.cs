@@ -16,7 +16,7 @@ using Testura.Mutation.Core.Solution;
 
 namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 {
-    public class OpenProjectWorkspaceHandler : OpenProjectHandler
+    public class OpenProjectWorkspaceHandler
     {
         private readonly BaselineCreator _baselineCreator;
         private readonly ISolutionOpener _solutionOpener;
@@ -27,7 +27,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             _solutionOpener = solutionOpener;
         }
 
-        public override async Task HandleAsync(MutationFileConfig fileConfig, MutationConfig applicationConfig, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task InitializeProjectAsync(MutationFileConfig fileConfig, MutationConfig applicationConfig, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -40,8 +40,6 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             {
                 applicationConfig.BaselineInfos = new List<BaselineInfo>(await _baselineCreator.CreateBaselineAsync(applicationConfig, cancellationToken));
             }
-
-            await base.HandleAsync(fileConfig, applicationConfig, cancellationToken);
         }
 
         private void InitializeMutationProjects(MutationFileConfig fileConfig, MutationConfig config)

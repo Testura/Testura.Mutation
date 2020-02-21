@@ -15,7 +15,7 @@ using Testura.Mutation.Core.Util.FileSystem;
 
 namespace Testura.Mutation.Core.Baseline.Handlers
 {
-    public class BaselineCreatorRunUnitTestsHandler : BaselineCreatorHandler
+    public class BaselineCreatorRunUnitTestsHandler
     {
         private readonly IDirectoryHandler _directoryHandler;
         private readonly ITestRunnerClient _testRunnerClient;
@@ -31,9 +31,9 @@ namespace Testura.Mutation.Core.Baseline.Handlers
             _testRunnerDependencyFilesHandler = testRunnerDependencyFilesHandler;
         }
 
-        public override async Task HandleAsync(MutationConfig config, string baselineDirectoryPath, IList<BaselineInfo> baselineInfos, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IList<BaselineInfo>> RunUnitTests(MutationConfig config, string baselineDirectoryPath, CancellationToken cancellationToken = default(CancellationToken))
         {
-            cancellationToken.ThrowIfCancellationRequested();
+            var baselineInfos = new List<BaselineInfo>();
 
             foreach (var testProject in config.TestProjects)
             {
@@ -59,7 +59,7 @@ namespace Testura.Mutation.Core.Baseline.Handlers
                 baselineInfos.Add(new BaselineInfo(testProject.Project.Name, result.ExecutionTime));
             }
 
-            await base.HandleAsync(config, baselineDirectoryPath, baselineInfos, cancellationToken);
+            return baselineInfos;
         }
 
         private async Task<TestSuiteResult> RunTestAsync(
