@@ -4,21 +4,20 @@ using System.Threading.Tasks;
 using Anotar.Log4Net;
 using Testura.Mutation.Application.Exceptions;
 using Testura.Mutation.Application.Models;
-using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Git;
 
 namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 {
-    public class OpenProjectExistHandler : OpenProjectHandler
+    public class OpenProjectSolutionExistHandler
     {
         private readonly IGitCloner _gitCloner;
 
-        public OpenProjectExistHandler(IGitCloner gitCloner)
+        public OpenProjectSolutionExistHandler(IGitCloner gitCloner)
         {
             _gitCloner = gitCloner;
         }
 
-        public override async Task HandleAsync(MutationFileConfig fileConfig, MutationConfig applicationConfig, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task VerifySolutionExistAsync(MutationFileConfig fileConfig, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -39,8 +38,6 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
                     fileConfig.Git.Password,
                     fileConfig.Git.LocalPath);
             }
-
-            await base.HandleAsync(fileConfig, applicationConfig, cancellationToken);
         }
     }
 }

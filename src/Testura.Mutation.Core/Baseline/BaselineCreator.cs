@@ -14,20 +14,20 @@ namespace Testura.Mutation.Core.Baseline
     public class BaselineCreator
     {
         private readonly IDirectoryHandler _directoryHandler;
-        private readonly BaselineCreatorHandler _handler;
+        private readonly BaselineCreatorCompileMutationProjectsHandler _compileMutationProjectsHandler;
+        private readonly BaselineCreatorRunUnitTestsHandler _runUnitTestHandler;
+        private readonly BaselineCreatorLogSummaryHandler _logSummaryHandler;
 
         public BaselineCreator(
             IDirectoryHandler directoryHandler,
-            BaselineCreatorCompileMutationProjectsHandler baselineCreatorCompileMutationProjectsHandler,
-            BaselineCreatorRunUnitTestsHandler baselineCreatorRunUnitTestsHandler,
-            BaselineCreatorLogSummaryHandler baselineCreatorLogSummaryHandler)
+            BaselineCreatorCompileMutationProjectsHandler compileMutationProjectsHandler,
+            BaselineCreatorRunUnitTestsHandler runUnitTestHandler,
+            BaselineCreatorLogSummaryHandler logSummaryHandler)
         {
             _directoryHandler = directoryHandler;
-            _handler = baselineCreatorCompileMutationProjectsHandler;
-
-            _handler
-                .SetNext(baselineCreatorRunUnitTestsHandler)
-                .SetNext(baselineCreatorLogSummaryHandler);
+            _compileMutationProjectsHandler = compileMutationProjectsHandler;
+            _runUnitTestHandler = runUnitTestHandler;
+            _logSummaryHandler = logSummaryHandler;
         }
 
         private string BaselineDirectoryPath => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestRun", "Baseline");
@@ -39,8 +39,10 @@ namespace Testura.Mutation.Core.Baseline
 
             try
             {
-                var baselineInfos = new List<BaselineInfo>();
-                await _handler.HandleAsync(config, BaselineDirectoryPath, baselineInfos, cancellationToken);
+                await _compileMutationProjectsHandler.CompileMutationProjects(config, BaselineDirectoryPath, cancellationToken);
+                var baselineInfos = await _runUnitTestHandler.RunUnitTests(config, BaselineDirectoryPath, cancellationToken);
+
+                _logSummaryHandler.ShowBaselineSummary(baselineInfos);
 
                 LogTo.Info("Baseline completed.");
                 return baselineInfos;

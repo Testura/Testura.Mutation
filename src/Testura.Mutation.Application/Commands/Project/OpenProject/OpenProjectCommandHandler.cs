@@ -14,20 +14,21 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
 {
     public class OpenProjectCommandHandler : IRequestHandler<OpenProjectCommand, MutationConfig>
     {
-        private readonly OpenProjectHandler _handler;
+        private readonly OpenProjectSolutionExistHandler _solutionExistHandler;
+        private readonly OpenProjectMutatorsHandler _mutatorsHandler;
+        private readonly OpenProjectGitFilterHandler _gitFilterHandler;
+        private readonly OpenProjectWorkspaceHandler _workspaceHandler;
 
         public OpenProjectCommandHandler(
-            OpenProjectExistHandler openProjectExistHandler,
-            OpenProjectMutatorsHandler openProjectMutatorsHandler,
-            OpenProjectGitFilterHandler openProjectGitFilterHandler,
-            OpenProjectWorkspaceHandler openProjectWorkspaceHandler)
+            OpenProjectSolutionExistHandler solutionExistHandler,
+            OpenProjectMutatorsHandler mutatorsHandler,
+            OpenProjectGitFilterHandler gitFilterHandler,
+            OpenProjectWorkspaceHandler workspaceHandler)
         {
-            _handler = openProjectExistHandler;
-
-            _handler
-                .SetNext(openProjectMutatorsHandler)
-                .SetNext(openProjectGitFilterHandler)
-                .SetNext(openProjectWorkspaceHandler);
+            _solutionExistHandler = solutionExistHandler;
+            _mutatorsHandler = mutatorsHandler;
+            _gitFilterHandler = gitFilterHandler;
+            _workspaceHandler = workspaceHandler;
         }
 
         public async Task<MutationConfig> Handle(OpenProjectCommand command, CancellationToken cancellationToken)
@@ -42,7 +43,12 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
             {
                 (fileConfig, applicationConfig) = LoadConfigs(path, command.Config);
 
-                await _handler.HandleAsync(fileConfig, applicationConfig, cancellationToken);
+                await _solutionExistHandler.VerifySolutionExistAsync(fileConfig, cancellationToken);
+
+                _mutatorsHandler.InitializeMutators(fileConfig, applicationConfig, cancellationToken);
+                _gitFilterHandler.InitializeGitFilter(fileConfig, applicationConfig, cancellationToken);
+
+                await _workspaceHandler.InitializeProjectAsync(fileConfig, applicationConfig, cancellationToken);
 
                 LogTo.Info("Opening project finished.");
                 return applicationConfig;

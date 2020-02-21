@@ -50,7 +50,6 @@
     <Compile Include="Baseline\BaselineCreator.cs" />
     <Compile Include="Baseline\BaselineInfo.cs" />
     <Compile Include="Baseline\Handlers\BaselineCreatorCompileMutationProjectsHandler.cs" />
-    <Compile Include="Baseline\Handlers\BaselineCreatorHandler.cs" />
     <Compile Include="Baseline\Handlers\BaselineCreatorLogSummaryHandler.cs" />
     <Compile Include="Baseline\Handlers\BaselineCreatorRunUnitTestsHandler.cs" />
     <Compile Include="Config\MutationProject.cs" />

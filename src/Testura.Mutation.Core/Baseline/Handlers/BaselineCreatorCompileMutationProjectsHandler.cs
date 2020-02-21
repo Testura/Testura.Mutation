@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Anotar.Log4Net;
@@ -10,7 +9,7 @@ using Testura.Mutation.Core.Util.FileSystem;
 
 namespace Testura.Mutation.Core.Baseline.Handlers
 {
-    public class BaselineCreatorCompileMutationProjectsHandler : BaselineCreatorHandler
+    public class BaselineCreatorCompileMutationProjectsHandler
     {
         private readonly IProjectCompiler _projectCompiler;
         private readonly IDirectoryHandler _directoryHandler;
@@ -21,12 +20,14 @@ namespace Testura.Mutation.Core.Baseline.Handlers
             _directoryHandler = directoryHandler;
         }
 
-        public override async Task HandleAsync(MutationConfig config, string baselineDirectoryPath, IList<BaselineInfo> baselineInfos, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task CompileMutationProjects(MutationConfig config, string baselineDirectoryPath, CancellationToken cancellationToken = default(CancellationToken))
         {
             _directoryHandler.CreateDirectory(baselineDirectoryPath);
 
             foreach (var mutationProject in config.MutationProjects)
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 LogTo.Info($"Compiling {mutationProject.Project.Name}..");
 
                 var project = config.Solution.Projects.FirstOrDefault(p => p.Name == mutationProject.Project.Name);
@@ -44,8 +45,6 @@ namespace Testura.Mutation.Core.Baseline.Handlers
                         new CompilationException(result.Errors.Select(e => e.Message)));
                 }
             }
-
-            await base.HandleAsync(config, baselineDirectoryPath, baselineInfos, cancellationToken);
         }
     }
 }
