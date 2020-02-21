@@ -46,10 +46,10 @@ namespace Testura.Mutation.VsExtension
             _outputLoggerService = new OutputLoggerService(JoinableTaskFactory, new LogWatcher());
             _outputLoggerService.StartLogger();
 
-            await MutationExplorerWindowCommand.InitializeAsync(this);
-            await SelectProjectFileCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<MutationFilterItemCreatorService>());
-            await Sections.Config.MutationConfigWindowCommand.InitializeAsync(this);
-            await SelectLineCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<MutationFilterItemCreatorService>());
+            await MutationExplorerWindowCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<UserNotificationService>());
+            await SelectProjectFileCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<MutationFilterItemCreatorService>(), _bootstrapper.Container.Resolve<UserNotificationService>());
+            await Sections.Config.MutationConfigWindowCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<UserNotificationService>());
+            await SelectLineCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<MutationFilterItemCreatorService>(), _bootstrapper.Container.Resolve<UserNotificationService>());
         }
 
         protected override WindowPane InstantiateToolWindow(Type toolWindowType) => (WindowPane)GetService(toolWindowType);
@@ -79,6 +79,7 @@ namespace Testura.Mutation.VsExtension
             var dte = (DTE)await GetServiceAsync(typeof(DTE));
             var asyncPackage = (AsyncPackage)await GetServiceAsync(typeof(AsyncPackage));
 
+            _bootstrapper.Container.RegisterInstance(new UserNotificationService(asyncPackage, JoinableTaskFactory, dte));
             _bootstrapper.Container.RegisterInstance(new EnvironmentService(dte, JoinableTaskFactory, asyncPackage, new UserNotificationService(asyncPackage, JoinableTaskFactory, dte)));
             _bootstrapper.Container.RegisterInstance(typeof(ISolutionOpener), new VisualStudioSolutionOpener(workspace, new VisualStudioSolutionBuilder(dte, JoinableTaskFactory)));
             _bootstrapper.Container.RegisterInstance(typeof(ISolutionBuilder), new VisualStudioSolutionBuilder(dte, JoinableTaskFactory));

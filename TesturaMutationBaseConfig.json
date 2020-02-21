@@ -1,17 +1,1 @@
-{
-    "TestProjects": ["Testura.Mutation.Tests"],
-    "IgnoredProjects": [],
-    "ProjectMappings": [],
-    "Filter": {
-        "FilterItems": [],
-		"FilterCodeItems": [
-			{ "Code": "*Log.*" }
-		]
-    },
-    "NumberOfTestRunInstances": 3,
-    "BuildConfiguration": "debug",
-    "MaxTestTimeMin": 5,
-    "TestRunner": "DotNet",
-    "Mutators": ["ConditionalBoundary", "NegateCondtional", "Math", "NegateTypeCompability", "Increment", "ReturnValue", "MethodCall"],
-    "CreateBaseline": true
-}
+{"TestProjects":["Testura.Mutation.Tests"],"IgnoredProjects":[],"ProjectMappings":[],"Filter":{"FilterItems":[],"FilterCodeItems":[{"Code":"*Log.*"}]},"NumberOfTestRunInstances":3,"BuildConfiguration":"debug","MaxTestTimeMin":5,"TestRunner":"DotNet","Mutators":["ConditionalBoundary","NegateCondtional","Math","NegateTypeCompability","Increment","ReturnValue","MethodCall"],"CreateBaseline":true}

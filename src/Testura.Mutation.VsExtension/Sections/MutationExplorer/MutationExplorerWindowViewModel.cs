@@ -137,6 +137,11 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         {
             var baseFileConfig = _configService.GetBaseFileConfig();
 
+            if (baseFileConfig == null)
+            {
+                return;
+            }
+
             Mutations.Clear();
             ShowLoading("Creating mutations..");
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Microsoft.Practices.ObjectBuilder2;
@@ -10,6 +9,7 @@ using Newtonsoft.Json;
 using Prism.Mvvm;
 using Testura.Mutation.Application.Models;
 using Testura.Mutation.Core;
+using Testura.Mutation.Core.Creator.Filter;
 using Testura.Mutation.Core.Solution;
 using Testura.Mutation.VsExtension.Services;
 using Testura.Mutation.VsExtension.Util.Extensions;
@@ -19,12 +19,17 @@ using MutationOperatorGridItem = Testura.Mutation.VsExtension.Models.MutationOpe
 
 namespace Testura.Mutation.VsExtension.Sections.Config
 {
-    public class MutationConfigWindowViewModel : BindableBase, INotifyPropertyChanged
+    public class MutationConfigWindowViewModel : BindableBase
     {
         private readonly EnvironmentService _environmentService;
         private readonly SolutionInfoService _solutionInfoService;
         private List<string> _projectNamesInSolution;
         private string _solutionPath;
+
+        private int _selectedTestRunnerIndex;
+        private bool runBaseline;
+        private int _numberOfParallelTestRuns;
+        private MutationFileConfig _mutationFileConfig;
 
         public MutationConfigWindowViewModel(EnvironmentService environmentService, SolutionInfoService solutionInfoService)
         {
@@ -52,15 +57,27 @@ namespace Testura.Mutation.VsExtension.Sections.Config
 
         public DelegateCommand UpdateConfigCommand { get; set; }
 
+        public DelegateCommand<string> TestProjectChangedCommand { get; set; }
+
         public List<string> TestRunnerTypes { get; set; }
 
-        public int SelectedTestRunnerIndex { get; set; }
+        public int SelectedTestRunnerIndex
+        {
+            get => _selectedTestRunnerIndex;
+            set => SetProperty(ref _selectedTestRunnerIndex, value);
+        }
 
-        public bool RunBaseline { get; set; }
+        public bool RunBaseline
+        {
+            get => runBaseline;
+            set => SetProperty(ref runBaseline, value);
+        }
 
-        public int NumberOfParallelTestRuns { get; set; }
-
-        public DelegateCommand<string> TestProjectChangedCommand { get; set; }
+        public int NumberOfParallelTestRuns
+        {
+            get => _numberOfParallelTestRuns;
+            set => SetProperty(ref _numberOfParallelTestRuns, value);
+        }
 
         public void Initialize()
         {
@@ -70,11 +87,11 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                 _solutionPath = _environmentService.Dte.Solution.FullName;
 
                 var filePath = GetConfigPath();
-                MutationFileConfig mutationFileConfig = null;
+                _mutationFileConfig = null;
 
                 if (File.Exists(filePath))
                 {
-                    mutationFileConfig = JsonConvert.DeserializeObject<MutationFileConfig>(File.ReadAllText(filePath));
+                    _mutationFileConfig = JsonConvert.DeserializeObject<MutationFileConfig>(File.ReadAllText(filePath));
                 }
 
                 var projects = await _solutionInfoService.GetSolutionInfoAsync(_solutionPath);
@@ -85,26 +102,26 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                 {
                     ProjectGridItems.Add(new ConfigProjectGridItem
                     {
-                        IsIgnored = mutationFileConfig?.IgnoredProjects.Any(u => u == projectName) ?? false,
-                        IsTestProject = mutationFileConfig?.TestProjects.Any(u => u == projectName) ?? projectName.Contains(".Test"),
+                        IsIgnored = _mutationFileConfig?.IgnoredProjects.Any(u => u == projectName) ?? false,
+                        IsTestProject = _mutationFileConfig?.TestProjects.Any(u => u == projectName) ?? projectName.Contains(".Test"),
                         Name = projectName
                     });
                 }
 
-                CreateMappings(mutationFileConfig);
+                CreateMappings(_mutationFileConfig);
 
-                if (mutationFileConfig?.Mutators != null)
+                if (_mutationFileConfig?.Mutators != null)
                 {
-                    var indexOfTestRunnerTypes = TestRunnerTypes.Select(t => t.ToLower()).ToList().IndexOf(mutationFileConfig.TestRunner.ToLower());
+                    var indexOfTestRunnerTypes = TestRunnerTypes.Select(t => t.ToLower()).ToList().IndexOf(_mutationFileConfig.TestRunner.ToLower());
                     SelectedTestRunnerIndex = indexOfTestRunnerTypes != -1 ? indexOfTestRunnerTypes : 0;
-                    NumberOfParallelTestRuns = mutationFileConfig.NumberOfTestRunInstances > 0 ? mutationFileConfig.NumberOfTestRunInstances : NumberOfParallelTestRuns;
+                    NumberOfParallelTestRuns = _mutationFileConfig.NumberOfTestRunInstances > 0 ? _mutationFileConfig.NumberOfTestRunInstances : NumberOfParallelTestRuns;
                     foreach (var mutator in MutationOperatorGridItems)
                     {
-                        mutator.IsSelected = mutationFileConfig.Mutators.FirstOrDefault(m => m == mutator.MutationOperator.ToString()) != null;
+                        mutator.IsSelected = _mutationFileConfig.Mutators.FirstOrDefault(m => m == mutator.MutationOperator.ToString()) != null;
                     }
                 }
 
-                RunBaseline = mutationFileConfig?.CreateBaseline ?? true;
+                RunBaseline = _mutationFileConfig?.CreateBaseline ?? true;
             });
         }
 
@@ -147,7 +164,12 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                 TestRunner = TestRunnerTypes[SelectedTestRunnerIndex],
                 CreateBaseline = RunBaseline,
                 Mutators = settings.ToList(),
-                NumberOfTestRunInstances = NumberOfParallelTestRuns,
+                Filter = new MutationDocumentFilter
+                {
+                    FilterCodeItems = _mutationFileConfig?.Filter?.FilterCodeItems ?? new List<MutationDocumentFilterCodeItem>(),
+                    FilterItems = _mutationFileConfig?.Filter?.FilterItems ?? new List<MutationDocumentFilterItem>()
+                },
+                NumberOfTestRunInstances = NumberOfParallelTestRuns
             };
 
             File.WriteAllText(GetConfigPath(), JsonConvert.SerializeObject(config, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Newtonsoft.Json;
 using Testura.Mutation.Application.Models;
 using Testura.Mutation.VsExtension.Sections.Config;
@@ -46,11 +47,20 @@ namespace Testura.Mutation.VsExtension.Services
 
                     var solutionPath = _environmentService.Dte.Solution.FullName;
 
-                    var baseConfig = JsonConvert.DeserializeObject<MutationFileConfig>(
-                        File.ReadAllText(Path.Combine(Path.GetDirectoryName(solutionPath), TesturaMutationVsExtensionPackage.BaseConfigName)));
+                    try
+                    {
+                        var baseConfig = JsonConvert.DeserializeObject<MutationFileConfig>(File.ReadAllText(Path.Combine(Path.GetDirectoryName(solutionPath), TesturaMutationVsExtensionPackage.BaseConfigName)));
 
-                    baseConfig.SolutionPath = solutionPath;
-                    return baseConfig;
+                        baseConfig.SolutionPath = solutionPath;
+                        return baseConfig;
+                    }
+                    catch (Exception)
+                    {
+                        _environmentService.UserNotificationService.ShowError("Failed to load config. Make sure it's a valid json");
+                        _environmentService.Dte.ActiveWindow.Close();
+
+                        return null;
+                    }
                 });
         }
     }
