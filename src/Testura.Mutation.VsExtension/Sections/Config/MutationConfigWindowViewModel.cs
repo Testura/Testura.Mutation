@@ -166,7 +166,6 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                 Mutators = settings.ToList(),
                 Filter = new MutationDocumentFilter
                 {
-                    FilterCodeItems = _mutationFileConfig?.Filter?.FilterCodeItems ?? new List<MutationDocumentFilterCodeItem>(),
                     FilterItems = _mutationFileConfig?.Filter?.FilterItems ?? new List<MutationDocumentFilterItem>()
                 },
                 NumberOfTestRunInstances = NumberOfParallelTestRuns

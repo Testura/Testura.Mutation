@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Microsoft.CodeAnalysis;
 
 namespace Testura.Mutation.Core.Creator.Filter
 {
@@ -16,6 +17,8 @@ namespace Testura.Mutation.Core.Creator.Filter
         public string Resource { get; set; }
 
         public IList<string> Lines { get; set; }
+
+        public string CodeConstrain { get; set; }
 
         public FilterEffect Effect { get; set; }
 
@@ -54,6 +57,20 @@ namespace Testura.Mutation.Core.Creator.Filter
         public bool LineAreAllowed(int line)
         {
             return MatchFilterLines(line) && Effect == FilterEffect.Allow;
+        }
+
+        public bool LinesAreDeniedWithCodeConstrain(int line, SyntaxNode code)
+        {
+            return MatchFilterLines(line) &&
+                   Effect == FilterEffect.Deny &&
+                   Regex.IsMatch(code.ToString(), EscapeRegex(CodeConstrain));
+        }
+
+        public bool LineAreAllowedWithCodeConstrain(int line, SyntaxNode code)
+        {
+            return MatchFilterLines(line) &&
+                   Effect == FilterEffect.Allow &&
+                   Regex.IsMatch(code.ToString(), EscapeRegex(CodeConstrain));
         }
 
         private IList<int> GetLineNumbers()
@@ -96,7 +113,12 @@ namespace Testura.Mutation.Core.Creator.Filter
         private string FormattedResource()
         {
             var formattedResource = Resource.Replace('\\', '/');
-            return "^" + Regex.Escape(formattedResource).Replace("\\*", ".*") + "$";
+            return EscapeRegex(formattedResource);
+        }
+
+        private string EscapeRegex(string text)
+        {
+            return "^" + Regex.Escape(text).Replace("\\*", ".*") + "$";
         }
     }
 }

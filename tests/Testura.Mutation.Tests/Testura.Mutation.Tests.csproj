@@ -244,7 +244,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Baseline\Handlers\BaselineCreatorCompileMutationProjectsHandlerTests.cs" />
-    <Compile Include="Core\Creator\MutationDocumentFilterCodeItemTests.cs" />
     <Compile Include="Core\Creator\MutationDocumentFilterTests.cs" />
     <Compile Include="Core\Creator\MutationDocumentFilterItemTests.cs" />
     <Compile Include="Core\Mutation\Mutators\BinaryExpressionMutations\ConditionalBoundaryMutatorTests.cs" />

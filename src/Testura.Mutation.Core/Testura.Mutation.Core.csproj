@@ -54,7 +54,6 @@
     <Compile Include="Config\MutationConfig.cs" />
     <Compile Include="Config\TestProject.cs" />
     <Compile Include="Creator\Filter\MutationDocumentFilter.cs" />
-    <Compile Include="Creator\Filter\MutationDocumentFilterCodeItem.cs" />
     <Compile Include="Creator\Filter\MutationDocumentFilterItem.cs" />
     <Compile Include="Creator\Filter\MutationDocumentFilterItemGitDiffCreator.cs" />
     <Compile Include="Creator\MutationDocumentCreator.cs" />

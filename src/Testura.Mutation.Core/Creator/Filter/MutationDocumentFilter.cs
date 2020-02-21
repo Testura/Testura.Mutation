@@ -9,12 +9,9 @@ namespace Testura.Mutation.Core.Creator.Filter
         public MutationDocumentFilter()
         {
             FilterItems = new List<MutationDocumentFilterItem>();
-            FilterCodeItems = new List<MutationDocumentFilterCodeItem>();
         }
 
         public List<MutationDocumentFilterItem> FilterItems { get; set; }
-
-        public List<MutationDocumentFilterCodeItem> FilterCodeItems { get; set; }
 
         public bool ResourceAllowed(string resource)
         {
@@ -36,7 +33,7 @@ namespace Testura.Mutation.Core.Creator.Filter
             return false;
         }
 
-        public bool ResourceLinesAllowed(string resource, int line)
+        public bool ResourceLinesAllowed(string resource, int line, SyntaxNode code)
         {
             if (FilterItems == null)
             {
@@ -55,7 +52,7 @@ namespace Testura.Mutation.Core.Creator.Filter
                 return false;
             }
 
-            if (!matchingFilterItems.Any(m => m.Effect == MutationDocumentFilterItem.FilterEffect.Allow))
+            if (matchingFilterItems.All(m => m.Effect != MutationDocumentFilterItem.FilterEffect.Allow))
             {
                 return true;
             }
@@ -68,9 +65,31 @@ namespace Testura.Mutation.Core.Creator.Filter
             return false;
         }
 
-        public bool CodeAllowed(SyntaxNode code)
+        public bool CodeAllowed(string resource, int line, SyntaxNode code)
         {
-            return FilterCodeItems.All(c => c.CodeAreAllowed(code));
+            if (FilterItems == null)
+            {
+                return true;
+            }
+
+            var matchingFilterItems = FilterItems.Where(m => m.MatchResource(resource));
+
+            if (matchingFilterItems.All(m => string.IsNullOrEmpty(m.CodeConstrain)))
+            {
+                return true;
+            }
+
+            if (matchingFilterItems.Any(m => m.LineAreAllowedWithCodeConstrain(line, code)))
+            {
+                return true;
+            }
+
+            if (matchingFilterItems.Any(m => m.LinesAreDeniedWithCodeConstrain(line, code)))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
