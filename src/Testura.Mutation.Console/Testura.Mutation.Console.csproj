@@ -2,10 +2,7 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\packages\Microsoft.Build.Locator.1.2.6\build\Microsoft.Build.Locator.props" Condition="Exists('..\..\packages\Microsoft.Build.Locator.1.2.6\build\Microsoft.Build.Locator.props')" />
   <Import Project="..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.8\build\Microsoft.CodeAnalysis.Analyzers.props" Condition="Exists('..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.8\build\Microsoft.CodeAnalysis.Analyzers.props')" />
-  <Import Project="..\..\packages\PropertyChanged.Fody.3.1.3\build\PropertyChanged.Fody.props" Condition="Exists('..\..\packages\PropertyChanged.Fody.3.1.3\build\PropertyChanged.Fody.props')" />
-  <Import Project="..\..\packages\Anotar.Log4Net.Fody.5.1.0\build\Anotar.Log4Net.Fody.props" Condition="Exists('..\..\packages\Anotar.Log4Net.Fody.5.1.0\build\Anotar.Log4Net.Fody.props')" />
   <Import Project="..\..\packages\LibGit2Sharp.NativeBinaries.2.0.289\build\net46\LibGit2Sharp.NativeBinaries.props" Condition="Exists('..\..\packages\LibGit2Sharp.NativeBinaries.2.0.289\build\net46\LibGit2Sharp.NativeBinaries.props')" />
-  <Import Project="..\..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props" Condition="Exists('..\..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -81,9 +78,6 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="Anotar.Log4Net, Version=5.1.0.0, Culture=neutral, PublicKeyToken=9d5b24f0733c26f7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Anotar.Log4Net.Fody.5.1.0\lib\net452\Anotar.Log4Net.dll</HintPath>
-    </Reference>
     <Reference Include="CommandLine.Core.CommandLineUtils, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommandLine.Core.CommandLineUtils.1.1.0\lib\netstandard2.0\CommandLine.Core.CommandLineUtils.dll</HintPath>
     </Reference>
@@ -95,9 +89,6 @@
     </Reference>
     <Reference Include="CommandLineUtils.Extensions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommandLineUtils.Extensions.1.1.0\lib\netstandard2.0\CommandLineUtils.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
     </Reference>
     <Reference Include="Humanizer, Version=2.3.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Humanizer.Core.2.3.3\lib\netstandard2.0\Humanizer.dll</HintPath>
@@ -204,9 +195,6 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PropertyChanged, Version=3.1.3.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PropertyChanged.Fody.3.1.3\lib\net40\PropertyChanged.dll</HintPath>
-    </Reference>
     <Reference Include="SQLitePCLRaw.batteries_green, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a84b7dcfb1391f7f, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SQLitePCLRaw.bundle_green.1.1.2\lib\net45\SQLitePCLRaw.batteries_green.dll</HintPath>
     </Reference>
@@ -233,20 +221,20 @@
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Composition.AttributedModel, Version=1.0.31.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Composition.AttributedModel.1.0.31\lib\portable-net45+win8+wp8+wpa81\System.Composition.AttributedModel.dll</HintPath>
+    <Reference Include="System.Composition.AttributedModel, Version=1.0.35.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Composition.AttributedModel.1.4.0\lib\netstandard2.0\System.Composition.AttributedModel.dll</HintPath>
     </Reference>
     <Reference Include="System.Composition.Convention, Version=1.0.31.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Composition.Convention.1.0.31\lib\portable-net45+win8+wp8+wpa81\System.Composition.Convention.dll</HintPath>
     </Reference>
-    <Reference Include="System.Composition.Hosting, Version=1.0.31.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Composition.Hosting.1.0.31\lib\portable-net45+win8+wp8+wpa81\System.Composition.Hosting.dll</HintPath>
+    <Reference Include="System.Composition.Hosting, Version=1.0.35.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Composition.Hosting.1.4.0\lib\netstandard2.0\System.Composition.Hosting.dll</HintPath>
     </Reference>
-    <Reference Include="System.Composition.Runtime, Version=1.0.31.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Composition.Runtime.1.0.31\lib\portable-net45+win8+wp8+wpa81\System.Composition.Runtime.dll</HintPath>
+    <Reference Include="System.Composition.Runtime, Version=1.0.35.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Composition.Runtime.1.4.0\lib\netstandard2.0\System.Composition.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="System.Composition.TypedParts, Version=1.0.31.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Composition.TypedParts.1.0.31\lib\portable-net45+win8+wp8+wpa81\System.Composition.TypedParts.dll</HintPath>
+    <Reference Include="System.Composition.TypedParts, Version=1.0.35.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Composition.TypedParts.1.4.0\lib\netstandard2.0\System.Composition.TypedParts.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Console, Version=4.0.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -496,16 +484,11 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\..\packages\Fody.6.0.5\build\Fody.targets" Condition="Exists('..\..\packages\Fody.6.0.5\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Fody.6.0.5\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.6.0.5\build\Fody.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props'))" />
     <Error Condition="!Exists('..\..\packages\LibGit2Sharp.NativeBinaries.2.0.289\build\net46\LibGit2Sharp.NativeBinaries.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\LibGit2Sharp.NativeBinaries.2.0.289\build\net46\LibGit2Sharp.NativeBinaries.props'))" />
-    <Error Condition="!Exists('..\..\packages\Anotar.Log4Net.Fody.5.1.0\build\Anotar.Log4Net.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Anotar.Log4Net.Fody.5.1.0\build\Anotar.Log4Net.Fody.props'))" />
-    <Error Condition="!Exists('..\..\packages\PropertyChanged.Fody.3.1.3\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\PropertyChanged.Fody.3.1.3\build\PropertyChanged.Fody.props'))" />
     <Error Condition="!Exists('..\..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.2\build\SQLitePCLRaw.lib.e_sqlite3.linux.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.2\build\SQLitePCLRaw.lib.e_sqlite3.linux.targets'))" />
     <Error Condition="!Exists('..\..\packages\SQLitePCLRaw.lib.e_sqlite3.osx.1.1.2\build\SQLitePCLRaw.lib.e_sqlite3.osx.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SQLitePCLRaw.lib.e_sqlite3.osx.1.1.2\build\SQLitePCLRaw.lib.e_sqlite3.osx.targets'))" />
     <Error Condition="!Exists('..\..\packages\SQLitePCLRaw.lib.e_sqlite3.v110_xp.1.1.2\build\SQLitePCLRaw.lib.e_sqlite3.v110_xp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SQLitePCLRaw.lib.e_sqlite3.v110_xp.1.1.2\build\SQLitePCLRaw.lib.e_sqlite3.v110_xp.targets'))" />

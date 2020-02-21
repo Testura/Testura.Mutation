@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Anotar.Log4Net;
+using log4net;
 
 namespace Testura.Mutation.Core.Loggers
 {
     public class AzureMutationRunLogger : IMutationRunLogger
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(AzureMutationRunLogger));
+
         private double _totalNumberOfMutations;
 
         public void LogBeforeRun(IList<MutationDocument> mutationDocuments)
@@ -26,7 +28,7 @@ namespace Testura.Mutation.Core.Loggers
         private void LogProgress(int mutationsRemainingCount)
         {
             var progress = 100 - Math.Round(mutationsRemainingCount / _totalNumberOfMutations * 100);
-            LogTo.Info($"##vso[task.setprogress value={progress};]Mutation execution progress");
+            Log.Info($"##vso[task.setprogress value={progress};]Mutation execution progress");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using DiffPlex.DiffBuilder.Model;
 
-namespace Testura.Mutation.Wpf.Shared.CodeDiff
+namespace Testura.Mutation.VsExtension.Util.CodeDiff
 {
     public class OldNewDiffPiece
     {

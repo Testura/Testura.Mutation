@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
-using Anotar.Log4Net;
+using log4net;
 
 namespace Testura.Mutation.Core.Config
 {
     public class TargetFramework
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(TargetFramework));
+
         public string Name { get; set; }
 
         public bool IgnoreProjectsWithWrongTargetFramework { get; set; }
@@ -15,7 +17,7 @@ namespace Testura.Mutation.Core.Config
 
             if (!string.IsNullOrEmpty(Name))
             {
-                LogTo.Info($"Found a target framework in config: {Name}. Adding it to properties");
+                Log.Info($"Found a target framework in config: {Name}. Adding it to properties");
                 props.Add("TargetFramework", Name);
             }
 

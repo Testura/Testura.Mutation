@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Testura.Mutation.Wpf.Shared.Models;
+using TestRunDocument = Testura.Mutation.VsExtension.Models.TestRunDocument;
 
 namespace Testura.Mutation.VsExtension.MutationHighlight
 {

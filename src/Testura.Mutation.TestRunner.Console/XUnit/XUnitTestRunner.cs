@@ -50,7 +50,7 @@ namespace Testura.Mutation.TestRunner.Console.XUnit
             }
             catch
             {
-                /* LogTo.ErrorException("Failed to unload test runner", ex); */
+                /* LogErrorException("Failed to unload test runner", ex); */
                 _finished.Set();
             }
         }

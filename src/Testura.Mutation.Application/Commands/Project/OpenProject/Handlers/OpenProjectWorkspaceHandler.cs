@@ -5,8 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Anotar.Log4Net;
-using Microsoft.CodeAnalysis;
+using log4net;
 using Testura.Mutation.Application.Exceptions;
 using Testura.Mutation.Application.Models;
 using Testura.Mutation.Core.Baseline;
@@ -18,6 +17,8 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 {
     public class OpenProjectWorkspaceHandler
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(OpenProjectWorkspaceHandler));
+
         private readonly BaselineCreator _baselineCreator;
         private readonly ISolutionOpener _solutionOpener;
 
@@ -49,7 +50,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
                 fileConfig.IgnoredProjects = new List<string>();
             }
 
-            LogTo.Info("Setting up mutation projects.");
+            Log.Info("Setting up mutation projects.");
             foreach (var solutionProject in config.Solution.Projects)
             {
                 if (
@@ -60,7 +61,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
                     continue;
                 }
 
-                LogTo.Info($"Grabbing output info for {solutionProject.Name}.");
+                Log.Info($"Grabbing output info for {solutionProject.Name}.");
 
                 config.MutationProjects.Add(new MutationProject
                 {
@@ -90,11 +91,11 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
         {
             if (fileConfig.TestProjects == null || !fileConfig.TestProjects.Any())
             {
-                LogTo.Error("Test project list is null or empty");
+                Log.Error("Test project list is null or empty");
                 throw new ProjectSetUpException("Test project list is null or empty");
             }
 
-            LogTo.Info("Setting up test projects.");
+            Log.Info("Setting up test projects.");
             foreach (var testProjectName in fileConfig.TestProjects)
             {
                 var testProjects = config.Solution.Projects.Where(p => Regex.IsMatch(p.Name, FormattedProjectName(testProjectName), RegexOptions.IgnoreCase));
@@ -106,11 +107,11 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 
                 foreach (var testProject in testProjects)
                 {
-                    LogTo.Info($"Found the test project {testProject.Name}. Grabbing output info.");
+                    Log.Info($"Found the test project {testProject.Name}. Grabbing output info.");
 
                     if (IsIgnored(testProject.Name, fileConfig.IgnoredProjects))
                     {
-                        LogTo.Info("But it was ignored. So skipping");
+                        Log.Info("But it was ignored. So skipping");
                         continue;
                     }
 
@@ -118,7 +119,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
                         testProject.FilePath,
                         fileConfig.TargetFramework))
                     {
-                        LogTo.Info("Project does not target expected framework");
+                        Log.Info("Project does not target expected framework");
                         continue;
                     }
 
@@ -128,7 +129,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
                     }
 
                     var testProjectOutput = UpdateOutputPathWithBuildConfiguration(testProject.OutputFilePath, config.BuildConfiguration);
-                    LogTo.Info($"Wanted build configuration is \"{config.BuildConfiguration}\". Setting test project output to \"{testProjectOutput}\"");
+                    Log.Info($"Wanted build configuration is \"{config.BuildConfiguration}\". Setting test project output to \"{testProjectOutput}\"");
                     config.TestProjects.Add(new TestProject
                     {
                         Project = new SolutionProjectInfo(testProject.Name, testProject.FilePath, testProjectOutput),
@@ -141,28 +142,28 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
         private string GetTestRunner(Microsoft.CodeAnalysis.Project testProject, string fileConfigTestRunner)
         {
             // This is a bit hackish but it's until I fix so you can specify test runner in file config.
-            LogTo.Info($"Looking for test runner for {testProject.Name}..");
+            Log.Info($"Looking for test runner for {testProject.Name}..");
             if (!string.IsNullOrEmpty(fileConfigTestRunner))
             {
-                LogTo.Info($"..found {fileConfigTestRunner} in config.");
+                Log.Info($"..found {fileConfigTestRunner} in config.");
                 return fileConfigTestRunner;
             }
 
             if (testProject.ParseOptions.PreprocessorSymbolNames.Any(p => p.ToUpper().Contains("NETCOREAPP")))
             {
-                LogTo.Info("..found .core in symbol names so will use dotnet.");
+                Log.Info("..found .core in symbol names so will use dotnet.");
                 return "dotnet";
             }
 
             if (testProject.MetadataReferences.Any(m => m.Display.ToLower().Contains("nunit")))
             {
-                LogTo.Info("..found nunit in references so will use that.");
+                Log.Info("..found nunit in references so will use that.");
                 return "nunit";
             }
 
             if (testProject.MetadataReferences.Any(m => m.Display.ToLower().Contains("xunit")))
             {
-                LogTo.Info("..found xunit in references so will use that.");
+                Log.Info("..found xunit in references so will use that.");
                 return "xunit";
             }
 

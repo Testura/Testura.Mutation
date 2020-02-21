@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.CodeAnalysis;
 
 namespace Testura.Mutation.Core.Creator.Filter
 {
@@ -8,9 +9,12 @@ namespace Testura.Mutation.Core.Creator.Filter
         public MutationDocumentFilter()
         {
             FilterItems = new List<MutationDocumentFilterItem>();
+            FilterCodeItems = new List<MutationDocumentFilterCodeItem>();
         }
 
         public List<MutationDocumentFilterItem> FilterItems { get; set; }
+
+        public List<MutationDocumentFilterCodeItem> FilterCodeItems { get; set; }
 
         public bool ResourceAllowed(string resource)
         {
@@ -62,6 +66,11 @@ namespace Testura.Mutation.Core.Creator.Filter
             }
 
             return false;
+        }
+
+        public bool CodeAllowed(SyntaxNode code)
+        {
+            return FilterCodeItems.All(c => c.CodeAreAllowed(code));
         }
     }
 }

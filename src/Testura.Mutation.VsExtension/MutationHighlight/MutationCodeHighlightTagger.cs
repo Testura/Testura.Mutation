@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.Text.Tagging;
 using Testura.Mutation.VsExtension.MutationHighlight.Definitions;
-using Testura.Mutation.Wpf.Shared.Models;
+using TestRunDocument = Testura.Mutation.VsExtension.Models.TestRunDocument;
 
 namespace Testura.Mutation.VsExtension.MutationHighlight
 {

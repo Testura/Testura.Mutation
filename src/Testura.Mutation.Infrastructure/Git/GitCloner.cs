@@ -1,26 +1,28 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using Anotar.Log4Net;
 using LibGit2Sharp;
+using log4net;
 using Testura.Mutation.Core.Git;
 
 namespace Testura.Mutation.Infrastructure.Git
 {
     public class GitCloner : IGitCloner
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(GitCloner));
+
         public Task CloneSolutionAsync(string repositoryUrl, string branch, string username, string password, string outputPath)
         {
             return Task.Run(() =>
             {
                 if (Directory.Exists(outputPath))
                 {
-                    LogTo.Info("Directory already exist so will delete it..");
+                    Log.Info("Directory already exist so will delete it..");
 
                     // It seems like the git directory sometimes are locked so force it to normal status.
                     SetAttributes(new DirectoryInfo(outputPath));
 
                     Directory.Delete(outputPath, true);
-                    LogTo.Info(".. deleting done.");
+                    Log.Info(".. deleting done.");
                 }
 
                 var co = new CloneOptions
@@ -30,14 +32,14 @@ namespace Testura.Mutation.Infrastructure.Git
 
                 if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
                 {
-                    LogTo.Info("Found username and password in git config so will update clone options.");
+                    Log.Info("Found username and password in git config so will update clone options.");
                     co.CredentialsProvider = (url, user, cred) => new UsernamePasswordCredentials
                         {Username = username, Password = password};
                 }
 
-                LogTo.Info($"Cloning \"{repositoryUrl}\" (branch {branch}) to \"{outputPath}\"..");
+                Log.Info($"Cloning \"{repositoryUrl}\" (branch {branch}) to \"{outputPath}\"..");
                 Repository.Clone(repositoryUrl, outputPath, co);
-                LogTo.Info(".. cloning done.");
+                Log.Info(".. cloning done.");
             });
         }
 

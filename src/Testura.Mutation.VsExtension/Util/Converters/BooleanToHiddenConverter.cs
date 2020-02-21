@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Testura.Mutation.Wpf.Shared.Converters
+namespace Testura.Mutation.VsExtension.Util.Converters
 {
     public class BooleanToHiddenConverter : IValueConverter
     {

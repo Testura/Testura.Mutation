@@ -12,8 +12,10 @@ using Testura.Mutation.Application.Models;
 using Testura.Mutation.Core;
 using Testura.Mutation.Core.Solution;
 using Testura.Mutation.VsExtension.Services;
-using Testura.Mutation.Wpf.Shared.Extensions;
-using Testura.Mutation.Wpf.Shared.Models;
+using Testura.Mutation.VsExtension.Util.Extensions;
+using ConfigProjectGridItem = Testura.Mutation.VsExtension.Models.ConfigProjectGridItem;
+using ConfigProjectMappingGridItem = Testura.Mutation.VsExtension.Models.ConfigProjectMappingGridItem;
+using MutationOperatorGridItem = Testura.Mutation.VsExtension.Models.MutationOperatorGridItem;
 
 namespace Testura.Mutation.VsExtension.Sections.Config
 {

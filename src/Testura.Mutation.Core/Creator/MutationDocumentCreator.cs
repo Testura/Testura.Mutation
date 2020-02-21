@@ -2,28 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Anotar.Log4Net;
+using log4net;
 using Microsoft.CodeAnalysis;
 using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Exceptions;
-using Testura.Mutation.Core.Solution;
 
 namespace Testura.Mutation.Core.Creator
 {
     public class MutationDocumentCreator
     {
-        private readonly ISolutionOpener _solutionOpener;
-
-        public MutationDocumentCreator(ISolutionOpener solutionOpener)
-        {
-            _solutionOpener = solutionOpener;
-        }
+        private static readonly ILog Log = LogManager.GetLogger(typeof(MutationDocumentCreator));
 
         public IList<MutationDocument> CreateMutations(MutationConfig config, CancellationToken cancellationToken = default(CancellationToken))
         {
             try
             {
-                LogTo.Info("Starting to analyze test..");
+                Log.Info("Starting to analyze test..");
 
                 var mutations = new List<MutationDocument>();
 
@@ -33,13 +27,13 @@ namespace Testura.Mutation.Core.Creator
 
                     if (currentProject == null)
                     {
-                        LogTo.Error($"Could not find any project with the name {mutationProjectInfo.Project.Name}");
+                        Log.Error($"Could not find any project with the name {mutationProjectInfo.Project.Name}");
                         continue;
                     }
 
                     var documentIds = currentProject.DocumentIds;
 
-                    LogTo.Info($"Starting to create mutations for {currentProject.Name}..");
+                    Log.Info($"Starting to create mutations for {currentProject.Name}..");
                     foreach (var documentId in documentIds)
                     {
                         cancellationToken.ThrowIfCancellationRequested();
@@ -49,19 +43,19 @@ namespace Testura.Mutation.Core.Creator
 
                 if (!mutations.Any())
                 {
-                    LogTo.Warn("Could not find a single mutation. Maybe check your filter?");
+                    Log.Warn("Could not find a single mutation. Maybe check your filter?");
                 }
 
                 return mutations;
             }
             catch (OperationCanceledException)
             {
-                LogTo.Info("Cancellation requested");
+                Log.Info("Cancellation requested");
                 return new List<MutationDocument>();
             }
             catch (Exception ex)
             {
-                LogTo.ErrorException("Unknown exception when creating mutation documents", ex);
+                Log.Error("Unknown exception when creating mutation documents", ex);
                 throw new MutationDocumentException("Unknown exception when creating mutation documents", ex);
             }
         }
@@ -75,11 +69,11 @@ namespace Testura.Mutation.Core.Creator
 
                 if (config.Filter != null && !config.Filter.ResourceAllowed(document.FilePath))
                 {
-                    LogTo.Info($"Ignoring {document.Name}.");
+                    Log.Info($"Ignoring {document.Name}.");
                     return mutations;
                 }
 
-                LogTo.Info($"Creating mutation for {document.Name}..");
+                Log.Info($"Creating mutation for {document.Name}..");
 
                 var root = document.GetSyntaxRootAsync().Result;
 
@@ -88,12 +82,12 @@ namespace Testura.Mutation.Core.Creator
                     var mutatedDocuments = mutationOperator.GetMutatedDocument(root, document);
                     mutations.AddRange(mutatedDocuments.Where(m =>
                         config.Filter == null ||
-                        config.Filter.ResourceLinesAllowed(document.FilePath, GetDocumentLine(m))));
+                        (config.Filter.ResourceLinesAllowed(document.FilePath, GetDocumentLine(m)) && config.Filter.CodeAllowed(m.MutationDetails.Orginal))));
                 }
             }
             catch (Exception ex)
             {
-                LogTo.Error("Error when creating mutation: " + ex.Message);
+                Log.Error("Error when creating mutation: " + ex.Message);
             }
 
             return mutations;

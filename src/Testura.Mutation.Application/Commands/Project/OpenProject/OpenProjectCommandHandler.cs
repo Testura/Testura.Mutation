@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Anotar.Log4Net;
+using log4net;
 using MediatR;
 using Newtonsoft.Json;
 using Testura.Mutation.Application.Commands.Project.OpenProject.Handlers;
@@ -14,6 +14,8 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
 {
     public class OpenProjectCommandHandler : IRequestHandler<OpenProjectCommand, MutationConfig>
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(OpenProjectCommandHandler));
+
         private readonly OpenProjectSolutionExistHandler _solutionExistHandler;
         private readonly OpenProjectMutatorsHandler _mutatorsHandler;
         private readonly OpenProjectGitFilterHandler _gitFilterHandler;
@@ -37,7 +39,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
             MutationConfig applicationConfig = null;
             MutationFileConfig fileConfig = null;
 
-            LogTo.Info($"Opening project at {command.Config?.SolutionPath ?? path}");
+            Log.Info($"Opening project at {command.Config?.SolutionPath ?? path}");
 
             try
             {
@@ -50,17 +52,17 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
 
                 await _workspaceHandler.InitializeProjectAsync(fileConfig, applicationConfig, cancellationToken);
 
-                LogTo.Info("Opening project finished.");
+                Log.Info("Opening project finished.");
                 return applicationConfig;
             }
             catch (OperationCanceledException)
             {
-                LogTo.Info("Open project was cancelled by request");
+                Log.Info("Open project was cancelled by request");
                 return applicationConfig;
             }
             catch (Exception ex)
             {
-                LogTo.ErrorException("Failed to open project", ex);
+                Log.Error("Failed to open project", ex);
                 throw new OpenProjectException("Failed to open project", ex);
             }
         }
@@ -73,7 +75,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
             {
                 var fileContent = File.ReadAllText(path);
 
-                LogTo.Info($"Loading configuration: {fileContent}");
+                Log.Info($"Loading configuration: {fileContent}");
 
                 fileConfig = JsonConvert.DeserializeObject<MutationFileConfig>(fileContent);
             }

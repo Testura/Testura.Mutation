@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Anotar.Log4Net;
+using log4net;
 using RazorEngine;
 using RazorEngine.Templating;
 
@@ -11,6 +11,8 @@ namespace Testura.Mutation.Core.Execution.Report.Html
 {
     public class HtmlReportCreator : ReportCreator
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(HtmlReportCreator));
+
         public HtmlReportCreator(string savePath)
             : base(savePath)
         {
@@ -20,11 +22,11 @@ namespace Testura.Mutation.Core.Execution.Report.Html
 
         public override void SaveReport(IList<MutationDocumentResult> mutations, TimeSpan exectutionTime)
         {
-            LogTo.Info("Saving HTML report..");
+            Log.Info("Saving HTML report..");
 
             if (!mutations.Any(m => m.Survived))
             {
-                LogTo.Info("No mutations to report.");
+                Log.Info("No mutations to report.");
                 return;
             }
 
@@ -37,11 +39,11 @@ namespace Testura.Mutation.Core.Execution.Report.Html
             }
             catch (Exception ex)
             {
-                LogTo.ErrorException("Failed to save html report", ex);
+                Log.Error("Failed to save html report", ex);
                 throw;
             }
 
-            LogTo.Info("Html report saved successfully.");
+            Log.Info("Html report saved successfully.");
         }
     }
 }

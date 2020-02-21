@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Anotar.Log4Net;
+using log4net;
 using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Exceptions;
 using Testura.Mutation.Core.Execution.Compilation;
@@ -16,6 +16,8 @@ namespace Testura.Mutation.Core.Execution
 {
     public class MutationDocumentExecutor
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(MutationDocumentExecutor));
+
         private readonly IMutationDocumentCompiler _compiler;
         private readonly TestRunnerDependencyFilesHandler _testRunnerDependencyFilesHandler;
         private readonly ITestRunnerClient _testRunnerClient;
@@ -47,7 +49,7 @@ namespace Testura.Mutation.Core.Execution
 
             mutationResult.GenerateHash();
 
-            LogTo.Info($"Running mutation: \"{mutationDocument.MutationName}\"");
+            Log.Info($"Running mutation: \"{mutationDocument.MutationName}\"");
 
             var results = new List<TestSuiteResult>();
 
@@ -102,14 +104,14 @@ namespace Testura.Mutation.Core.Execution
                     throw new MutationDocumentException("Unknown error when running, we should not have 0 tests.");
                 }
 
-                LogTo.Info($"\"{mutationDocument.MutationName}\" done. Ran {final.TestResults.Count} tests and {final.TestResults.Count(t => !t.IsSuccess)} failed.");
+                Log.Info($"\"{mutationDocument.MutationName}\" done. Ran {final.TestResults.Count} tests and {final.TestResults.Count(t => !t.IsSuccess)} failed.");
 
                 mutationResult.FailedTests = final.TestResults.Where(t => !t.IsSuccess).ToList();
                 mutationResult.TestsRunCount = final.TestResults.Count;
             }
             catch (OperationCanceledException)
             {
-                LogTo.Info("Cancellation requested (single mutation)");
+                Log.Info("Cancellation requested (single mutation)");
                 mutationResult.UnexpectedError = "Mutation cancelled";
             }
             catch (Exception)
@@ -132,7 +134,7 @@ namespace Testura.Mutation.Core.Execution
             {
                 if (!mutationProject.MappedTestProjects.Any(m => m == testProject.Project.Name))
                 {
-                    LogTo.Info($"Skipping tests in the the test project \"{testProject.Project.Name}\" as " +
+                    Log.Info($"Skipping tests in the the test project \"{testProject.Project.Name}\" as " +
                                $"it didn't match the mapping list");
                     return true;
                 }
@@ -149,7 +151,7 @@ namespace Testura.Mutation.Core.Execution
             TimeSpan testTimeout,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            LogTo.Info($"Starting to run tests in {testProject.Project.OutputFileName}");
+            Log.Info($"Starting to run tests in {testProject.Project.OutputFileName}");
             var mutationTestDirectoryPath = Path.Combine(mutationDirectoryPath, Guid.NewGuid().ToString());
             var testDllPath = Path.Combine(mutationTestDirectoryPath, testProject.Project.OutputFileName);
             Directory.CreateDirectory(mutationTestDirectoryPath);
@@ -173,7 +175,7 @@ namespace Testura.Mutation.Core.Execution
             }
             catch (Exception ex)
             {
-                LogTo.Error($"Failed to delete test directory: {ex.Message}");
+                Log.Error($"Failed to delete test directory: {ex.Message}");
             }
         }
 

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Anotar.Log4Net;
+using log4net;
 using Testura.Mutation.Application.Exceptions;
 using Testura.Mutation.Application.Models;
 using Testura.Mutation.Core.Git;
@@ -10,6 +10,8 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 {
     public class OpenProjectSolutionExistHandler
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(OpenProjectSolutionExistHandler));
+
         private readonly IGitCloner _gitCloner;
 
         public OpenProjectSolutionExistHandler(IGitCloner gitCloner)
@@ -30,7 +32,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 
             if (!fileExist || (fileConfig.Git != null && fileConfig.Git.ForceClone))
             {
-                LogTo.Info("Could not find project or force clone are enabled so we will clone project.");
+                Log.Info("Could not find project or force clone are enabled so we will clone project.");
                 await _gitCloner.CloneSolutionAsync(
                     fileConfig.Git.RepositoryUrl,
                     fileConfig.Git.Branch,

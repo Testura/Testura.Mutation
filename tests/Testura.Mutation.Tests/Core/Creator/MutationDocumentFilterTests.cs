@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
 using Testura.Mutation.Core.Creator.Filter;
 
@@ -18,6 +19,21 @@ namespace Testura.Mutation.Tests.Core.Creator
             };
 
             Assert.AreEqual(shouldBeAccepted, mutationDocumentFilter.ResourceAllowed(resource));
+        }
+
+        [TestCase("LogTo.*", false)]
+        [TestCase("LogTo.", true)]
+        public void AllowFilterCodeItem(string code, bool shouldBeAccepted)
+        {
+            var orginalCode = SyntaxFactory.ParseExpression("LogTo.Info(\"log\")");
+
+            var mutationDocumentFilter = new MutationDocumentFilter();
+            mutationDocumentFilter.FilterCodeItems = new List<MutationDocumentFilterCodeItem>
+            {
+                new MutationDocumentFilterCodeItem { Code = code}
+            };
+
+            Assert.AreEqual(shouldBeAccepted, mutationDocumentFilter.CodeAllowed(orginalCode));
         }
 
         [TestCase("test.cs", false)]

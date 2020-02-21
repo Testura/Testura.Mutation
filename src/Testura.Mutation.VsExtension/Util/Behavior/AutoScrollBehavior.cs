@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Testura.Mutation.Wpf.Shared.Behavior
+namespace Testura.Mutation.VsExtension.Util.Behavior
 {
     public static class AutoScrollBehavior
     {

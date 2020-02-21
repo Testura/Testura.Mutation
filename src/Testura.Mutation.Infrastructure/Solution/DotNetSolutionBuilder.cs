@@ -1,5 +1,5 @@
 ﻿using System;
-using Anotar.Log4Net;
+using log4net;
 using Medallion.Shell;
 using Testura.Mutation.Core.Solution;
 using Testura.Mutation.Infrastructure.Stream;
@@ -8,9 +8,11 @@ namespace Testura.Mutation.Infrastructure.Solution
 {
     public class DotNetSolutionBuilder : StreamReaderBase, ISolutionBuilder
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(DotNetSolutionBuilder));
+
         public void BuildSolution(string solutionPath)
         {
-            LogTo.Info("Building solution..");
+            Log.Info("Building solution..");
 
             using (var command = Command.Run(
                 "dotnet.exe",
@@ -34,13 +36,13 @@ namespace Testura.Mutation.Infrastructure.Solution
                 if (!successError || standardOutput.Contains("Build FAILED"))
                 {
                     command.Kill();
-                    LogTo.Error("..failed to build solution");
-                    LogTo.Error(error);
-                    LogTo.Error(standardOutput);
+                    Log.Error("..failed to build solution");
+                    Log.Error(error);
+                    Log.Error(standardOutput);
                     throw new Exception(error);
                 }
 
-                LogTo.Info("..build was successful");
+                Log.Info("..build was successful");
             }
         }
     }
