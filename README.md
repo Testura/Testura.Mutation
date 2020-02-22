@@ -171,7 +171,12 @@ For example:
                                        {
                                            "Effect":  "Deny",
                                            "Resource":  "*mock*"
-                                       }
+                                       },
+				       {
+				           "Effect": "Deny",
+					   "Resource": "*",
+					   "CodeConstrain": "*Log.*"
+				       }
                                    ]
                },
 ```
@@ -180,6 +185,7 @@ In this example, Testura will:
 
 - Allow */src/some/files.cs but only line 59 to 69
 - Allow any files that contains "SuperFile" as long as they don't contain "mock"
+- It will ignore any mutation that contains anything with `Log.`.
 - All other files are ignored
 
 We use filter a lot to run mutation operators on specific subsets for example new pull requests.
