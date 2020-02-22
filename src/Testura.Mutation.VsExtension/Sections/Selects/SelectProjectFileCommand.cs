@@ -62,9 +62,9 @@ namespace Testura.Mutation.VsExtension.Sections.Selects
             {
                 GetFilesAndRunMutations();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                _userNotificationService.ShowError("Failed to open config window. Make sure that you have the latest visual studio update.");
+                _userNotificationService.ShowError($"Failed to open config window. Make sure that you have the latest visual studio update. \n Exception: \n {ex.Message}");
                 throw;
             }
         }
