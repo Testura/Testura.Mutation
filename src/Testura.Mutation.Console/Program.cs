@@ -26,6 +26,7 @@ namespace Testura.Mutation.Console
             System.Console.WriteLine(string.Empty);
             System.Console.WriteLine(o);
             System.Console.WriteLine(string.Empty);
+            System.Console.WriteLine($"\t v{System.Reflection.Assembly.GetEntryAssembly().GetName().Version}");
 
             var app = new CommandLineApplication
             {

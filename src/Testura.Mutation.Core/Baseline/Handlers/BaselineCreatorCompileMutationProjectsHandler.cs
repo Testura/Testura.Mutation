@@ -31,9 +31,10 @@ namespace Testura.Mutation.Core.Baseline.Handlers
                 cancellationToken.ThrowIfCancellationRequested();
 
                 var project = config.Solution.Projects.FirstOrDefault(p => p.Name == mutationProject.Project.Name);
-                var result = await _projectCompiler.CompileAsync(baselineDirectoryPath, project);
 
                 Log.Info($"Starting to compile {project.Name}..");
+
+                var result = await _projectCompiler.CompileAsync(baselineDirectoryPath, project);
 
                 if (!result.IsSuccess)
                 {

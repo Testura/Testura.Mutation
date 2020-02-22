@@ -9,17 +9,14 @@ namespace Testura.Mutation.Core.Baseline.Handlers
 
         public void ShowBaselineSummary(IList<BaselineInfo> baselineInfos)
         {
-            /*
-            var table = new ConsoleTable("Project", "Execution time");
-            foreach (var configBaselineInfo in baselineInfos)
+            Log.Info("+----- Test result -----+");
+
+            foreach (var baselineInfo in baselineInfos)
             {
-                table.AddRow(configBaselineInfo.TestProjectName, configBaselineInfo.ExecutionTime);
+                Log.Info($"{baselineInfo.TestProjectName,-40} {baselineInfo.ExecutionTime}");
             }
 
-            Log.Info($"\n{table.ToStringAlternative()}");
-            */
-
-            Log.Info("TEMPORARY");
+            Log.Info("+----- ------------ -----+");
         }
     }
 }

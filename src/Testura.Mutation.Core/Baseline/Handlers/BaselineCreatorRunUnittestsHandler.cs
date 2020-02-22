@@ -85,13 +85,7 @@ namespace Testura.Mutation.Core.Baseline.Handlers
                 File.Copy(file, Path.Combine(testDirectoryPath, Path.GetFileName(file)), true);
             }
 
-            var o = await _testRunnerClient.RunTestsAsync(testProject.TestRunner, testDllPath, dotNetPath, TimeSpan.FromMinutes(maxTestTimeMin), cancellationToken);
-
-            if (!o.IsSuccess)
-            {
-            }
-
-            return o;
+            return await _testRunnerClient.RunTestsAsync(testProject.TestRunner, testDllPath, dotNetPath, TimeSpan.FromMinutes(maxTestTimeMin), cancellationToken);
         }
     }
 }
