@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Anotar.Log4Net;
+using log4net;
 using Newtonsoft.Json;
 using Testura.Mutation.Core.Git;
 
@@ -8,6 +8,8 @@ namespace Testura.Mutation.Core.Creator.Filter
 {
     public class MutationDocumentFilterItemGitDiffCreator
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(MutationDocumentFilterItemGitDiffCreator));
+
         private readonly IGitDiff _gitDiff;
 
         public MutationDocumentFilterItemGitDiffCreator(IGitDiff gitDiff)
@@ -22,7 +24,7 @@ namespace Testura.Mutation.Core.Creator.Filter
             var matches = Regex.Matches(diff.Replace(System.Environment.NewLine, string.Empty), @"^\+\+\+ .\/(.*)$|^@@.+\+(.*) @@", RegexOptions.Multiline);
             var filterItems = new List<MutationDocumentFilterItem>();
 
-            LogTo.Info("Filter item(s) created: ");
+            Log.Info("Filter item(s) created: ");
 
             for (int n = 0; n < matches.Count; n++)
             {
@@ -48,10 +50,10 @@ namespace Testura.Mutation.Core.Creator.Filter
                     Lines = lines
                 });
 
-                LogTo.Info(JsonConvert.SerializeObject(filterItems[filterItems.Count - 1]));
+                Log.Info(JsonConvert.SerializeObject(filterItems[filterItems.Count - 1]));
             }
 
-            LogTo.Info($"Final count: {filterItems.Count}");
+            Log.Info($"Final count: {filterItems.Count}");
 
             return filterItems;
         }

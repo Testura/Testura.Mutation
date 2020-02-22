@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml.Serialization;
-using Anotar.Log4Net;
-using ConsoleTables;
+using log4net;
 
 namespace Testura.Mutation.Core.Execution.Report.Trx
 {
     public class TrxReportCreator : ReportCreator
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(TrxReportCreator));
+
         public TrxReportCreator(string path)
             : base(path)
         {
@@ -17,11 +19,11 @@ namespace Testura.Mutation.Core.Execution.Report.Trx
 
         public override void SaveReport(IList<MutationDocumentResult> mutations, TimeSpan exectutionTime)
         {
-            LogTo.Info("Saving TRX report..");
+            Log.Info("Saving TRX report..");
 
             if (!mutations.Any())
             {
-                LogTo.Info("No mutations to report.");
+                Log.Info("No mutations to report.");
                 return;
             }
 
@@ -98,11 +100,11 @@ namespace Testura.Mutation.Core.Execution.Report.Trx
             }
             catch (Exception ex)
             {
-                LogTo.ErrorException("Failed to save TRX report", ex);
+                Log.Error("Failed to save TRX report", ex);
                 throw;
             }
 
-            LogTo.Info("TRX report saved successfully.");
+            Log.Info("TRX report saved successfully.");
         }
 
         private TestEntriesType1 CreateTestEntries(ResultsType results)
@@ -175,13 +177,16 @@ namespace Testura.Mutation.Core.Execution.Report.Trx
 
                 if (mutation.CompilationResult != null && !mutation.CompilationResult.IsSuccess)
                 {
-                    var errorTable = new ConsoleTable("Description", "File");
+                    var errorBuilder = new StringBuilder();
+
+                    errorBuilder.Append($"+- {"Description",-40} File -+");
+
                     foreach (var compilerResultError in mutation.CompilationResult.Errors)
                     {
-                        errorTable.AddRow(compilerResultError.Message, compilerResultError.Location);
+                        errorBuilder.Append($"{compilerResultError.Message,-40} {compilerResultError.Location} \n");
                     }
 
-                    error = $"\n{errorTable.ToStringAlternative()}\n";
+                    error = $"\n{errorBuilder}\n";
                 }
 
                 var fileLoadException = mutation.FailedTests.FirstOrDefault(t => t.InnerText != null && t.InnerText.Contains("System.IO.FileLoadException : Could not load file or assembly"));
@@ -190,15 +195,16 @@ namespace Testura.Mutation.Core.Execution.Report.Trx
                     error += $"\nWARNING: It seems like we can't find a file so this result may be invalid: {fileLoadException}";
                 }
 
-                var table = new ConsoleTable(" ", " ");
-                table.AddRow("Project", mutation.ProjectName);
-                table.AddRow("File", mutation.FileName);
-                table.AddRow("Where", mutation.Location.Where);
-                table.AddRow("Line", mutation.Location.Line);
-                table.AddRow("Orginal", mutation.Orginal);
-                table.AddRow("Mutation", mutation.Mutation);
-                table.AddRow("Tests run", mutation.TestsRunCount);
-                table.AddRow("Failed tests", mutation.FailedTests.Count);
+                var infoBuilder = new StringBuilder();
+
+                infoBuilder.Append($"{"Project",-40} {mutation.ProjectName} \n");
+                infoBuilder.Append($"{"File",-40} {mutation.FileName} \n");
+                infoBuilder.Append($"{"Where",-40} {mutation.Location.Where} \n");
+                infoBuilder.Append($"{"Line",-40} {mutation.Location.Line} \n");
+                infoBuilder.Append($"{"Orginal",-40} {mutation.Orginal} \n");
+                infoBuilder.Append($"{"Mutation",-40} {mutation.Mutation} \n");
+                infoBuilder.Append($"{"Tests run",-40} {mutation.TestsRunCount} \n");
+                infoBuilder.Append($"{"Failed tests",-40} {mutation.FailedTests.Count} \n");
 
                 unitTestResults.Add(new UnitTestResultType
                 {
@@ -213,7 +219,7 @@ namespace Testura.Mutation.Core.Execution.Report.Trx
                     {
                         new OutputType
                         {
-                            StdOut = $"\n{table.ToStringAlternative()}\n",
+                            StdOut = $"\n{infoBuilder}\n",
                             StdErr = error
                         }
                     }

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Anotar.Log4Net;
+using log4net;
 
 namespace Testura.Mutation.Core.Execution.Report.Markdown
 {
     public class MarkdownReportCreator : ReportCreator
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(MarkdownReportCreator));
+
         public MarkdownReportCreator(string path)
             : base(path)
         {
@@ -16,11 +18,11 @@ namespace Testura.Mutation.Core.Execution.Report.Markdown
 
         public override void SaveReport(IList<MutationDocumentResult> mutations, TimeSpan exectutionTime)
         {
-            LogTo.Info("Saving markdown report..");
+            Log.Info("Saving markdown report..");
 
             if (!mutations.Any(m => m.Survived))
             {
-                LogTo.Info("No mutations to report.");
+                Log.Info("No mutations to report.");
                 return;
             }
 
@@ -32,11 +34,11 @@ namespace Testura.Mutation.Core.Execution.Report.Markdown
             }
             catch (IOException ex)
             {
-                LogTo.ErrorException("Failed to save markdown report", ex);
+                Log.Error("Failed to save markdown report", ex);
                 throw;
             }
 
-            LogTo.Info("Markdown report saved successfully.");
+            Log.Info("Markdown report saved successfully.");
         }
 
         private static StringBuilder CreateMarkdown(IList<MutationDocumentResult> mutations)

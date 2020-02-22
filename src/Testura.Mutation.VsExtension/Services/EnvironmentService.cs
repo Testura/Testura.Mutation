@@ -1,5 +1,6 @@
 ﻿using System;
 using EnvDTE;
+using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Threading;
@@ -78,6 +79,17 @@ namespace Testura.Mutation.VsExtension.Services
             {
                 await JoinableTaskFactory.SwitchToMainThreadAsync();
                 return Dte.Solution.FullName;
+            });
+        }
+
+        public string GetCurrentSolutionConfiguration()
+        {
+            return JoinableTaskFactory.Run(async () =>
+            {
+                await JoinableTaskFactory.SwitchToMainThreadAsync();
+                var builder = Dte.Application.Solution.SolutionBuild;
+                var config = (SolutionConfiguration2)builder.ActiveConfiguration;
+                return config.Name;
             });
         }
     }

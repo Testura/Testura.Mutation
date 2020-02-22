@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
 using Testura.Mutation.Core.Creator.Filter;
 
@@ -49,7 +50,7 @@ namespace Testura.Mutation.Tests.Core.Creator
                 new MutationDocumentFilterItem { Effect = MutationDocumentFilterItem.FilterEffect.Deny, Resource = "hej.cs", Lines = new List<string> { "300" }},
             };
 
-            Assert.AreEqual(shouldBeAccepted, mutationDocumentFilter.ResourceLinesAllowed(resource, line));
+            Assert.AreEqual(shouldBeAccepted, mutationDocumentFilter.ResourceLinesAllowed(resource, line, null));
         }
 
         [TestCase("hej.cs", 205, true)]
@@ -62,7 +63,39 @@ namespace Testura.Mutation.Tests.Core.Creator
                 new MutationDocumentFilterItem { Effect = MutationDocumentFilterItem.FilterEffect.Deny, Resource = "hej.cs", Lines = new List<string> { "300" }},
             };
 
-            Assert.AreEqual(shouldBeAccepted, mutationDocumentFilter.ResourceLinesAllowed(resource, line));
+            Assert.AreEqual(shouldBeAccepted, mutationDocumentFilter.ResourceLinesAllowed(resource, line, null));
+        }
+
+        [TestCase("LogTo.*", false)]
+        [TestCase("LogTo.", true)]
+        [TestCase("LogTo.Info(\"log\")", false)]
+        [TestCase("Woho", true)]
+        public void CodeConstrain(string code, bool expectedValue)
+        {
+            var orginalCode = SyntaxFactory.ParseExpression("LogTo.Info(\"log\")");
+
+            var mutationDocumentFilter = new MutationDocumentFilter();
+            mutationDocumentFilter.FilterItems = new List<MutationDocumentFilterItem>
+            {
+                new MutationDocumentFilterItem { Effect = MutationDocumentFilterItem.FilterEffect.Deny, Resource = "*", CodeConstrain = code},
+            };
+
+            Assert.AreEqual(expectedValue, mutationDocumentFilter.CodeAllowed("Hej.cs", 10, orginalCode));
+        }
+
+        [Test]
+        public void CodeConstrainWithLines()
+        {
+            var orginalCode = SyntaxFactory.ParseExpression("LogTo.Info(\"log\")");
+
+            var mutationDocumentFilter = new MutationDocumentFilter();
+            mutationDocumentFilter.FilterItems = new List<MutationDocumentFilterItem>
+            {
+                new MutationDocumentFilterItem { Effect = MutationDocumentFilterItem.FilterEffect.Deny, Resource = "*", CodeConstrain = "LogTo.*"},
+                new MutationDocumentFilterItem { Effect = MutationDocumentFilterItem.FilterEffect.Allow, Resource = "Hej.cs", Lines = new List<string> { "10" }, CodeConstrain = "LogTo.*"},
+            };
+
+            Assert.AreEqual(true, mutationDocumentFilter.CodeAllowed("Hej.cs", 10, orginalCode));
         }
     }
 }

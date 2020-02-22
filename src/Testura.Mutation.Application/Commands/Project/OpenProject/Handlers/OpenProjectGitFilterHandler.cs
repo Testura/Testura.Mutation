@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using Anotar.Log4Net;
+using log4net;
 using Testura.Mutation.Application.Models;
 using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Creator.Filter;
@@ -10,6 +10,8 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 {
     public class OpenProjectGitFilterHandler
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(OpenProjectGitFilterHandler));
+
         private readonly MutationDocumentFilterItemGitDiffCreator _diffCreator;
 
         public OpenProjectGitFilterHandler(MutationDocumentFilterItemGitDiffCreator diffCreator)
@@ -23,7 +25,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 
             if (fileConfig.Git != null && fileConfig.Git.GenerateFilterFromDiffWithMaster)
             {
-                LogTo.Info("Creating filter items from git diff with master");
+                Log.Info("Creating filter items from git diff with master");
 
                 var filterItems = _diffCreator.GetFilterItemsFromDiff(Path.GetDirectoryName(fileConfig.SolutionPath), string.Empty);
 

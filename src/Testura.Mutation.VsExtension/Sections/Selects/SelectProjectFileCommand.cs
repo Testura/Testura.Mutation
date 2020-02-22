@@ -19,14 +19,17 @@ namespace Testura.Mutation.VsExtension.Sections.Selects
 
         private readonly AsyncPackage _package;
         private readonly MutationFilterItemCreatorService _mutationFilterItemCreatorService;
+        private readonly UserNotificationService _userNotificationService;
 
         private SelectProjectFileCommand(
             AsyncPackage package,
             OleMenuCommandService commandService,
-            MutationFilterItemCreatorService mutationFilterItemCreatorService)
+            MutationFilterItemCreatorService mutationFilterItemCreatorService,
+            UserNotificationService userNotificationService)
         {
             _package = package ?? throw new ArgumentNullException(nameof(package));
             _mutationFilterItemCreatorService = mutationFilterItemCreatorService;
+            _userNotificationService = userNotificationService;
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
@@ -38,12 +41,12 @@ namespace Testura.Mutation.VsExtension.Sections.Selects
 
         private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider => _package;
 
-        public static async Task InitializeAsync(AsyncPackage package, MutationFilterItemCreatorService mutationFilterItemCreatorService)
+        public static async Task InitializeAsync(AsyncPackage package, MutationFilterItemCreatorService mutationFilterItemCreatorService, UserNotificationService userNotificationService)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new SelectProjectFileCommand(package, commandService, mutationFilterItemCreatorService);
+            Instance = new SelectProjectFileCommand(package, commandService, mutationFilterItemCreatorService, userNotificationService);
         }
 
         /// <summary>
@@ -54,6 +57,19 @@ namespace Testura.Mutation.VsExtension.Sections.Selects
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event args.</param>
         private void Execute(object sender, EventArgs e)
+        {
+            try
+            {
+                GetFilesAndRunMutations();
+            }
+            catch (Exception ex)
+            {
+                _userNotificationService.ShowError($"Failed to open config window. Make sure that you have the latest visual studio update. \n Exception: \n {ex.Message}");
+                throw;
+            }
+        }
+
+        private void GetFilesAndRunMutations()
         {
             _package.JoinableTaskFactory.RunAsync(async () =>
             {
@@ -99,7 +115,8 @@ namespace Testura.Mutation.VsExtension.Sections.Selects
                     }
 
                     var window =
-                        await _package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true, _package.DisposalToken) as MutationExplorerWindow;
+                        await _package.FindToolWindowAsync(typeof(MutationExplorerWindow), 0, true, _package.DisposalToken) as
+                            MutationExplorerWindow;
                     if (window?.Frame == null)
                     {
                         throw new NotSupportedException("Cannot create tool window");

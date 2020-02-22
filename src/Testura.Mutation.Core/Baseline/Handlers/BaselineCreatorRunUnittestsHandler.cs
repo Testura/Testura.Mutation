@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Anotar.Log4Net;
+using log4net;
 using Newtonsoft.Json.Linq;
 using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Exceptions;
@@ -17,6 +17,8 @@ namespace Testura.Mutation.Core.Baseline.Handlers
 {
     public class BaselineCreatorRunUnitTestsHandler
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(BaselineCreatorRunUnitTestsHandler));
+
         private readonly IDirectoryHandler _directoryHandler;
         private readonly ITestRunnerClient _testRunnerClient;
         private readonly TestRunnerDependencyFilesHandler _testRunnerDependencyFilesHandler;
@@ -44,18 +46,18 @@ namespace Testura.Mutation.Core.Baseline.Handlers
                 if (!result.IsSuccess)
                 {
                     var failedTests = result.TestResults.Where(t => !t.IsSuccess);
-                    LogTo.Error("Unit tests failed with base line");
-                    LogTo.Error($"Name: {result.Name}");
+                    Log.Error("Unit tests failed with base line");
+                    Log.Error($"Name: {result.Name}");
 
                     foreach (var failedTest in failedTests)
                     {
-                        LogTo.Error(JObject.FromObject(new { TestName = failedTest.Name, Message = failedTest.InnerText }).ToString());
+                        Log.Error(JObject.FromObject(new { TestName = failedTest.Name, Message = failedTest.InnerText }).ToString());
                     }
 
                     throw new BaselineException("Failed to run all unit tests with baseline which make mutation testing impossible. See log for more details.");
                 }
 
-                LogTo.Info($"..done ({result.TestResults.Count(t => t.IsSuccess)} tests passed).");
+                Log.Info($"..done ({result.TestResults.Count(t => t.IsSuccess)} tests passed).");
                 baselineInfos.Add(new BaselineInfo(testProject.Project.Name, result.ExecutionTime));
             }
 
@@ -69,7 +71,7 @@ namespace Testura.Mutation.Core.Baseline.Handlers
             string baselineDirectoryPath,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            LogTo.Info($"Starting to run tests in {testProject.Project.OutputFileName}");
+            Log.Info($"Starting to run tests in {testProject.Project.OutputFileName}");
             var testDirectoryPath = Path.Combine(baselineDirectoryPath, Guid.NewGuid().ToString());
             var testDllPath = Path.Combine(testDirectoryPath, testProject.Project.OutputFileName);
 

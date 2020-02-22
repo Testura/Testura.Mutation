@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Anotar.Log4Net;
+using log4net;
 
 namespace Testura.Mutation.Core.Execution.Report.Summary
 {
     public class TextSummaryReportCreator : ReportCreator
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(TextSummaryReportCreator));
+
         public TextSummaryReportCreator(string savePath)
             : base(savePath)
         {
@@ -17,7 +19,7 @@ namespace Testura.Mutation.Core.Execution.Report.Summary
         {
             if (!mutations.Any())
             {
-                LogTo.Info("No mutations to report.");
+                Log.Info("No mutations to report.");
                 return;
             }
 

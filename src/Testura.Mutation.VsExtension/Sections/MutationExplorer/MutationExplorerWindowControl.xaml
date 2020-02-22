@@ -7,8 +7,7 @@
              xmlns:mvvm="http://prismlibrary.com/"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:codeDiff="clr-namespace:Testura.Mutation.Wpf.Shared.CodeDiff;assembly=Testura.Mutation.Wpf.Shared"
-             xmlns:converters="clr-namespace:Testura.Mutation.Wpf.Shared.Converters;assembly=Testura.Mutation.Wpf.Shared"
+             xmlns:codeDiff1="clr-namespace:Testura.Mutation.VsExtension.Util.CodeDiff"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
@@ -222,9 +221,10 @@
                 Margin="16">
                 <RichTextBox x:Name="BeforeTxt"
                              ScrollViewer.ScrollChanged="OnScrollChanged"
-                             codeDiff:SideBySideDiffModelVisualizer.Vorher="{Binding Diff, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" AcceptsReturn="True" IsReadOnly="True" 
+                             codeDiff1:SideBySideDiffModelVisualizer.Vorher="{Binding Diff, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" AcceptsReturn="True" IsReadOnly="True" 
                              VerticalScrollBarVisibility="Visible"/>
             </GroupBox>
+
             <GroupBox
                 Header="After mutation"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
@@ -232,7 +232,7 @@
                 Grid.Row="1">
                 <RichTextBox x:Name="AfterTxt"
                              ScrollViewer.ScrollChanged="OnScrollChanged"
-                             codeDiff:SideBySideDiffModelVisualizer.Nachher="{Binding Diff, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" AcceptsReturn="True" IsReadOnly="True" 
+                             codeDiff1:SideBySideDiffModelVisualizer.Nachher="{Binding Diff, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" AcceptsReturn="True" IsReadOnly="True" 
                              VerticalScrollBarVisibility="Visible"/>
             </GroupBox>
 

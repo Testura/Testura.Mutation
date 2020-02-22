@@ -4,18 +4,19 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Anotar.Log4Net;
+using log4net;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
 using Newtonsoft.Json.Linq;
 
 namespace Testura.Mutation.Core.Execution.Compilation
 {
     public class Compiler : IMutationDocumentCompiler, IProjectCompiler
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Compiler));
+
         public async Task<CompilationResult> CompileAsync(string path, MutationDocument document)
         {
-            LogTo.Info($"Compiling mutation {document.MutationName} to {path}");
+            Log.Info($"Compiling mutation {document.MutationName} to {path}");
 
             var mutatedDocument = await document.CreateMutatedDocumentAsync();
             var compilation = await mutatedDocument.Project.GetCompilationAsync();
@@ -23,12 +24,12 @@ namespace Testura.Mutation.Core.Execution.Compilation
 
             if (result.IsSuccess)
             {
-                LogTo.Info($"Compiled {document.MutationName} successfully.");
+                Log.Info($"Compiled {document.MutationName} successfully.");
             }
             else
             {
                 var errors = result.Errors.Select(e => new { Location = e.Location,  Message = e.Message });
-                LogTo.Info($"Failed to Compile {document.MutationName}: {JObject.FromObject(new { orginal = document.MutationDetails.Orginal.ToString(), mutation = document.MutationDetails.Mutation.ToString(), errors })}");
+                Log.Info($"Failed to Compile {document.MutationName}: {JObject.FromObject(new { orginal = document.MutationDetails.Orginal.ToString(), mutation = document.MutationDetails.Mutation.ToString(), errors })}");
             }
 
             return result;

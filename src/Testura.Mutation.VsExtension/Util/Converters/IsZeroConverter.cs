@@ -2,13 +2,13 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Testura.Mutation.Wpf.Shared.Converters
+namespace Testura.Mutation.VsExtension.Util.Converters
 {
-    public class InvertBooleanConverter : IValueConverter
+    public class IsZeroConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return !(bool)value;
+            return (int)value == 0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

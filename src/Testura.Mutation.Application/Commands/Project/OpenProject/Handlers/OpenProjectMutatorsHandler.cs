@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Anotar.Log4Net;
+using log4net;
 using Testura.Mutation.Application.Exceptions;
 using Testura.Mutation.Application.Models;
 using Testura.Mutation.Core;
@@ -14,11 +14,13 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 {
     public class OpenProjectMutatorsHandler
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(OpenProjectMutatorsHandler));
+
         public void InitializeMutators(MutationFileConfig fileConfig, MutationConfig applicationConfig, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            LogTo.Info("Loading mutators..");
+            Log.Info("Loading mutators..");
 
             if (fileConfig.Mutators == null || !fileConfig.Mutators.Any())
             {
@@ -32,13 +34,13 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 
         private void LoadCustomMutatorList(MutationFileConfig fileConfig, MutationConfig applicationConfig)
         {
-            LogTo.Info("..found mutators in config.");
+            Log.Info("..found mutators in config.");
             var mutators = new List<IMutator>();
             foreach (var mutationOperator in fileConfig.Mutators)
             {
                 if (Enum.TryParse<MutationOperators>(mutationOperator, true, out var mutationOperatorEnum))
                 {
-                    LogTo.Info($"Adding '{mutationOperator}' mutator");
+                    Log.Info($"Adding '{mutationOperator}' mutator");
                     mutators.Add(MutationOperatorFactory.GetMutationOperator(mutationOperatorEnum));
                     continue;
                 }
@@ -52,7 +54,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 
         private void LoadDefaultMutators(MutationConfig applicationConfig)
         {
-            LogTo.Info("..did not find any mutators in config so loading default ones.");
+            Log.Info("..did not find any mutators in config so loading default ones.");
 
             applicationConfig.Mutators = new List<IMutator>
             {

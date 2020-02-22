@@ -1,20 +1,22 @@
 ﻿using System.Collections.Generic;
-using Anotar.Log4Net;
-using ConsoleTables;
+using log4net;
 
 namespace Testura.Mutation.Core.Baseline.Handlers
 {
     public class BaselineCreatorLogSummaryHandler
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(BaselineCreatorLogSummaryHandler));
+
         public void ShowBaselineSummary(IList<BaselineInfo> baselineInfos)
         {
-            var table = new ConsoleTable("Project", "Execution time");
-            foreach (var configBaselineInfo in baselineInfos)
+            Log.Info("+----- Test result -----+");
+
+            foreach (var baselineInfo in baselineInfos)
             {
-                table.AddRow(configBaselineInfo.TestProjectName, configBaselineInfo.ExecutionTime);
+                Log.Info($"{baselineInfo.TestProjectName,-40} {baselineInfo.ExecutionTime}");
             }
 
-            LogTo.Info($"\n{table.ToStringAlternative()}");
+            Log.Info("+----- ------------ -----+");
         }
     }
 }

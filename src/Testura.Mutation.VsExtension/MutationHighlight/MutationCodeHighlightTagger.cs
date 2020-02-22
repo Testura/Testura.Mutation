@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.Text.Tagging;
 using Testura.Mutation.VsExtension.MutationHighlight.Definitions;
-using Testura.Mutation.Wpf.Shared.Models;
+using TestRunDocument = Testura.Mutation.VsExtension.Models.TestRunDocument;
 
 namespace Testura.Mutation.VsExtension.MutationHighlight
 {
@@ -51,21 +51,27 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
 
         public IEnumerable<ITagSpan<MutationCodeHighlightTag>> GetTags(NormalizedSnapshotSpanCollection spans)
         {
-            SourceBuffer.Properties.TryGetProperty(
-                typeof(ITextDocument), out ITextDocument document);
-
-            var mutations = _mutations.Where(m => m.FilePath == document.FilePath);
-
-            var res =
-                new List<ITagSpan<MutationCodeHighlightTag>>();
-
-            foreach (var mutationHightlight in mutations)
+            try
             {
-                var span = new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(mutationHightlight.Start, mutationHightlight.Length));
-                res.Add(new TagSpan<MutationCodeHighlightTag>(span, new MutationCodeHighlightTag(_mutationDefinitions[mutationHightlight.Status])));
-            }
+                SourceBuffer.Properties.TryGetProperty(
+                    typeof(ITextDocument), out ITextDocument document);
 
-            return res;
+                var mutations = _mutations.Where(m => m.FilePath == document.FilePath);
+
+                var res = new List<ITagSpan<MutationCodeHighlightTag>>();
+
+                foreach (var mutationHightlight in mutations)
+                {
+                    var span = new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(mutationHightlight.Start, mutationHightlight.Length));
+                    res.Add(new TagSpan<MutationCodeHighlightTag>(span, new MutationCodeHighlightTag(_mutationDefinitions[mutationHightlight.Status])));
+                }
+
+                return res;
+            }
+            catch (Exception)
+            {
+                return new List<ITagSpan<MutationCodeHighlightTag>>();
+            }
         }
 
         public void Dispose()

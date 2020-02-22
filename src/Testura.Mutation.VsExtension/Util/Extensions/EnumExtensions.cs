@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Testura.Mutation.Wpf.Shared.Extensions
+namespace Testura.Mutation.VsExtension.Util.Extensions
 {
     public static class EnumExtensions
     {

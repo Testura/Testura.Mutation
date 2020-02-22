@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Anotar.Log4Net;
+using log4net;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -12,6 +12,7 @@ namespace Testura.Mutation.Core.Creator.Mutators
     public abstract class Mutator : CSharpSyntaxRewriter, IMutator
     {
         private const string ExcludeFromCoverageAttributeName = "ExcludeFromCodeCoverage";
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Mutator));
 
         protected Mutator()
         {
@@ -81,7 +82,7 @@ namespace Testura.Mutation.Core.Creator.Mutators
 
             if (attributes.Any(a => a.Equals(ExcludeFromCoverageAttributeName, StringComparison.InvariantCultureIgnoreCase)))
             {
-                LogTo.Info($"Ignoring mutation at {location} because of {ExcludeFromCoverageAttributeName} attribute");
+                Log.Info($"Ignoring mutation at {location} because of {ExcludeFromCoverageAttributeName} attribute");
                 return true;
             }
 

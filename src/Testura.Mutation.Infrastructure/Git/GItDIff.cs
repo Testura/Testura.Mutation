@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
-using Anotar.Log4Net;
+using log4net;
 using Medallion.Shell;
-using Medallion.Shell.Streams;
 using Testura.Mutation.Core.Git;
 using Testura.Mutation.Infrastructure.Stream;
 
@@ -11,9 +9,11 @@ namespace Testura.Mutation.Infrastructure.Git
 {
     public class GitDIff : StreamReaderBase, IGitDiff
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(GitDIff));
+
         public string GetDiff(string path, string branch)
         {
-            LogTo.Info("Getting git diff..");
+            Log.Info("Getting git diff..");
 
             using (var command = Command.Run(
                 "git.exe",
@@ -37,12 +37,12 @@ namespace Testura.Mutation.Infrastructure.Git
                 if (!success)
                 {
                     command.Kill();
-                    LogTo.Warn("..failed to get git diff");
-                    LogTo.Warn(error);
+                    Log.Warn("..failed to get git diff");
+                    Log.Warn(error);
                     throw new Exception(error);
                 }
 
-                LogTo.Info(".. git diff was successful. Creating filer items");
+                Log.Info(".. git diff was successful. Creating filer items");
 
                 return diff;
             }

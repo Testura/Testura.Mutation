@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Anotar.Log4Net;
+using log4net;
 using Newtonsoft.Json;
 
 namespace Testura.Mutation.Core.Execution.Report.Testura
 {
     public class TesturaMutationReportCreator : ReportCreator
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(TesturaMutationReportCreator));
+
         public TesturaMutationReportCreator(string savePath)
             : base(savePath)
         {
@@ -15,7 +17,7 @@ namespace Testura.Mutation.Core.Execution.Report.Testura
 
         public override void SaveReport(IList<MutationDocumentResult> mutations, TimeSpan executionTime)
         {
-            LogTo.Info("Saving Testura.Mutation report..");
+            Log.Info("Saving Testura.Mutation report..");
 
             var mutationReport = new TesturaMutationReport(mutations, executionTime);
             using (StreamWriter file = File.CreateText(SavePath))
@@ -24,7 +26,7 @@ namespace Testura.Mutation.Core.Execution.Report.Testura
                 serializer.Serialize(file, mutationReport);
             }
 
-            LogTo.Info("Testura.Mutation report saved successfully.");
+            Log.Info("Testura.Mutation report saved successfully.");
         }
     }
 }

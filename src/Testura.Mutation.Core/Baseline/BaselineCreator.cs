@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Anotar.Log4Net;
+using log4net;
 using Testura.Mutation.Core.Baseline.Handlers;
 using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Util.FileSystem;
@@ -13,6 +13,8 @@ namespace Testura.Mutation.Core.Baseline
 {
     public class BaselineCreator
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(BaselineCreator));
+
         private readonly IDirectoryHandler _directoryHandler;
         private readonly BaselineCreatorCompileMutationProjectsHandler _compileMutationProjectsHandler;
         private readonly BaselineCreatorRunUnitTestsHandler _runUnitTestHandler;
@@ -34,22 +36,22 @@ namespace Testura.Mutation.Core.Baseline
 
         public async Task<IList<BaselineInfo>> CreateBaselineAsync(MutationConfig config, CancellationToken cancellationToken = default(CancellationToken))
         {
-            LogTo.Info("Creating baseline and verifying solution/tests..");
+            Log.Info("Creating baseline and verifying solution/tests..");
             _directoryHandler.DeleteDirectory(BaselineDirectoryPath);
 
             try
             {
-                await _compileMutationProjectsHandler.CompileMutationProjects(config, BaselineDirectoryPath, cancellationToken);
+                await _compileMutationProjectsHandler.CompileMutationProjectsAsync(config, BaselineDirectoryPath, cancellationToken);
                 var baselineInfos = await _runUnitTestHandler.RunUnitTests(config, BaselineDirectoryPath, cancellationToken);
 
                 _logSummaryHandler.ShowBaselineSummary(baselineInfos);
 
-                LogTo.Info("Baseline completed.");
+                Log.Info("Baseline completed.");
                 return baselineInfos;
             }
             catch (OperationCanceledException)
             {
-                LogTo.Info("Creating baseline was cancelled by request.");
+                Log.Info("Creating baseline was cancelled by request.");
                 throw;
             }
             finally

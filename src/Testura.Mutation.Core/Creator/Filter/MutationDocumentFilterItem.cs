@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Microsoft.CodeAnalysis;
 
 namespace Testura.Mutation.Core.Creator.Filter
 {
@@ -17,6 +18,8 @@ namespace Testura.Mutation.Core.Creator.Filter
 
         public IList<string> Lines { get; set; }
 
+        public string CodeConstrain { get; set; }
+
         public FilterEffect Effect { get; set; }
 
         public bool MatchResource(string resource)
@@ -26,12 +29,12 @@ namespace Testura.Mutation.Core.Creator.Filter
 
         public bool IsDenied(string resource)
         {
-            return CheckResource(FilterEffect.Deny, resource);
+            return string.IsNullOrEmpty(CodeConstrain) && CheckResource(FilterEffect.Deny, resource);
         }
 
         public bool IsAllowed(string resource)
         {
-            return CheckResource(FilterEffect.Allow, resource);
+            return string.IsNullOrEmpty(CodeConstrain) && CheckResource(FilterEffect.Allow, resource);
         }
 
         public virtual bool MatchFilterLines(int line)
@@ -48,12 +51,28 @@ namespace Testura.Mutation.Core.Creator.Filter
 
         public bool LineAreDenied(int line)
         {
-            return MatchFilterLines(line) && Effect == FilterEffect.Deny;
+            return string.IsNullOrEmpty(CodeConstrain) && MatchFilterLines(line) && Effect == FilterEffect.Deny;
         }
 
         public bool LineAreAllowed(int line)
         {
-            return MatchFilterLines(line) && Effect == FilterEffect.Allow;
+            return string.IsNullOrEmpty(CodeConstrain) && MatchFilterLines(line) && Effect == FilterEffect.Allow;
+        }
+
+        public bool LinesAreDeniedWithCodeConstrain(int line, SyntaxNode code)
+        {
+            return !string.IsNullOrEmpty(CodeConstrain) &&
+                   MatchFilterLines(line) &&
+                   Effect == FilterEffect.Deny &&
+                   Regex.IsMatch(code.ToString(), EscapeRegex(CodeConstrain));
+        }
+
+        public bool LineAreAllowedWithCodeConstrain(int line, SyntaxNode code)
+        {
+            return !string.IsNullOrEmpty(CodeConstrain) &&
+                   MatchFilterLines(line) &&
+                   Effect == FilterEffect.Allow &&
+                   Regex.IsMatch(code.ToString(), EscapeRegex(CodeConstrain));
         }
 
         private IList<int> GetLineNumbers()
@@ -96,7 +115,12 @@ namespace Testura.Mutation.Core.Creator.Filter
         private string FormattedResource()
         {
             var formattedResource = Resource.Replace('\\', '/');
-            return "^" + Regex.Escape(formattedResource).Replace("\\*", ".*") + "$";
+            return EscapeRegex(formattedResource);
+        }
+
+        private string EscapeRegex(string text)
+        {
+            return "^" + Regex.Escape(text).Replace("\\*", ".*") + "$";
         }
     }
 }

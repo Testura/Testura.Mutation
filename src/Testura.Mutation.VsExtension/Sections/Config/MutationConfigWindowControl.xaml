@@ -197,6 +197,33 @@
                 </DataGrid>
             </GroupBox>
         </TabItem>
+            <TabItem Header="Filter" IsSelected="False">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Margin="8, 10, 0, 0" >
+                        <ComboBox Margin="10, 0, 0, 0" Foreground="White" Width="100" SelectedIndex="{Binding SelectedEffectIndex}">
+                            <ComboBoxItem>Allow</ComboBoxItem>
+                            <ComboBoxItem IsSelected="True">Deny</ComboBoxItem>
+                        </ComboBox>
+                        <Button Content="Add file" Margin="10, 0, 0, 0" Command="{Binding AddFileCommand}" />
+                        <Button Content="Add line" Margin="10, 0, 0, 0" Command="{Binding AddLineCommand}" />
+                        <Button Content="Add code constrain" Margin="10, 0, 0, 0" Command="{Binding AddCodeConstrainCommand}" />
+                    </StackPanel>
+
+                    <GroupBox Header="Filter" Margin="8, 10, 0, 0"  Grid.Row="1">
+                        <RichTextBox>
+                            <FlowDocument PageHeight="180">
+                                <Paragraph>
+                                    <Run Text="{Binding Filter, Mode=TwoWay}"/>
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
     </dragablz:TabablzControl>
         <Button Content="Update config" Margin="0, 0, 16, 0" HorizontalAlignment="Right" Width="200" Command="{Binding UpdateConfigCommand }" Grid.Row="1" />
     </Grid>

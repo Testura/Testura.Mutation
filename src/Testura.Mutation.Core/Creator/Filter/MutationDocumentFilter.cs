@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.CodeAnalysis;
 
 namespace Testura.Mutation.Core.Creator.Filter
 {
@@ -32,7 +33,7 @@ namespace Testura.Mutation.Core.Creator.Filter
             return false;
         }
 
-        public bool ResourceLinesAllowed(string resource, int line)
+        public bool ResourceLinesAllowed(string resource, int line, SyntaxNode code)
         {
             if (FilterItems == null)
             {
@@ -51,7 +52,7 @@ namespace Testura.Mutation.Core.Creator.Filter
                 return false;
             }
 
-            if (!matchingFilterItems.Any(m => m.Effect == MutationDocumentFilterItem.FilterEffect.Allow))
+            if (matchingFilterItems.All(m => m.Effect != MutationDocumentFilterItem.FilterEffect.Allow))
             {
                 return true;
             }
@@ -62,6 +63,33 @@ namespace Testura.Mutation.Core.Creator.Filter
             }
 
             return false;
+        }
+
+        public bool CodeAllowed(string resource, int line, SyntaxNode code)
+        {
+            if (FilterItems == null)
+            {
+                return true;
+            }
+
+            var matchingFilterItems = FilterItems.Where(m => m.MatchResource(resource) && !string.IsNullOrEmpty(m.CodeConstrain));
+
+            if (!matchingFilterItems.Any())
+            {
+                return true;
+            }
+
+            if (matchingFilterItems.Any(m => m.LineAreAllowedWithCodeConstrain(line, code)))
+            {
+                return true;
+            }
+
+            if (matchingFilterItems.Any(m => m.LinesAreDeniedWithCodeConstrain(line, code)))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

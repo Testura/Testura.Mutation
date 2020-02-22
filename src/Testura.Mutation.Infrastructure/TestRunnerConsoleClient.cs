@@ -5,7 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Anotar.Log4Net;
+using log4net;
 using Medallion.Shell;
 using Medallion.Shell.Streams;
 using Newtonsoft.Json;
@@ -17,6 +17,8 @@ namespace Testura.Mutation.Infrastructure
 {
     public class TestRunnerConsoleClient : ITestRunnerClient
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(TestRunnerConsoleClient));
+
         public Task<TestSuiteResult> RunTestsAsync(string runner, string dllPath, string dotNetPath, TimeSpan maxTime, CancellationToken cancellationToken = default(CancellationToken))
         {
             var binPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase)?.Replace("file:\\", "");
@@ -66,8 +68,8 @@ namespace Testura.Mutation.Infrastructure
                         {
                             if (!command.Result.Success)
                             {
-                                LogTo.Info($"Message from test client - {output}.");
-                                LogTo.Info($"Error from test client - {error}.");
+                                Log.Info($"Message from test client - {output}.");
+                                Log.Info($"Error from test client - {error}.");
 
                                 return new TestSuiteResult
                                 {
@@ -80,12 +82,12 @@ namespace Testura.Mutation.Infrastructure
                         }
                         catch (TimeoutException)
                         {
-                            LogTo.Info("Test client timed out. Infinite loop?");
+                            Log.Info("Test client timed out. Infinite loop?");
                             return TestSuiteResult.Error("TIMEOUT", maxTime);
                         }
                         catch (TaskCanceledException)
                         {
-                            LogTo.Info("Test runner was cancelled by request");
+                            Log.Info("Test runner was cancelled by request");
                             cancellationToken.ThrowIfCancellationRequested();
                         }
 
@@ -94,7 +96,7 @@ namespace Testura.Mutation.Infrastructure
                 }
                 catch (Win32Exception ex)
                 {
-                    LogTo.ErrorException("Unknown exception from test client process", ex);
+                    Log.Error("Unknown exception from test client process", ex);
                     throw;
                 }
             });

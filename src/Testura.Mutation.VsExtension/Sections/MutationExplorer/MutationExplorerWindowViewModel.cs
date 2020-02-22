@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using DiffPlex;
@@ -18,21 +17,29 @@ using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Creator.Filter;
 using Testura.Mutation.VsExtension.MutationHighlight;
 using Testura.Mutation.VsExtension.Services;
-using Testura.Mutation.Wpf.Shared.Models;
+using TestRunDocument = Testura.Mutation.VsExtension.Models.TestRunDocument;
 
 namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 {
-    public class MutationExplorerWindowViewModel : BindableBase, INotifyPropertyChanged
+    public class MutationExplorerWindowViewModel : BindableBase
     {
         private readonly EnvironmentService _environmentService;
         private readonly ConfigService _configService;
         private readonly IMediator _mediator;
 
+        private bool _isMutationVisible;
+        private string _codeAfterMutation;
+        private string _codeBeforeMutation;
+        private SideBySideDiffModel _diff;
+        private bool _isLoadingVisible;
+        private bool _isRunButtonEnabled;
+        private bool _isStopButtonEnabled;
+        private string _loadingMessage;
+
         private List<MutationDocumentFilterItem> _filterItems;
         private MutationConfig _config;
         private bool _showhighlight;
         private CancellationTokenSource _tokenSource;
-        private IList<MutationDocumentResult> _mutationRunResult;
 
         public MutationExplorerWindowViewModel(
             EnvironmentService environmentService,
@@ -43,7 +50,6 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             _configService = configService;
             _mediator = mediator;
             _filterItems = new List<MutationDocumentFilterItem>();
-            _mutationRunResult = new List<MutationDocumentResult>();
 
             Mutations = new ObservableCollection<TestRunDocument>();
 
@@ -79,25 +85,62 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
         public ObservableCollection<TestRunDocument> Mutations { get; set; }
 
-        public bool IsMutationVisible { get; set; }
+        public bool IsMutationVisible
+        {
+            get => _isMutationVisible;
+            set => SetProperty(ref _isMutationVisible, value);
+        }
 
-        public string CodeAfterMutation { get; set; }
+        public string CodeAfterMutation
+        {
+            get => _codeAfterMutation;
+            set => SetProperty(ref _codeAfterMutation, value);
+        }
 
-        public string CodeBeforeMutation { get; set; }
+        public string CodeBeforeMutation
+        {
+            get => _codeBeforeMutation;
+            set => SetProperty(ref _codeBeforeMutation, value);
+        }
 
-        public SideBySideDiffModel Diff { get; private set; }
+        public SideBySideDiffModel Diff
+        {
+            get => _diff;
+            set => SetProperty(ref _diff, value);
+        }
 
-        public bool IsLoadingVisible { get; set; }
+        public bool IsLoadingVisible
+        {
+            get => _isLoadingVisible;
+            set => SetProperty(ref _isLoadingVisible, value);
+        }
 
-        public bool IsRunButtonEnabled { get; set; }
+        public bool IsRunButtonEnabled
+        {
+            get => _isRunButtonEnabled;
+            set => SetProperty(ref _isRunButtonEnabled, value);
+        }
 
-        public bool IsStopButtonEnabled { get; set; }
+        public bool IsStopButtonEnabled
+        {
+            get => _isStopButtonEnabled;
+            set => SetProperty(ref _isStopButtonEnabled, value);
+        }
 
-        public string LoadingMessage { get; set; }
+        public string LoadingMessage
+        {
+            get => _loadingMessage;
+            set => SetProperty(ref _loadingMessage, value);
+        }
 
         public void CreateMutations()
         {
             var baseFileConfig = _configService.GetBaseFileConfig();
+
+            if (baseFileConfig == null)
+            {
+                return;
+            }
 
             Mutations.Clear();
             ShowLoading("Creating mutations..");
@@ -207,7 +250,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                     IsStopButtonEnabled = true;
                     ShowLoading("Running mutations");
 
-                    _mutationRunResult = await _mediator.Send(
+                    await _mediator.Send(
                         new ExecuteMutationsCommand(
                             _config,
                             Mutations.Select(r => r.Document).ToList(),
