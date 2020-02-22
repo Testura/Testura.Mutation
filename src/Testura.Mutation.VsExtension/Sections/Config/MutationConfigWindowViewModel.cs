@@ -217,6 +217,7 @@ namespace Testura.Mutation.VsExtension.Sections.Config
                 CreateBaseline = RunBaseline,
                 Mutators = settings.ToList(),
                 Filter = filter,
+                BuildConfiguration = null,
                 NumberOfTestRunInstances = NumberOfParallelTestRuns
             };
 

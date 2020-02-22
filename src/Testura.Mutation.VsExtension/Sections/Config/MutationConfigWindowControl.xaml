@@ -197,7 +197,7 @@
                 </DataGrid>
             </GroupBox>
         </TabItem>
-            <TabItem Header="Edit filter" IsSelected="False">
+            <TabItem Header="Filter" IsSelected="False">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />

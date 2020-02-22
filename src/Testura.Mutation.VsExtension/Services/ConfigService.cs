@@ -41,6 +41,8 @@ namespace Testura.Mutation.VsExtension.Services
 
         public MutationFileConfig GetBaseFileConfig()
         {
+            var buildConfiguration = _environmentService.GetCurrentSolutionConfiguration();
+
             return _environmentService.JoinableTaskFactory.Run(async () =>
                 {
                     await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
@@ -52,6 +54,8 @@ namespace Testura.Mutation.VsExtension.Services
                         var baseConfig = JsonConvert.DeserializeObject<MutationFileConfig>(File.ReadAllText(Path.Combine(Path.GetDirectoryName(solutionPath), TesturaMutationVsExtensionPackage.BaseConfigName)));
 
                         baseConfig.SolutionPath = solutionPath;
+                        baseConfig.BuildConfiguration = buildConfiguration;
+
                         return baseConfig;
                     }
                     catch (Exception)
