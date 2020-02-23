@@ -59,7 +59,7 @@ namespace Testura.Mutation.Tests.Core.Baseline.Handlers
         }
 
         [Test]
-        public async Task RunUnitTests_WhenAndTestsFail_ShouldThrowExceptions()
+        public void RunUnitTests_WhenAndTestsFail_ShouldThrowExceptions()
         {
             var config = SetUpMockAndWorkspace(new TestSuiteResult
             {
@@ -75,7 +75,7 @@ namespace Testura.Mutation.Tests.Core.Baseline.Handlers
         }
 
         [Test]
-        public async Task RunUnitTests_WhenAndWeCancel_ShouldThrowCancelExceptions()
+        public void RunUnitTests_WhenAndWeCancel_ShouldThrowCancelExceptions()
         {
             var config = SetUpMockAndWorkspace(new TestSuiteResult
             {

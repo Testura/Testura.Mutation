@@ -33,7 +33,7 @@ namespace Testura.Mutation.Tests.Core.Baseline.Handlers
         }
 
         [Test]
-        public async Task CompileMutationProjects_WhenCompilerReturnsError_ShouldThrowException()
+        public void CompileMutationProjects_WhenCompilerReturnsError_ShouldThrowException()
         {
             var path = "my/path";
             var config = SetUpMockAndWorkspace(path, new CompilationResult
@@ -61,7 +61,7 @@ namespace Testura.Mutation.Tests.Core.Baseline.Handlers
         }
 
         [Test]
-        public async Task CompileMutationProjects_WhenSolutionDoesntHaveProjectWithName_ShouldThrowException()
+        public void CompileMutationProjects_WhenSolutionDoesntHaveProjectWithName_ShouldThrowException()
         {
             var path = "my/path";
             var config = SetUpMockAndWorkspace(path, new CompilationResult { IsSuccess = true });
