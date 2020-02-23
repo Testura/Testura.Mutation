@@ -184,6 +184,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="System.IO.Abstractions">
+      <Version>9.0.4</Version>
+    </PackageReference>
     <PackageReference Include="Unity">
       <Version>4.0.1</Version>
     </PackageReference>

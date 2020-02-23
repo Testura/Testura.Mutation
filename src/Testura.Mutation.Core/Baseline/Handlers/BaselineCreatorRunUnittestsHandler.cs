@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +10,6 @@ using Testura.Mutation.Core.Exceptions;
 using Testura.Mutation.Core.Execution;
 using Testura.Mutation.Core.Execution.Result;
 using Testura.Mutation.Core.Execution.Runners;
-using Testura.Mutation.Core.Util.FileSystem;
 
 namespace Testura.Mutation.Core.Baseline.Handlers
 {
@@ -19,16 +17,13 @@ namespace Testura.Mutation.Core.Baseline.Handlers
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(BaselineCreatorRunUnitTestsHandler));
 
-        private readonly IDirectoryHandler _directoryHandler;
         private readonly ITestRunnerClient _testRunnerClient;
         private readonly TestRunnerDependencyFilesHandler _testRunnerDependencyFilesHandler;
 
         public BaselineCreatorRunUnitTestsHandler(
-            IDirectoryHandler directoryHandler,
             ITestRunnerClient testRunnerClient,
             TestRunnerDependencyFilesHandler testRunnerDependencyFilesHandler)
         {
-            _directoryHandler = directoryHandler;
             _testRunnerClient = testRunnerClient;
             _testRunnerDependencyFilesHandler = testRunnerDependencyFilesHandler;
         }
@@ -72,19 +67,8 @@ namespace Testura.Mutation.Core.Baseline.Handlers
             CancellationToken cancellationToken = default(CancellationToken))
         {
             Log.Info($"Starting to run tests in {testProject.Project.OutputFileName}");
-            var testDirectoryPath = Path.Combine(baselineDirectoryPath, Guid.NewGuid().ToString());
-            var testDllPath = Path.Combine(testDirectoryPath, testProject.Project.OutputFileName);
 
-            _directoryHandler.CreateDirectory(testDirectoryPath);
-
-            // Copy all files from the test directory to our own mutation test directory
-            _testRunnerDependencyFilesHandler.CopyDependencies(testProject.Project.OutputDirectoryPath, testDirectoryPath);
-
-            foreach (var file in Directory.EnumerateFiles(baselineDirectoryPath))
-            {
-                File.Copy(file, Path.Combine(testDirectoryPath, Path.GetFileName(file)), true);
-            }
-
+            var testDllPath = _testRunnerDependencyFilesHandler.CreateTestDirectoryAndCopyDependencies(baselineDirectoryPath, testProject, baselineDirectoryPath);
             return await _testRunnerClient.RunTestsAsync(testProject.TestRunner, testDllPath, dotNetPath, TimeSpan.FromMinutes(maxTestTimeMin), cancellationToken);
         }
     }

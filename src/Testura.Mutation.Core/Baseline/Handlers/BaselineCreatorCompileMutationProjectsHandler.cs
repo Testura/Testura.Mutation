@@ -1,11 +1,11 @@
-﻿using System.Linq;
+﻿using System.IO.Abstractions;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using log4net;
 using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Exceptions;
 using Testura.Mutation.Core.Execution.Compilation;
-using Testura.Mutation.Core.Util.FileSystem;
 
 namespace Testura.Mutation.Core.Baseline.Handlers
 {
@@ -14,23 +14,28 @@ namespace Testura.Mutation.Core.Baseline.Handlers
         private static readonly ILog Log = LogManager.GetLogger(typeof(BaselineCreatorCompileMutationProjectsHandler));
 
         private readonly IProjectCompiler _projectCompiler;
-        private readonly IDirectoryHandler _directoryHandler;
+        private readonly IFileSystem _fileSystem;
 
-        public BaselineCreatorCompileMutationProjectsHandler(IProjectCompiler projectCompiler, IDirectoryHandler directoryHandler)
+        public BaselineCreatorCompileMutationProjectsHandler(IProjectCompiler projectCompiler, IFileSystem fileSystem)
         {
             _projectCompiler = projectCompiler;
-            _directoryHandler = directoryHandler;
+            _fileSystem = fileSystem;
         }
 
         public async Task CompileMutationProjectsAsync(MutationConfig config, string baselineDirectoryPath, CancellationToken cancellationToken = default(CancellationToken))
         {
-            _directoryHandler.CreateDirectory(baselineDirectoryPath);
+            _fileSystem.Directory.CreateDirectory(baselineDirectoryPath);
 
             foreach (var mutationProject in config.MutationProjects)
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
                 var project = config.Solution.Projects.FirstOrDefault(p => p.Name == mutationProject.Project.Name);
+                if (project == null)
+                {
+                    throw new BaselineException($"Could not find any project with the name {mutationProject.Project.Name} " +
+                                                $"in the solution. Currently the solution have these projects: {string.Join(", ", config.Solution.Projects.Select(p => p.Name))}");
+                }
 
                 Log.Info($"Starting to compile {project.Name}..");
 

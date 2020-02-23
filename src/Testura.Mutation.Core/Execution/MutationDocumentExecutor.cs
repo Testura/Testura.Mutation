@@ -152,17 +152,7 @@ namespace Testura.Mutation.Core.Execution
             CancellationToken cancellationToken = default(CancellationToken))
         {
             Log.Info($"Starting to run tests in {testProject.Project.OutputFileName}");
-            var mutationTestDirectoryPath = Path.Combine(mutationDirectoryPath, Guid.NewGuid().ToString());
-            var testDllPath = Path.Combine(mutationTestDirectoryPath, testProject.Project.OutputFileName);
-            Directory.CreateDirectory(mutationTestDirectoryPath);
-
-            // Copy all files from the test directory to our own mutation test directory
-            _testRunnerDependencyFilesHandler.CopyDependencies(testProject.Project.OutputDirectoryPath, mutationTestDirectoryPath);
-
-            // Copy the mutation to our mutation test directory (and override the orginal file)
-            File.Copy(mutationDllPath, Path.Combine(mutationTestDirectoryPath, Path.GetFileName(mutationDllPath)), true);
-
-            cancellationToken.ThrowIfCancellationRequested();
+            var testDllPath = _testRunnerDependencyFilesHandler.CreateTestDirectoryAndCopyDependencies(mutationDirectoryPath, testProject, mutationDllPath);
 
             return await _testRunnerClient.RunTestsAsync(testProject.TestRunner, testDllPath, dotNetPath, testTimeout, cancellationToken);
         }

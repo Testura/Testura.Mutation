@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Abstractions;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using log4net;
 using Testura.Mutation.Core.Baseline.Handlers;
 using Testura.Mutation.Core.Config;
-using Testura.Mutation.Core.Util.FileSystem;
+using Testura.Mutation.Core.Extensions;
 
 namespace Testura.Mutation.Core.Baseline
 {
@@ -15,18 +16,18 @@ namespace Testura.Mutation.Core.Baseline
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(BaselineCreator));
 
-        private readonly IDirectoryHandler _directoryHandler;
+        private readonly IFileSystem _fileSystem;
         private readonly BaselineCreatorCompileMutationProjectsHandler _compileMutationProjectsHandler;
         private readonly BaselineCreatorRunUnitTestsHandler _runUnitTestHandler;
         private readonly BaselineCreatorLogSummaryHandler _logSummaryHandler;
 
         public BaselineCreator(
-            IDirectoryHandler directoryHandler,
+            IFileSystem fileSystem,
             BaselineCreatorCompileMutationProjectsHandler compileMutationProjectsHandler,
             BaselineCreatorRunUnitTestsHandler runUnitTestHandler,
             BaselineCreatorLogSummaryHandler logSummaryHandler)
         {
-            _directoryHandler = directoryHandler;
+            _fileSystem = fileSystem;
             _compileMutationProjectsHandler = compileMutationProjectsHandler;
             _runUnitTestHandler = runUnitTestHandler;
             _logSummaryHandler = logSummaryHandler;
@@ -37,7 +38,7 @@ namespace Testura.Mutation.Core.Baseline
         public async Task<IList<BaselineInfo>> CreateBaselineAsync(MutationConfig config, CancellationToken cancellationToken = default(CancellationToken))
         {
             Log.Info("Creating baseline and verifying solution/tests..");
-            _directoryHandler.DeleteDirectory(BaselineDirectoryPath);
+            _fileSystem.Directory.DeleteDirectoryAndCheckForException(BaselineDirectoryPath);
 
             try
             {
@@ -56,7 +57,7 @@ namespace Testura.Mutation.Core.Baseline
             }
             finally
             {
-                _directoryHandler.DeleteDirectory(BaselineDirectoryPath);
+                _fileSystem.Directory.DeleteDirectoryAndCheckForException(BaselineDirectoryPath);
             }
         }
     }
