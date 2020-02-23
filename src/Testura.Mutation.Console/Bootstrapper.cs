@@ -1,10 +1,10 @@
-﻿using Microsoft.Practices.Unity;
+﻿using System.IO.Abstractions;
+using Microsoft.Practices.Unity;
 using Testura.Mutation.Application.Extensions;
 using Testura.Mutation.Core.Execution.Compilation;
 using Testura.Mutation.Core.Execution.Runners;
 using Testura.Mutation.Core.Git;
 using Testura.Mutation.Core.Solution;
-using Testura.Mutation.Core.Util.FileSystem;
 using Testura.Mutation.Infrastructure;
 using Testura.Mutation.Infrastructure.Git;
 using Testura.Mutation.Infrastructure.Solution;
@@ -27,7 +27,7 @@ namespace Testura.Mutation.Console
             unityContainer.RegisterType<ITestRunnerClient, TestRunnerConsoleClient>();
             unityContainer.RegisterType<ISolutionBuilder, DotNetSolutionBuilder>(new ContainerControlledLifetimeManager());
             unityContainer.RegisterType<ISolutionOpener, MsBuildSolutionOpener>();
-            unityContainer.RegisterType<IDirectoryHandler, DirectoryHandler>();
+            unityContainer.RegisterType<IFileSystem, FileSystem>();
             return unityContainer;
         }
     }

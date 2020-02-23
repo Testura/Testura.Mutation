@@ -77,6 +77,7 @@
     <Compile Include="Execution\Runners\ITestRunnerFactory.cs" />
     <Compile Include="Execution\Runners\ITestRunnerClient.cs" />
     <Compile Include="Execution\TestRunnerDependencyFilesHandler.cs" />
+    <Compile Include="Extensions\DirectoryExtensions.cs" />
     <Compile Include="Git\IGitCloner.cs" />
     <Compile Include="Git\IGitDiff.cs" />
     <Compile Include="Location\MutationLocationInfo.cs" />
@@ -108,8 +109,6 @@
     <Compile Include="Solution\SolutionInfoService.cs" />
     <Compile Include="Solution\SolutionProjectInfo.cs" />
     <Compile Include="Solution\VisualStudioSolutionOpener.cs" />
-    <Compile Include="Util\FileSystem\DirectoryHandler.cs" />
-    <Compile Include="Util\FileSystem\IDirectoryHandler.cs" />
     <Compile Include="Util\HashHelper.cs" />
     <Compile Include="Solution\ISolutionOpener.cs" />
     <Compile Include="Solution\MsBuildSolutionOpener.cs" />
@@ -157,6 +156,9 @@
       <Version>1.1.118</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.IO.Abstractions">
+      <Version>9.0.4</Version>
     </PackageReference>
     <PackageReference Include="System.Threading.Tasks.Dataflow">
       <Version>4.11.0</Version>

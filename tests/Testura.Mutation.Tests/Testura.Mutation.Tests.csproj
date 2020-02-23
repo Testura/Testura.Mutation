@@ -137,6 +137,12 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.IO.Abstractions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=96bf224d23c43e59, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.Abstractions.9.0.4\lib\net461\System.IO.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Abstractions.TestingHelpers, Version=9.0.0.0, Culture=neutral, PublicKeyToken=96bf224d23c43e59, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.Abstractions.TestingHelpers.9.0.4\lib\net461\System.IO.Abstractions.TestingHelpers.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
       <Private>True</Private>
@@ -244,6 +250,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Baseline\Handlers\BaselineCreatorCompileMutationProjectsHandlerTests.cs" />
+    <Compile Include="Core\Baseline\Handlers\BaselineCreatorRunUnitTestsHandlerTests.cs" />
     <Compile Include="Core\Creator\MutationDocumentFilterTests.cs" />
     <Compile Include="Core\Creator\MutationDocumentFilterItemTests.cs" />
     <Compile Include="Core\Mutation\Mutators\BinaryExpressionMutations\ConditionalBoundaryMutatorTests.cs" />

@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO.Abstractions;
+using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Moq;
@@ -9,7 +13,6 @@ using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Exceptions;
 using Testura.Mutation.Core.Execution.Compilation;
 using Testura.Mutation.Core.Solution;
-using Testura.Mutation.Core.Util.FileSystem;
 
 namespace Testura.Mutation.Tests.Core.Baseline.Handlers
 {
@@ -18,14 +21,15 @@ namespace Testura.Mutation.Tests.Core.Baseline.Handlers
     {
         private BaselineCreatorCompileMutationProjectsHandler _baselineCreatorCompileMutationProjectsHandler;
         private Mock<IProjectCompiler> _projectCompiler;
-        private Mock<IDirectoryHandler> _directoryHandler;
+        private MockFileSystem _fileSystem;
 
         [OneTimeSetUp]
         public void SetUp()
         {
             _projectCompiler = new Mock<IProjectCompiler>();
-            _directoryHandler = new Mock<IDirectoryHandler>();
-            _baselineCreatorCompileMutationProjectsHandler = new BaselineCreatorCompileMutationProjectsHandler(_projectCompiler.Object, _directoryHandler.Object);
+            _fileSystem = new MockFileSystem();
+
+            _baselineCreatorCompileMutationProjectsHandler = new BaselineCreatorCompileMutationProjectsHandler(_projectCompiler.Object, _fileSystem);
         }
 
         [Test]
@@ -46,12 +50,40 @@ namespace Testura.Mutation.Tests.Core.Baseline.Handlers
         }
 
         [Test]
-        public async Task CompileMutationProjects_WhenCompilerNotReturnsError_ShouldNotThrowException()
+        public async Task CompileMutationProjects_WhenCompilerNotReturnsError_ShouldNotThrowExceptionAndShouldHaveCreatedABaselineDirectory()
         {
             var path = "my/path";
             var config = SetUpMockAndWorkspace(path, new CompilationResult { IsSuccess = true });
 
             await _baselineCreatorCompileMutationProjectsHandler.CompileMutationProjectsAsync(config, path);
+
+            Assert.IsTrue(_fileSystem.Directory.Exists(path), "Have not created the baseline directory");
+        }
+
+        [Test]
+        public async Task CompileMutationProjects_WhenSolutionDoesntHaveProjectWithName_ShouldThrowException()
+        {
+            var path = "my/path";
+            var config = SetUpMockAndWorkspace(path, new CompilationResult { IsSuccess = true });
+            config.MutationProjects.First().Project.Name = "WAAA";
+
+           var exception = Assert.ThrowsAsync<BaselineException>(async () => await _baselineCreatorCompileMutationProjectsHandler.CompileMutationProjectsAsync(config, path));
+           StringAssert.Contains("Could not find any project with the name WAAA", exception.Message);
+        }
+
+        [Test]
+        public async Task CompileMutationProjects_WhenCancel_ShouldThrowCancellException()
+        {
+            var path = "my/path";
+            var config = SetUpMockAndWorkspace(path, new CompilationResult { IsSuccess = true });
+            var cts = new CancellationTokenSource();
+            var token = cts.Token;
+
+            cts.Cancel();
+
+            config.MutationProjects.First().Project.Name = "WAAA";
+
+            Assert.ThrowsAsync<TaskCanceledException>(async () => await _baselineCreatorCompileMutationProjectsHandler.CompileMutationProjectsAsync(config, path, token));
         }
 
         private MutationConfig SetUpMockAndWorkspace(string path, CompilationResult compilationResult)
