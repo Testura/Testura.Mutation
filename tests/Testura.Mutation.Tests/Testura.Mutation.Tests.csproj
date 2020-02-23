@@ -249,6 +249,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Baseline\BaselineCreatorTests.cs" />
     <Compile Include="Core\Baseline\Handlers\BaselineCreatorCompileMutationProjectsHandlerTests.cs" />
     <Compile Include="Core\Baseline\Handlers\BaselineCreatorRunUnitTestsHandlerTests.cs" />
     <Compile Include="Core\Creator\MutationDocumentFilterTests.cs" />
@@ -262,6 +263,12 @@
     <Compile Include="Core\Mutation\Mutators\ReturnValueMutatorTests.cs" />
     <Compile Include="Core\Mutation\Mutators\MutatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Creators\ConfigCreator.cs" />
+    <Compile Include="Utils\Creators\ProjectCompilerCreator.cs" />
+    <Compile Include="Utils\Creators\SolutionCreator.cs" />
+    <Compile Include="Utils\Creators\TestRunnerClientCreator.cs" />
+    <Compile Include="Utils\Stubs\ProjectCompilerStub.cs" />
+    <Compile Include="Utils\Stubs\TestRunnerClientStub.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\Testura.Mutation.Core\Log4Net.Config">
@@ -300,6 +307,7 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
