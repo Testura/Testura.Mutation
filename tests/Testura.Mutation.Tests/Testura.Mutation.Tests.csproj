@@ -252,8 +252,9 @@
     <Compile Include="Core\Baseline\BaselineCreatorTests.cs" />
     <Compile Include="Core\Baseline\Handlers\BaselineCreatorCompileMutationProjectsHandlerTests.cs" />
     <Compile Include="Core\Baseline\Handlers\BaselineCreatorRunUnitTestsHandlerTests.cs" />
-    <Compile Include="Core\Creator\MutationDocumentFilterTests.cs" />
-    <Compile Include="Core\Creator\MutationDocumentFilterItemTests.cs" />
+    <Compile Include="Core\Creator\Filter\MutationDocumentFilterTests.cs" />
+    <Compile Include="Core\Creator\Filter\MutationDocumentFilterItemTests.cs" />
+    <Compile Include="Core\Creator\MutationDocumentCreatorTests.cs" />
     <Compile Include="Core\Mutation\Mutators\BinaryExpressionMutations\ConditionalBoundaryMutatorTests.cs" />
     <Compile Include="Core\Mutation\Mutators\BinaryExpressionMutations\NegateConditionalMutatorTests.cs" />
     <Compile Include="Core\Mutation\Mutators\BinaryExpressionMutations\MathMutatorTests.cs" />
