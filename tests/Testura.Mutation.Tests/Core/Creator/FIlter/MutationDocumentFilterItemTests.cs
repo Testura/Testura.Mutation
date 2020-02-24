@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Testura.Mutation.Core.Creator.Filter;
 
-namespace Testura.Mutation.Tests.Core.Creator.FIlter
+namespace Testura.Mutation.Tests.Core.Creator.Filter
 {
     [TestFixture]
     public class MutationDocumentFilterItemTests
