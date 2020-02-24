@@ -82,7 +82,7 @@ namespace Testura.Mutation.Core.Creator
                     var mutatedDocuments = mutationOperator.GetMutatedDocument(root, document);
                     mutations.AddRange(mutatedDocuments.Where(m =>
                         config.Filter == null ||
-                        (config.Filter.ResourceLinesAllowed(document.FilePath, GetDocumentLine(m), m.MutationDetails.Orginal)
+                        (config.Filter.ResourceLinesAllowed(document.FilePath, GetDocumentLine(m))
                          && config.Filter.CodeAllowed(document.FilePath, GetDocumentLine(m), m.MutationDetails.Orginal))));
                 }
             }

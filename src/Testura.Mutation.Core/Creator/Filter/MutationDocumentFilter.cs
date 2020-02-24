@@ -33,7 +33,7 @@ namespace Testura.Mutation.Core.Creator.Filter
             return false;
         }
 
-        public bool ResourceLinesAllowed(string resource, int line, SyntaxNode code)
+        public bool ResourceLinesAllowed(string resource, int line)
         {
             if (FilterItems == null)
             {
