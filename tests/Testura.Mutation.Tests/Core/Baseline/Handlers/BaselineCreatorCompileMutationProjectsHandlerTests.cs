@@ -28,7 +28,7 @@ namespace Testura.Mutation.Tests.Core.Baseline.Handlers
         [Test]
         public void CompileMutationProjects_WhenCompilerReturnsError_ShouldThrowException()
         {
-            var compiler = ProjectCompilerCreator.CreateNegativeCompiler();
+            var compiler = ProjectCompilerCreator.CreateNegativeCompiler(_fileSystem);
             var baselineCreatorCompileMutationProjectsHandler = new BaselineCreatorCompileMutationProjectsHandler(compiler, _fileSystem);
 
             var exception = Assert.ThrowsAsync<BaselineException>(async () => await baselineCreatorCompileMutationProjectsHandler.CompileMutationProjectsAsync(_config, Path));
@@ -41,7 +41,7 @@ namespace Testura.Mutation.Tests.Core.Baseline.Handlers
         [Test]
         public async Task CompileMutationProjects_WhenCompilerNotReturnsError_ShouldNotThrowExceptionAndShouldHaveCreatedABaselineDirectory()
         {
-            var compiler = ProjectCompilerCreator.CreatePositiveCompiler();
+            var compiler = ProjectCompilerCreator.CreatePositiveCompiler(_fileSystem);
             var baselineCreatorCompileMutationProjectsHandler = new BaselineCreatorCompileMutationProjectsHandler(compiler, _fileSystem);
 
             await baselineCreatorCompileMutationProjectsHandler.CompileMutationProjectsAsync(_config, Path);
@@ -52,7 +52,7 @@ namespace Testura.Mutation.Tests.Core.Baseline.Handlers
         [Test]
         public void CompileMutationProjects_WhenSolutionDoesntHaveProjectWithName_ShouldThrowException()
         {
-            var compiler = ProjectCompilerCreator.CreatePositiveCompiler();
+            var compiler = ProjectCompilerCreator.CreatePositiveCompiler(_fileSystem);
             var baselineCreatorCompileMutationProjectsHandler = new BaselineCreatorCompileMutationProjectsHandler(compiler, _fileSystem);
 
             _config.MutationProjects.First().Project.Name = "WAAA";
@@ -64,7 +64,7 @@ namespace Testura.Mutation.Tests.Core.Baseline.Handlers
         [Test]
         public async Task CompileMutationProjects_WhenCancel_ShouldThrowCancellException()
         {
-            var compiler = ProjectCompilerCreator.CreatePositiveCompiler();
+            var compiler = ProjectCompilerCreator.CreatePositiveCompiler(_fileSystem);
             var baselineCreatorCompileMutationProjectsHandler = new BaselineCreatorCompileMutationProjectsHandler(compiler, _fileSystem);
 
             var cts = new CancellationTokenSource();

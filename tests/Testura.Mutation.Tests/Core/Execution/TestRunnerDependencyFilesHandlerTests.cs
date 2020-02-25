@@ -21,24 +21,8 @@ namespace Testura.Mutation.Tests.Core.Execution
         {
             _baseDirectory = @"C:\Base";
 
-            _config = ConfigCreator.CreateConfig();
             _mockFileSystem = new MockFileSystem();
-
-            CreateFiles
-            (_mockFileSystem,
-                _config.Solution.Projects.FirstOrDefault(p => p.Name == "MutationProject"),
-                "MutationDependency.dll",
-                "MutationDependency2.dll",
-                "MutationDependency3.dll",
-                "MutationSubDirectory");
-
-            CreateFiles
-            (_mockFileSystem,
-                _config.Solution.Projects.FirstOrDefault(p => p.Name == "TestProject"),
-                "TestDependency.dll",
-                "TestDependency2.dll",
-                "TestDependency3.dll",
-                "TestSubDirectory");
+            _config = ConfigCreator.CreateConfig(_mockFileSystem);
         }
 
 
@@ -78,25 +62,6 @@ namespace Testura.Mutation.Tests.Core.Execution
             var subTestDirectories = _mockFileSystem.Directory.GetFiles(directories.First());
             Assert.AreEqual(1, subTestDirectories.Count());
             Assert.IsTrue(subTestDirectories.First().Contains("TestDependency3.dll"));
-        }
-
-        private void CreateFiles(
-            MockFileSystem mockFileSystem,
-            Project project,
-            string filename,
-            string filename2,
-            string filename3,
-            string subDirectoryName)
-        {
-            var directory = Path.GetDirectoryName(project.OutputFilePath);
-
-            mockFileSystem.Directory.CreateDirectory(directory);
-            mockFileSystem.File.AppendAllText(project.OutputFilePath, "test");
-            mockFileSystem.File.AppendAllText(Path.Combine(directory, filename), "test");
-            mockFileSystem.File.AppendAllText(Path.Combine(directory, filename2), "test");
-
-            mockFileSystem.Directory.CreateDirectory(Path.Combine(directory, subDirectoryName));
-            mockFileSystem.File.AppendAllText(Path.Combine(directory, subDirectoryName, filename3), "test");
         }
     }
 }

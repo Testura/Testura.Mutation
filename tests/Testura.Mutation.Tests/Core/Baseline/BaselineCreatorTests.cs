@@ -33,7 +33,7 @@ namespace Testura.Mutation.Tests.Core.Baseline
         {
             var baselineCreator = new BaselineCreator(
                 _fileSystem,
-                new BaselineCreatorCompileMutationProjectsHandler(ProjectCompilerCreator.CreatePositiveCompiler(), _fileSystem),
+                new BaselineCreatorCompileMutationProjectsHandler(ProjectCompilerCreator.CreatePositiveCompiler(_fileSystem), _fileSystem),
                 new BaselineCreatorRunUnitTestsHandler(TestRunnerClientCreator.CreatePositive(), new TestRunnerDependencyFilesHandler(_fileSystem)),
                 new BaselineCreatorLogSummaryHandler());
 
@@ -49,7 +49,7 @@ namespace Testura.Mutation.Tests.Core.Baseline
         {
             var baselineCreator = new BaselineCreator(
                 _fileSystem,
-                new BaselineCreatorCompileMutationProjectsHandler(ProjectCompilerCreator.CreatePositiveCompiler(), _fileSystem),
+                new BaselineCreatorCompileMutationProjectsHandler(ProjectCompilerCreator.CreatePositiveCompiler(_fileSystem), _fileSystem),
                 new BaselineCreatorRunUnitTestsHandler(TestRunnerClientCreator.CreatePositive(), new TestRunnerDependencyFilesHandler(_fileSystem)),
                 new BaselineCreatorLogSummaryHandler());
 
@@ -62,7 +62,7 @@ namespace Testura.Mutation.Tests.Core.Baseline
         {
             var baselineCreator = new BaselineCreator(
                 _fileSystem,
-                new BaselineCreatorCompileMutationProjectsHandler(ProjectCompilerCreator.CreateNegativeCompiler(), _fileSystem),
+                new BaselineCreatorCompileMutationProjectsHandler(ProjectCompilerCreator.CreateNegativeCompiler(_fileSystem), _fileSystem),
                 new BaselineCreatorRunUnitTestsHandler(TestRunnerClientCreator.CreatePositive(), new TestRunnerDependencyFilesHandler(_fileSystem)),
                 new BaselineCreatorLogSummaryHandler());
 
@@ -75,7 +75,7 @@ namespace Testura.Mutation.Tests.Core.Baseline
         {
             var baselineCreator = new BaselineCreator(
                 _fileSystem,
-                new BaselineCreatorCompileMutationProjectsHandler(ProjectCompilerCreator.CreatePositiveCompiler(), _fileSystem),
+                new BaselineCreatorCompileMutationProjectsHandler(ProjectCompilerCreator.CreatePositiveCompiler(_fileSystem), _fileSystem),
                 new BaselineCreatorRunUnitTestsHandler(TestRunnerClientCreator.CreateNegative(), new TestRunnerDependencyFilesHandler(_fileSystem)),
                 new BaselineCreatorLogSummaryHandler());
 
