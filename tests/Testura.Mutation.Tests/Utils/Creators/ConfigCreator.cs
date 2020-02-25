@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
+using Microsoft.CodeAnalysis;
 using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Creator.Mutators;
 using Testura.Mutation.Core.Creator.Mutators.BinaryExpressionMutators;
@@ -9,9 +12,29 @@ namespace Testura.Mutation.Tests.Utils.Creators
 {
     public static class ConfigCreator
     {
-        public static MutationConfig CreateConfig()
+        public static MutationConfig CreateConfig(IFileSystem fileSystem = null)
         {
             var solution = SolutionCreator.CreateDefaultSolution();
+
+            if (fileSystem != null)
+            {
+                CreateFiles
+                (fileSystem,
+                    solution.Projects.FirstOrDefault(p => p.Name == "MutationProject"),
+                    "MutationDependency.dll",
+                    "MutationDependency2.dll",
+                    "MutationDependency3.dll",
+                    "MutationSubDirectory");
+
+                CreateFiles
+                (fileSystem,
+                    solution.Projects.FirstOrDefault(p => p.Name == "TestProject"),
+                    "TestDependency.dll",
+                    "TestDependency2.dll",
+                    "TestDependency3.dll",
+                    "TestSubDirectory");
+            }
+
             return new MutationConfig
             {
                 Solution = solution,
@@ -42,6 +65,25 @@ namespace Testura.Mutation.Tests.Utils.Creators
                 }
 
             };
+        }
+
+        private static void CreateFiles(
+            IFileSystem mockFileSystem,
+            Project project,
+            string filename,
+            string filename2,
+            string filename3,
+            string subDirectoryName)
+        {
+            var directory = Path.GetDirectoryName(project.OutputFilePath);
+
+            mockFileSystem.Directory.CreateDirectory(directory);
+            mockFileSystem.File.AppendAllText(project.OutputFilePath, "test");
+            mockFileSystem.File.AppendAllText(Path.Combine(directory, filename), "test");
+            mockFileSystem.File.AppendAllText(Path.Combine(directory, filename2), "test");
+
+            mockFileSystem.Directory.CreateDirectory(Path.Combine(directory, subDirectoryName));
+            mockFileSystem.File.AppendAllText(Path.Combine(directory, subDirectoryName, filename3), "test");
         }
     }
 }

@@ -256,6 +256,7 @@
     <Compile Include="Core\Creator\Filter\MutationDocumentFilterItemTests.cs" />
     <Compile Include="Core\Creator\MutationDocumentCreatorTests.cs" />
     <Compile Include="Core\Execution\Compiler\CompilerTests.cs" />
+    <Compile Include="Core\Execution\MutationDocumentExecutorTests.cs" />
     <Compile Include="Core\Execution\TestRunnerDependencyFilesHandlerTests.cs" />
     <Compile Include="Core\Mutation\Mutators\BinaryExpressionMutations\ConditionalBoundaryMutatorTests.cs" />
     <Compile Include="Core\Mutation\Mutators\BinaryExpressionMutations\NegateConditionalMutatorTests.cs" />

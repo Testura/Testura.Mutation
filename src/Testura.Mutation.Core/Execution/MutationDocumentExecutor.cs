@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -11,6 +12,7 @@ using Testura.Mutation.Core.Exceptions;
 using Testura.Mutation.Core.Execution.Compilation;
 using Testura.Mutation.Core.Execution.Result;
 using Testura.Mutation.Core.Execution.Runners;
+using Testura.Mutation.Core.Extensions;
 
 namespace Testura.Mutation.Core.Execution
 {
@@ -21,12 +23,18 @@ namespace Testura.Mutation.Core.Execution
         private readonly IMutationDocumentCompiler _compiler;
         private readonly TestRunnerDependencyFilesHandler _testRunnerDependencyFilesHandler;
         private readonly ITestRunnerClient _testRunnerClient;
+        private readonly IFileSystem _fileSystem;
 
-        public MutationDocumentExecutor(IMutationDocumentCompiler compiler, TestRunnerDependencyFilesHandler testRunnerDependencyFilesHandler, ITestRunnerClient testRunnerClient)
+        public MutationDocumentExecutor(
+            IMutationDocumentCompiler compiler,
+            TestRunnerDependencyFilesHandler testRunnerDependencyFilesHandler,
+            ITestRunnerClient testRunnerClient,
+            IFileSystem fileSystem)
         {
             _compiler = compiler;
             _testRunnerDependencyFilesHandler = testRunnerDependencyFilesHandler;
             _testRunnerClient = testRunnerClient;
+            _fileSystem = fileSystem;
         }
 
         public async Task<MutationDocumentResult> ExecuteMutationAsync(
@@ -59,11 +67,13 @@ namespace Testura.Mutation.Core.Execution
             // Where we should save our compiled mutation
             var mutationDllPath = Path.Combine(mutationDirectoryPath, $"{config.MutationProjects.FirstOrDefault(m => m.Project.Name == mutationDocument.ProjectName).Project.OutputFileName}");
 
-            Directory.CreateDirectory(mutationDirectoryPath);
+            _fileSystem.Directory.DeleteDirectoryAndCheckForException(mutationDirectoryPath);
 
             try
             {
                 cancellationToken.ThrowIfCancellationRequested();
+
+                _fileSystem.Directory.CreateDirectory(mutationDirectoryPath);
 
                 mutationResult.CompilationResult = await _compiler.CompileAsync(mutationDllPath, mutationDocument);
                 if (!mutationResult.CompilationResult.IsSuccess)
@@ -101,7 +111,7 @@ namespace Testura.Mutation.Core.Execution
 
                 if (final.TestResults.Count == 0)
                 {
-                    throw new MutationDocumentException("Unknown error when running, we should not have 0 tests.");
+                    throw new MutationDocumentException("Unknown error when running, we should not have 0 tests. Also make sure that you don't have bad project mapping.");
                 }
 
                 Log.Info($"\"{mutationDocument.MutationName}\" done. Ran {final.TestResults.Count} tests and {final.TestResults.Count(t => !t.IsSuccess)} failed.");
@@ -120,7 +130,7 @@ namespace Testura.Mutation.Core.Execution
             }
             finally
             {
-                DeleteMutationDirectory(mutationDirectoryPath);
+                _fileSystem.Directory.DeleteDirectoryAndCheckForException(mutationDirectoryPath);
             }
 
             return mutationResult;
@@ -132,7 +142,7 @@ namespace Testura.Mutation.Core.Execution
 
             if (mutationProject?.MappedTestProjects != null && mutationProject.MappedTestProjects.Any())
             {
-                if (!mutationProject.MappedTestProjects.Any(m => m == testProject.Project.Name))
+                if (mutationProject.MappedTestProjects.All(m => m != testProject.Project.Name))
                 {
                     Log.Info($"Skipping tests in the the test project \"{testProject.Project.Name}\" as " +
                                $"it didn't match the mapping list");
@@ -155,18 +165,6 @@ namespace Testura.Mutation.Core.Execution
             var testDllPath = _testRunnerDependencyFilesHandler.CreateTestDirectoryAndCopyDependencies(mutationDirectoryPath, testProject, mutationDllPath);
 
             return await _testRunnerClient.RunTestsAsync(testProject.TestRunner, testDllPath, dotNetPath, testTimeout, cancellationToken);
-        }
-
-        private void DeleteMutationDirectory(string mutationDirectoryPath)
-        {
-            try
-            {
-                Directory.Delete(mutationDirectoryPath, true);
-            }
-            catch (Exception ex)
-            {
-                Log.Error($"Failed to delete test directory: {ex.Message}");
-            }
         }
 
         private TestSuiteResult CombineResult(string name, IList<TestSuiteResult> testResult)
