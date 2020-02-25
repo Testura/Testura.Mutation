@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
 using Testura.Mutation.Core.Creator.Filter;
 
-namespace Testura.Mutation.Tests.Core.Creator
+namespace Testura.Mutation.Tests.Core.Creator.Filter
 {
     [TestFixture]
     public class MutationDocumentFilterTests
