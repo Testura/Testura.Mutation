@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Creator.Mutators;
 using Testura.Mutation.Core.Creator.Mutators.BinaryExpressionMutators;
@@ -28,14 +29,14 @@ namespace Testura.Mutation.Tests.Utils.Creators
                 {
                     new MutationProject
                     {
-                        Project = new SolutionProjectInfo("MutationProject", "MutationProject.csproj", "my/path")
+                        Project = new SolutionProjectInfo("MutationProject", "MutationProject.csproj", solution.Projects.FirstOrDefault(p => p.Name == "MutationProject").OutputFilePath)
                     }
                 },
                 TestProjects = new List<TestProject>
                 {
                     new TestProject
                     {
-                        Project = new SolutionProjectInfo("TestProject", "TestProject.csproj", "my/path"),
+                        Project = new SolutionProjectInfo("TestProject", "TestProject.csproj", solution.Projects.FirstOrDefault(p => p.Name == "TestProject").OutputFilePath),
                         TestRunner = "dotnet"
                     }
                 }
