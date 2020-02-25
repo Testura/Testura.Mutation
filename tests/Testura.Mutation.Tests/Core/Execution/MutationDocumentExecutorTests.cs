@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
-using System.Reflection;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Testura.Mutation.Core;
 using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Creator;
+using Testura.Mutation.Core.Exceptions;
 using Testura.Mutation.Core.Execution;
-using Testura.Mutation.Core.Execution.Compilation;
 using Testura.Mutation.Tests.Utils.Creators;
-using Testura.Mutation.Tests.Utils.Stubs;
 
 namespace Testura.Mutation.Tests.Core.Execution
 {
@@ -69,6 +65,33 @@ namespace Testura.Mutation.Tests.Core.Execution
 
             Assert.IsFalse(result.Survived);
             Assert.IsFalse(result.CompilationResult.IsSuccess);
+        }
+
+        [Test]
+        public void ExecuteMutationAsync_WhenExecuteMutationAndNoMappingMatch_ShouldThrowException()
+        {
+            _config.MutationProjects.First().MappedTestProjects = new List<string> { "TestProject2" };
+
+            var compiler = ProjectCompilerCreator.CreatePositiveCompiler(_fileSystem);
+            var testRunner = TestRunnerClientCreator.CreatePositive();
+
+            var mutationDocumentExecutor = new MutationDocumentExecutor(compiler, _dependency, testRunner, _fileSystem);
+            Assert.ThrowsAsync<MutationDocumentException>(async () => await mutationDocumentExecutor.ExecuteMutationAsync(_config, _mutationDocument));
+        }
+
+        [Test]
+        public async Task ExecuteMutationAsync_WhenExecuteMutationAndCancel_ShouldGetMutationCancelled()
+        {
+            var compiler = ProjectCompilerCreator.CreatePositiveCompiler(_fileSystem);
+            var testRunner = TestRunnerClientCreator.CreatePositive();
+            var cancellation = new CancellationTokenSource();
+            var token = cancellation.Token;
+            cancellation.Cancel();
+
+            var mutationDocumentExecutor = new MutationDocumentExecutor(compiler, _dependency, testRunner, _fileSystem);
+            var result = await mutationDocumentExecutor.ExecuteMutationAsync(_config, _mutationDocument, token);
+
+            Assert.AreEqual("Mutation cancelled", result.UnexpectedError);
         }
     }
 }

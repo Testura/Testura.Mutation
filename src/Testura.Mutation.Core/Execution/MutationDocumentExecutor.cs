@@ -111,7 +111,7 @@ namespace Testura.Mutation.Core.Execution
 
                 if (final.TestResults.Count == 0)
                 {
-                    throw new MutationDocumentException("Unknown error when running, we should not have 0 tests.");
+                    throw new MutationDocumentException("Unknown error when running, we should not have 0 tests. Also make sure that you don't have bad project mapping.");
                 }
 
                 Log.Info($"\"{mutationDocument.MutationName}\" done. Ran {final.TestResults.Count} tests and {final.TestResults.Count(t => !t.IsSuccess)} failed.");
