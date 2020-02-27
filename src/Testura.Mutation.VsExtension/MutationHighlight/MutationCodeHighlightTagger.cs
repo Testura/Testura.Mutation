@@ -28,12 +28,13 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
             ITextStructureNavigator textStructureNavigator)
         {
             _visualStudioWorkspace = visualStudioWorkspace;
+            _trackingSpans = new Dictionary<ITrackingSpan, string>();
+
             View = view;
             SourceBuffer = sourceBuffer;
             TextSearchService = textSearchService;
             TextStructureNavigator = textStructureNavigator;
 
-            _mutations = MutationCodeHighlightHandler.MutationHighlights ?? new List<MutationHightlight>();
             _mutationDefinitions = new Dictionary<TestRunDocument.TestRunStatusEnum, string>
             {
                 [TestRunDocument.TestRunStatusEnum.Waiting] = nameof(MutationNotRunFormatDefinition),
@@ -51,6 +52,8 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
 
             var documentIds = visualStudioWorkspace.CurrentSolution.GetDocumentIdsWithFilePath(document.FilePath);
             _documentId = documentIds.Any() ? documentIds.First() : null;
+
+            MutationCodeHighlightHandlerOnOnMutationHighlightUpdate(this, MutationCodeHighlightHandler.MutationHighlights);
         }
 
         public event EventHandler<SnapshotSpanEventArgs> TagsChanged;
@@ -105,12 +108,18 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
         private void CreateTrackingSpans()
         {
             _trackingSpans = new Dictionary<ITrackingSpan, string>();
+
+            if (_mutations == null || !_mutations.Any())
+            {
+                return;
+            }
+
             var currentSnapshot = SourceBuffer.CurrentSnapshot;
 
             SourceBuffer.Properties.TryGetProperty(
                 typeof(ITextDocument), out ITextDocument document);
 
-            foreach (var mutationHightlight in _mutations.Where(m => m.FilePath == document.FilePath))
+            foreach (var mutationHightlight in _mutations.Where(m => m.FilePath == document?.FilePath))
             {
                 var span = new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(mutationHightlight.Start, mutationHightlight.Length));
                 var trackingSpan = currentSnapshot.CreateTrackingSpan(span, SpanTrackingMode.EdgeExclusive);
@@ -130,7 +139,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
 
         private void MutationCodeHighlightHandlerOnOnMutationHighlightUpdate(object sender, IList<MutationHightlight> e)
         {
-            if (_mutations.Count == 0 && e.Count == 0)
+            if (_mutations != null && _mutations.Count == 0 && e.Count == 0)
             {
                 return;
             }
@@ -140,7 +149,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
                 return;
             }
 
-            _mutations = new List<MutationHightlight>(e);
+            _mutations = new List<MutationHightlight>(e ?? new List<MutationHightlight>());
 
             CreateTrackingSpans();
             TagsChanged?.Invoke(this, new SnapshotSpanEventArgs(new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(0, SourceBuffer.CurrentSnapshot.Length - 1))));
