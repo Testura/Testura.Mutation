@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.CodeAnalysis;
+using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Operations;
@@ -12,15 +14,20 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
 {
     public class MutationCodeHighlightTagger : ITagger<MutationCodeHighlightTag>, IDisposable
     {
+        private readonly VisualStudioWorkspace _visualStudioWorkspace;
         private readonly Dictionary<TestRunDocument.TestRunStatusEnum, string> _mutationDefinitions;
+        private readonly DocumentId _documentId;
         private IList<MutationHightlight> _mutations;
+        private Dictionary<ITrackingSpan, string> _trackingSpans;
 
         public MutationCodeHighlightTagger(
+            VisualStudioWorkspace visualStudioWorkspace,
             ITextView view,
             ITextBuffer sourceBuffer,
             ITextSearchService textSearchService,
             ITextStructureNavigator textStructureNavigator)
         {
+            _visualStudioWorkspace = visualStudioWorkspace;
             View = view;
             SourceBuffer = sourceBuffer;
             TextSearchService = textSearchService;
@@ -37,6 +44,13 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
             };
 
             MutationCodeHighlightHandler.OnMutationHighlightUpdate += MutationCodeHighlightHandlerOnOnMutationHighlightUpdate;
+            visualStudioWorkspace.WorkspaceChanged += VisualStudioWorkspaceOnWorkspaceChanged;
+
+            SourceBuffer.Properties.TryGetProperty(
+                typeof(ITextDocument), out ITextDocument document);
+
+            var documentIds = visualStudioWorkspace.CurrentSolution.GetDocumentIdsWithFilePath(document.FilePath);
+            _documentId = documentIds.Any() ? documentIds.First() : null;
         }
 
         public event EventHandler<SnapshotSpanEventArgs> TagsChanged;
@@ -49,24 +63,32 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
 
         public ITextStructureNavigator TextStructureNavigator { get; set; }
 
+        public void VisualStudioWorkspaceOnWorkspaceChanged(object sender, WorkspaceChangeEventArgs e)
+        {
+            if (e.Kind == WorkspaceChangeKind.DocumentChanged && e.DocumentId == _documentId)
+            {
+                RemoveEmptyTrackingSpans();
+            }
+        }
+
         public IEnumerable<ITagSpan<MutationCodeHighlightTag>> GetTags(NormalizedSnapshotSpanCollection spans)
         {
             try
             {
-                SourceBuffer.Properties.TryGetProperty(
-                    typeof(ITextDocument), out ITextDocument document);
+                var tags = new List<ITagSpan<MutationCodeHighlightTag>>();
 
-                var mutations = _mutations.Where(m => m.FilePath == document.FilePath);
-
-                var res = new List<ITagSpan<MutationCodeHighlightTag>>();
-
-                foreach (var mutationHightlight in mutations)
+                var currentSnapshot = SourceBuffer.CurrentSnapshot;
+                foreach (var trackingSpan in _trackingSpans.Keys)
                 {
-                    var span = new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(mutationHightlight.Start, mutationHightlight.Length));
-                    res.Add(new TagSpan<MutationCodeHighlightTag>(span, new MutationCodeHighlightTag(_mutationDefinitions[mutationHightlight.Status])));
+                    var spanInCurrentSnapshot = trackingSpan.GetSpan(currentSnapshot);
+                    if (spans.Any(sp => spanInCurrentSnapshot.IntersectsWith(sp)))
+                    {
+                        var snapshotSpan = new SnapshotSpan(currentSnapshot, spanInCurrentSnapshot);
+                        tags.Add(new TagSpan<MutationCodeHighlightTag>(snapshotSpan, new MutationCodeHighlightTag(_mutationDefinitions[(TestRunDocument.TestRunStatusEnum)int.Parse(_trackingSpans[trackingSpan])])));
+                    }
                 }
 
-                return res;
+                return tags;
             }
             catch (Exception)
             {
@@ -77,6 +99,33 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
         public void Dispose()
         {
             MutationCodeHighlightHandler.OnMutationHighlightUpdate -= MutationCodeHighlightHandlerOnOnMutationHighlightUpdate;
+            _visualStudioWorkspace.WorkspaceChanged += VisualStudioWorkspaceOnWorkspaceChanged;
+        }
+
+        private void CreateTrackingSpans()
+        {
+            _trackingSpans = new Dictionary<ITrackingSpan, string>();
+            var currentSnapshot = SourceBuffer.CurrentSnapshot;
+
+            SourceBuffer.Properties.TryGetProperty(
+                typeof(ITextDocument), out ITextDocument document);
+
+            foreach (var mutationHightlight in _mutations.Where(m => m.FilePath == document.FilePath))
+            {
+                var span = new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(mutationHightlight.Start, mutationHightlight.Length));
+                var trackingSpan = currentSnapshot.CreateTrackingSpan(span, SpanTrackingMode.EdgeExclusive);
+                _trackingSpans.Add(trackingSpan, ((int)mutationHightlight.Status).ToString());
+            }
+        }
+
+        private void RemoveEmptyTrackingSpans()
+        {
+            var currentSnapshot = SourceBuffer.CurrentSnapshot;
+            var keysToRemove = _trackingSpans.Keys.Where(ts => ts.GetSpan(currentSnapshot).Length == 0).ToList();
+            foreach (var key in keysToRemove)
+            {
+                _trackingSpans.Remove(key);
+            }
         }
 
         private void MutationCodeHighlightHandlerOnOnMutationHighlightUpdate(object sender, IList<MutationHightlight> e)
@@ -93,6 +142,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
 
             _mutations = new List<MutationHightlight>(e);
 
+            CreateTrackingSpans();
             TagsChanged?.Invoke(this, new SnapshotSpanEventArgs(new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(0, SourceBuffer.CurrentSnapshot.Length - 1))));
         }
     }
