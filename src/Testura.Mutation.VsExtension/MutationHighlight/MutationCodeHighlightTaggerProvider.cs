@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Operations;
@@ -12,6 +13,9 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
     [TagType(typeof(TextMarkerTag))]
     public class MutationCodeHighlightTaggerProvider : IViewTaggerProvider
     {
+        [Import]
+        internal VisualStudioWorkspace Workspace { get; set; }
+
         [Import]
         internal ITextSearchService TextSearchService { get; set; }
 
@@ -29,7 +33,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
             ITextStructureNavigator textStructureNavigator =
                 TextStructureNavigatorSelector.GetTextStructureNavigator(buffer);
 
-            return new MutationCodeHighlightTagger(textView, buffer, TextSearchService, textStructureNavigator) as ITagger<T>;
+            return new MutationCodeHighlightTagger(Workspace, textView, buffer, TextSearchService, textStructureNavigator) as ITagger<T>;
         }
     }
 }
