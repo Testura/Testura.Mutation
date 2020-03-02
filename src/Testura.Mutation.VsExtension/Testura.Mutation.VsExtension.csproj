@@ -47,6 +47,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="MutationHighlight\Glyph\Dialog\MutationCodeHighlightInfoDialogViewModel.cs" />
+    <Compile Include="MutationHighlight\Glyph\Dialog\MutationCodeHiglightInfoDialog.xaml.cs">
+      <DependentUpon>MutationCodeHiglightInfoDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MutationHighlight\Glyph\MutationCodeHighlightGlyph.xaml.cs">
+      <DependentUpon>MutationCodeHighlightGlyph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MutationHighlight\Glyph\MutationCodeHighlightGlyphFactory.cs" />
+    <Compile Include="MutationHighlight\Glyph\MutationCodeHighlightGlyphFactoryProvider.cs" />
     <Compile Include="Util\Behavior\AutoScrollBehavior.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Util\CodeDiff\OldNewDiffPiece.cs" />
@@ -100,6 +109,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Resources\iconGlyph.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\iconWithoutDot.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -192,6 +204,14 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="MutationHighlight\Glyph\Dialog\MutationCodeHiglightInfoDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MutationHighlight\Glyph\MutationCodeHighlightGlyph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Testura.Mutation.Core.Execution.Compilation;
 using Testura.Mutation.Core.Execution.Result;
@@ -15,7 +14,7 @@ namespace Testura.Mutation.Core
             FailedTests = new List<TestResult>();
         }
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string ProjectName { get; set; }
 

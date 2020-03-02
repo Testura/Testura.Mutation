@@ -102,7 +102,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
         public void Dispose()
         {
             MutationCodeHighlightHandler.OnMutationHighlightUpdate -= MutationCodeHighlightHandlerOnOnMutationHighlightUpdate;
-            _visualStudioWorkspace.WorkspaceChanged += VisualStudioWorkspaceOnWorkspaceChanged;
+            _visualStudioWorkspace.WorkspaceChanged -= VisualStudioWorkspaceOnWorkspaceChanged;
         }
 
         private void CreateTrackingSpans()

@@ -9,8 +9,8 @@ using Microsoft.VisualStudio.Utilities;
 namespace Testura.Mutation.VsExtension.MutationHighlight
 {
     [Export(typeof(IViewTaggerProvider))]
-    [ContentType("text")]
-    [TagType(typeof(TextMarkerTag))]
+    [ContentType("code")]
+    [TagType(typeof(MutationCodeHighlightTag))]
     public class MutationCodeHighlightTaggerProvider : IViewTaggerProvider
     {
         [Import]

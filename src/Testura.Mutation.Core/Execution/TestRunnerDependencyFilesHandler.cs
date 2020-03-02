@@ -19,7 +19,7 @@ namespace Testura.Mutation.Core.Execution
 
         public string CreateTestDirectoryAndCopyDependencies(string baseDirectory, TestProject testProject, string systemUnderTestPath)
         {
-            var testDirectoryPath = Path.Combine(baseDirectory, Guid.NewGuid().ToString());
+            var testDirectoryPath = Path.Combine(baseDirectory, Path.GetRandomFileName());
             var testDllPath = Path.Combine(testDirectoryPath, testProject.Project.OutputFileName);
 
             _fileSystem.Directory.CreateDirectory(testDirectoryPath);
