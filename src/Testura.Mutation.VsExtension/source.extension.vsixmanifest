@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" ?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="Testura.MutationVsExtension.71e8249a-b76c-4035-af2b-0304cbf33623" Version="1.6.0" Language="en-US" Publisher="Mille Boström" />
+        <Identity Id="Testura.MutationVsExtension.71e8249a-b76c-4035-af2b-0304cbf33623" Version="1.7.0" Language="en-US" Publisher="Mille Boström" />
         <DisplayName>Testura.Mutation</DisplayName>
         <Description xml:space="preserve">Testura is a mutation testing extension for visual studio that verifies the quality of your unit tests by injecting different mutations in your production code and then checks whether your unit tests catch them.</Description>
         <MoreInfo>https://github.com/Testura/Testura.Mutation</MoreInfo>

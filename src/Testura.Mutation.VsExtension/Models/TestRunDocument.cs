@@ -18,6 +18,8 @@ namespace Testura.Mutation.VsExtension.Models
             CompletedWithUnknownReason
         }
 
+        public MutationDocumentResult Result { get; set; }
+
         public MutationDocument Document
         {
             get => _mutationDocument;

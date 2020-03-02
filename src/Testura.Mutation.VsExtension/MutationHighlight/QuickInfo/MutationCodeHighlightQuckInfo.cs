@@ -12,12 +12,12 @@ namespace Testura.Mutation.VsExtension.MutationHighlight.QuickInfo
     public class MutationCodeHighlightQuckInfo : IAsyncQuickInfoSource
     {
         private readonly ITextBuffer _textBuffer;
-        private IList<MutationHightlight> _mutations;
+        private IList<MutationHighlight> _mutations;
 
         public MutationCodeHighlightQuckInfo(ITextBuffer textBuffer)
         {
             _textBuffer = textBuffer;
-            _mutations = MutationCodeHighlightHandler.MutationHighlights ?? new List<MutationHightlight>();
+            _mutations = MutationCodeHighlightHandler.MutationHighlights ?? new List<MutationHighlight>();
 
             MutationCodeHighlightHandler.OnMutationHighlightUpdate += MutationCodeHighlightHandlerOnOnMutationHighlightUpdate;
         }
@@ -56,9 +56,9 @@ namespace Testura.Mutation.VsExtension.MutationHighlight.QuickInfo
             MutationCodeHighlightHandler.OnMutationHighlightUpdate -= MutationCodeHighlightHandlerOnOnMutationHighlightUpdate;
         }
 
-        private void MutationCodeHighlightHandlerOnOnMutationHighlightUpdate(object sender, IList<MutationHightlight> e)
+        private void MutationCodeHighlightHandlerOnOnMutationHighlightUpdate(object sender, IList<MutationHighlight> e)
         {
-            _mutations = new List<MutationHightlight>(e);
+            _mutations = new List<MutationHighlight>(e);
         }
 
         private bool InsideSpan(int position, ITextSnapshotLine line)

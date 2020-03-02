@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Editing;
@@ -12,14 +12,14 @@ namespace Testura.Mutation.Core
         public MutationDocument(Document orginalDocument, MutationDocumentDetails mutationDetails)
         {
             MutationDetails = mutationDetails;
-            Id = Guid.NewGuid();
+            Id = Path.GetRandomFileName();
             FileName = orginalDocument?.Name;
             FilePath = orginalDocument?.FilePath;
             ProjectName = orginalDocument?.Project.Name;
             _orginalDocument = orginalDocument;
         }
 
-        public Guid Id { get; }
+        public string Id { get; }
 
         public string FileName { get; }
 
