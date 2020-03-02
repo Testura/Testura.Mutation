@@ -5,12 +5,36 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Testura.Mutation.VsExtension.MutationHighlight.Glyph"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
-        <Button Height="12" Width="12" Click="Button_Click">
+        <Image x:Name="Moo"></Image>
+        <Button Height="12" Width="12" Click="Button_Click" x:Name="GlyphButton">
             <Button.Template>
                 <ControlTemplate>
-                    <Image Source="../../Resources/iconGlyph.png"/>
+                    <Image>
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Style.Triggers>
+                                    <DataTrigger  Binding="{Binding Status}" Value="Waiting">
+                                        <Setter Property="Source" Value="../../Resources/iconGlyph.png"/>
+                                    </DataTrigger >
+                                    <DataTrigger  Binding="{Binding Status}" Value="Running">
+                                        <Setter Property="Source" Value="../../Resources/iconGlyph.png"/>
+                                    </DataTrigger >
+                                    <DataTrigger  Binding="{Binding Status}" Value="CompleteAndSurvived">
+                                        <Setter Property="Source" Value="../../Resources/iconSurvivedGlyph.png"/>
+                                    </DataTrigger >
+                                    <DataTrigger  Binding="{Binding Status}" Value="CompleteAndKilled">
+                                        <Setter Property="Source" Value="../../Resources/iconKilledGlyph.png"/>
+                                    </DataTrigger >
+                                    <DataTrigger  Binding="{Binding Status}" Value="CompletedWithUnknownReason">
+                                        <Setter Property="Source" Value="../../Resources/iconUnknownedGlyph.png"/>
+                                    </DataTrigger >
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
                 </ControlTemplate>
             </Button.Template>
         </Button>

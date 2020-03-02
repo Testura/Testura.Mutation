@@ -8,7 +8,8 @@ namespace Testura.Mutation.VsExtension.MutationHighlight.Glyph
     {
         public UIElement GenerateGlyph(IWpfTextViewLine line, IGlyphTag tag)
         {
-            return new MutationCodeHighlightGlyph();
+            var mutationInfoTag = tag as MutationCodeHighlightTag;
+            return new MutationCodeHighlightGlyph(mutationInfoTag?.MutationHighlight);
         }
     }
 }

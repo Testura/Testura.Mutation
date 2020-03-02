@@ -78,7 +78,7 @@
     <Compile Include="MutationHighlight\MutationCodeHighlightTag.cs" />
     <Compile Include="MutationHighlight\MutationCodeHighlightTagger.cs" />
     <Compile Include="MutationHighlight\MutationCodeHighlightTaggerProvider.cs" />
-    <Compile Include="MutationHighlight\MutationHightlight.cs" />
+    <Compile Include="MutationHighlight\MutationHighlight.cs" />
     <Compile Include="MutationHighlight\QuickInfo\MutationCodeHighlightQuickInfoProvider.cs" />
     <Compile Include="Sections\Config\MutationConfigWindow.cs" />
     <Compile Include="Sections\Config\MutationConfigWindowCommand.cs" />
@@ -109,6 +109,21 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Resources\iconKilledGlyph.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\iconSurvivedGlyph.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\iconUnknownedGlyph.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\checked.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\error.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\iconGlyph.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

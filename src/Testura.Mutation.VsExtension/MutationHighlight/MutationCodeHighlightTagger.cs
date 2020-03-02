@@ -17,7 +17,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
         private readonly VisualStudioWorkspace _visualStudioWorkspace;
         private readonly Dictionary<TestRunDocument.TestRunStatusEnum, string> _mutationDefinitions;
         private readonly DocumentId _documentId;
-        private IList<MutationHightlight> _mutations;
+        private IList<MutationHighlight> _mutations;
         private Dictionary<ITrackingSpan, string> _trackingSpans;
 
         public MutationCodeHighlightTagger(
@@ -87,7 +87,14 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
                     if (spans.Any(sp => spanInCurrentSnapshot.IntersectsWith(sp)))
                     {
                         var snapshotSpan = new SnapshotSpan(currentSnapshot, spanInCurrentSnapshot);
-                        tags.Add(new TagSpan<MutationCodeHighlightTag>(snapshotSpan, new MutationCodeHighlightTag(_mutationDefinitions[(TestRunDocument.TestRunStatusEnum)int.Parse(_trackingSpans[trackingSpan])])));
+                        var mutation = _mutations.FirstOrDefault(m => m.Id == _trackingSpans[trackingSpan]);
+
+                        if (mutation == null)
+                        {
+                            continue;
+                        }
+
+                        tags.Add(new TagSpan<MutationCodeHighlightTag>(snapshotSpan, new MutationCodeHighlightTag(_mutationDefinitions[mutation.Status], mutation)));
                     }
                 }
 
@@ -123,7 +130,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
             {
                 var span = new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(mutationHightlight.Start, mutationHightlight.Length));
                 var trackingSpan = currentSnapshot.CreateTrackingSpan(span, SpanTrackingMode.EdgeExclusive);
-                _trackingSpans.Add(trackingSpan, ((int)mutationHightlight.Status).ToString());
+                _trackingSpans.Add(trackingSpan, mutationHightlight.Id);
             }
         }
 
@@ -137,7 +144,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
             }
         }
 
-        private void MutationCodeHighlightHandlerOnOnMutationHighlightUpdate(object sender, IList<MutationHightlight> e)
+        private void MutationCodeHighlightHandlerOnOnMutationHighlightUpdate(object sender, IList<MutationHighlight> e)
         {
             if (_mutations != null && _mutations.Count == 0 && e.Count == 0)
             {
@@ -149,7 +156,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
                 return;
             }
 
-            _mutations = new List<MutationHightlight>(e ?? new List<MutationHightlight>());
+            _mutations = new List<MutationHighlight>(e ?? new List<MutationHighlight>());
 
             CreateTrackingSpans();
             TagsChanged?.Invoke(this, new SnapshotSpanEventArgs(new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(0, SourceBuffer.CurrentSnapshot.Length - 1))));

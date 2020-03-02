@@ -283,6 +283,8 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
                 if (runDocument != null)
                 {
+                    runDocument.Result = result;
+
                     if (result.CompilationResult != null && !result.CompilationResult.IsSuccess)
                     {
                         runDocument.Status = TestRunDocument.TestRunStatusEnum.CompletedWithUnknownReason;

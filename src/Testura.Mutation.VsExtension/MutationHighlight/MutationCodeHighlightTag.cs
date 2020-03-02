@@ -5,9 +5,12 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
 {
     public class MutationCodeHighlightTag : TextMarkerTag, IGlyphTag
     {
-        public MutationCodeHighlightTag(string type)
+        public MutationCodeHighlightTag(string type, MutationHighlight mutationHighlight)
             : base($"MarkerFormatDefinition/{type}")
         {
+            MutationHighlight = mutationHighlight;
         }
+
+        public MutationHighlight MutationHighlight { get; }
     }
 }

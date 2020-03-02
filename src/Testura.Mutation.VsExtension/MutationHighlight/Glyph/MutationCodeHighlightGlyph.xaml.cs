@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Testura.Mutation.VsExtension.Models;
 using Testura.Mutation.VsExtension.MutationHighlight.Glyph.Dialog;
 
 namespace Testura.Mutation.VsExtension.MutationHighlight.Glyph
@@ -9,14 +10,19 @@ namespace Testura.Mutation.VsExtension.MutationHighlight.Glyph
     /// </summary>
     public partial class MutationCodeHighlightGlyph : UserControl
     {
-        public MutationCodeHighlightGlyph()
+        private readonly MutationHighlight _mutationHighlight;
+
+        public MutationCodeHighlightGlyph(MutationHighlight mutationHighlight)
         {
+            _mutationHighlight = mutationHighlight;
             InitializeComponent();
         }
 
+        public TestRunDocument.TestRunStatusEnum Status => _mutationHighlight.Status;
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var documentationControl = new MutationCodeHiglightInfoDialog();
+            var documentationControl = new MutationCodeHiglightInfoDialog(_mutationHighlight);
             documentationControl.ShowDialog();
         }
     }
