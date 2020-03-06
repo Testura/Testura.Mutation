@@ -30,20 +30,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="60" />
-            <ColumnDefinition>
-                <ColumnDefinition.Style>
-                    <Style TargetType="ColumnDefinition">
-                        <Setter Property="Width" Value="*" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsMutationVisible}" Value="False">
-                                <Setter Property="Width" Value="0" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ColumnDefinition.Style>
-            </ColumnDefinition>
         </Grid.ColumnDefinitions>
 
             <DockPanel Grid.Row="0">
@@ -78,7 +66,7 @@
             </ToolBarTray>
             </DockPanel>
         <Grid Grid.Row="0" Grid.Column="1" Background="#303030">
-            <Image x:Name="myImage" Source="../../Resources/iconWithoutDot.png" Width="26" Height="Auto" RenderTransformOrigin="0.5, 0.5" ToolTip="{Binding LoadingMessage}"  Visibility="{Binding IsLoadingVisible, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1">
+            <!--<Image x:Name="myImage" Source="../../Resources/iconWithoutDot.png" Width="26" Height="Auto" RenderTransformOrigin="0.5, 0.5" ToolTip="{Binding LoadingMessage}"  Visibility="{Binding IsLoadingVisible, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1">
                 <Image.Triggers>
                     <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                         <EventTrigger.Actions>
@@ -89,133 +77,102 @@
                 <Image.RenderTransform>
                     <RotateTransform Angle="0" />
                 </Image.RenderTransform>
-            </Image>
+            </Image>-->
         </Grid>
 
-        <Grid Grid.Row="1" Background="#1e1e1e" Grid.ColumnSpan="2"></Grid>
+        <!--<Grid Grid.Row="1" Background="#1e1e1e" Grid.ColumnSpan="2"></Grid>-->
         <ScrollViewer Grid.Row="2" ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
-                <DataGrid
+            <DataGrid
                         SelectionUnit="FullRow"
                         AutoGenerateColumns="False"
                         IsReadOnly="False"
                         ItemsSource="{Binding Mutations}"
-                        CanUserAddRows="false"
-                        Grid.Row="1">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDoubleClick">
-                            <i:InvokeCommandAction Command="{Binding GoToMutationCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" x:Name="Dummy" />
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding MutationSelectedCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" x:Name="SecondDummy" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                            <Setter Property="FontSize" Value="11"/>
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>
+                        CanUserAddRows="false">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding GoToMutationCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" x:Name="Dummy" />
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding MutationSelectedCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" x:Name="SecondDummy" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="" Width="50" IsReadOnly="True" MaxWidth="50" MinWidth="50">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ContentControl Width="20">
-                                        <ContentControl.Style>
-                                            <Style TargetType="{x:Type ContentControl}">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Status}" Value="Waiting">
-                                                        <Setter Property="ContentTemplate">
-                                                            <Setter.Value>
-                                                                <DataTemplate>
-                                                                    <Image Source="../../Resources/iconWithoutGlass.png" Width="18" Height="Auto" />
-                                                                </DataTemplate>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Status}" Value="Running">
-                                                        <Setter Property="ContentTemplate">
-                                                            <Setter.Value>
-                                                                <DataTemplate>
-                                                                    <Image x:Name="myImage" Source="../../Resources/iconWithoutDot.png" Width="18" Height="Auto" RenderTransformOrigin="0.5, 0.5">
-                                                                        <Image.Triggers>
-                                                                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                                                                                <EventTrigger.Actions>
-                                                                                    <BeginStoryboard Storyboard="{StaticResource imageRotationStoryboard}" />
-                                                                                </EventTrigger.Actions>
-                                                                            </EventTrigger>
-                                                                        </Image.Triggers>
-                                                                        <Image.RenderTransform>
-                                                                            <RotateTransform Angle="0" />
-                                                                        </Image.RenderTransform>
-                                                                    </Image>
-                                                                </DataTemplate>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Status}" Value="CompleteAndSurvived">
-                                                        <Setter Property="ContentTemplate">
-                                                            <Setter.Value>
-                                                                <DataTemplate>
-                                                                    <Image Source="../../Resources/iconSurvived.png" Width="18" />
-                                                                </DataTemplate>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Status}" Value="CompleteAndKilled">
-                                                        <Setter Property="ContentTemplate">
-                                                            <Setter.Value>
-                                                                <DataTemplate>
-                                                                    <Image Source="../../Resources/iconKilled.png" Width="18" />
-                                                                </DataTemplate>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Status}" Value="CompletedWithUnknownReason">
-                                                        <Setter Property="ContentTemplate">
-                                                            <Setter.Value>
-                                                                <DataTemplate>
-                                                                    <Image Source="../../Resources/iconUnknowned.png" Width="18" />
-                                                                </DataTemplate>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ContentControl.Style>
-                                    </ContentControl>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="File" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True" FontSize="11"/>
-                    <DataGridTextColumn Header="Where" Binding="{Binding Document.MutationDetails.Location.Where}" Width="*" IsReadOnly="True" FontSize="11"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </ScrollViewer>
-        <Grid Grid.Column="2" Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <GroupBox
-                Header="Before mutation"
-                Style="{DynamicResource MaterialDesignCardGroupBox}"
-                Grid.Row="0"
-                Margin="16">
-                <RichTextBox x:Name="BeforeTxt"
-                             ScrollViewer.ScrollChanged="OnScrollChanged"
-                             codeDiff1:SideBySideDiffModelVisualizer.Vorher="{Binding Diff, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" AcceptsReturn="True" IsReadOnly="True" 
-                             VerticalScrollBarVisibility="Visible"/>
-            </GroupBox>
-
-            <GroupBox
-                Header="After mutation"
-                Style="{DynamicResource MaterialDesignCardGroupBox}"
-                Margin="16"
-                Grid.Row="1">
-                <RichTextBox x:Name="AfterTxt"
-                             ScrollViewer.ScrollChanged="OnScrollChanged"
-                             codeDiff1:SideBySideDiffModelVisualizer.Nachher="{Binding Diff, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" AcceptsReturn="True" IsReadOnly="True" 
-                             VerticalScrollBarVisibility="Visible"/>
-            </GroupBox>
-        </Grid>
+                    <DataGridTemplateColumn Header="" Width="60" IsReadOnly="True" MaxWidth="60" MinWidth="60">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ContentControl Width="24">
+                                    <ContentControl.Style>
+                                        <Style TargetType="{x:Type ContentControl}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Status}" Value="Waiting">
+                                                    <Setter Property="ContentTemplate">
+                                                        <Setter.Value>
+                                                            <DataTemplate>
+                                                                <Image Source="../../Resources/iconWithoutGlass.png" Width="18 " Height="Auto" />
+                                                            </DataTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="Running">
+                                                    <Setter Property="ContentTemplate">
+                                                        <Setter.Value>
+                                                            <DataTemplate>
+                                                                <Image x:Name="myImage" Source="../../Resources/iconWithoutDot.png" Width="18" Height="Auto" RenderTransformOrigin="0.5, 0.5">
+                                                                    <Image.Triggers>
+                                                                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                                                            <EventTrigger.Actions>
+                                                                                <BeginStoryboard Storyboard="{StaticResource imageRotationStoryboard}" />
+                                                                            </EventTrigger.Actions>
+                                                                        </EventTrigger>
+                                                                    </Image.Triggers>
+                                                                    <Image.RenderTransform>
+                                                                        <RotateTransform Angle="0" />
+                                                                    </Image.RenderTransform>
+                                                                </Image>
+                                                            </DataTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="CompleteAndSurvived">
+                                                    <Setter Property="ContentTemplate">
+                                                        <Setter.Value>
+                                                            <DataTemplate>
+                                                                <Image Source="../../Resources/iconSurvived.png" Width="18" />
+                                                            </DataTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="CompleteAndKilled">
+                                                    <Setter Property="ContentTemplate">
+                                                        <Setter.Value>
+                                                            <DataTemplate>
+                                                                <Image Source="../../Resources/iconKilled.png" Width="18" />
+                                                            </DataTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="CompletedWithUnknownReason">
+                                                    <Setter Property="ContentTemplate">
+                                                        <Setter.Value>
+                                                            <DataTemplate>
+                                                                <Image Source="../../Resources/iconUnknowned.png" Width="18" />
+                                                            </DataTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentControl.Style>
+                                </ContentControl>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="File" Binding="{Binding Document.FileName}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Where" Binding="{Binding Document.MutationDetails.Location.Where}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Line" Binding="{Binding Document.MutationDetails.Location.Line}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Info" Binding="{Binding InfoText}" Width="*" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
     </Grid>
 </UserControl>
