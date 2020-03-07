@@ -23,7 +23,7 @@ namespace Testura.Mutation.VsExtension
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideToolWindow(typeof(MutationExplorerWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Window = EnvDTE.Constants.vsWindowKindSolutionExplorer)]
+    [ProvideToolWindow(typeof(MutationExplorerWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Window = Constants.vsWindowKindMainWindow, Orientation = ToolWindowOrientation.Left)]
     [ProvideToolWindow(typeof(MutationConfigWindow), MultiInstances = false, DocumentLikeTool = true)]
     public sealed class TesturaMutationVsExtensionPackage : AsyncPackage
     {
