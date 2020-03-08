@@ -8,45 +8,25 @@ namespace Testura.Mutation.VsExtension.MutationHighlight.Glyph.Dialog
 {
     public class MutationCodeHighlightInfoDialogViewModel : BindableBase
     {
-        private MutationHighlight _mutationHighlight;
+        private MutationRunItem _mutationRunItem;
         private string _status;
         private SideBySideDiffModel _diff;
 
-        public MutationCodeHighlightInfoDialogViewModel(MutationHighlight mutationHighlight)
+        public MutationCodeHighlightInfoDialogViewModel(MutationRunItem mutationRunItem)
         {
-            _mutationHighlight = mutationHighlight;
-            Status = "Waiting..";
-
-            if (_mutationHighlight.CompilationResult != null && !_mutationHighlight.CompilationResult.IsSuccess)
-            {
-                Status = "Failed to compile.";
-                return;
-            }
-
-            if (!string.IsNullOrEmpty(_mutationHighlight.UnexpectedError))
-            {
-                Status = $"Unexpected error: {_mutationHighlight.UnexpectedError}";
-                return;
-            }
-
-            if (_mutationHighlight.Status == TestRunDocument.TestRunStatusEnum.CompleteAndKilled)
-            {
-                Status = "Mutation was killed.";
-            }
-
-            if (_mutationHighlight.Status == TestRunDocument.TestRunStatusEnum.CompleteAndSurvived)
-            {
-                Status = "Mutation survived.";
-            }
+            _mutationRunItem = mutationRunItem;
+            Status = mutationRunItem.InfoText;
 
             var diffBuilder = new SideBySideDiffBuilder(new Differ());
-            Diff = diffBuilder.BuildDiffModel(_mutationHighlight.OriginalText ?? string.Empty, _mutationHighlight.MutationText ?? string.Empty);
+            Diff = diffBuilder.BuildDiffModel(
+                _mutationRunItem.Document.MutationDetails.Orginal.ToFullString() ?? string.Empty,
+                _mutationRunItem.Document.MutationDetails.Mutation.ToFullString() ?? string.Empty);
         }
 
-        public MutationHighlight MutationHighlight
+        public MutationRunItem MutationRunItem
         {
-            get => _mutationHighlight;
-            set => SetProperty(ref _mutationHighlight, value);
+            get => _mutationRunItem;
+            set => SetProperty(ref _mutationRunItem, value);
         }
 
         public string Status

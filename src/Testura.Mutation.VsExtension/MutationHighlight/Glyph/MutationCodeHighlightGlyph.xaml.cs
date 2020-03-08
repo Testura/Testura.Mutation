@@ -18,11 +18,11 @@ namespace Testura.Mutation.VsExtension.MutationHighlight.Glyph
             InitializeComponent();
         }
 
-        public TestRunDocument.TestRunStatusEnum Status => _mutationHighlight.Status;
+        public MutationRunItem.TestRunStatusEnum Status => _mutationHighlight.Mutation.Status;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var documentationControl = new MutationCodeHiglightInfoDialog(_mutationHighlight);
+            var documentationControl = new MutationCodeHiglightInfoDialog(_mutationHighlight.Mutation);
             documentationControl.ShowDialog();
         }
     }

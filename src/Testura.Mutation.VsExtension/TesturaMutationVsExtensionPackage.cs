@@ -11,6 +11,7 @@ using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Shell;
 using Testura.Mutation.Application.Logs;
 using Testura.Mutation.Core.Solution;
+using Testura.Mutation.VsExtension.Sections.Config;
 using Testura.Mutation.VsExtension.Sections.MutationExplorer;
 using Testura.Mutation.VsExtension.Sections.Selects;
 using Testura.Mutation.VsExtension.Services;
@@ -22,8 +23,8 @@ namespace Testura.Mutation.VsExtension
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideToolWindow(typeof(MutationExplorerWindow), MultiInstances = false, DocumentLikeTool = true)]
-    [ProvideToolWindow(typeof(Testura.Mutation.VsExtension.Sections.Config.MutationConfigWindow), MultiInstances = false, DocumentLikeTool = true)]
+    [ProvideToolWindow(typeof(MutationExplorerWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Window = Constants.vsWindowKindMainWindow, Orientation = ToolWindowOrientation.Left)]
+    [ProvideToolWindow(typeof(MutationConfigWindow), MultiInstances = false, DocumentLikeTool = true)]
     public sealed class TesturaMutationVsExtensionPackage : AsyncPackage
     {
         public const string PackageGuidString = "eb1b49be-0389-4dee-995a-cf1854262fa9";
@@ -48,7 +49,7 @@ namespace Testura.Mutation.VsExtension
 
             await MutationExplorerWindowCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<UserNotificationService>());
             await SelectProjectFileCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<MutationFilterItemCreatorService>(), _bootstrapper.Container.Resolve<UserNotificationService>());
-            await Sections.Config.MutationConfigWindowCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<UserNotificationService>());
+            await MutationConfigWindowCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<UserNotificationService>());
             await SelectLineCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<MutationFilterItemCreatorService>(), _bootstrapper.Container.Resolve<UserNotificationService>());
         }
 

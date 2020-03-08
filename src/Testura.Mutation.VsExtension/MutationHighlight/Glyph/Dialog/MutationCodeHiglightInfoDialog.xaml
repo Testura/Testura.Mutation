@@ -41,7 +41,7 @@
                     SelectionUnit="FullRow"
                     AutoGenerateColumns="False"
                     IsReadOnly="False"
-                    ItemsSource="{Binding MutationHighlight.FailedTests}"
+                    ItemsSource="{Binding MutationRunItem.Result.FailedTests}"
                     CanUserAddRows="false">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" IsReadOnly="True"/>
@@ -74,7 +74,7 @@
                     SelectionUnit="FullRow"
                     AutoGenerateColumns="False"
                     IsReadOnly="False"
-                    ItemsSource="{Binding MutationHighlight.CompilationResult.Errors}"
+                    ItemsSource="{Binding MutationRunItem.Result.CompilationResult.Errors}"
                     CanUserAddRows="false">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="*" IsReadOnly="True"/>

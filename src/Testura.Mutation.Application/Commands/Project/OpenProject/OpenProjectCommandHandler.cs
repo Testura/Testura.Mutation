@@ -62,7 +62,8 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
             }
             catch (Exception ex)
             {
-                Log.Error("Failed to open project", ex);
+                Log.Error("Failed to open project");
+                Log.Error(ex.Message);
                 throw new OpenProjectException("Failed to open project", ex);
             }
         }

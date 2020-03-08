@@ -3,7 +3,7 @@ using Testura.Mutation.Core;
 
 namespace Testura.Mutation.VsExtension.Models
 {
-    public class TestRunDocument : BindableBase
+    public class MutationRunItem : BindableBase
     {
         private MutationDocument _mutationDocument;
         private TestRunStatusEnum _status;
@@ -37,5 +37,7 @@ namespace Testura.Mutation.VsExtension.Models
             get => _infoText;
             set => SetProperty(ref _infoText, value);
         }
+
+        public string Name => $"{_mutationDocument.FileName} - {_mutationDocument.MutationDetails.Location.Where}({_mutationDocument.MutationDetails.Location.Line})";
     }
 }

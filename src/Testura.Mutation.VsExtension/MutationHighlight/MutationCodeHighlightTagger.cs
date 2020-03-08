@@ -7,15 +7,15 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.Text.Tagging;
+using Testura.Mutation.VsExtension.Models;
 using Testura.Mutation.VsExtension.MutationHighlight.Definitions;
-using TestRunDocument = Testura.Mutation.VsExtension.Models.TestRunDocument;
 
 namespace Testura.Mutation.VsExtension.MutationHighlight
 {
     public class MutationCodeHighlightTagger : ITagger<MutationCodeHighlightTag>, IDisposable
     {
         private readonly VisualStudioWorkspace _visualStudioWorkspace;
-        private readonly Dictionary<TestRunDocument.TestRunStatusEnum, string> _mutationDefinitions;
+        private readonly Dictionary<MutationRunItem.TestRunStatusEnum, string> _mutationDefinitions;
         private readonly DocumentId _documentId;
         private IList<MutationHighlight> _mutations;
         private Dictionary<ITrackingSpan, string> _trackingSpans;
@@ -35,13 +35,13 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
             TextSearchService = textSearchService;
             TextStructureNavigator = textStructureNavigator;
 
-            _mutationDefinitions = new Dictionary<TestRunDocument.TestRunStatusEnum, string>
+            _mutationDefinitions = new Dictionary<MutationRunItem.TestRunStatusEnum, string>
             {
-                [TestRunDocument.TestRunStatusEnum.Waiting] = nameof(MutationNotRunFormatDefinition),
-                [TestRunDocument.TestRunStatusEnum.Running] = nameof(MutationNotRunFormatDefinition),
-                [TestRunDocument.TestRunStatusEnum.CompleteAndKilled] = nameof(MutationKilledFormatDefinition),
-                [TestRunDocument.TestRunStatusEnum.CompleteAndSurvived] = nameof(MutationSurvivedFormatDefinition),
-                [TestRunDocument.TestRunStatusEnum.CompletedWithUnknownReason] = nameof(MutationUnknownErrorFormatDefinition)
+                [MutationRunItem.TestRunStatusEnum.Waiting] = nameof(MutationNotRunFormatDefinition),
+                [MutationRunItem.TestRunStatusEnum.Running] = nameof(MutationNotRunFormatDefinition),
+                [MutationRunItem.TestRunStatusEnum.CompleteAndKilled] = nameof(MutationKilledFormatDefinition),
+                [MutationRunItem.TestRunStatusEnum.CompleteAndSurvived] = nameof(MutationSurvivedFormatDefinition),
+                [MutationRunItem.TestRunStatusEnum.CompletedWithUnknownReason] = nameof(MutationUnknownErrorFormatDefinition)
             };
 
             MutationCodeHighlightHandler.OnMutationHighlightUpdate += MutationCodeHighlightHandlerOnOnMutationHighlightUpdate;
@@ -87,14 +87,14 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
                     if (spans.Any(sp => spanInCurrentSnapshot.IntersectsWith(sp)))
                     {
                         var snapshotSpan = new SnapshotSpan(currentSnapshot, spanInCurrentSnapshot);
-                        var mutation = _mutations.FirstOrDefault(m => m.Id == _trackingSpans[trackingSpan]);
+                        var mutation = _mutations.FirstOrDefault(m => m.Mutation.Document.Id == _trackingSpans[trackingSpan]);
 
                         if (mutation == null)
                         {
                             continue;
                         }
 
-                        tags.Add(new TagSpan<MutationCodeHighlightTag>(snapshotSpan, new MutationCodeHighlightTag(_mutationDefinitions[mutation.Status], mutation)));
+                        tags.Add(new TagSpan<MutationCodeHighlightTag>(snapshotSpan, new MutationCodeHighlightTag(_mutationDefinitions[mutation.Mutation.Status], mutation)));
                     }
                 }
 
@@ -126,11 +126,13 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
             SourceBuffer.Properties.TryGetProperty(
                 typeof(ITextDocument), out ITextDocument document);
 
-            foreach (var mutationHightlight in _mutations.Where(m => m.FilePath == document?.FilePath))
+            foreach (var mutationHightlight in _mutations.Where(m => m.Mutation.Document.FilePath == document?.FilePath))
             {
-                var span = new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(mutationHightlight.Start, mutationHightlight.Length));
+                var mutationSpan = mutationHightlight.Mutation.Document.MutationDetails.Orginal.FullSpan;
+
+                var span = new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(mutationSpan.Start, mutationSpan.Length));
                 var trackingSpan = currentSnapshot.CreateTrackingSpan(span, SpanTrackingMode.EdgeExclusive);
-                _trackingSpans.Add(trackingSpan, mutationHightlight.Id);
+                _trackingSpans.Add(trackingSpan, mutationHightlight.Mutation.Document.Id);
             }
         }
 

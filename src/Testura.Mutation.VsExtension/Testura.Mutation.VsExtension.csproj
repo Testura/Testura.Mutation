@@ -63,12 +63,13 @@
     <Compile Include="Util\Converters\BooleanToHiddenConverter.cs" />
     <Compile Include="Util\Converters\InvertBooleanConverter.cs" />
     <Compile Include="Util\Converters\IsZeroConverter.cs" />
+    <Compile Include="Util\Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Util\Extensions\EnumExtensions.cs" />
     <Compile Include="Models\ConfigProjectGridItem.cs" />
     <Compile Include="Models\ConfigProjectMappingGridItem.cs" />
     <Compile Include="Models\MutationOperatorGridItem.cs" />
     <Compile Include="Models\ProjectListItem.cs" />
-    <Compile Include="Models\TestRunDocument.cs" />
+    <Compile Include="Models\MutationRunItem.cs" />
     <Compile Include="MutationHighlight\Definitions\MutationUnknownErrorFormatDefinition.cs" />
     <Compile Include="MutationHighlight\Definitions\MutationKilledFormatDefinition.cs" />
     <Compile Include="MutationHighlight\Definitions\MutationSurvivedFormatDefinition.cs" />
@@ -109,6 +110,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Resources\rerun.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\stopIcon_red.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\iconKilledGlyph.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -140,6 +147,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Resources\playicon_green.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\bigIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>

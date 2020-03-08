@@ -32,7 +32,9 @@ namespace Testura.Mutation.VsExtension.MutationHighlight.QuickInfo
             }
 
             var line = triggerPoint.Value.GetContainingLine();
-            var mutation = _mutations.FirstOrDefault(m => InsideSpan(m.Start, line) || InsideSpan(m.Start + m.Length, line));
+            var mutation = _mutations.FirstOrDefault(m =>
+                InsideSpan(m.Mutation.Document.MutationDetails.Orginal.FullSpan.Start, line) ||
+                InsideSpan(m.Mutation.Document.MutationDetails.Orginal.FullSpan.Start + m.Mutation.Document.MutationDetails.Orginal.FullSpan.Length, line));
 
             if (mutation == null)
             {
@@ -46,7 +48,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight.QuickInfo
             var dataElm = new ContainerElement(
                 ContainerElementStyle.Stacked,
                 new ClassifiedTextElement(
-                    new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, $"MUTATION: [{mutation.MutationText}]")));
+                    new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, $"MUTATION: [{mutation.Mutation.Document.MutationDetails.Mutation.ToFullString()}]")));
 
             return Task.FromResult(new QuickInfoItem(lineSpan, dataElm));
         }
