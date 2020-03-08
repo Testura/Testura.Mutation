@@ -26,7 +26,7 @@ Testura is a mutation testing tool/visual studio extension for C# that verifies 
 
 ### Visual studio extension 
 
-![Mutation explorer](https://i.imgur.com/rH8Kj8v.png)
+![Mutation explorer](https://i.imgur.com/kpDPdhA.png)
 
 #### Configuration
 
