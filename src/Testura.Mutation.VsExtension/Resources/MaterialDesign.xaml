@@ -13,6 +13,7 @@
     <converters:EqualityToBooleanConverter x:Key="EqualityToBooleanConverter" />
     <converters:ShowDefaultCloseButtonConverter x:Key="ShowDefaultCloseButtonConverter" />
     <local:BrushToRadialGradientBrushConverter x:Key="BrushToRadialGradientBrushConverter" />
+    <converters2:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
 
     <Style x:Key="MaterialDesignFocusVisual">
         <Setter Property="Control.Template">

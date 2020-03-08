@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.PlatformUI;
+using Testura.Mutation.VsExtension.Models;
 
 namespace Testura.Mutation.VsExtension.MutationHighlight.Glyph.Dialog
 {
@@ -7,12 +8,12 @@ namespace Testura.Mutation.VsExtension.MutationHighlight.Glyph.Dialog
     /// </summary>
     public partial class MutationCodeHiglightInfoDialog : DialogWindow
     {
-        public MutationCodeHiglightInfoDialog(MutationHighlight mutationHighlight)
+        public MutationCodeHiglightInfoDialog(MutationRunItem mutationRunItem)
         {
             HasMaximizeButton = true;
             HasMinimizeButton = true;
 
-            DataContext = new MutationCodeHighlightInfoDialogViewModel(mutationHighlight);
+            DataContext = new MutationCodeHighlightInfoDialogViewModel(mutationRunItem);
             InitializeComponent();
         }
     }

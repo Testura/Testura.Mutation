@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TestRunDocument = Testura.Mutation.VsExtension.Models.TestRunDocument;
+using Testura.Mutation.VsExtension.Models;
 
 namespace Testura.Mutation.VsExtension.MutationHighlight
 {
@@ -16,23 +16,9 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
             OnMutationHighlightUpdate?.Invoke(typeof(MutationCodeHighlightHandler), new List<MutationHighlight>(mutationHightlights));
         }
 
-        public static void UpdateMutationHighlightList(IEnumerable<TestRunDocument> testRunDocument)
+        public static void UpdateMutationHighlightList(IEnumerable<MutationRunItem> mutations)
         {
-            MutationHighlights = testRunDocument.Select(m =>
-                new MutationHighlight
-                {
-                    Id = m.Document.Id,
-                    UnexpectedError = m.Result?.UnexpectedError,
-                    CompilationResult = m.Result?.CompilationResult,
-                    FailedTests = m.Result?.FailedTests,
-                    FilePath = m.Document.FilePath,
-                    Line = m.Document.MutationDetails.Location.GetLineNumber(),
-                    Start = m.Document.MutationDetails.Orginal.FullSpan.Start,
-                    Length = m.Document.MutationDetails.Orginal.FullSpan.Length,
-                    Status = m.Status,
-                    MutationText = m.Document.MutationDetails.Mutation.ToFullString(),
-                    OriginalText = m.Document.MutationDetails.Orginal.ToFullString()
-                }).ToList();
+            MutationHighlights = mutations.Select(m => new MutationHighlight { Mutation = m }).ToList();
 
             UpdateMutationHighlightList(MutationHighlights);
         }
