@@ -71,6 +71,7 @@
     <Compile Include="Execution\Report\Html\HtmlOnlyBodyReportCreator.cs" />
     <Compile Include="Execution\Report\Summary\TextSummaryReportCreator.cs" />
     <Compile Include="Execution\MutationDocumentExecutor.cs" />
+    <Compile Include="Execution\Result\MutationRunResult.cs" />
     <Compile Include="Execution\Result\TestResult.cs" />
     <Compile Include="Execution\Result\TestSuiteResult.cs" />
     <Compile Include="Execution\Runners\ITestRunner.cs" />
@@ -81,10 +82,11 @@
     <Compile Include="Git\IGitCloner.cs" />
     <Compile Include="Git\IGitDiff.cs" />
     <Compile Include="Location\MutationLocationInfo.cs" />
-    <Compile Include="Loggers\AzureMutationRunLogger.cs" />
+    <Compile Include="Loggers\LoggerKinds\AzureMutationRunLogger.cs" />
     <Compile Include="Loggers\IMutationRunLogger.cs" />
-    <Compile Include="Loggers\IMutationRunLoggerFactory.cs" />
-    <Compile Include="Loggers\MutationRunLoggerFactory.cs" />
+    <Compile Include="Loggers\IMutationRunLoggerManager.cs" />
+    <Compile Include="Loggers\MutationRunLoggerManager.cs" />
+    <Compile Include="Loggers\LoggerKinds\StatusMutationRunLogger.cs" />
     <Compile Include="MutationDocument.cs" />
     <Compile Include="MutationDocumentDetails.cs" />
     <Compile Include="MutationDocumentResult.cs" />
