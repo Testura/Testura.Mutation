@@ -38,6 +38,7 @@ namespace Testura.Mutation.Tests.Utils.Creators
             return new MutationConfig
             {
                 Solution = solution,
+                NumberOfTestRunInstances = 1,
                 Mutators = new List<IMutator>
                 {
                     new ConditionalBoundaryMutator(),

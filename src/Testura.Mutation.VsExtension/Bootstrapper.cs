@@ -8,6 +8,7 @@ using Testura.Mutation.Application.Extensions;
 using Testura.Mutation.Core.Execution.Compilation;
 using Testura.Mutation.Core.Execution.Runners;
 using Testura.Mutation.Core.Git;
+using Testura.Mutation.Core.Loggers;
 using Testura.Mutation.Core.Solution;
 using Testura.Mutation.Infrastructure;
 using Testura.Mutation.Infrastructure.Git;
@@ -64,6 +65,7 @@ namespace Testura.Mutation.VsExtension
             Container.RegisterType<MutationConfigWindowControl>();
             Container.RegisterType<ISolutionOpener, MsBuildSolutionOpener>();
             Container.RegisterType<IFileSystem, FileSystem>();
+            Container.RegisterType<IMutationRunLoggerManager, MutationRunLoggerManager>();
 
             base.ConfigureContainer();
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using log4net;
 
-namespace Testura.Mutation.Core.Loggers
+namespace Testura.Mutation.Core.Loggers.LoggerKinds
 {
     public class AzureMutationRunLogger : IMutationRunLogger
     {

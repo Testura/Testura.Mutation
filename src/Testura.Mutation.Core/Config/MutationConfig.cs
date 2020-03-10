@@ -33,7 +33,7 @@ namespace Testura.Mutation.Core.Config
 
         public string DotNetPath { get; set; }
 
-        public IList<MutationRunLogger> MutationRunLoggers { get; set; }
+        public IList<MutationRunLoggerKind> MutationRunLoggers { get; set; }
 
         public IList<IMutator> Mutators { get; set; }
 

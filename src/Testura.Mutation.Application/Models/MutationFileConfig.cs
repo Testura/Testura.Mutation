@@ -38,7 +38,7 @@ namespace Testura.Mutation.Application.Models
 
         public string DotNetPath { get; set; }
 
-        public List<MutationRunLogger> MutationRunLoggers { get; set; }
+        public List<MutationRunLoggerKind> MutationRunLoggers { get; set; }
 
         public List<string> Mutators { get; set; }
 

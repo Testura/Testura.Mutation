@@ -26,7 +26,7 @@ namespace Testura.Mutation.Core
         MethodCall
     }
 
-    public enum MutationRunLogger
+    public enum MutationRunLoggerKind
     {
         Azure
     }

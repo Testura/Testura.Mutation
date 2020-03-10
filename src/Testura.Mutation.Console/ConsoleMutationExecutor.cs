@@ -44,9 +44,9 @@ namespace Testura.Mutation.Console
                 new TextSummaryReportCreator(Path.ChangeExtension(trxSavePath, ".txt"))
             };
 
-            await _mediator.Send(new CreateReportCommand(results, reports, DateTime.Now - start));
+            await _mediator.Send(new CreateReportCommand(results.MutationDocumentResults, reports, DateTime.Now - start));
 
-            return !results.Any(r => r.Survived);
+            return results.Success;
         }
     }
 }

@@ -249,6 +249,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Commands\Mutation\ExecuteMutations\ExecuteMutationsCommandHandlerTests.cs" />
     <Compile Include="Core\Baseline\BaselineCreatorTests.cs" />
     <Compile Include="Core\Baseline\Handlers\BaselineCreatorCompileMutationProjectsHandlerTests.cs" />
     <Compile Include="Core\Baseline\Handlers\BaselineCreatorRunUnitTestsHandlerTests.cs" />
@@ -271,6 +272,7 @@
     <Compile Include="Utils\Creators\ProjectCompilerCreator.cs" />
     <Compile Include="Utils\Creators\SolutionCreator.cs" />
     <Compile Include="Utils\Creators\TestRunnerClientCreator.cs" />
+    <Compile Include="Utils\Stubs\MutationRunLoggerStub.cs" />
     <Compile Include="Utils\Stubs\ProjectCompilerStub.cs" />
     <Compile Include="Utils\Stubs\TestRunnerClientStub.cs" />
   </ItemGroup>

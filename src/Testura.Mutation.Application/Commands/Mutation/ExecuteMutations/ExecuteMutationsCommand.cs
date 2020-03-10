@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using MediatR;
 using Testura.Mutation.Core;
 using Testura.Mutation.Core.Config;
+using Testura.Mutation.Core.Execution.Result;
 
 namespace Testura.Mutation.Application.Commands.Mutation.ExecuteMutations
 {
-    public class ExecuteMutationsCommand : IRequest<IList<MutationDocumentResult>>
+    public class ExecuteMutationsCommand : IRequest<MutationRunResult>
     {
         public ExecuteMutationsCommand(
             MutationConfig config,
