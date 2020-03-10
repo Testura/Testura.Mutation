@@ -2,7 +2,7 @@
 
 namespace Testura.Mutation.Core.Loggers
 {
-    public class MutationRunLoggerFactory
+    public class MutationRunLoggerFactory : IMutationRunLoggerFactory
     {
         public IMutationRunLogger GetMutationRunLogger(MutationRunLogger mutationRunLogger)
         {

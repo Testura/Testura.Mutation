@@ -83,6 +83,7 @@
     <Compile Include="Location\MutationLocationInfo.cs" />
     <Compile Include="Loggers\AzureMutationRunLogger.cs" />
     <Compile Include="Loggers\IMutationRunLogger.cs" />
+    <Compile Include="Loggers\IMutationRunLoggerFactory.cs" />
     <Compile Include="Loggers\MutationRunLoggerFactory.cs" />
     <Compile Include="MutationDocument.cs" />
     <Compile Include="MutationDocumentDetails.cs" />

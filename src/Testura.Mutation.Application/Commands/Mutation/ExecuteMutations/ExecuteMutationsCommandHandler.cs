@@ -16,9 +16,9 @@ namespace Testura.Mutation.Application.Commands.Mutation.ExecuteMutations
         private static readonly ILog Log = LogManager.GetLogger(typeof(ExecuteMutationsCommandHandler));
 
         private readonly MutationDocumentExecutor _mutationDocumentExecutor;
-        private readonly MutationRunLoggerFactory _mutationRunLoggerFactory;
+        private readonly IMutationRunLoggerFactory _mutationRunLoggerFactory;
 
-        public ExecuteMutationsCommandHandler(MutationDocumentExecutor mutationDocumentExecutor, MutationRunLoggerFactory mutationRunLoggerFactory)
+        public ExecuteMutationsCommandHandler(MutationDocumentExecutor mutationDocumentExecutor, IMutationRunLoggerFactory mutationRunLoggerFactory)
         {
             _mutationDocumentExecutor = mutationDocumentExecutor;
             _mutationRunLoggerFactory = mutationRunLoggerFactory;
