@@ -5,7 +5,7 @@ namespace Testura.Mutation.Core.Creator.Mutators
 {
     public static class MutationOperatorFactory
     {
-        public static IMutator GetMutationOperator(Core.MutationOperators mutationOperators)
+        public static IMutator GetMutationOperator(MutationOperators mutationOperators)
         {
             switch (mutationOperators)
             {

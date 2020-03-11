@@ -45,10 +45,10 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
             {
                 (fileConfig, applicationConfig) = LoadConfigs(path, command.Config);
 
-                await _solutionExistHandler.VerifySolutionExistAsync(fileConfig, cancellationToken);
+                _solutionExistHandler.VerifySolutionExist(fileConfig.SolutionPath, cancellationToken);
+                applicationConfig.Mutators = _mutatorsHandler.InitializeMutators(fileConfig.Mutators, cancellationToken);
 
-                _mutatorsHandler.InitializeMutators(fileConfig, applicationConfig, cancellationToken);
-                _gitFilterHandler.InitializeGitFilter(fileConfig, applicationConfig, cancellationToken);
+                _gitFilterHandler.InitializeGitFilter(fileConfig.SolutionPath, fileConfig.Git, applicationConfig, cancellationToken);
 
                 await _workspaceHandler.InitializeProjectAsync(fileConfig, applicationConfig, cancellationToken);
 
@@ -89,7 +89,6 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
                 MaxTestTimeMin = fileConfig.MaxTestTimeMin,
                 DotNetPath = fileConfig.DotNetPath,
                 MutationRunLoggers = fileConfig.MutationRunLoggers,
-                TargetFramework = fileConfig.TargetFramework ?? new TargetFramework()
             };
 
             return (fileConfig, config);

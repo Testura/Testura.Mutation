@@ -36,7 +36,5 @@ namespace Testura.Mutation.Core.Config
         public IList<MutationRunLoggerKind> MutationRunLoggers { get; set; }
 
         public IList<IMutator> Mutators { get; set; }
-
-        public TargetFramework TargetFramework { get; set; }
     }
 }

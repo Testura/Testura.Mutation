@@ -262,6 +262,9 @@
   <ItemGroup>
     <Compile Include="Application\Commands\Mutation\ExecuteMutations\ExecuteMutationsCommandHandlerTests.cs" />
     <Compile Include="Application\Commands\Mutation\ExecuteMutations\ExecuteMutationsCommandValidatorTests.cs" />
+    <Compile Include="Application\Commands\Project\OpenProject\Handlers\OpenProjectMutatorsHandlerTests.cs" />
+    <Compile Include="Application\Commands\Project\OpenProject\Handlers\OpenProjectSolutionExistHandlerTests.cs" />
+    <Compile Include="Application\Commands\Project\OpenProject\OpenProjectCommandHandlerTests.cs" />
     <Compile Include="Core\Baseline\BaselineCreatorTests.cs" />
     <Compile Include="Core\Baseline\Handlers\BaselineCreatorCompileMutationProjectsHandlerTests.cs" />
     <Compile Include="Core\Baseline\Handlers\BaselineCreatorRunUnitTestsHandlerTests.cs" />
@@ -287,6 +290,7 @@
     <Compile Include="Utils\Stubs\MutationRunLoggerStub.cs" />
     <Compile Include="Utils\Stubs\ProjectCompilerStub.cs" />
     <Compile Include="Utils\Stubs\TestRunnerClientStub.cs" />
+    <Compile Include="Utils\Stubs\TestSolutionOpener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\Testura.Mutation.Core\Log4Net.Config">

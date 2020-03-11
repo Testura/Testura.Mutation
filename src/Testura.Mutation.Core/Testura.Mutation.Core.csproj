@@ -50,7 +50,6 @@
     <Compile Include="Baseline\Handlers\BaselineCreatorLogSummaryHandler.cs" />
     <Compile Include="Baseline\Handlers\BaselineCreatorRunUnitTestsHandler.cs" />
     <Compile Include="Config\MutationProject.cs" />
-    <Compile Include="Config\TargetFramework.cs" />
     <Compile Include="Config\MutationConfig.cs" />
     <Compile Include="Config\TestProject.cs" />
     <Compile Include="Creator\Filter\MutationDocumentFilter.cs" />
@@ -79,7 +78,6 @@
     <Compile Include="Execution\Runners\ITestRunnerClient.cs" />
     <Compile Include="Execution\TestRunnerDependencyFilesHandler.cs" />
     <Compile Include="Extensions\DirectoryExtensions.cs" />
-    <Compile Include="Git\IGitCloner.cs" />
     <Compile Include="Git\IGitDiff.cs" />
     <Compile Include="Location\MutationLocationInfo.cs" />
     <Compile Include="Loggers\LoggerKinds\AzureMutationRunLogger.cs" />

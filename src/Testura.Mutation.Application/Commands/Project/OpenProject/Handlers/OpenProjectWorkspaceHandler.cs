@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -55,8 +54,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             {
                 if (
                     IsIgnored(solutionProject.Name, fileConfig.IgnoredProjects) ||
-                    IsTestProject(solutionProject.Name, fileConfig.TestProjects) ||
-                    WeTargetSpecificFrameworkThatThisProjectDontSupport(solutionProject.FilePath, fileConfig.TargetFramework))
+                    IsTestProject(solutionProject.Name, fileConfig.TestProjects))
                 {
                     continue;
                 }
@@ -69,22 +67,6 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
                     MappedTestProjects = GetMappedProjects(solutionProject.Name, fileConfig.ProjectMappings)
                 });
             }
-        }
-
-        private bool WeTargetSpecificFrameworkThatThisProjectDontSupport(string projectFilePath, TargetFramework targetFramework)
-        {
-            if (targetFramework == null ||
-                string.IsNullOrEmpty(targetFramework.Name) ||
-                targetFramework.IgnoreProjectsWithWrongTargetFramework == false)
-            {
-                return false;
-            }
-
-            var regex = new Regex("<TargetFramework>(.*)</TargetFramework>");
-            var o = regex.Match(File.ReadAllText(projectFilePath));
-            var content = o.Groups[1].ToString();
-
-            return !content.ToLower().Contains(targetFramework.Name.ToLower());
         }
 
         private void InitializeTestProjects(MutationFileConfig fileConfig, MutationConfig config)
@@ -112,14 +94,6 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
                     if (IsIgnored(testProject.Name, fileConfig.IgnoredProjects))
                     {
                         Log.Info("But it was ignored. So skipping");
-                        continue;
-                    }
-
-                    if (WeTargetSpecificFrameworkThatThisProjectDontSupport(
-                        testProject.FilePath,
-                        fileConfig.TargetFramework))
-                    {
-                        Log.Info("Project does not target expected framework");
                         continue;
                     }
 

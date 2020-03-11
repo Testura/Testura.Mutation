@@ -17,7 +17,7 @@ namespace Testura.Mutation.Infrastructure.Git
 
             using (var command = Command.Run(
                 "git.exe",
-                new[] { "--git-dir", $"{Path.Combine(path, ".git")}", "diff", "HEAD^" ,"HEAD", "-U0" },
+                new[] { "--git-dir", $"{Path.Combine(path, ".git")}", "diff", "HEAD^","HEAD", "-U0" },
                 o =>
                 {
                     o.StartInfo(si =>

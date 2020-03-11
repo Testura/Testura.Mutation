@@ -19,15 +19,15 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             _diffCreator = diffCreator;
         }
 
-        public void InitializeGitFilter(MutationFileConfig fileConfig, MutationConfig applicationConfig, CancellationToken cancellationToken = default(CancellationToken))
+        public void InitializeGitFilter(string solutionPath, GitInfo gitInfo, MutationConfig applicationConfig, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            if (fileConfig.Git != null && fileConfig.Git.GenerateFilterFromDiffWithMaster)
+            if (gitInfo != null && gitInfo.GenerateFilterFromDiffWithMaster)
             {
                 Log.Info("Creating filter items from git diff with master");
 
-                var filterItems = _diffCreator.GetFilterItemsFromDiff(Path.GetDirectoryName(fileConfig.SolutionPath), string.Empty);
+                var filterItems = _diffCreator.GetFilterItemsFromDiff(Path.GetDirectoryName(solutionPath), string.Empty);
 
                 if (applicationConfig.Filter == null)
                 {
