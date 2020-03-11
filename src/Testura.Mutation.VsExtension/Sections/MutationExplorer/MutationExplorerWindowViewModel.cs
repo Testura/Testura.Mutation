@@ -217,7 +217,9 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                 return;
             }
 
+            IsRunButtonEnabled = false;
             IsStopButtonEnabled = true;
+
             _tokenSource = new CancellationTokenSource();
 
             if (!_configService.ConfigExist())
@@ -356,6 +358,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         private void HightlightChanged(bool isChecked)
         {
             _showhighlight = isChecked;
+            UpdateHighlightedMutations();
         }
 
         private void UpdateHighlightedMutations()
@@ -393,6 +396,8 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
                 index++;
             }
+
+            UpdateHighlightedMutations();
         }
 
         private void RunOnlySurvivingMutations()
