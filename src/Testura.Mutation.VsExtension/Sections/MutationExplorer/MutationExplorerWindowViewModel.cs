@@ -6,7 +6,9 @@ using System.Threading;
 using DiffPlex;
 using DiffPlex.DiffBuilder;
 using DiffPlex.DiffBuilder.Model;
+using EnvDTE;
 using MediatR;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.PlatformUI;
 using Prism.Mvvm;
 using Testura.Mutation.Application.Commands.Mutation.CreateMutations;
@@ -19,6 +21,7 @@ using Testura.Mutation.VsExtension.Models;
 using Testura.Mutation.VsExtension.MutationHighlight;
 using Testura.Mutation.VsExtension.MutationHighlight.Glyph.Dialog;
 using Testura.Mutation.VsExtension.Services;
+using Testura.Mutation.VsExtension.Util.DocTable;
 
 namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 {
@@ -42,10 +45,13 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         private List<MutationDocumentFilterItem> _filterItems;
         private MutationConfig _config;
         private CancellationTokenSource _tokenSource;
+        private IEnumerable<MutationDocumentFilterItem> _originalFilterItems;
+        private bool _shouldRefresh;
 
         public MutationExplorerWindowViewModel(
             EnvironmentService environmentService,
             ConfigService configService,
+            RunningDocTableEvents runningDocTableEvents,
             IMediator mediator)
         {
             _environmentService = environmentService;
@@ -66,12 +72,15 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             ShowMutationDetailsCommand = new DelegateCommand(ShowMutationDetails);
             RemoveKilledMutationsCommand = new DelegateCommand(RemovedKilledMutations);
             RunOnlySurvivingMutationsCommand = new DelegateCommand(RunOnlySurvivingMutations);
+            RefreshMutationsCommand = new DelegateCommand(() => Initialize(_originalFilterItems));
 
             StopCommand = new DelegateCommand(() =>
             {
                 IsStopButtonEnabled = false;
                 _tokenSource.Cancel();
             });
+
+            runningDocTableEvents.BeforeSave += RunningDocTableEventsOnBeforeSave;
 
             _showhighlight = true;
         }
@@ -93,6 +102,8 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         public DelegateCommand RemoveKilledMutationsCommand { get; set; }
 
         public DelegateCommand RunOnlySurvivingMutationsCommand { get; set; }
+
+        public DelegateCommand RefreshMutationsCommand { get; set; }
 
         public ObservableCollection<MutationRunItem> Mutations { get; set; }
 
@@ -211,12 +222,15 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
         public void Initialize(IEnumerable<MutationDocumentFilterItem> filterItems = null)
         {
+            _originalFilterItems = filterItems;
+
             if (IsLoadingMutationsVisible)
             {
                 _environmentService.UserNotificationService.ShowInfoBar<MutationExplorerWindow>("Please stop your current mutation execution before starting a new one.");
                 return;
             }
 
+            _shouldRefresh = false;
             IsRunButtonEnabled = false;
             IsStopButtonEnabled = true;
 
@@ -254,6 +268,19 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             if (mutations == null || !mutations.Any())
             {
                 return;
+            }
+
+            if (_shouldRefresh)
+            {
+                var result = _environmentService.UserNotificationService.ShowWarningWithYesAndNo("One or more of your mutated files has changed. Should we refresh all mutations?");
+
+                if (result == VSConstants.MessageBoxResult.IDYES)
+                {
+                    Initialize(_originalFilterItems);
+                    return;
+                }
+
+                _shouldRefresh = false;
             }
 
             _tokenSource = new CancellationTokenSource();
@@ -403,6 +430,25 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         private void RunOnlySurvivingMutations()
         {
             RunMutations(Mutations.Where(m => m.Status == MutationRunItem.TestRunStatusEnum.CompleteAndSurvived).ToList());
+        }
+
+        private void RunningDocTableEventsOnBeforeSave(object sender, Document document)
+        {
+            if (Mutations == null)
+            {
+                return;
+            }
+
+            _environmentService.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+                #pragma warning disable VSTHRD010
+                if (Mutations.Any(m => m.Document.FilePath == document.FullName))
+                {
+                    _shouldRefresh = true;
+                }
+            });
         }
     }
 }
