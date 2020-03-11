@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Testura.Mutation.Core;
-using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Creator.Filter;
 
 namespace Testura.Mutation.Application.Models
@@ -43,8 +42,6 @@ namespace Testura.Mutation.Application.Models
         public List<string> Mutators { get; set; }
 
         public GitInfo Git { get; set; }
-
-        public TargetFramework TargetFramework { get; set; }
 
         public bool CreateBaseline { get; set; }
     }

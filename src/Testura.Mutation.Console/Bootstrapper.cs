@@ -20,8 +20,7 @@ namespace Testura.Mutation.Console
             var unityContainer = new UnityContainer();
             unityContainer.RegisterMediator(new HierarchicalLifetimeManager());
             unityContainer.RegisterType<ITestRunnerFactory, TestRunnerFactory>(new ContainerControlledLifetimeManager());
-            unityContainer.RegisterType<IGitCloner, GitCloner>(new ContainerControlledLifetimeManager());
-            unityContainer.RegisterType<IGitDiff, GitDIff>(new ContainerControlledLifetimeManager());
+            unityContainer.RegisterType<IGitDiff, GitDiff>(new ContainerControlledLifetimeManager());
             unityContainer.RegisterType<ISolutionBuilder, DotNetSolutionBuilder>(new ContainerControlledLifetimeManager());
             unityContainer.RegisterType<IProjectCompiler, Compiler>();
             unityContainer.RegisterType<IMutationDocumentCompiler, Compiler>();

@@ -33,5 +33,15 @@ namespace Testura.Mutation.Tests.Utils.Creators
                 }
             });
         }
+
+        public static ITestRunnerClient CreateEmptyTestResult()
+        {
+            return new TestRunnerClientStub(new TestSuiteResult
+            {
+                IsSuccess = false,
+                ExecutionTime = TimeSpan.FromSeconds(1),
+                TestResults = new List<TestResult>()
+            });
+        }
     }
 }

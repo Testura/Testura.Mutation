@@ -10,7 +10,6 @@ using Testura.Mutation.Core.Baseline.Handlers;
 using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Exceptions;
 using Testura.Mutation.Core.Execution;
-using Testura.Mutation.Core.Execution.Runners;
 using Testura.Mutation.Tests.Utils.Creators;
 
 namespace Testura.Mutation.Tests.Core.Baseline
@@ -46,13 +45,8 @@ namespace Testura.Mutation.Tests.Core.Baseline
 
         [Test]
         public async Task CreateBaselineAsync_WhenCreatingBaseline_ShouldDeleteBaseDirectory()
-        {
-            var baselineCreator = new BaselineCreator(
-                _fileSystem,
-                new BaselineCreatorCompileMutationProjectsHandler(ProjectCompilerCreator.CreatePositiveCompiler(_fileSystem), _fileSystem),
-                new BaselineCreatorRunUnitTestsHandler(TestRunnerClientCreator.CreatePositive(), new TestRunnerDependencyFilesHandler(_fileSystem)),
-                new BaselineCreatorLogSummaryHandler());
-
+        { 
+            var baselineCreator = BaselineCreatorCreator.CreatePositiveBaseline(_fileSystem);
             await baselineCreator.CreateBaselineAsync(_config);
            Assert.IsFalse(_fileSystem.Directory.Exists(baselineCreator.BaselineDirectoryPath));
         }
@@ -60,12 +54,7 @@ namespace Testura.Mutation.Tests.Core.Baseline
         [Test]
         public async Task CreateBaselineAsync_WhenCreatingBaselineAndCompileFail_ShouldStillDeleteDirectory()
         {
-            var baselineCreator = new BaselineCreator(
-                _fileSystem,
-                new BaselineCreatorCompileMutationProjectsHandler(ProjectCompilerCreator.CreateNegativeCompiler(_fileSystem), _fileSystem),
-                new BaselineCreatorRunUnitTestsHandler(TestRunnerClientCreator.CreatePositive(), new TestRunnerDependencyFilesHandler(_fileSystem)),
-                new BaselineCreatorLogSummaryHandler());
-
+            var baselineCreator = BaselineCreatorCreator.CreateBaselineWithCompileFail(_fileSystem);
             Assert.ThrowsAsync<BaselineException>(async () => await baselineCreator.CreateBaselineAsync(_config));
             Assert.IsFalse(_fileSystem.Directory.Exists(baselineCreator.BaselineDirectoryPath));
         }
@@ -73,11 +62,7 @@ namespace Testura.Mutation.Tests.Core.Baseline
         [Test]
         public async Task CreateBaselineAsync_WhenCreatingBaselineAndTestRunFail_ShouldStillDeleteDirectory()
         {
-            var baselineCreator = new BaselineCreator(
-                _fileSystem,
-                new BaselineCreatorCompileMutationProjectsHandler(ProjectCompilerCreator.CreatePositiveCompiler(_fileSystem), _fileSystem),
-                new BaselineCreatorRunUnitTestsHandler(TestRunnerClientCreator.CreateNegative(), new TestRunnerDependencyFilesHandler(_fileSystem)),
-                new BaselineCreatorLogSummaryHandler());
+            var baselineCreator = BaselineCreatorCreator.CreateBaselineWithTestRunFail(_fileSystem);
 
             Assert.ThrowsAsync<BaselineException>(async () => await baselineCreator.CreateBaselineAsync(_config));
             Assert.IsFalse(_fileSystem.Directory.Exists(baselineCreator.BaselineDirectoryPath));

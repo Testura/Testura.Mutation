@@ -7,17 +7,17 @@ using Testura.Mutation.Infrastructure.Stream;
 
 namespace Testura.Mutation.Infrastructure.Git
 {
-    public class GitDIff : StreamReaderBase, IGitDiff
+    public class GitDiff : StreamReaderBase, IGitDiff
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(GitDIff));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(GitDiff));
 
-        public string GetDiff(string path, string branch)
+        public string GetDiff(string path)
         {
             Log.Info("Getting git diff..");
 
             using (var command = Command.Run(
                 "git.exe",
-                new[] { "--git-dir", $"{Path.Combine(path, ".git")}", "diff", "HEAD^" ,"HEAD", "-U0" },
+                new[] { "--git-dir", $"{Path.Combine(path, ".git")}", "diff", "HEAD^","HEAD", "-U0" },
                 o =>
                 {
                     o.StartInfo(si =>

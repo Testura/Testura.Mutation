@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading;
 using log4net;
 using Testura.Mutation.Application.Models;
-using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Creator.Filter;
 
 namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
@@ -19,23 +18,18 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             _diffCreator = diffCreator;
         }
 
-        public void InitializeGitFilter(MutationFileConfig fileConfig, MutationConfig applicationConfig, CancellationToken cancellationToken = default(CancellationToken))
+        public IList<MutationDocumentFilterItem> CreateGitFilterItems(string solutionPath, GitInfo gitInfo, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
+            var filterItems = new List<MutationDocumentFilterItem>();
 
-            if (fileConfig.Git != null && fileConfig.Git.GenerateFilterFromDiffWithMaster)
+            if (gitInfo != null && gitInfo.GenerateFilterFromDiffWithMaster)
             {
                 Log.Info("Creating filter items from git diff with master");
-
-                var filterItems = _diffCreator.GetFilterItemsFromDiff(Path.GetDirectoryName(fileConfig.SolutionPath), string.Empty);
-
-                if (applicationConfig.Filter == null)
-                {
-                    applicationConfig.Filter = new MutationDocumentFilter { FilterItems = new List<MutationDocumentFilterItem>() };
-                }
-
-                applicationConfig.Filter.FilterItems.AddRange(filterItems);
+                filterItems.AddRange(_diffCreator.GetFilterItemsFromDiff(Path.GetDirectoryName(solutionPath)));
             }
+
+            return filterItems;
         }
     }
 }

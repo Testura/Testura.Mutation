@@ -17,9 +17,9 @@ namespace Testura.Mutation.Core.Creator.Filter
             _gitDiff = gitDiff;
         }
 
-        public IList<MutationDocumentFilterItem> GetFilterItemsFromDiff(string path, string branch)
+        public IList<MutationDocumentFilterItem> GetFilterItemsFromDiff(string path)
         {
-            var diff = _gitDiff.GetDiff(path, branch);
+            var diff = _gitDiff.GetDiff(path);
 
             var matches = Regex.Matches(diff.Replace(System.Environment.NewLine, string.Empty), @"^\+\+\+ .\/(.*)$|^@@.+\+(.*) @@", RegexOptions.Multiline);
             var filterItems = new List<MutationDocumentFilterItem>();

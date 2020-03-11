@@ -16,6 +16,8 @@ namespace Testura.Mutation.Application.Extensions
         public static IUnityContainer RegisterMediator(this IUnityContainer container, LifetimeManager lifetimeManager)
         {
             container.RegisterType(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
+            container.RegisterType(typeof(IPipelineBehavior<,>), typeof(RequestLoggerBehavior<,>), "RequestLoggerBehavior");
+            container.RegisterMediatorValidators(Assembly.GetAssembly(typeof(RequestLoggerBehavior<,>)));
             container.RegisterType(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>), "RequestValidationBehavior");
             container.RegisterMediatorValidators(Assembly.GetAssembly(typeof(RequestValidationBehavior<,>)));
 

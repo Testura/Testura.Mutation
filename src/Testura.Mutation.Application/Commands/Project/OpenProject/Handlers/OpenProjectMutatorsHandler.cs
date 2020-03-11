@@ -4,9 +4,7 @@ using System.Linq;
 using System.Threading;
 using log4net;
 using Testura.Mutation.Application.Exceptions;
-using Testura.Mutation.Application.Models;
 using Testura.Mutation.Core;
-using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Creator.Mutators;
 using Testura.Mutation.Core.Creator.Mutators.BinaryExpressionMutators;
 
@@ -16,27 +14,25 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(OpenProjectMutatorsHandler));
 
-        public void InitializeMutators(MutationFileConfig fileConfig, MutationConfig applicationConfig, CancellationToken cancellationToken = default(CancellationToken))
+        public List<IMutator> InitializeMutators(List<string> mutatorOperators, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
 
             Log.Info("Loading mutators..");
 
-            if (fileConfig.Mutators == null || !fileConfig.Mutators.Any())
+            if (mutatorOperators == null || !mutatorOperators.Any())
             {
-                LoadDefaultMutators(applicationConfig);
+                return LoadDefaultMutators();
             }
-            else
-            {
-                LoadCustomMutatorList(fileConfig, applicationConfig);
-            }
+
+            return LoadCustomMutatorList(mutatorOperators);
         }
 
-        private void LoadCustomMutatorList(MutationFileConfig fileConfig, MutationConfig applicationConfig)
+        private List<IMutator> LoadCustomMutatorList(List<string> mutatorOperators)
         {
             Log.Info("..found mutators in config.");
             var mutators = new List<IMutator>();
-            foreach (var mutationOperator in fileConfig.Mutators)
+            foreach (var mutationOperator in mutatorOperators)
             {
                 if (Enum.TryParse<MutationOperators>(mutationOperator, true, out var mutationOperatorEnum))
                 {
@@ -49,14 +45,14 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
                     $"Could not parse '{mutationOperator}'. Make sure that you use a correct operator.");
             }
 
-            applicationConfig.Mutators = mutators;
+            return mutators;
         }
 
-        private void LoadDefaultMutators(MutationConfig applicationConfig)
+        private List<IMutator> LoadDefaultMutators()
         {
             Log.Info("..did not find any mutators in config so loading default ones.");
 
-            applicationConfig.Mutators = new List<IMutator>
+            return new List<IMutator>
             {
                 new MathMutator(),
                 new ConditionalBoundaryMutator(),
