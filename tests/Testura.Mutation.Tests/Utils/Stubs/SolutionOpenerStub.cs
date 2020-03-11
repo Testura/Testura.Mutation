@@ -4,11 +4,11 @@ using Testura.Mutation.Core.Solution;
 
 namespace Testura.Mutation.Tests.Utils.Stubs
 {
-    public class TestSolutionOpener : ISolutionOpener
+    public class SolutionOpenerStub : ISolutionOpener
     {
         private readonly Solution _solution;
 
-        public TestSolutionOpener(Solution solution)
+        public SolutionOpenerStub(Solution solution)
         {
             _solution = solution;
         }

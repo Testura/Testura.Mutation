@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 using Microsoft.CodeAnalysis;
+using Testura.Mutation.Application.Models;
 using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Creator.Mutators;
 using Testura.Mutation.Core.Creator.Mutators.BinaryExpressionMutators;
@@ -18,6 +20,8 @@ namespace Testura.Mutation.Tests.Utils.Creators
 
             if (fileSystem != null)
             {
+                fileSystem.File.AppendAllText("MySolution.sln", "test");
+
                 CreateFiles
                 (fileSystem,
                     solution.Projects.FirstOrDefault(p => p.Name == "MutationProject"),
@@ -65,6 +69,18 @@ namespace Testura.Mutation.Tests.Utils.Creators
                     }
                 }
 
+            };
+        }
+
+        public static MutationFileConfig CreateFileConfig()
+        {
+            return new MutationFileConfig
+            {
+                SolutionPath = "MySolution.sln",
+                BuildConfiguration = "Debug",
+                TestProjects = new List<string> { "TestProject" },
+                NumberOfTestRunInstances = 1,
+                Mutators = new List<string> { "ConditionalBoundary", "Math", "Increment", "NegateCondtional", "NegateTypeCompability", "ReturnValue", "MethodCall" }
             };
         }
 

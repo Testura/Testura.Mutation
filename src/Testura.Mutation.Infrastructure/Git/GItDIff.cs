@@ -7,11 +7,11 @@ using Testura.Mutation.Infrastructure.Stream;
 
 namespace Testura.Mutation.Infrastructure.Git
 {
-    public class GitDIff : StreamReaderBase, IGitDiff
+    public class GitDiff : StreamReaderBase, IGitDiff
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(GitDIff));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(GitDiff));
 
-        public string GetDiff(string path, string branch)
+        public string GetDiff(string path)
         {
             Log.Info("Getting git diff..");
 

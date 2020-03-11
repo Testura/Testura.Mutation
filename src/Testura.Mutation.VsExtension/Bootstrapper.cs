@@ -54,7 +54,7 @@ namespace Testura.Mutation.VsExtension
         {
             Container.RegisterMediator(new HierarchicalLifetimeManager());
             Container.RegisterType<ITestRunnerFactory, TestRunnerFactory>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IGitDiff, GitDIff>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IGitDiff, GitDiff>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IProjectCompiler, Compiler>();
             Container.RegisterType<IMutationDocumentCompiler, Compiler>();
             Container.RegisterType<ITestRunnerClient, TestRunnerConsoleClient>();

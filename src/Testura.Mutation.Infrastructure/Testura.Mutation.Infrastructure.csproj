@@ -56,7 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Git\GitDIff.cs" />
+    <Compile Include="Git\GitDiff.cs" />
     <Compile Include="Solution\DotNetSolutionBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solution\SolutionFinder.cs" />

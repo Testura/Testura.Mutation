@@ -1,19 +1,23 @@
 ﻿using System.IO.Abstractions;
 using System.Threading;
+using System.Threading.Tasks;
 using Testura.Mutation.Application.Exceptions;
+using Testura.Mutation.Core.Solution;
 
 namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
 {
-    public class OpenProjectSolutionExistHandler
+    public class OpenProjectSolutionHandler
     {
         private readonly IFileSystem _fileSystem;
+        private readonly ISolutionOpener _solutionOpener;
 
-        public OpenProjectSolutionExistHandler(IFileSystem fileSystem)
+        public OpenProjectSolutionHandler(IFileSystem fileSystem, ISolutionOpener solutionOpener)
         {
             _fileSystem = fileSystem;
+            _solutionOpener = solutionOpener;
         }
 
-        public void VerifySolutionExist(string solutionPath, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<Microsoft.CodeAnalysis.Solution> OpenSolutionAsync(string solutionPath, string buildConfiguration, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -23,6 +27,8 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject.Handlers
             {
                 throw new OpenProjectException($"Could not find any solution file at {solutionPath}");
             }
+
+            return await _solutionOpener.GetSolutionAsync(solutionPath, buildConfiguration, true);
         }
     }
 }

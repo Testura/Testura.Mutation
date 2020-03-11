@@ -262,12 +262,15 @@
   <ItemGroup>
     <Compile Include="Application\Commands\Mutation\ExecuteMutations\ExecuteMutationsCommandHandlerTests.cs" />
     <Compile Include="Application\Commands\Mutation\ExecuteMutations\ExecuteMutationsCommandValidatorTests.cs" />
+    <Compile Include="Application\Commands\Project\OpenProject\Handlers\OpenProjectGitFilterHandlerTests.cs" />
     <Compile Include="Application\Commands\Project\OpenProject\Handlers\OpenProjectMutatorsHandlerTests.cs" />
     <Compile Include="Application\Commands\Project\OpenProject\Handlers\OpenProjectSolutionExistHandlerTests.cs" />
+    <Compile Include="Application\Commands\Project\OpenProject\Handlers\OpenProjectWorkspaceHandlerTests.cs" />
     <Compile Include="Application\Commands\Project\OpenProject\OpenProjectCommandHandlerTests.cs" />
     <Compile Include="Core\Baseline\BaselineCreatorTests.cs" />
     <Compile Include="Core\Baseline\Handlers\BaselineCreatorCompileMutationProjectsHandlerTests.cs" />
     <Compile Include="Core\Baseline\Handlers\BaselineCreatorRunUnitTestsHandlerTests.cs" />
+    <Compile Include="Core\Creator\Filter\MutationDocumentFilterItemGitDiffCreatorTests.cs" />
     <Compile Include="Core\Creator\Filter\MutationDocumentFilterTests.cs" />
     <Compile Include="Core\Creator\Filter\MutationDocumentFilterItemTests.cs" />
     <Compile Include="Core\Creator\MutationDocumentCreatorTests.cs" />
@@ -283,14 +286,16 @@
     <Compile Include="Core\Mutation\Mutators\ReturnValueMutatorTests.cs" />
     <Compile Include="Core\Mutation\Mutators\MutatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Creators\BaselineCreatorCreator.cs" />
     <Compile Include="Utils\Creators\ConfigCreator.cs" />
     <Compile Include="Utils\Creators\ProjectCompilerCreator.cs" />
     <Compile Include="Utils\Creators\SolutionCreator.cs" />
     <Compile Include="Utils\Creators\TestRunnerClientCreator.cs" />
+    <Compile Include="Utils\Stubs\GitDiffStub.cs" />
     <Compile Include="Utils\Stubs\MutationRunLoggerStub.cs" />
     <Compile Include="Utils\Stubs\ProjectCompilerStub.cs" />
     <Compile Include="Utils\Stubs\TestRunnerClientStub.cs" />
-    <Compile Include="Utils\Stubs\TestSolutionOpener.cs" />
+    <Compile Include="Utils\Stubs\SolutionOpenerStub.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\Testura.Mutation.Core\Log4Net.Config">

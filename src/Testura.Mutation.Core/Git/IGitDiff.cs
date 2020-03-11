@@ -2,6 +2,6 @@
 {
     public interface IGitDiff
     {
-        string GetDiff(string path, string branch);
+        string GetDiff(string path);
     }
 }

@@ -1,33 +1,39 @@
 ﻿using System;
 using System.IO.Abstractions.TestingHelpers;
 using System.Threading;
-using Moq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using Testura.Mutation.Application.Commands.Project.OpenProject.Handlers;
 using Testura.Mutation.Application.Exceptions;
-using Testura.Mutation.Core.Git;
+using Testura.Mutation.Core.Config;
+using Testura.Mutation.Tests.Utils.Creators;
+using Testura.Mutation.Tests.Utils.Stubs;
 
 namespace Testura.Mutation.Tests.Application.Commands.Project.OpenProject.Handlers
 {
     [TestFixture]
     public class OpenProjectSolutionExistHandlerTests
     {
-        private OpenProjectSolutionExistHandler _openProjectSolutionExistHandler;
+        private OpenProjectSolutionHandler _openProjectSolutionExistHandler;
         private MockFileSystem _fileSystem;
+        private MutationConfig _config;
 
         [SetUp]
         public void SetUp()
         {
             _fileSystem = new MockFileSystem();
             _fileSystem.File.AppendAllText("myFile.sln", "test");
+            _config = ConfigCreator.CreateConfig(_fileSystem);
 
-            _openProjectSolutionExistHandler = new OpenProjectSolutionExistHandler(_fileSystem);
+            var solutionOpener = new SolutionOpenerStub(_config.Solution);
+            _openProjectSolutionExistHandler = new OpenProjectSolutionHandler(_fileSystem, solutionOpener);
         }
 
         [Test]
-        public void VerifySolutionExist_WhenPathExist_ShouldNotThrowException()
+        public async Task VerifySolutionExist_WhenPathExist_ShouldNotThrowException()
         {
-            _openProjectSolutionExistHandler.VerifySolutionExist("myFile.sln");
+            var solution = await _openProjectSolutionExistHandler.OpenSolutionAsync("myFile.sln", "debug");
+            Assert.AreEqual(_config.Solution, solution);
         }
 
         [Test]
@@ -37,13 +43,13 @@ namespace Testura.Mutation.Tests.Application.Commands.Project.OpenProject.Handle
             var token = tokenSource.Token;
             tokenSource.Cancel();
 
-            Assert.Throws<OperationCanceledException>(() => _openProjectSolutionExistHandler.VerifySolutionExist("myFile.sln", token));
+            Assert.ThrowsAsync<TaskCanceledException>(async () => await _openProjectSolutionExistHandler.OpenSolutionAsync("myFile.sln", "debug", token));
         }
 
         [Test]
         public void VerifySolutionExist_WhenPathDontExist_ShouldThrowException()
         {
-           Assert.Throws<OpenProjectException>(() => _openProjectSolutionExistHandler.VerifySolutionExist("myFile2.sln"));
+           Assert.ThrowsAsync<OpenProjectException>(async () => await _openProjectSolutionExistHandler.OpenSolutionAsync("myFile2.sln", "debug"));
         }
     }
 }

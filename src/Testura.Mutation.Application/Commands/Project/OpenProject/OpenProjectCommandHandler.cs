@@ -9,6 +9,7 @@ using Testura.Mutation.Application.Commands.Project.OpenProject.Handlers;
 using Testura.Mutation.Application.Exceptions;
 using Testura.Mutation.Application.Models;
 using Testura.Mutation.Core.Config;
+using Testura.Mutation.Core.Creator.Filter;
 
 namespace Testura.Mutation.Application.Commands.Project.OpenProject
 {
@@ -16,21 +17,24 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(OpenProjectCommandHandler));
 
-        private readonly OpenProjectSolutionExistHandler _solutionExistHandler;
+        private readonly OpenProjectSolutionHandler _solutionHandler;
         private readonly OpenProjectMutatorsHandler _mutatorsHandler;
         private readonly OpenProjectGitFilterHandler _gitFilterHandler;
         private readonly OpenProjectWorkspaceHandler _workspaceHandler;
+        private readonly OpenProjectBaselineHandler _baselineHandler;
 
         public OpenProjectCommandHandler(
-            OpenProjectSolutionExistHandler solutionExistHandler,
+            OpenProjectSolutionHandler solutionHandler,
             OpenProjectMutatorsHandler mutatorsHandler,
             OpenProjectGitFilterHandler gitFilterHandler,
-            OpenProjectWorkspaceHandler workspaceHandler)
+            OpenProjectWorkspaceHandler workspaceHandler,
+            OpenProjectBaselineHandler baselineHandler)
         {
-            _solutionExistHandler = solutionExistHandler;
+            _solutionHandler = solutionHandler;
             _mutatorsHandler = mutatorsHandler;
             _gitFilterHandler = gitFilterHandler;
             _workspaceHandler = workspaceHandler;
+            _baselineHandler = baselineHandler;
         }
 
         public async Task<MutationConfig> Handle(OpenProjectCommand command, CancellationToken cancellationToken)
@@ -45,12 +49,19 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
             {
                 (fileConfig, applicationConfig) = LoadConfigs(path, command.Config);
 
-                _solutionExistHandler.VerifySolutionExist(fileConfig.SolutionPath, cancellationToken);
+                // Solution and mutators
+                applicationConfig.Solution = await _solutionHandler.OpenSolutionAsync(fileConfig.SolutionPath, fileConfig.BuildConfiguration, cancellationToken);
                 applicationConfig.Mutators = _mutatorsHandler.InitializeMutators(fileConfig.Mutators, cancellationToken);
 
-                _gitFilterHandler.InitializeGitFilter(fileConfig.SolutionPath, fileConfig.Git, applicationConfig, cancellationToken);
+                // Filter
+                applicationConfig.Filter.FilterItems.AddRange(_gitFilterHandler.CreateGitFilterItems(fileConfig.SolutionPath, fileConfig.Git, cancellationToken));
 
-                await _workspaceHandler.InitializeProjectAsync(fileConfig, applicationConfig, cancellationToken);
+                // Projects
+                applicationConfig.MutationProjects = _workspaceHandler.CreateMutationProjects(fileConfig, applicationConfig.Solution, cancellationToken);
+                applicationConfig.TestProjects = _workspaceHandler.CreateTestProjects(fileConfig, applicationConfig.Solution, cancellationToken);
+
+                // Baseline
+                applicationConfig.BaselineInfos = await _baselineHandler.RunBaselineAsync(applicationConfig, fileConfig.CreateBaseline, cancellationToken);
 
                 Log.Info("Opening project finished.");
                 return applicationConfig;
@@ -83,7 +94,7 @@ namespace Testura.Mutation.Application.Commands.Project.OpenProject
 
             var config = new MutationConfig
             {
-                Filter = fileConfig.Filter,
+                Filter = fileConfig.Filter ?? new MutationDocumentFilter(),
                 NumberOfTestRunInstances = fileConfig.NumberOfTestRunInstances,
                 BuildConfiguration = fileConfig.BuildConfiguration,
                 MaxTestTimeMin = fileConfig.MaxTestTimeMin,
