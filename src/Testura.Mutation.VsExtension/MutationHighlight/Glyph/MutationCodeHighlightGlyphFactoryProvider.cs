@@ -7,7 +7,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight.Glyph
 {
     [Export(typeof(IGlyphFactoryProvider))]
     [Name("MutationCodeHighlightGlyph")]
-    [Order(After = "VsTextMarker")]
+    [Order(Before = "VsTextMarker")]
     [ContentType("code")]
     [TagType(typeof(MutationCodeHighlightTag))]
     public class MutationCodeHighlightGlyphFactoryProvider : IGlyphFactoryProvider
