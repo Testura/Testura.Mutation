@@ -62,6 +62,14 @@
                     Padding="10">
                     <Image Source="../../Resources/stopicon_red.png" Margin="1"/>
                 </Button>
+                <Button
+                    Command="{Binding RefreshMutationsCommand}"
+                    IsEnabled="{Binding IsRunButtonEnabled}"
+                    HorizontalAlignment="Right"
+                    ToolTip="Refresh mutations"
+                    Padding="10">
+                    <Image Source="../../Resources/iconWithoutDot.png" Margin="1"/>
+                </Button>
             </ToolBar>
             <ToolBar Height="40" Background="#303030" ToolBarTray.IsLocked="True">
                 <CheckBox Style="{StaticResource MaterialDesignCheckBox}"

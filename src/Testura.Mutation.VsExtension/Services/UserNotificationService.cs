@@ -69,6 +69,15 @@ namespace Testura.Mutation.VsExtension.Services
             });
         }
 
+        public VSConstants.MessageBoxResult ShowWarningWithYesAndNo(string warning)
+        {
+            return _joinableTaskFactory.Run(async () =>
+            {
+                await _joinableTaskFactory.SwitchToMainThreadAsync();
+                return ShowMessageBox(warning, OLEMSGICON.OLEMSGICON_WARNING, OLEMSGBUTTON.OLEMSGBUTTON_YESNO);
+            });
+        }
+
         public void ShowError(string error)
         {
             _joinableTaskFactory.Run(async () =>

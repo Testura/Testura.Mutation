@@ -64,6 +64,7 @@
     <Compile Include="Util\Converters\InvertBooleanConverter.cs" />
     <Compile Include="Util\Converters\IsZeroConverter.cs" />
     <Compile Include="Util\Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Util\DocTable\RunningDocTableEvents.cs" />
     <Compile Include="Util\Extensions\EnumExtensions.cs" />
     <Compile Include="Models\ConfigProjectGridItem.cs" />
     <Compile Include="Models\ConfigProjectMappingGridItem.cs" />

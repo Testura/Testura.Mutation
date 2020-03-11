@@ -16,6 +16,7 @@ using Testura.Mutation.VsExtension.Sections.MutationExplorer;
 using Testura.Mutation.VsExtension.Sections.Selects;
 using Testura.Mutation.VsExtension.Services;
 using Testura.Mutation.VsExtension.Solution;
+using Testura.Mutation.VsExtension.Util.DocTable;
 using Task = System.Threading.Tasks.Task;
 
 namespace Testura.Mutation.VsExtension
@@ -73,17 +74,19 @@ namespace Testura.Mutation.VsExtension
 
             if (componentModel == null)
             {
-                throw new Exception("WAAA");
+                throw new Exception("Component model null?");
             }
 
             var workspace = componentModel.GetService<VisualStudioWorkspace>();
             var dte = (DTE)await GetServiceAsync(typeof(DTE));
             var asyncPackage = (AsyncPackage)await GetServiceAsync(typeof(AsyncPackage));
+            var environmentService = new EnvironmentService(dte, JoinableTaskFactory, asyncPackage, new UserNotificationService(asyncPackage, JoinableTaskFactory, dte));
 
             _bootstrapper.Container.RegisterInstance(new UserNotificationService(asyncPackage, JoinableTaskFactory, dte));
-            _bootstrapper.Container.RegisterInstance(new EnvironmentService(dte, JoinableTaskFactory, asyncPackage, new UserNotificationService(asyncPackage, JoinableTaskFactory, dte)));
+            _bootstrapper.Container.RegisterInstance(environmentService);
             _bootstrapper.Container.RegisterInstance(typeof(ISolutionOpener), new VisualStudioSolutionOpener(workspace, new VisualStudioSolutionBuilder(dte, JoinableTaskFactory)));
             _bootstrapper.Container.RegisterInstance(typeof(ISolutionBuilder), new VisualStudioSolutionBuilder(dte, JoinableTaskFactory));
+            _bootstrapper.Container.RegisterInstance(new RunningDocTableEvents(environmentService, asyncPackage));
         }
     }
 }
