@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 
 namespace Testura.Mutation.Application.Commands.Mutation.ExecuteMutations
 {
@@ -6,9 +7,21 @@ namespace Testura.Mutation.Application.Commands.Mutation.ExecuteMutations
     {
         public ExecuteMutationsCommandValidator()
         {
-            RuleFor(command => command.Config).NotNull();
             RuleFor(command => command.MutationDocuments).NotNull();
             RuleFor(command => command.Config.NumberOfTestRunInstances).GreaterThan(0);
+            RuleFor(command => command.Config.TestProjects).NotEmpty().WithMessage("At least one test project is required.");
+            RuleFor(command => command.Config.Solution).NotNull();
+        }
+
+        protected override bool PreValidate(ValidationContext<ExecuteMutationsCommand> context, ValidationResult result)
+        {
+            if (context.InstanceToValidate.Config == null)
+            {
+                result.Errors.Add(new ValidationFailure("Config", "Config can not be null."));
+                return false;
+            }
+
+            return true;
         }
     }
 }

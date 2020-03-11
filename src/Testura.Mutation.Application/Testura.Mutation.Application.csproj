@@ -36,8 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FluentValidation.7.6.105\lib\net45\FluentValidation.dll</HintPath>
+    <Reference Include="FluentValidation, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentValidation.8.6.2\lib\net45\FluentValidation.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
@@ -315,21 +315,12 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Baseline\CreateBaseline\CreateBaselineCommand.cs" />
-    <Compile Include="Commands\Baseline\CreateBaseline\CreateBaselineCommandHandler.cs" />
-    <Compile Include="Commands\Baseline\CreateBaseline\CreateBaselineCommandValidator.cs" />
-    <Compile Include="Commands\Mutation\CompileMutation\CompileMutationCommand.cs" />
-    <Compile Include="Commands\Mutation\CompileMutation\CompileMutationCommandHandler.cs" />
-    <Compile Include="Commands\Mutation\CompileMutation\CompileMutationCommandValidator.cs" />
     <Compile Include="Commands\Mutation\CreateMutations\CreateMutationsCommand.cs" />
     <Compile Include="Commands\Mutation\CreateMutations\CreateMutationsCommandHandler.cs" />
     <Compile Include="Commands\Mutation\CreateMutations\CreateMutationsCommandValidator.cs" />
     <Compile Include="Commands\Mutation\ExecuteMutations\ExecuteMutationsCommandValidator.cs" />
     <Compile Include="Commands\Mutation\ExecuteMutations\ExecuteMutationsCommand.cs" />
     <Compile Include="Commands\Mutation\ExecuteMutations\ExecuteMutationsCommandHandler.cs" />
-    <Compile Include="Commands\Mutation\ExecuteMutation\ExecuteMutationCommand.cs" />
-    <Compile Include="Commands\Mutation\ExecuteMutation\ExecuteMutationCommandHandler.cs" />
-    <Compile Include="Commands\Mutation\ExecuteMutation\ExecuteMutationCommandValidator.cs" />
     <Compile Include="Commands\Project\CreateProject\CreateProjectCommandValidator.cs" />
     <Compile Include="Commands\Project\History\AddProjectHistory\AddProjectHistoryCommandValidator.cs" />
     <Compile Include="Commands\Project\History\AddProjectHistory\AddProjectHistoryCommand.cs" />
@@ -351,7 +342,7 @@
     <Compile Include="Commands\Report\Creator\CreateReportCommandValidator.cs" />
     <Compile Include="Exceptions\OpenProjectException.cs" />
     <Compile Include="FileMutationsModel.cs" />
-    <Compile Include="Infrastructure\RequestLogger.cs" />
+    <Compile Include="Infrastructure\RequestLoggerBehavior.cs" />
     <Compile Include="Infrastructure\RequestValidationBehavior.cs" />
     <Compile Include="Logs\LogWatcher.cs" />
     <Compile Include="Logs\MemoryAppenderWithEvents.cs" />
