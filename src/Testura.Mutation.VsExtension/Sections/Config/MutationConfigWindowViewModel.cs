@@ -41,7 +41,6 @@ namespace Testura.Mutation.VsExtension.Sections.Config
 
             TestRunnerTypes = new List<string> { "DotNet", "xUnit", "NUnit" };
 
-            UpdateConfigCommand = new DelegateCommand(UpdateConfig);
             TestProjectChangedCommand = new DelegateCommand<string>(TestProjectChanged);
             AddFileCommand = new DelegateCommand(AddFileToFilter);
             AddLineCommand = new DelegateCommand(AddLineToFilter);
@@ -67,8 +66,6 @@ namespace Testura.Mutation.VsExtension.Sections.Config
         public ObservableCollection<ConfigProjectGridItem> ProjectGridItems { get; set; }
 
         public ObservableCollection<MutationOperatorGridItem> MutationOperatorGridItems { get; set; }
-
-        public DelegateCommand UpdateConfigCommand { get; set; }
 
         public DelegateCommand AddFileCommand { get; set; }
 
@@ -165,27 +162,7 @@ namespace Testura.Mutation.VsExtension.Sections.Config
             });
         }
 
-        private void CreateMappings(MutationFileConfig mutationFileConfig)
-        {
-            foreach (var projectGridItem in ProjectGridItems)
-            {
-                projectGridItem.ProjectMapping = new ObservableCollection<ConfigProjectMappingGridItem>(
-                    ProjectGridItems.Where(p => p.IsTestProject).Select(p => new ConfigProjectMappingGridItem { Name = p.Name }));
-
-                if (mutationFileConfig?.ProjectMappings != null &&
-                    mutationFileConfig.ProjectMappings.Any(p => p.ProjectName == projectGridItem.Name))
-                {
-                    var projectsMappingInConfig = mutationFileConfig.ProjectMappings.First(p => p.ProjectName == projectGridItem.Name);
-
-                    foreach (var configProjectMappingGridItem in projectGridItem.ProjectMapping)
-                    {
-                        configProjectMappingGridItem.IsSelected = projectsMappingInConfig.TestProjectNames.Contains(configProjectMappingGridItem.Name);
-                    }
-                }
-            }
-        }
-
-        private void UpdateConfig()
+        public bool UpdateConfig()
         {
             MutationDocumentFilter filter;
 
@@ -196,7 +173,7 @@ namespace Testura.Mutation.VsExtension.Sections.Config
             catch (Exception)
             {
                 _environmentService.UserNotificationService.ShowWarning("Can't save the config because of error in filter. Please make sure the filter is correct and then try to update again.");
-                return;
+                return false;
             }
 
             var settings = MutationOperatorGridItems.Where(m => m.IsSelected).Select(m => m.MutationOperator.ToString());
@@ -223,7 +200,27 @@ namespace Testura.Mutation.VsExtension.Sections.Config
 
             File.WriteAllText(GetConfigPath(), JsonConvert.SerializeObject(config, _jsonSettings));
 
-            _environmentService.UserNotificationService.ShowInfoBar<MutationConfigWindow>("Config updated. Note that updates won't affect any currently open mutation windows.");
+            return true;
+        }
+
+        private void CreateMappings(MutationFileConfig mutationFileConfig)
+        {
+            foreach (var projectGridItem in ProjectGridItems)
+            {
+                projectGridItem.ProjectMapping = new ObservableCollection<ConfigProjectMappingGridItem>(
+                    ProjectGridItems.Where(p => p.IsTestProject).Select(p => new ConfigProjectMappingGridItem { Name = p.Name }));
+
+                if (mutationFileConfig?.ProjectMappings != null &&
+                    mutationFileConfig.ProjectMappings.Any(p => p.ProjectName == projectGridItem.Name))
+                {
+                    var projectsMappingInConfig = mutationFileConfig.ProjectMappings.First(p => p.ProjectName == projectGridItem.Name);
+
+                    foreach (var configProjectMappingGridItem in projectGridItem.ProjectMapping)
+                    {
+                        configProjectMappingGridItem.IsSelected = projectsMappingInConfig.TestProjectNames.Contains(configProjectMappingGridItem.Name);
+                    }
+                }
+            }
         }
 
         private string GetConfigPath()

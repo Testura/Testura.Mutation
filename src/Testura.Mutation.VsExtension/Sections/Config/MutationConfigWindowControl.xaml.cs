@@ -2,23 +2,26 @@
 using Dragablz;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
+using Microsoft.VisualStudio.PlatformUI;
 
 namespace Testura.Mutation.VsExtension.Sections.Config
 {
-    using System.Windows.Controls;
-
     /// <summary>
     /// Interaction logic for MutationConfigWindowControl.
     /// </summary>
-    public partial class MutationConfigWindowControl : UserControl
+    public partial class MutationConfigWindowControl : DialogWindow
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MutationConfigWindowControl"/> class.
-        /// </summary>
-        public MutationConfigWindowControl()
+        public MutationConfigWindowControl(MutationConfigWindowViewModel mutationConfigWindowViewModel)
         {
+            HasMaximizeButton = true;
+            HasMinimizeButton = true;
+
+            DataContext = mutationConfigWindowViewModel;
+
             RunDummyCode();
             InitializeComponent();
+
+            mutationConfigWindowViewModel.Initialize();
         }
 
         private void RunDummyCode()
@@ -27,6 +30,15 @@ namespace Testura.Mutation.VsExtension.Sections.Config
             ShadowAssist.SetShadowDepth(this, ShadowDepth.Depth0);
             var hue = new Hue("Dummy", Colors.AliceBlue, Colors.AntiqueWhite);
             var o = new TabablzControl();
+        }
+
+        private void UpdateConfigButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var dataContext = DataContext as MutationConfigWindowViewModel;
+            if (dataContext == null || dataContext.UpdateConfig())
+            {
+                Close();
+            }
         }
     }
 }

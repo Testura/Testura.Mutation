@@ -60,7 +60,6 @@ namespace Testura.Mutation.VsExtension
             Container.RegisterType<ITestRunnerClient, TestRunnerConsoleClient>();
             Container.RegisterType<MutationExplorerWindow>();
             Container.RegisterType<MutationExplorerWindowControl>();
-            Container.RegisterType<MutationConfigWindow>();
             Container.RegisterType<MutationConfigWindowControl>();
             Container.RegisterType<ISolutionOpener, MsBuildSolutionOpener>();
             Container.RegisterType<IFileSystem, FileSystem>();

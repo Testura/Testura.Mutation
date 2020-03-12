@@ -2,6 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 using Testura.Mutation.Application.Models;
+using Testura.Mutation.Core.Solution;
 using Testura.Mutation.VsExtension.Sections.Config;
 
 namespace Testura.Mutation.VsExtension.Services
@@ -9,10 +10,12 @@ namespace Testura.Mutation.VsExtension.Services
     public class ConfigService
     {
         private readonly EnvironmentService _environmentService;
+        private readonly SolutionInfoService _solutionInfoService;
 
-        public ConfigService(EnvironmentService environmentService)
+        public ConfigService(EnvironmentService environmentService, SolutionInfoService solutionInfoService)
         {
             _environmentService = environmentService;
+            _solutionInfoService = solutionInfoService;
         }
 
         public bool ConfigExist()
@@ -29,8 +32,8 @@ namespace Testura.Mutation.VsExtension.Services
                     await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                     _environmentService.Dte.ActiveWindow.Close();
-                    var window = _environmentService.OpenWindow<MutationConfigWindow>();
-                    window.InitializeWindow();
+                    var window = new MutationConfigWindowControl(new MutationConfigWindowViewModel(_environmentService, _solutionInfoService));
+                    window.ShowDialog();
 
                     return false;
                 }
