@@ -120,7 +120,7 @@ namespace Testura.Mutation.Infrastructure
 
             // We also have a max time in the test runner so add a bit of extra here
             // just in case so we don't fail it to early.
-            var successful = readStreamTask.Wait((int)maxTime.Add(TimeSpan.FromSeconds(30)).TotalMilliseconds, cancellationToken);
+             var successful = readStreamTask.Wait((int)maxTime.Add(TimeSpan.FromSeconds(30)).TotalMilliseconds, cancellationToken);
 
             message = successful ? readStreamTask.Result : "Stuck when reading from stream!";
             return successful;

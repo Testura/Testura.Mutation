@@ -33,7 +33,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="260" />
+            <ColumnDefinition Width="280" />
             <ColumnDefinition Width="*" MinWidth="100" />
         </Grid.ColumnDefinitions>
         <DockPanel Grid.Row="0" Background="#303030">
@@ -65,10 +65,10 @@
                 <Button
                     Command="{Binding RefreshMutationsCommand}"
                     IsEnabled="{Binding IsRunButtonEnabled}"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     ToolTip="Refresh mutations"
                     Padding="10">
-                    <Image Source="../../Resources/iconWithoutDot.png" Margin="1"/>
+                    <Image Source="../../Resources/iconRefreshMutations.png" Margin="1"/>
                 </Button>
             </ToolBar>
             <ToolBar Height="40" Background="#303030" ToolBarTray.IsLocked="True">
@@ -89,7 +89,7 @@
                     ToolTip="Remove killed mutations"
                     IsEnabled="{Binding IsRunButtonEnabled}"
                     Command="{Binding RemoveKilledMutationsCommand}">
-                    <Image Source="../../Resources/iconSurvived.png" />
+                    <Image Source="../../Resources/iconRemoveKilledMutations.png" />
                 </Button>
             </ToolBar>
         </Grid>
@@ -120,6 +120,7 @@
         <DataGrid
             Visibility="{Binding Converter={StaticResource BooleanToHiddenConverter}, Path=IsLoadingMutationsVisible}"
             Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+            x:Name="MutationDataGrid"
                         SelectionUnit="FullRow"
                         AutoGenerateColumns="False"
                         IsReadOnly="False"
@@ -137,8 +138,14 @@
                 </i:EventTrigger>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding MutationSelectedCommand}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" x:Name="SecondDummy" />
+                    <i:InvokeCommandAction Command="{Binding MutationsSelectedCommand}" CommandParameter="{Binding Path=SelectedItems, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" x:Name="ThirdDummy" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Run selected mutations" FontSize="10" Command="{Binding RunSelectedMutationsCommand}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="" Width="60" IsReadOnly="True" MaxWidth="60" MinWidth="60">
                     <DataGridTemplateColumn.CellTemplate>

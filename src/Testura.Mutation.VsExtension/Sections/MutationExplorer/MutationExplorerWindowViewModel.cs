@@ -14,7 +14,6 @@ using Prism.Mvvm;
 using Testura.Mutation.Application.Commands.Mutation.CreateMutations;
 using Testura.Mutation.Application.Commands.Mutation.ExecuteMutations;
 using Testura.Mutation.Application.Commands.Project.OpenProject;
-using Testura.Mutation.Core;
 using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Creator.Filter;
 using Testura.Mutation.VsExtension.Models;
@@ -28,6 +27,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
     public class MutationExplorerWindowViewModel : BindableBase
     {
         private readonly EnvironmentService _environmentService;
+        private readonly MutationRunDocumentService _mutationRunDocumentService;
         private readonly ConfigService _configService;
         private readonly IMediator _mediator;
 
@@ -42,7 +42,8 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         private bool _isLoadingMutationsVisible;
 
         private MutationRunItem _selectedMutation;
-        private List<MutationDocumentFilterItem> _filterItems;
+        private IEnumerable<MutationRunItem> _selectedMutations;
+        private IList<MutationDocumentFilterItem> _filterItems;
         private MutationConfig _config;
         private CancellationTokenSource _tokenSource;
         private IEnumerable<MutationDocumentFilterItem> _originalFilterItems;
@@ -54,15 +55,18 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             RunningDocTableEvents runningDocTableEvents,
             IMediator mediator)
         {
+            Mutations = new ObservableCollection<MutationRunItem>();
+
+            _mutationRunDocumentService = new MutationRunDocumentService(environmentService, Mutations);
             _environmentService = environmentService;
             _configService = configService;
             _mediator = mediator;
             _filterItems = new List<MutationDocumentFilterItem>();
-
-            Mutations = new ObservableCollection<MutationRunItem>();
+            _selectedMutations = new List<MutationRunItem>();
 
             RunMutationsCommand = new DelegateCommand(() => RunMutations(Mutations));
             MutationSelectedCommand = new DelegateCommand<MutationRunItem>(UpdateSelectedMutation);
+            MutationsSelectedCommand = new DelegateCommand<System.Collections.IList>((mutations) => _selectedMutations = mutations.Cast<MutationRunItem>());
 
             GoToMutationCommand = new DelegateCommand<MutationRunItem>(
                 mutation => _environmentService.GoToLine(mutation.Document.FilePath, mutation.Document.MutationDetails.Location.GetLineNumber()));
@@ -73,6 +77,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             RemoveKilledMutationsCommand = new DelegateCommand(RemovedKilledMutations);
             RunOnlySurvivingMutationsCommand = new DelegateCommand(RunOnlySurvivingMutations);
             RefreshMutationsCommand = new DelegateCommand(() => Initialize(_originalFilterItems));
+            RunSelectedMutationsCommand = new DelegateCommand(RunSelectedMutations);
 
             StopCommand = new DelegateCommand(() =>
             {
@@ -89,8 +94,6 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
         public DelegateCommand<MutationRunItem> MutationSelectedCommand { get; set; }
 
-        public DelegateCommand ToggleMutation { get; set; }
-
         public DelegateCommand ShowMutationDetailsCommand { get; set; }
 
         public DelegateCommand<MutationRunItem> GoToMutationCommand { get; set; }
@@ -104,6 +107,12 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         public DelegateCommand RunOnlySurvivingMutationsCommand { get; set; }
 
         public DelegateCommand RefreshMutationsCommand { get; set; }
+
+        public DelegateCommand ToggleMutation { get; set; }
+
+        public DelegateCommand RunSelectedMutationsCommand { get; set; }
+
+        public DelegateCommand<System.Collections.IList> MutationsSelectedCommand { get; set; }
 
         public ObservableCollection<MutationRunItem> Mutations { get; set; }
 
@@ -186,23 +195,11 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
                     if (_tokenSource.Token.IsCancellationRequested)
                     {
-                        IsStopButtonEnabled = false;
                         return;
                     }
 
                     var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(_config), _tokenSource.Token);
-
-                    await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-                    foreach (var mutationDocument in mutationDocuments)
-                    {
-                        Mutations.Add(new MutationRunItem
-                        {
-                            Document = mutationDocument,
-                            Status = MutationRunItem.TestRunStatusEnum.Waiting,
-                            InfoText = "Not run"
-                        });
-                    }
+                    _mutationRunDocumentService.AddMutationDocuments(mutationDocuments);
 
                     IsRunButtonEnabled = true;
                     UpdateHighlightedMutations();
@@ -272,8 +269,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
             if (_shouldRefresh)
             {
-                var result = _environmentService.UserNotificationService.ShowWarningWithYesAndNo("One or more of your mutated files has changed. Should we refresh all mutations?");
-
+                var result = _environmentService.UserNotificationService.ShowWarningWithYesAndNo("One or more of your mutated files has been modified. Should we refresh all mutations?");
                 if (result == VSConstants.MessageBoxResult.IDYES)
                 {
                     Initialize(_originalFilterItems);
@@ -284,7 +280,6 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             }
 
             _tokenSource = new CancellationTokenSource();
-
             foreach (var mutation in mutations)
             {
                 mutation.Status = MutationRunItem.TestRunStatusEnum.Waiting;
@@ -302,8 +297,8 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                         new ExecuteMutationsCommand(
                             _config,
                             mutations.Select(r => r.Document).ToList(),
-                            MutationDocumentStarted,
-                            MutationDocumentCompleted),
+                            _mutationRunDocumentService.MutationDocumentStarted,
+                            _mutationRunDocumentService.MutationDocumentCompleted),
                         _tokenSource.Token);
                 }
                 catch (Exception)
@@ -317,57 +312,6 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
                     IsStopButtonEnabled = false;
 
                     UpdateHighlightedMutations();
-                }
-            });
-        }
-
-        private void MutationDocumentCompleted(MutationDocumentResult result)
-        {
-            _environmentService.JoinableTaskFactory.RunAsync(async () =>
-            {
-                await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-                var runDocument = Mutations.FirstOrDefault(r => r.Document.Id == result.Id);
-
-                if (runDocument != null)
-                {
-                    runDocument.Result = result;
-
-                    if (result.CompilationResult != null && !result.CompilationResult.IsSuccess)
-                    {
-                        runDocument.Status = MutationRunItem.TestRunStatusEnum.CompletedWithUnknownReason;
-                        runDocument.InfoText = "Failed to compile.";
-                        return;
-                    }
-
-                    if (result.UnexpectedError != null)
-                    {
-                        runDocument.Status = MutationRunItem.TestRunStatusEnum.CompletedWithUnknownReason;
-                        runDocument.InfoText = result.UnexpectedError;
-                        return;
-                    }
-
-                    runDocument.Status = result.Survived
-                        ? MutationRunItem.TestRunStatusEnum.CompleteAndSurvived
-                        : MutationRunItem.TestRunStatusEnum.CompleteAndKilled;
-
-                    runDocument.InfoText = $"{result.FailedTests.Count} of {result.TestsRunCount} tests failed";
-                    runDocument.InfoText += result.Survived ? " (mutation survived)" : " (mutation killed)";
-                }
-            });
-        }
-
-        private void MutationDocumentStarted(MutationDocument mutationDocument)
-        {
-            _environmentService.JoinableTaskFactory.RunAsync(async () =>
-            {
-                await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-                var testRunDocument = Mutations.FirstOrDefault(r => r.Document == mutationDocument);
-                if (testRunDocument != null)
-                {
-                    testRunDocument.Status = MutationRunItem.TestRunStatusEnum.Running;
-                    testRunDocument.InfoText = "Running..";
                 }
             });
         }
@@ -412,43 +356,26 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
         private void RemovedKilledMutations()
         {
-            var index = 0;
-            while (index < Mutations.Count)
-            {
-                if (Mutations[index].Result != null && !Mutations[index].Result.Survived)
-                {
-                    Mutations.RemoveAt(index);
-                    continue;
-                }
-
-                index++;
-            }
-
+            _mutationRunDocumentService.RemovedKilledMutations();
             UpdateHighlightedMutations();
         }
 
         private void RunOnlySurvivingMutations()
         {
-            RunMutations(Mutations.Where(m => m.Status == MutationRunItem.TestRunStatusEnum.CompleteAndSurvived).ToList());
+            RunMutations(_mutationRunDocumentService.GetSurvivedMutations());
         }
 
         private void RunningDocTableEventsOnBeforeSave(object sender, Document document)
         {
-            if (Mutations == null)
+            _shouldRefresh = _mutationRunDocumentService.AnyMutationThatMatchFilePath(document);
+        }
+
+        private void RunSelectedMutations()
+        {
+            if (_selectedMutations != null && _selectedMutations.Any())
             {
-                return;
+                RunMutations(_selectedMutations);
             }
-
-            _environmentService.JoinableTaskFactory.RunAsync(async () =>
-            {
-                await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-                #pragma warning disable VSTHRD010
-                if (Mutations.Any(m => m.Document.FilePath == document.FullName))
-                {
-                    _shouldRefresh = true;
-                }
-            });
         }
     }
 }
