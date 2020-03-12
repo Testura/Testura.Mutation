@@ -56,6 +56,7 @@
     </Compile>
     <Compile Include="MutationHighlight\Glyph\MutationCodeHighlightGlyphFactory.cs" />
     <Compile Include="MutationHighlight\Glyph\MutationCodeHighlightGlyphFactoryProvider.cs" />
+    <Compile Include="Services\MutationRunDocumentService.cs" />
     <Compile Include="Util\Behavior\AutoScrollBehavior.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Util\CodeDiff\OldNewDiffPiece.cs" />
@@ -80,7 +81,6 @@
     <Compile Include="MutationHighlight\MutationCodeHighlightTagger.cs" />
     <Compile Include="MutationHighlight\MutationCodeHighlightTaggerProvider.cs" />
     <Compile Include="MutationHighlight\MutationHighlight.cs" />
-    <Compile Include="Sections\Config\MutationConfigWindow.cs" />
     <Compile Include="Sections\Config\MutationConfigWindowCommand.cs" />
     <Compile Include="Sections\Config\MutationConfigWindowControl.xaml.cs">
       <DependentUpon>MutationConfigWindowControl.xaml</DependentUpon>
@@ -109,6 +109,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Resources\iconRemoveKilledMutations.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\iconRefreshMutations.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\rerun.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

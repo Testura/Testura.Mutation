@@ -25,7 +25,6 @@ namespace Testura.Mutation.VsExtension
     [Guid(PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideToolWindow(typeof(MutationExplorerWindow), MultiInstances = false, Style = VsDockStyle.Tabbed, Window = Constants.vsWindowKindMainWindow, Orientation = ToolWindowOrientation.Left)]
-    [ProvideToolWindow(typeof(MutationConfigWindow), MultiInstances = false, DocumentLikeTool = true)]
     public sealed class TesturaMutationVsExtensionPackage : AsyncPackage
     {
         public const string PackageGuidString = "eb1b49be-0389-4dee-995a-cf1854262fa9";
@@ -50,7 +49,7 @@ namespace Testura.Mutation.VsExtension
 
             await MutationExplorerWindowCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<UserNotificationService>());
             await SelectProjectFileCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<MutationFilterItemCreatorService>(), _bootstrapper.Container.Resolve<UserNotificationService>());
-            await MutationConfigWindowCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<UserNotificationService>());
+            await MutationConfigWindowCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<UserNotificationService>(), _bootstrapper.Container.Resolve<EnvironmentService>(), _bootstrapper.Container.Resolve<SolutionInfoService>());
             await SelectLineCommand.InitializeAsync(this, _bootstrapper.Container.Resolve<MutationFilterItemCreatorService>(), _bootstrapper.Container.Resolve<UserNotificationService>());
         }
 
