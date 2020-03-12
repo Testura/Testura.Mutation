@@ -143,7 +143,7 @@
             </i:Interaction.Triggers>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Run selected mutations" FontSize="10" Command="{Binding RunSelectedMutationsCommand}" />
+                    <MenuItem Header="Run selected mutations" FontSize="10" Command="{Binding RunSelectedMutationsCommand}" IsEnabled="{Binding IsRunButtonEnabled}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>

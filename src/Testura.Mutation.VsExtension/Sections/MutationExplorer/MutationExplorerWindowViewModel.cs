@@ -372,7 +372,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
         private void RunSelectedMutations()
         {
-            if (_selectedMutations != null && _selectedMutations.Any())
+            if (_selectedMutations != null && _selectedMutations.Any() && _isRunButtonEnabled)
             {
                 RunMutations(_selectedMutations);
             }

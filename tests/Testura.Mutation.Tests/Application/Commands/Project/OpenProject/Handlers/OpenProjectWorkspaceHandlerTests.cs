@@ -53,6 +53,7 @@ namespace Testura.Mutation.Tests.Application.Commands.Project.OpenProject.Handle
             Assert.AreEqual(2, projects.Count);
         }
 
+        [Ignore("Problem with mutation testing")]
         [TestCase("release", "Release", TestName = "CreateMutationProjects_WhenCreateMutationProjectsAndBuildConfigurationIsRelease_ShouldGetRelease")]
         [TestCase("debug", "Debug", TestName = "CreateMutationProjects_WhenCreateMutationProjectsAndBuildConfigurationIsDebug_ShouldGetDebug")]
         [TestCase("null", "Debug", TestName = "CreateMutationProjects_WhenCreateMutationProjectsAndBuildConfigurationIsNull_ShouldGetDebug")]
@@ -64,6 +65,7 @@ namespace Testura.Mutation.Tests.Application.Commands.Project.OpenProject.Handle
             StringAssert.Contains(expectedBuildConfiguration, projects.First().Project.OutputDirectoryPath);
         }
 
+        [Ignore("Problem with mutation testing")]
         [TestCase("release", "Release", TestName = "CreateTestProjects_WhenCreateTestProjectsAndBuildConfigurationIsRelease_ShouldGetRelease")]
         [TestCase("debug", "Debug", TestName = "CreateTestProjects_WhenCreateTestProjectsAndBuildConfigurationIsDebug_ShouldGetDebug")]
         [TestCase("null", "Debug", TestName = "CreateTestProjects_WhenCreateTestProjectsAndBuildConfigurationIsNull_ShouldGetDebug")]
