@@ -222,21 +222,10 @@ Possible git values:
 
 ```c#
     "Git":  {
-                   "RepositoryUrl": "url/to/your/repository",
-		   "LocalPath": "where/we/should/save/repository"
-		   "Branch": "master",
-		   "Username": "Your username if any",
-		   "Passsword": "Your password if any"
-		   "ForceClone": false, 
 		   "GenerateFilterFromDiffWithMaster": false
                },
 ```
 
-- `RepositoryUrl`: Url to your repository 
-- `LocalPath`: Path to your local directory 
-- `Branch`: Name of the branch you want to clone/checkout 
-- `Username/password`: If your repoistory requires username/password (are optional) 
-- `ForceClone`: We always start by looking if the project exist before cloning - but if this is true we delete the local directory and clone again.
 - `GenerateFilterFromDiffWithMaster`: If this is true we will look at the changes between the branch and master and generate filter items for the changes. For example if you have changed line 51 in the file "Test.cs" we will create a filter item like `{ Effect: "Allow", "Resource": "*Test.cs", "Lines": [ "51" ]`
 
 ### Mutation run logger
