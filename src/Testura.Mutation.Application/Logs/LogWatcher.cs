@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Linq;
 using log4net;
-using log4net.Appender;
 
 namespace Testura.Mutation.Application.Logs
 {
@@ -10,10 +10,13 @@ namespace Testura.Mutation.Application.Logs
 
         public LogWatcher()
         {
-            var reps = LogManager.GetRepository().GetAppenders();
+            var appenders = LogManager.GetRepository().GetAppenders();
+            memoryAppender = appenders.FirstOrDefault(a => a.Name.Equals("MemoryAppender")) as MemoryAppenderWithEvents;
 
-            // Get the memory appender
-            memoryAppender = (MemoryAppenderWithEvents)Array.Find(LogManager.GetRepository().GetAppenders(), GetMemoryAppender);
+            if (memoryAppender == null)
+            {
+                throw new Exception($"Could not find any memory appender. We currently have these appenders: {string.Join(", ", appenders.Select(a => a.Name))}");
+            }
 
             // Add an event handler to handle updates from the MemoryAppender
             memoryAppender.Updated += HandleUpdate;
@@ -26,17 +29,6 @@ namespace Testura.Mutation.Application.Logs
         public void HandleUpdate(object sender, log4net.Core.LoggingEvent logEvent)
         {
             NewMessage?.Invoke(this, $"{logEvent.TimeStamp:yyyy-MM-dd HH:mm:ss,fff}[{logEvent.Level}]: {logEvent.RenderedMessage} \r\n");
-        }
-
-        private static bool GetMemoryAppender(IAppender appender)
-        {
-            // Returns the IAppender named MemoryAppender in the Log4Net.config file
-            if (appender.Name.Equals("MemoryAppender"))
-            {
-                return true;
-            }
-
-            return false;
         }
     }
 }
