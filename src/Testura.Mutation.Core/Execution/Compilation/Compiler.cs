@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using log4net;
 using Microsoft.CodeAnalysis;
 using Newtonsoft.Json.Linq;
@@ -13,6 +10,12 @@ namespace Testura.Mutation.Core.Execution.Compilation
     public class Compiler : IMutationDocumentCompiler, IProjectCompiler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Compiler));
+        private readonly EmbeddedResourceCreator _embeddedResourceCreator;
+
+        public Compiler(EmbeddedResourceCreator embeddedResourceCreator)
+        {
+            _embeddedResourceCreator = embeddedResourceCreator;
+        }
 
         public async Task<CompilationResult> CompileAsync(string path, MutationDocument document)
         {
@@ -49,7 +52,7 @@ namespace Testura.Mutation.Core.Execution.Compilation
             string filePath,
             Microsoft.CodeAnalysis.Compilation compilation)
         {
-            var result = compilation.Emit(path, manifestResources: GetEmbeddedResources(assemblyName, filePath));
+            var result = compilation.Emit(path, manifestResources: _embeddedResourceCreator.GetManifestResources(assemblyName, filePath));
 
             return new CompilationResult
             {
@@ -59,34 +62,6 @@ namespace Testura.Mutation.Core.Execution.Compilation
                     .Select(d => new CompilationError { Message = d.GetMessage(), Location = d.Location.ToString() })
                     .ToList()
             };
-        }
-
-        private IList<ResourceDescription> GetEmbeddedResources(string assemblyName, string projectPath)
-        {
-            var resources = new List<ResourceDescription>();
-            var doc = XDocument.Load(projectPath);
-            var embeddedResources = doc.Descendants().Where(d => d.Name.LocalName.Equals("EmbeddedResource", StringComparison.InvariantCultureIgnoreCase));
-            foreach (var embeddedResource in embeddedResources)
-            {
-                var paths = embeddedResource.Attribute("Include")?.Value;
-                if (paths == null)
-                {
-                    continue;
-                }
-
-                foreach (var path in paths.Split(';'))
-                {
-                    var pathFixed = path.Split('\\');
-                    var resourcePath = Path.Combine(Path.GetDirectoryName(projectPath), path);
-
-                    resources.Add(new ResourceDescription(
-                        $"{assemblyName}.{string.Join(".", pathFixed)}",
-                        () => File.OpenRead(resourcePath),
-                        true));
-                }
-            }
-
-            return resources;
         }
     }
 }
