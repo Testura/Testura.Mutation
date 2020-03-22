@@ -65,6 +65,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\CompilationException.cs" />
     <Compile Include="Exceptions\ProjectSetUpException.cs" />
+    <Compile Include="Execution\Compilation\EmbeddedResourceCreator.cs" />
     <Compile Include="Execution\Compilation\IMutationDocumentCompiler.cs" />
     <Compile Include="Execution\Compilation\IProjectCompiler.cs" />
     <Compile Include="Execution\Report\Html\HtmlOnlyBodyReportCreator.cs" />
