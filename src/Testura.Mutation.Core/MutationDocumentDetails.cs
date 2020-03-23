@@ -6,24 +6,31 @@ namespace Testura.Mutation.Core
 {
     public class MutationDocumentDetails
     {
-        public MutationDocumentDetails(SyntaxNode orginal, SyntaxNode mutation, MutationLocationInfo location)
+        public MutationDocumentDetails(
+            SyntaxNode original,
+            SyntaxNode mutation,
+            MutationLocationInfo location,
+            MutationCategory category)
         {
-            Orginal = orginal;
+            Original = original;
             Mutation = mutation;
-            FullOrginal = GetRoot(orginal);
-            FullMutation = FullOrginal.ReplaceNode(Orginal, Mutation);
+            FullOriginal = GetRoot(original);
+            FullMutation = FullOriginal.ReplaceNode(Original, Mutation);
             Location = location;
+            Category = category;
         }
 
-        public SyntaxNode Orginal { get; }
+        public SyntaxNode Original { get; }
 
         public SyntaxNode Mutation { get; }
 
-        public CompilationUnitSyntax FullOrginal { get; }
+        public CompilationUnitSyntax FullOriginal { get; }
 
         public CompilationUnitSyntax FullMutation { get; }
 
         public MutationLocationInfo Location { get; }
+
+        public MutationCategory Category { get; set; }
 
         private CompilationUnitSyntax GetRoot(SyntaxNode syntaxNode)
         {

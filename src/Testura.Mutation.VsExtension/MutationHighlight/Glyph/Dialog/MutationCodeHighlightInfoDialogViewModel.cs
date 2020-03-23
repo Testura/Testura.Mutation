@@ -19,7 +19,7 @@ namespace Testura.Mutation.VsExtension.MutationHighlight.Glyph.Dialog
 
             var diffBuilder = new SideBySideDiffBuilder(new Differ());
             Diff = diffBuilder.BuildDiffModel(
-                _mutationRunItem.Document.MutationDetails.Orginal.ToFullString() ?? string.Empty,
+                _mutationRunItem.Document.MutationDetails.Original.ToFullString() ?? string.Empty,
                 _mutationRunItem.Document.MutationDetails.Mutation.ToFullString() ?? string.Empty);
         }
 

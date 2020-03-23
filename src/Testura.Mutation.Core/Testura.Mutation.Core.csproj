@@ -86,6 +86,7 @@
     <Compile Include="Loggers\IMutationRunLoggerManager.cs" />
     <Compile Include="Loggers\MutationRunLoggerManager.cs" />
     <Compile Include="Loggers\LoggerKinds\StatusMutationRunLogger.cs" />
+    <Compile Include="MutationCategory.cs" />
     <Compile Include="MutationDocument.cs" />
     <Compile Include="MutationDocumentDetails.cs" />
     <Compile Include="MutationDocumentResult.cs" />

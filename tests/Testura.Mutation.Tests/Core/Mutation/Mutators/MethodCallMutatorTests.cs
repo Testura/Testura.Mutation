@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
+using Testura.Mutation.Core;
 using Testura.Mutation.Core.Creator.Mutators;
 
 namespace Testura.Mutation.Tests.Core.Mutation.Mutators
@@ -18,8 +19,9 @@ namespace Testura.Mutation.Tests.Core.Mutation.Mutators
 
             var mutator = new MethodCallMutator();
             var doc = mutator.GetMutatedDocument(root, null);
-
-            Assert.AreEqual(";", doc[0].MutationDetails.Mutation.ToString());
+            Assert.AreEqual("/*Hello();*/", doc[0].MutationDetails.Mutation.ToFullString());
+            Assert.AreEqual(MutationOperators.MethodCall, doc[0].MutationDetails.Category.Category);
+            Assert.AreEqual("InvocationExpression", doc[0].MutationDetails.Category.Subcategory);
         }
 
         [Test]
@@ -34,7 +36,9 @@ namespace Testura.Mutation.Tests.Core.Mutation.Mutators
             var mutator = new MethodCallMutator();
             var doc = mutator.GetMutatedDocument(root, null);
 
-            Assert.AreEqual(";", doc[0].MutationDetails.Mutation.ToString());
+            Assert.AreEqual("/*myObject.Hello();*/", doc[0].MutationDetails.Mutation.ToFullString());
+            Assert.AreEqual(MutationOperators.MethodCall, doc[0].MutationDetails.Category.Category);
+            Assert.AreEqual("InvocationExpression", doc[0].MutationDetails.Category.Subcategory);
         }
 
         [Test]

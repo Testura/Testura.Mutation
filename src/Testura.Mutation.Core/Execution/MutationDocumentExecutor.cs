@@ -49,8 +49,8 @@ namespace Testura.Mutation.Core.Execution
                 ProjectName = mutationDocument.ProjectName,
                 FileName = mutationDocument.FileName,
                 Location = mutationDocument.MutationDetails.Location,
-                Orginal = mutationDocument.MutationDetails.Orginal.ToFullString(),
-                FullOrginal = mutationDocument.MutationDetails.FullOrginal.ToFullString(),
+                Orginal = mutationDocument.MutationDetails.Original.ToFullString(),
+                FullOrginal = mutationDocument.MutationDetails.FullOriginal.ToFullString(),
                 Mutation = mutationDocument.MutationDetails.Mutation.ToFullString(),
                 FullMutation = mutationDocument.MutationDetails.FullMutation.ToFullString()
             };

@@ -20,6 +20,8 @@ namespace Testura.Mutation.Core.Creator.Mutators.BinaryExpressionMutators
             };
         }
 
+        protected override MutationOperators Category => MutationOperators.NegateCondtional;
+
         protected override Dictionary<SyntaxKind, SyntaxKind> GetReplacementTable()
         {
             return _replacementTable;

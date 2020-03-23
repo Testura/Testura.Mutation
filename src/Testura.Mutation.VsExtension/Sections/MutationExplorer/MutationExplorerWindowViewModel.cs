@@ -320,7 +320,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         {
             SelectedMutation = mutationRunItem;
 
-            CodeBeforeMutation = mutationRunItem?.Document?.MutationDetails?.Orginal?.ToFullString() ?? string.Empty;
+            CodeBeforeMutation = mutationRunItem?.Document?.MutationDetails?.Original?.ToFullString() ?? string.Empty;
             CodeAfterMutation = mutationRunItem?.Document?.MutationDetails?.Mutation?.ToFullString() ?? string.Empty;
             var diffBuilder = new SideBySideDiffBuilder(new Differ());
             Diff = diffBuilder.BuildDiffModel(CodeBeforeMutation, CodeAfterMutation);

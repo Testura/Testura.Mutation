@@ -20,18 +20,27 @@ namespace Testura.Mutation.Core.Creator.Mutators.BinaryExpressionMutators
             };
         }
 
+        protected override MutationOperators Category => MutationOperators.ConditionalBoundary;
+
         public override SyntaxNode VisitIfStatement(IfStatementSyntax node)
         {
             if (node.Condition is InvocationExpressionSyntax)
             {
                 var newNode = SyntaxFactory.PrefixUnaryExpression(SyntaxKind.LogicalNotExpression, SyntaxFactory.ParenthesizedExpression(node.Condition)).NormalizeWhitespace();
-                Replacers.Add(new MutationDocumentDetails(node.Condition, newNode, GetWhere(node.Condition)));
+                Replacers.Add(new MutationDocumentDetails(
+                    node.Condition,
+                    newNode,
+                    GetWhere(node.Condition),
+                    CreateCategory(node.Condition.Kind().ToString())));
             }
 
-            if (node.Condition is PrefixUnaryExpressionSyntax)
+            if (node.Condition is PrefixUnaryExpressionSyntax condition)
             {
-                var condition = node.Condition as PrefixUnaryExpressionSyntax;
-                Replacers.Add(new MutationDocumentDetails(node.Condition, condition.Operand, GetWhere(condition.Operand)));
+                Replacers.Add(new MutationDocumentDetails(
+                    node.Condition,
+                    condition.Operand,
+                    GetWhere(condition.Operand),
+                    CreateCategory(condition.Kind().ToString())));
             }
 
             return base.VisitIfStatement(node);

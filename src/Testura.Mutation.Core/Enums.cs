@@ -30,4 +30,11 @@ namespace Testura.Mutation.Core
     {
         Azure
     }
+
+    public enum LocationKind
+    {
+        Constructor,
+        Method,
+        Property
+    }
 }

@@ -25,6 +25,8 @@ namespace Testura.Mutation.Core.Creator.Mutators.BinaryExpressionMutators
             };
         }
 
+        protected override MutationOperators Category => MutationOperators.Math;
+
         public override SyntaxNode VisitBinaryExpression(BinaryExpressionSyntax node)
         {
             var operatorKind = node.OperatorToken.Kind();
@@ -37,7 +39,11 @@ namespace Testura.Mutation.Core.Creator.Mutators.BinaryExpressionMutators
                 if (!left.IsKind(SyntaxKind.StringLiteralExpression) && !right.IsKind(SyntaxKind.StringLiteralExpression))
                 {
                     var newNode = node.ReplaceToken(node.OperatorToken, SyntaxFactory.Token(SyntaxKind.MinusToken)).NormalizeWhitespace();
-                    Replacers.Add(new MutationDocumentDetails(node, newNode, GetWhere(node)));
+                    Replacers.Add(new MutationDocumentDetails(
+                        node,
+                        newNode,
+                        GetWhere(node),
+                        CreateCategory(node.OperatorToken.Text)));
                 }
             }
 
