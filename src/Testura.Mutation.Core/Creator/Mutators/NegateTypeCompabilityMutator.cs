@@ -18,7 +18,7 @@ namespace Testura.Mutation.Core.Creator.Mutators
                         node,
                         newNode,
                         GetWhere(node),
-                        CreateCategory("NegateIs")));
+                        CreateCategory("NegateIsExpression")));
             }
 
             return base.VisitBinaryExpression(node);

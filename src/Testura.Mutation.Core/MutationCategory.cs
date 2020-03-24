@@ -2,9 +2,9 @@
 {
     public class MutationCategory
     {
-        public MutationCategory(MutationOperators category, string subcategory)
+        public MutationCategory(MutationOperators headCategory, string subcategory)
         {
-            Category = category;
+            HeadCategory = headCategory;
             Subcategory = subcategory;
         }
 
@@ -12,7 +12,7 @@
         {
         }
 
-        public MutationOperators Category { get; set; }
+        public MutationOperators HeadCategory { get; set; }
 
         public string Subcategory { get; set; }
     }

@@ -19,7 +19,7 @@ namespace Testura.Mutation.Core.Creator.Mutators.BinaryExpressionMutators
                     node,
                     newNode,
                     GetWhere(node),
-                    CreateCategory(node.OperatorToken.Text)));
+                    CreateCategory(operatorKind.ToString())));
             }
 
             return base.VisitBinaryExpression(node);

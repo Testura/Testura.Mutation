@@ -43,7 +43,7 @@ namespace Testura.Mutation.Core.Creator.Mutators.BinaryExpressionMutators
                         node,
                         newNode,
                         GetWhere(node),
-                        CreateCategory(node.OperatorToken.Text)));
+                        CreateCategory(SyntaxKind.PlusToken.ToString())));
                 }
             }
 

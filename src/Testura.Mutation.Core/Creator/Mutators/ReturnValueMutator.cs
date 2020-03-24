@@ -70,7 +70,7 @@ namespace Testura.Mutation.Core.Creator.Mutators
                         node,
                         newNode,
                         GetWhere(node),
-                        CreateCategory("ObjectCreation")));
+                        CreateCategory("ObjectCreationExpression")));
             }
 
             return base.VisitReturnStatement(node);
