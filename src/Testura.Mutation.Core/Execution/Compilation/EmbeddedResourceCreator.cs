@@ -14,7 +14,18 @@ namespace Testura.Mutation.Core.Execution.Compilation
         {
             var resources = new List<ResourceDescription>();
             var doc = XDocument.Load(projectPath);
+            var rootNamespace = doc.Descendants().FirstOrDefault(d => d.Name.LocalName.Equals("RootNamespace", StringComparison.InvariantCultureIgnoreCase))?.Value;
             var embeddedResources = doc.Descendants().Where(d => d.Name.LocalName.Equals("EmbeddedResource", StringComparison.InvariantCultureIgnoreCase));
+
+            if (rootNamespace == null)
+            {
+                rootNamespace = assemblyName;
+            }
+
+            if (rootNamespace != string.Empty)
+            {
+                rootNamespace += ".";
+            }
 
             foreach (var embeddedResource in embeddedResources)
             {
@@ -32,7 +43,7 @@ namespace Testura.Mutation.Core.Execution.Compilation
                         path;
 
                 resources.Add(new ResourceDescription(
-                    $"{assemblyName}.{string.Join(".", resourceName.Split('\\'))}",
+                    $"{rootNamespace}{string.Join(".", resourceName.Split('\\'))}",
                     () => ProvideResourceData(resourceFullFilename),
                     true));
             }
