@@ -32,7 +32,7 @@ namespace Testura.Mutation.Console
 
             var start = DateTime.Now;
             var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(config));
-            var results = await _mediator.Send(new ExecuteMutationsCommand(config, mutationDocuments.ToList(), null));
+            var results = await _mediator.Send(new ExecuteMutationsCommand(config, mutationDocuments.Take(10).ToList(), null));
 
             var trxSavePath = Path.Combine(savePath, "result.trx");
             var reports = new List<ReportCreator>
@@ -41,7 +41,8 @@ namespace Testura.Mutation.Console
                 new MarkdownReportCreator(Path.ChangeExtension(trxSavePath, ".md")),
                 new TesturaMutationReportCreator(Path.ChangeExtension(trxSavePath, ".testura")),
                 new HtmlOnlyBodyReportCreator(Path.ChangeExtension(trxSavePath, ".html")),
-                new TextSummaryReportCreator(Path.ChangeExtension(trxSavePath, ".txt"))
+                new TextSummaryReportCreator(Path.ChangeExtension(trxSavePath, ".txt")),
+                new TesturaMutationStatisticReportCreator(Path.Combine(savePath, "mutationStatistics.json"))
             };
 
             await _mediator.Send(new CreateReportCommand(results.MutationDocumentResults, reports, DateTime.Now - start));

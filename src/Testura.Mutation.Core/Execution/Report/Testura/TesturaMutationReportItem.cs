@@ -2,7 +2,7 @@
 {
     public class TesturaMutationReportItem
     {
-        public MutationOperators HeadCategory { get; set; }
+        public string HeadCategory { get; set; }
 
         public string SubCategory { get; set; }
 
