@@ -71,6 +71,9 @@
     <Compile Include="Execution\Report\Html\HtmlOnlyBodyReportCreator.cs" />
     <Compile Include="Execution\Report\Summary\TextSummaryReportCreator.cs" />
     <Compile Include="Execution\MutationDocumentExecutor.cs" />
+    <Compile Include="Execution\Report\Testura\TesturaMutationReportItem.cs" />
+    <Compile Include="Execution\Report\Testura\TesturaMutationStatisticReport.cs" />
+    <Compile Include="Execution\Report\Testura\TesturaMutationStatisticReportCreator.cs" />
     <Compile Include="Execution\Result\MutationRunResult.cs" />
     <Compile Include="Execution\Result\TestResult.cs" />
     <Compile Include="Execution\Result\TestSuiteResult.cs" />
