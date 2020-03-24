@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Testura.Mutation.Application.Commands.Mutation.CreateMutations;
@@ -32,7 +31,7 @@ namespace Testura.Mutation.Console
 
             var start = DateTime.Now;
             var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(config));
-            var results = await _mediator.Send(new ExecuteMutationsCommand(config, mutationDocuments.Take(10).ToList(), null));
+            var results = await _mediator.Send(new ExecuteMutationsCommand(config, mutationDocuments, null));
 
             var trxSavePath = Path.Combine(savePath, "result.trx");
             var reports = new List<ReportCreator>
