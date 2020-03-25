@@ -10,9 +10,6 @@ namespace Testura.Mutation.Core.Creator.Mutators
 
         public override SyntaxNode VisitExpressionStatement(ExpressionStatementSyntax node)
         {
-            var o = node.WithLeadingTrivia(TriviaList(Comment("/*"))).WithTrailingTrivia(TriviaList(Comment("*/")));
-            var k = o.ToFullString();
-
             Replacers.Add(new MutationDocumentDetails(
                 node,
                 node.WithLeadingTrivia(TriviaList(Comment("/*"))).WithTrailingTrivia(TriviaList(Comment("*/"))),

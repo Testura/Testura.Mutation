@@ -37,6 +37,7 @@ namespace Testura.Mutation.VsExtension.Sections.Config
             var dataContext = DataContext as MutationConfigWindowViewModel;
             if (dataContext == null || dataContext.UpdateConfig())
             {
+                DialogResult = true;
                 Close();
             }
         }

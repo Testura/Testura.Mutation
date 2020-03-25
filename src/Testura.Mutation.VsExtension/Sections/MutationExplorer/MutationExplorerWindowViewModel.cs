@@ -239,7 +239,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
             _tokenSource = new CancellationTokenSource();
 
-            if (!_configService.ConfigExist())
+            if (!_configService.ValidConfig())
             {
                 ResetWindow();
                 return;
@@ -388,6 +388,8 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         private void ResetWindow()
         {
             Mutations.Clear();
+            MutationCodeHighlightHandler.ClearHighlights();
+
             IsRunButtonEnabled = false;
             IsLoadingMutationsVisible = false;
             IsStopButtonEnabled = false;

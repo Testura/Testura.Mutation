@@ -18,7 +18,7 @@ namespace Testura.Mutation.VsExtension.Services
             _solutionInfoService = solutionInfoService;
         }
 
-        public bool ConfigExist()
+        public bool ValidConfig()
         {
             return _environmentService.JoinableTaskFactory.Run(async () =>
             {
@@ -31,9 +31,8 @@ namespace Testura.Mutation.VsExtension.Services
 
                     await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
                     var window = new MutationConfigWindowControl(new MutationConfigWindowViewModel(_environmentService, _solutionInfoService));
-                    window.ShowDialog();
-
-                    return false;
+                    var result = window.ShowDialog();
+                    return result.HasValue && result.Value;
                 }
 
                 return true;
