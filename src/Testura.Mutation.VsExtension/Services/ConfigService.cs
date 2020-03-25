@@ -30,8 +30,6 @@ namespace Testura.Mutation.VsExtension.Services
                         "Could not find base config. Please configure Testura.Mutation before running any mutation(s).");
 
                     await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-                    _environmentService.Dte.ActiveWindow.Close();
                     var window = new MutationConfigWindowControl(new MutationConfigWindowViewModel(_environmentService, _solutionInfoService));
                     window.ShowDialog();
 

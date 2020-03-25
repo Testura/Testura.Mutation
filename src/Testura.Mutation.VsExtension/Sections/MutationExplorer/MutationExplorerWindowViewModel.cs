@@ -87,6 +87,12 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
             runningDocTableEvents.BeforeSave += RunningDocTableEventsOnBeforeSave;
 
+            environmentService.JoinableTaskFactory.Run(async () =>
+            {
+                await environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
+                environmentService.Dte.Events.SolutionEvents.BeforeClosing += ResetWindow;
+            });
+
             _showhighlight = true;
         }
 
@@ -235,6 +241,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
             if (!_configService.ConfigExist())
             {
+                ResetWindow();
                 return;
             }
 
@@ -376,6 +383,15 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             {
                 RunMutations(_selectedMutations);
             }
+        }
+
+        private void ResetWindow()
+        {
+            Mutations.Clear();
+            IsRunButtonEnabled = false;
+            IsLoadingMutationsVisible = false;
+            IsStopButtonEnabled = false;
+            _shouldRefresh = false;
         }
     }
 }
