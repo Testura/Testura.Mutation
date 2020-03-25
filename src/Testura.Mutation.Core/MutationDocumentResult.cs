@@ -44,6 +44,8 @@ namespace Testura.Mutation.Core
 
         public string Hash { get; set; }
 
+        public MutationCategory Category { get; set; }
+
         public void GenerateHash()
         {
             Hash = HashHelper.CreateMD5Hash(

@@ -18,7 +18,7 @@ namespace Testura.Mutation.VsExtension.Services
             _solutionInfoService = solutionInfoService;
         }
 
-        public bool ConfigExist()
+        public bool ValidConfig()
         {
             return _environmentService.JoinableTaskFactory.Run(async () =>
             {
@@ -30,12 +30,9 @@ namespace Testura.Mutation.VsExtension.Services
                         "Could not find base config. Please configure Testura.Mutation before running any mutation(s).");
 
                     await _environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-                    _environmentService.Dte.ActiveWindow.Close();
                     var window = new MutationConfigWindowControl(new MutationConfigWindowViewModel(_environmentService, _solutionInfoService));
-                    window.ShowDialog();
-
-                    return false;
+                    var result = window.ShowDialog();
+                    return result.HasValue && result.Value;
                 }
 
                 return true;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
+using Testura.Mutation.Core;
 using Testura.Mutation.Core.Creator.Mutators;
 
 namespace Testura.Mutation.Tests.Core.Mutation.Mutators
@@ -19,6 +20,8 @@ namespace Testura.Mutation.Tests.Core.Mutation.Mutators
             var doc = ifConditionalMutationOperator.GetMutatedDocument(root, null);
 
             Assert.AreEqual(postMutation, doc[0].MutationDetails.Mutation.ToString());
+            Assert.AreEqual(MutationOperators.NegateTypeCompability, doc[0].MutationDetails.Category.HeadCategory);
+            Assert.AreEqual("NegateIsExpression", doc[0].MutationDetails.Category.Subcategory);
         }
     }
 }

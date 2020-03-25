@@ -6,6 +6,8 @@ namespace Testura.Mutation.Core.Creator.Mutators
 {
     public class IncrementsMutator : Mutator
     {
+        protected override MutationOperators Category => MutationOperators.Increment;
+
         public override SyntaxNode VisitPostfixUnaryExpression(PostfixUnaryExpressionSyntax node)
         {
             if (node.IsKind(SyntaxKind.PostIncrementExpression) && node.Parent?.Kind() != SyntaxKind.ForStatement)
@@ -25,7 +27,11 @@ namespace Testura.Mutation.Core.Creator.Mutators
 
         private void CreateReplacer(PostfixUnaryExpressionSyntax node, PostfixUnaryExpressionSyntax newNode)
         {
-            Replacers.Add(new MutationDocumentDetails(node, newNode, GetWhere(node)));
+            Replacers.Add(new MutationDocumentDetails(
+                node,
+                newNode,
+                GetWhere(node),
+                CreateCategory(node.Kind().ToString())));
         }
     }
 }

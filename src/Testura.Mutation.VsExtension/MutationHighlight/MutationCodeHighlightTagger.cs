@@ -126,13 +126,13 @@ namespace Testura.Mutation.VsExtension.MutationHighlight
             SourceBuffer.Properties.TryGetProperty(
                 typeof(ITextDocument), out ITextDocument document);
 
-            foreach (var mutationHightlight in _mutations.Where(m => m.Mutation.Document.FilePath == document?.FilePath))
+            foreach (var mutationHighlight in _mutations.Where(m => m.Mutation.Document.FilePath == document?.FilePath))
             {
-                var mutationSpan = mutationHightlight.Mutation.Document.MutationDetails.Orginal.FullSpan;
+                var mutationSpan = mutationHighlight.Mutation.Document.MutationDetails.Original.FullSpan;
 
                 var span = new SnapshotSpan(SourceBuffer.CurrentSnapshot, new Span(mutationSpan.Start, mutationSpan.Length));
                 var trackingSpan = currentSnapshot.CreateTrackingSpan(span, SpanTrackingMode.EdgeExclusive);
-                _trackingSpans.Add(trackingSpan, mutationHightlight.Mutation.Document.Id);
+                _trackingSpans.Add(trackingSpan, mutationHighlight.Mutation.Document.Id);
             }
         }
 

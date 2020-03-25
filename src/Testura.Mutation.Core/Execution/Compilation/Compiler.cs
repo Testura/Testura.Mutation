@@ -32,7 +32,7 @@ namespace Testura.Mutation.Core.Execution.Compilation
             else
             {
                 var errors = result.Errors.Select(e => new { Location = e.Location,  Message = e.Message });
-                Log.Info($"Failed to Compile {document.MutationName}: {JObject.FromObject(new { orginal = document.MutationDetails.Orginal.ToString(), mutation = document.MutationDetails.Mutation.ToString(), errors })}");
+                Log.Info($"Failed to Compile {document.MutationName}: {JObject.FromObject(new { orginal = document.MutationDetails.Original.ToString(), mutation = document.MutationDetails.Mutation.ToString(), errors })}");
             }
 
             return result;

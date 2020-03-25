@@ -15,7 +15,11 @@ namespace Testura.Mutation.Core.Creator.Mutators.BinaryExpressionMutators
             if (replacementTable.ContainsKey(operatorKind))
             {
                 var newNode = node.ReplaceToken(node.OperatorToken, SyntaxFactory.Token(replacementTable[operatorKind])).NormalizeWhitespace();
-                Replacers.Add(new MutationDocumentDetails(node, newNode, GetWhere(node)));
+                Replacers.Add(new MutationDocumentDetails(
+                    node,
+                    newNode,
+                    GetWhere(node),
+                    CreateCategory(operatorKind.ToString())));
             }
 
             return base.VisitBinaryExpression(node);

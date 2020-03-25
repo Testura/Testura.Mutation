@@ -1,5 +1,7 @@
-﻿using Microsoft.CodeAnalysis.CSharp;
+﻿using System.Reflection.Emit;
+using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
+using Testura.Mutation.Core;
 using Testura.Mutation.Core.Creator.Mutators.BinaryExpressionMutators;
 
 namespace Testura.Mutation.Tests.Core.Mutation.Mutators.BinaryExpressionMutations
@@ -7,17 +9,17 @@ namespace Testura.Mutation.Tests.Core.Mutation.Mutators.BinaryExpressionMutation
     [TestFixture]
     public class MathMutatorTests
     {
-        [TestCase("1+2", "1 - 2")]
-        [TestCase("1-2", "1 + 2")]
-        [TestCase("1*2", "1 / 2")]
-        [TestCase("1/2", "1 * 2")]
-        [TestCase("1%2", "1 * 2")]
-        [TestCase("1&2", "1 | 2")]
-        [TestCase("1|2", "1 & 2")]
-        [TestCase("1^2", "1 & 2")]
-        [TestCase("1<<2", "1 >> 2")]
-        [TestCase("1>>2", "1 << 2")]
-        public void BinaryTests(string binary, string mutatedBinary)
+        [TestCase("1+2", "1 - 2", "PlusToken")]
+        [TestCase("1-2", "1 + 2", "MinusToken")]
+        [TestCase("1*2", "1 / 2", "AsteriskToken")]
+        [TestCase("1/2", "1 * 2", "SlashToken")]
+        [TestCase("1%2", "1 * 2", "PercentToken")]
+        [TestCase("1&2", "1 | 2", "AmpersandToken")]
+        [TestCase("1|2", "1 & 2", "BarToken")]
+        [TestCase("1^2", "1 & 2", "CaretToken")]
+        [TestCase("1<<2", "1 >> 2", "LessThanLessThanToken")]
+        [TestCase("1>>2", "1 << 2", "GreaterThanGreaterThanToken")]
+        public void BinaryTests(string binary, string mutatedBinary, string category)
         {
             var tree = SyntaxFactory.ParseSyntaxTree($"classC{{publicvoidDo(){{var i = {binary};}}");
             var root = tree.GetRoot();
@@ -26,6 +28,8 @@ namespace Testura.Mutation.Tests.Core.Mutation.Mutators.BinaryExpressionMutation
             var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null);
 
             Assert.AreEqual(mutatedBinary, doc[0].MutationDetails.Mutation.ToString());
+            Assert.AreEqual(MutationOperators.Math, doc[0].MutationDetails.Category.HeadCategory);
+            Assert.AreEqual(category, doc[0].MutationDetails.Category.Subcategory);
         }
 
         [Test]

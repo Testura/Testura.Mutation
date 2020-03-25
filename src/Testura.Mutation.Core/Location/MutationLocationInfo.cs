@@ -8,6 +8,8 @@ namespace Testura.Mutation.Core.Location
 
         public string Where { get; set; }
 
+        public LocationKind Kind { get; set; }
+
         public int GetLineNumber()
         {
             return int.Parse(Line.Split(new[] { "@(", ":" }, StringSplitOptions.RemoveEmptyEntries)[0]);

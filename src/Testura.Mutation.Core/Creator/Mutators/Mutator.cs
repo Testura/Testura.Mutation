@@ -21,19 +21,22 @@ namespace Testura.Mutation.Core.Creator.Mutators
 
         protected IList<MutationDocumentDetails> Replacers { get; }
 
+        protected abstract MutationOperators Category { get; }
+
         public IList<MutationDocument> GetMutatedDocument(SyntaxNode root, Document document)
         {
             Replacers.Clear();
             Visit(root);
 
             return Replacers
-                .Where(r => !IsExcludedFromCodeCoverage(r.Location, r.Orginal))
+                .Where(r => !IsExcludedFromCodeCoverage(r.Location, r.Original))
                 .Select(r => new MutationDocument(document, r)).ToList();
         }
 
         protected MutationLocationInfo GetWhere(CSharpSyntaxNode syntaxNode)
         {
             var where = "Unknown";
+            var locationKind = LocationKind.Method;
 
             var methodDeclaration = syntaxNode.FirstAncestorOrSelf<MethodDeclarationSyntax>();
 
@@ -47,12 +50,14 @@ namespace Testura.Mutation.Core.Creator.Mutators
             if (constructorDeclaration != null)
             {
                 where = $"{constructorDeclaration.Identifier.Value}(C)";
+                locationKind = LocationKind.Constructor;
             }
 
             var propertyDeclaration = syntaxNode.FirstAncestorOrSelf<PropertyDeclarationSyntax>();
             if (propertyDeclaration != null)
             {
                 where = $"{propertyDeclaration.Identifier.Value}(P)";
+                locationKind = LocationKind.Property;
             }
 
             var location = syntaxNode.GetLocation();
@@ -63,7 +68,7 @@ namespace Testura.Mutation.Core.Creator.Mutators
                 locationString = $"@({pos.StartLinePosition.Line + 1}:{pos.StartLinePosition.Character + 1})";
             }
 
-            return new MutationLocationInfo { Where = where, Line = locationString };
+            return new MutationLocationInfo { Where = where, Line = locationString, Kind = locationKind };
         }
 
         protected bool IsExcludedFromCodeCoverage(MutationLocationInfo location, SyntaxNode syntaxNode)
@@ -87,6 +92,11 @@ namespace Testura.Mutation.Core.Creator.Mutators
             }
 
             return false;
+        }
+
+        protected MutationCategory CreateCategory(string subcategory)
+        {
+            return new MutationCategory(Category, subcategory);
         }
 
         private IEnumerable<string> GetAttributeName(SyntaxList<AttributeListSyntax>? attributeLists)

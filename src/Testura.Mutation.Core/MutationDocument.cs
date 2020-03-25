@@ -34,7 +34,7 @@ namespace Testura.Mutation.Core
         public async Task<Document> CreateMutatedDocumentAsync()
         {
             var editor = await DocumentEditor.CreateAsync(_orginalDocument);
-            editor.ReplaceNode(MutationDetails.Orginal, MutationDetails.Mutation);
+            editor.ReplaceNode(MutationDetails.Original, MutationDetails.Mutation);
             return _orginalDocument.WithText(editor.GetChangedDocument().GetSyntaxRootAsync().Result.GetText());
         }
     }

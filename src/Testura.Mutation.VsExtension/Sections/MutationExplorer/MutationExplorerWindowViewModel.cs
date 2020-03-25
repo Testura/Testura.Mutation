@@ -87,6 +87,12 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
             runningDocTableEvents.BeforeSave += RunningDocTableEventsOnBeforeSave;
 
+            environmentService.JoinableTaskFactory.Run(async () =>
+            {
+                await environmentService.JoinableTaskFactory.SwitchToMainThreadAsync();
+                environmentService.Dte.Events.SolutionEvents.BeforeClosing += ResetWindow;
+            });
+
             _showhighlight = true;
         }
 
@@ -233,8 +239,9 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
 
             _tokenSource = new CancellationTokenSource();
 
-            if (!_configService.ConfigExist())
+            if (!_configService.ValidConfig())
             {
+                ResetWindow();
                 return;
             }
 
@@ -320,7 +327,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         {
             SelectedMutation = mutationRunItem;
 
-            CodeBeforeMutation = mutationRunItem?.Document?.MutationDetails?.Orginal?.ToFullString() ?? string.Empty;
+            CodeBeforeMutation = mutationRunItem?.Document?.MutationDetails?.Original?.ToFullString() ?? string.Empty;
             CodeAfterMutation = mutationRunItem?.Document?.MutationDetails?.Mutation?.ToFullString() ?? string.Empty;
             var diffBuilder = new SideBySideDiffBuilder(new Differ());
             Diff = diffBuilder.BuildDiffModel(CodeBeforeMutation, CodeAfterMutation);
@@ -376,6 +383,17 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             {
                 RunMutations(_selectedMutations);
             }
+        }
+
+        private void ResetWindow()
+        {
+            Mutations.Clear();
+            MutationCodeHighlightHandler.ClearHighlights();
+
+            IsRunButtonEnabled = false;
+            IsLoadingMutationsVisible = false;
+            IsStopButtonEnabled = false;
+            _shouldRefresh = false;
         }
     }
 }

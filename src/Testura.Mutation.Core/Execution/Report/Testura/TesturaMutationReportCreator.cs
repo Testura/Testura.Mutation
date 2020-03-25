@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using log4net;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Testura.Mutation.Core.Execution.Report.Testura
 {
@@ -20,9 +21,10 @@ namespace Testura.Mutation.Core.Execution.Report.Testura
             Log.Info("Saving Testura.Mutation report..");
 
             var mutationReport = new TesturaMutationReport(mutations, executionTime);
-            using (StreamWriter file = File.CreateText(SavePath))
+            using (var file = File.CreateText(SavePath))
             {
                 var serializer = new JsonSerializer();
+                serializer.Converters.Add(new StringEnumConverter());
                 serializer.Serialize(file, mutationReport);
             }
 
