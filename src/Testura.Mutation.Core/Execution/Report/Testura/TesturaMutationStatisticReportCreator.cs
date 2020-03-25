@@ -72,7 +72,7 @@ namespace Testura.Mutation.Core.Execution.Report.Testura
             IGrouping<string, MutationDocumentResult> mutationDocumentResults)
         {
             var survived = mutationDocumentResults.Count(m => m.Survived);
-            var killed = mutationDocumentResults.Count(m => !m.Survived && m.CompilationResult.IsSuccess);
+            var killed = mutationDocumentResults.Count(m => !m.Survived && m.CompilationResult != null && m.CompilationResult.IsSuccess);
 
             return new TesturaMutationReportItem
             {
