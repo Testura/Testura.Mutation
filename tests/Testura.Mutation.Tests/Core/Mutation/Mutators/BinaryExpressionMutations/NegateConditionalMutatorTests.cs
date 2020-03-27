@@ -23,7 +23,7 @@ namespace Testura.Mutation.Tests.Core.Mutation.Mutators.BinaryExpressionMutation
             var doc = ifConditionalMutationOperator.GetMutatedDocument(root, null);
 
            Assert.AreEqual($"i {postMutation} 1", doc[0].MutationDetails.Mutation.ToString());
-           Assert.AreEqual(MutationOperators.NegateCondtional, doc[0].MutationDetails.Category.HeadCategory);
+           Assert.AreEqual(MutationOperators.NegateCondtional.ToString(), doc[0].MutationDetails.Category.HeadCategory);
            Assert.AreEqual(category, doc[0].MutationDetails.Category.Subcategory);
         }
     }

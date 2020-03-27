@@ -41,7 +41,7 @@ namespace Testura.Mutation.Core.Execution.Report.Testura
         {
             var mutationReportItems = new List<TesturaMutationReportItem>();
 
-            var mutationOperatorTypes = Enum.GetValues(typeof(MutationOperators)).Cast<MutationOperators>();
+            var mutationOperatorTypes = Enum.GetNames(typeof(MutationOperators));
             foreach (var mutationOperatorType in mutationOperatorTypes)
             {
                 var mutationByOperator = mutations.Where(m => m.Category.HeadCategory == mutationOperatorType);
@@ -67,7 +67,7 @@ namespace Testura.Mutation.Core.Execution.Report.Testura
         }
 
         private TesturaMutationReportItem CreateTesturaMutationReportItem(
-            MutationOperators headCategory,
+            string headCategory,
             string subCategory,
             IGrouping<string, MutationDocumentResult> mutationDocumentResults)
         {

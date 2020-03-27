@@ -19,7 +19,7 @@ namespace Testura.Mutation.Tests.Core.Mutation.Mutators
             var doc = binaryExpressionMutationOperator.GetMutatedDocument(root, null);
 
             Assert.AreEqual(postMutation, doc[0].MutationDetails.Mutation.ToString());
-            Assert.AreEqual(MutationOperators.Increment, doc[0].MutationDetails.Category.HeadCategory);
+            Assert.AreEqual(MutationOperators.Increment.ToString(), doc[0].MutationDetails.Category.HeadCategory);
             Assert.AreEqual(category, doc[0].MutationDetails.Category.Subcategory);
         }
 

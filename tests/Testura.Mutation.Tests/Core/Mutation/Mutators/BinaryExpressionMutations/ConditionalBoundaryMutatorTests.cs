@@ -21,7 +21,7 @@ namespace Testura.Mutation.Tests.Core.Mutation.Mutators.BinaryExpressionMutation
             var doc = ifConditionalMutationOperator.GetMutatedDocument(root, null);
 
            Assert.AreEqual($"i {mutatedConditional} 1", doc[0].MutationDetails.Mutation.ToString());
-           Assert.AreEqual(MutationOperators.ConditionalBoundary, doc[0].MutationDetails.Category.HeadCategory);
+           Assert.AreEqual(MutationOperators.ConditionalBoundary.ToString(), doc[0].MutationDetails.Category.HeadCategory);
            Assert.AreEqual(category, doc[0].MutationDetails.Category.Subcategory);
         }
 
@@ -36,7 +36,7 @@ namespace Testura.Mutation.Tests.Core.Mutation.Mutators.BinaryExpressionMutation
             var doc = ifConditionalMutationOperator.GetMutatedDocument(root, null);
 
             Assert.AreEqual($"{mutatedConditional}", doc[0].MutationDetails.Mutation.ToString());
-            Assert.AreEqual(MutationOperators.ConditionalBoundary, doc[0].MutationDetails.Category.HeadCategory);
+            Assert.AreEqual(MutationOperators.ConditionalBoundary.ToString(), doc[0].MutationDetails.Category.HeadCategory);
             Assert.AreEqual(category, doc[0].MutationDetails.Category.Subcategory);
         }
     }

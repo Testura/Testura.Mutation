@@ -25,7 +25,7 @@ namespace Testura.Mutation.Tests.Core.Mutation.Mutators
             var doc = ifConditionalMutationOperator.GetMutatedDocument(root, null);
 
             Assert.AreEqual(postMutation, doc[0].MutationDetails.Mutation.ToString());
-            Assert.AreEqual(MutationOperators.ReturnValue, doc[0].MutationDetails.Category.HeadCategory);
+            Assert.AreEqual(MutationOperators.ReturnValue.ToString(), doc[0].MutationDetails.Category.HeadCategory);
             Assert.AreEqual(subCategory, doc[0].MutationDetails.Category.Subcategory);
         }
 
