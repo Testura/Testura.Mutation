@@ -96,7 +96,7 @@ namespace Testura.Mutation.Core.Creator.Mutators
 
         protected MutationCategory CreateCategory(string subcategory)
         {
-            return new MutationCategory(Category, subcategory);
+            return new MutationCategory(Category.ToString(), subcategory);
         }
 
         private IEnumerable<string> GetAttributeName(SyntaxList<AttributeListSyntax>? attributeLists)
