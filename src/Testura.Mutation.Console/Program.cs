@@ -1,4 +1,5 @@
 ﻿using System;
+using log4net;
 using McMaster.Extensions.CommandLineUtils;
 using Testura.Mutation.Console.CommandConfigurations;
 using Testura.Mutation.Console.Commands;
@@ -7,6 +8,8 @@ namespace Testura.Mutation.Console
 {
     public class Program
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Program));
+
         public static void Main(string[] args)
         {
             var o = @"                                                                           
@@ -41,8 +44,16 @@ namespace Testura.Mutation.Console
 
             app.OnExecute(() => new RootCommand(app).RunAsync().Wait());
 
-            var result = app.Execute(args);
-            Environment.Exit(result);
+            try
+            {
+                var result = app.Execute(args);
+                Environment.Exit(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+                Environment.Exit(-1);
+            }
         }
     }
 }
