@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using log4net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -9,6 +10,8 @@ namespace Testura.Mutation.Core.Execution.Report.Testura
 {
     public class TesturaMutationStatisticReportCreator : ReportCreator
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(TesturaMutationStatisticReportCreator));
+
         public TesturaMutationStatisticReportCreator(string savePath)
             : base(savePath)
         {
@@ -21,19 +24,28 @@ namespace Testura.Mutation.Core.Execution.Report.Testura
                 return;
             }
 
-            var report = new TesturaMutationStatisticReport
+            try
             {
-                All = CreateMutationReportItems(mutations, null),
-                Constructors = CreateMutationReportItems(mutations, LocationKind.Constructor),
-                Methods = CreateMutationReportItems(mutations, LocationKind.Method),
-                Properties = CreateMutationReportItems(mutations, LocationKind.Property)
-            };
+                var report = new TesturaMutationStatisticReport
+                {
+                    All = CreateMutationReportItems(mutations, null),
+                    Constructors = CreateMutationReportItems(mutations, LocationKind.Constructor),
+                    Methods = CreateMutationReportItems(mutations, LocationKind.Method),
+                    Properties = CreateMutationReportItems(mutations, LocationKind.Property)
+                };
 
-            using (var file = File.CreateText(SavePath))
+                using (var file = File.CreateText(SavePath))
+                {
+                    var serializer = new JsonSerializer();
+                    serializer.Converters.Add(new StringEnumConverter());
+                    serializer.Serialize(file, report);
+                }
+
+                Log.Info("Successfully saved statistic report");
+            }
+            catch (Exception ex)
             {
-                var serializer = new JsonSerializer();
-                serializer.Converters.Add(new StringEnumConverter());
-                serializer.Serialize(file, report);
+                Log.Error("Failed to save statistic report", ex);
             }
         }
 
