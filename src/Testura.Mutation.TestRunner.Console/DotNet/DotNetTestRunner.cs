@@ -62,7 +62,7 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
                     ReadToEnd(command.StandardOutput, cancellationToken, out var message);
 
                     var resultFile = GetResultFile(directoryPath);
-                    var success = !string.IsNullOrEmpty(resultFile) && (string.IsNullOrEmpty(error) || error == "Test Run Failed.");
+                    var success = !string.IsNullOrEmpty(resultFile) && (string.IsNullOrEmpty(error) || error.Contains("Test Run Failed"));
 
                     if (!success)
                     {
