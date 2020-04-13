@@ -65,6 +65,7 @@ namespace Testura.Mutation.Core.Execution.Compilation
                 resourceWriter.TypeNameConverter = TypeNameConverter;
                 using (var resourceReader = new ResXResourceReader(resourceFullFilename))
                 {
+                    resourceReader.BasePath = Path.GetDirectoryName(resourceFullFilename);
                     var dictionaryEnumerator = resourceReader.GetEnumerator();
                     while (dictionaryEnumerator.MoveNext())
                     {
