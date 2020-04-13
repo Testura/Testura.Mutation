@@ -6,10 +6,11 @@ namespace Testura.Mutation.Core.Execution.Result
 {
     public class MutationRunResult
     {
-        public MutationRunResult(IList<MutationDocumentResult> mutationDocumentResults, bool wasCancelled)
+        public MutationRunResult(IList<MutationDocumentResult> mutationDocumentResults, bool wasCancelled, TimeSpan executionTime)
         {
             MutationDocumentResults = mutationDocumentResults;
             WasCancelled = wasCancelled;
+            ExecutionTime = executionTime;
         }
 
         public IList<MutationDocumentResult> MutationDocumentResults { get; }
@@ -17,6 +18,8 @@ namespace Testura.Mutation.Core.Execution.Result
         public bool WasCancelled { get; }
 
         public bool Success => MutationDocumentResults.All(r => !r.Survived);
+
+        public TimeSpan ExecutionTime { get; }
 
         public double GetMutationScore()
         {

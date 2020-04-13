@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Windows.Forms;
 using DiffPlex;
 using DiffPlex.DiffBuilder;
 using DiffPlex.DiffBuilder.Model;
@@ -14,8 +16,12 @@ using Prism.Mvvm;
 using Testura.Mutation.Application.Commands.Mutation.CreateMutations;
 using Testura.Mutation.Application.Commands.Mutation.ExecuteMutations;
 using Testura.Mutation.Application.Commands.Project.OpenProject;
+using Testura.Mutation.Application.Commands.Report.Creator;
 using Testura.Mutation.Core.Config;
 using Testura.Mutation.Core.Creator.Filter;
+using Testura.Mutation.Core.Execution.Report;
+using Testura.Mutation.Core.Execution.Report.Testura;
+using Testura.Mutation.Core.Execution.Result;
 using Testura.Mutation.VsExtension.Models;
 using Testura.Mutation.VsExtension.MutationHighlight;
 using Testura.Mutation.VsExtension.MutationHighlight.Glyph.Dialog;
@@ -40,6 +46,8 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         private bool _isRunButtonEnabled;
         private bool _isStopButtonEnabled;
         private bool _isLoadingMutationsVisible;
+        private bool _shouldRefresh;
+        private bool _isSaveButtonEnabled;
 
         private MutationRunItem _selectedMutation;
         private IEnumerable<MutationRunItem> _selectedMutations;
@@ -47,7 +55,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         private MutationConfig _config;
         private CancellationTokenSource _tokenSource;
         private IEnumerable<MutationDocumentFilterItem> _originalFilterItems;
-        private bool _shouldRefresh;
+        private MutationRunResult _latestResult;
 
         public MutationExplorerWindowViewModel(
             EnvironmentService environmentService,
@@ -78,6 +86,7 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             RunOnlySurvivingMutationsCommand = new DelegateCommand(RunOnlySurvivingMutations);
             RefreshMutationsCommand = new DelegateCommand(() => Initialize(_originalFilterItems));
             RunSelectedMutationsCommand = new DelegateCommand(RunSelectedMutations);
+            SaveReportCommand = new DelegateCommand(SaveReport);
 
             StopCommand = new DelegateCommand(() =>
             {
@@ -117,6 +126,8 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         public DelegateCommand ToggleMutation { get; set; }
 
         public DelegateCommand RunSelectedMutationsCommand { get; set; }
+
+        public DelegateCommand SaveReportCommand { get; set; }
 
         public DelegateCommand<System.Collections.IList> MutationsSelectedCommand { get; set; }
 
@@ -162,6 +173,12 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
         {
             get => _isStopButtonEnabled;
             set => SetProperty(ref _isStopButtonEnabled, value);
+        }
+
+        public bool IsSaveButtonEnabled
+        {
+            get => _isSaveButtonEnabled;
+            set => SetProperty(ref _isSaveButtonEnabled, value);
         }
 
         public MutationRunItem SelectedMutation
@@ -234,6 +251,9 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             }
 
             _shouldRefresh = false;
+            _latestResult = null;
+
+            IsSaveButtonEnabled = false;
             IsRunButtonEnabled = false;
             IsStopButtonEnabled = true;
 
@@ -297,16 +317,19 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             {
                 try
                 {
+                    IsSaveButtonEnabled = false;
                     IsStopButtonEnabled = true;
                     IsRunButtonEnabled = false;
 
-                    await _mediator.Send(
+                    _latestResult = await _mediator.Send(
                         new ExecuteMutationsCommand(
                             _config,
                             mutations.Select(r => r.Document).ToList(),
                             _mutationRunDocumentService.MutationDocumentStarted,
                             _mutationRunDocumentService.MutationDocumentCompleted),
                         _tokenSource.Token);
+
+                    IsSaveButtonEnabled = true;
                 }
                 catch (Exception)
                 {
@@ -390,10 +413,43 @@ namespace Testura.Mutation.VsExtension.Sections.MutationExplorer
             Mutations.Clear();
             MutationCodeHighlightHandler.ClearHighlights();
 
+            IsSaveButtonEnabled = false;
             IsRunButtonEnabled = false;
             IsLoadingMutationsVisible = false;
             IsStopButtonEnabled = false;
+
+            _latestResult = null;
             _shouldRefresh = false;
+        }
+
+        private void SaveReport()
+        {
+            if (_latestResult == null)
+            {
+                return;
+            }
+
+            using (var folderBrowserDialog = new FolderBrowserDialog())
+            {
+                var result = folderBrowserDialog.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
+                {
+                    var directory = folderBrowserDialog.SelectedPath;
+                    var savePath = Path.Combine(directory, "result.json");
+
+                    var reports = new List<ReportCreator>
+                    {
+                        new TesturaMutationReportCreator(Path.ChangeExtension(savePath, ".json")),
+                        new TesturaMutationStatisticReportCreator(Path.Combine(directory, "mutationStatistics.json"))
+                    };
+
+                    _environmentService.JoinableTaskFactory.RunAsync(async () =>
+                    {
+                        await _mediator.Send(new CreateReportCommand(_latestResult.MutationDocumentResults, reports, _latestResult.ExecutionTime));
+                        _environmentService.UserNotificationService.ShowMessage("Report saved.");
+                    });
+                }
+            }
         }
     }
 }

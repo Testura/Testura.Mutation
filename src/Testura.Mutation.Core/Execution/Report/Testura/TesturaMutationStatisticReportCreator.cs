@@ -56,7 +56,7 @@ namespace Testura.Mutation.Core.Execution.Report.Testura
             var mutationOperatorTypes = Enum.GetNames(typeof(MutationOperators));
             foreach (var mutationOperatorType in mutationOperatorTypes)
             {
-                var mutationByOperator = mutations.Where(m => m.Category.HeadCategory == mutationOperatorType);
+                var mutationByOperator = mutations.Where(m => m.Category != null && m.Category.HeadCategory == mutationOperatorType).ToList();
 
                 if (!mutationByOperator.Any())
                 {
@@ -65,7 +65,7 @@ namespace Testura.Mutation.Core.Execution.Report.Testura
 
                 if (locationKind != null)
                 {
-                    mutationByOperator = mutations.Where(m => m.Location.Kind == locationKind);
+                    mutationByOperator = mutationByOperator.Where(m => m.Location != null && m.Location.Kind == locationKind).ToList();
                 }
 
                 var mutationOperatorsBySubCategories = mutationByOperator.GroupBy(m => m.Category.Subcategory);
@@ -86,6 +86,13 @@ namespace Testura.Mutation.Core.Execution.Report.Testura
             var survived = mutationDocumentResults.Count(m => m.Survived);
             var killed = mutationDocumentResults.Count(m => !m.Survived && m.CompilationResult != null && m.CompilationResult.IsSuccess);
 
+            double mutationScore = 0.0;
+
+            if (survived + killed != 0)
+            {
+                mutationScore = (double)killed / (survived + killed);
+            }
+
             return new TesturaMutationReportItem
             {
                 HeadCategory = headCategory.ToString(),
@@ -93,7 +100,7 @@ namespace Testura.Mutation.Core.Execution.Report.Testura
                 FailedOnCompilation = mutationDocumentResults.Count(m => !m.CompilationResult.IsSuccess),
                 Killed = killed,
                 Survived = survived,
-                MutationScore = (double)killed / (survived + killed),
+                MutationScore = mutationScore,
             };
         }
     }

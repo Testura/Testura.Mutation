@@ -29,7 +29,6 @@ namespace Testura.Mutation.Console
         {
             var config = await _mediator.Send(new OpenProjectCommand(configPath));
 
-            var start = DateTime.Now;
             var mutationDocuments = await _mediator.Send(new CreateMutationsCommand(config));
             var results = await _mediator.Send(new ExecuteMutationsCommand(config, mutationDocuments, null));
 
@@ -44,7 +43,7 @@ namespace Testura.Mutation.Console
                 new TesturaMutationStatisticReportCreator(Path.Combine(savePath, "mutationStatistics.json"))
             };
 
-            await _mediator.Send(new CreateReportCommand(results.MutationDocumentResults, reports, DateTime.Now - start));
+            await _mediator.Send(new CreateReportCommand(results.MutationDocumentResults, reports, results.ExecutionTime));
 
             return results.Success;
         }

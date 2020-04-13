@@ -8,7 +8,11 @@ namespace Testura.Mutation.Application.Commands.Report.Creator
     {
         public Task<bool> Handle(CreateReportCommand command, CancellationToken cancellationToken)
         {
-            Parallel.ForEach(command.ReportCreators, reportCreator => reportCreator.SaveReport(command.Mutations, command.ExecutionTime));
+            foreach (var commandReportCreator in command.ReportCreators)
+            {
+                commandReportCreator.SaveReport(command.Mutations, command.ExecutionTime);
+            }
+
             return Task.FromResult(true);
         }
     }

@@ -33,6 +33,7 @@ namespace Testura.Mutation.Application.Commands.Mutation.ExecuteMutations
             var mutationDocuments = new Queue<MutationDocument>(command.MutationDocuments);
             var currentRunningDocuments = new List<Task>();
 
+            var start = DateTime.Now;
             var numberOfMutationsLeft = command.MutationDocuments.Count;
 
             _mutationRunLoggerManager.Initialize(command.Config.MutationRunLoggers);
@@ -97,7 +98,7 @@ namespace Testura.Mutation.Application.Commands.Mutation.ExecuteMutations
             // Wait for the final ones
             await Task.WhenAll(currentRunningDocuments);
 
-            var mutationRunResult = new MutationRunResult(results, cancellationToken.IsCancellationRequested);
+            var mutationRunResult = new MutationRunResult(results, cancellationToken.IsCancellationRequested, DateTime.Now - start);
 
             if (cancellationToken.IsCancellationRequested)
             {

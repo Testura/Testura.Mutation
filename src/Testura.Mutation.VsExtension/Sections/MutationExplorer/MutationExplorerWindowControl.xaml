@@ -91,6 +91,12 @@
                     Command="{Binding RemoveKilledMutationsCommand}">
                     <Image Source="../../Resources/iconRemoveKilledMutations.png" />
                 </Button>
+                <Button 
+                    ToolTip="Save result"
+                    IsEnabled="{Binding IsSaveButtonEnabled}"
+                    Command="{Binding SaveReportCommand}">
+                    <Image Source="../../Resources/iconSave.png" Width="32" />
+                </Button>
             </ToolBar>
         </Grid>
 
