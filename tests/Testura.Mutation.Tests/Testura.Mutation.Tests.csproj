@@ -286,6 +286,7 @@
     <Compile Include="Core\Mutation\Mutators\ReturnValueMutatorTests.cs" />
     <Compile Include="Core\Mutation\Mutators\MutatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestRunner\DotNet\DotNetTestRunnerXunitTests.cs" />
     <Compile Include="Utils\Creators\BaselineCreatorCreator.cs" />
     <Compile Include="Utils\Creators\ConfigCreator.cs" />
     <Compile Include="Utils\Creators\ProjectCompilerCreator.cs" />

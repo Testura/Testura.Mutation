@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f7acd7e4-1d23-48be-a37c-79c1d8da2816" name="MilleB@SYVE-20190118MB 2020-04-21 22:43:11" runUser="SYVE\MilleB" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2020-04-21T22:43:11.0788138+02:00" queuing="2020-04-21T22:43:11.0788154+02:00" start="2020-04-21T22:43:08.7695843+02:00" finish="2020-04-21T22:43:11.0960493+02:00" />
+  <TestSettings name="default" id="be1b8363-cd77-4978-b883-aa99f2ee91a9">
+    <Deployment runDeploymentRoot="MilleB_SYVE-20190118MB_2020-04-21_22_43_11" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="410a5be2-819d-4269-b331-08b9da3466a8" testId="51726c4d-172d-7d8b-abde-8696baa37e09" testName="XUnitTestProject.UnitTest1.Test1" computerName="SYVE-20190118MB" duration="00:00:00.0039138" startTime="2020-04-21T22:43:10.9231348+02:00" endTime="2020-04-21T22:43:10.9231372+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="410a5be2-819d-4269-b331-08b9da3466a8">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure&#xD;
+Expected: 2&#xD;
+Actual:   1</Message>
+          <StackTrace>   at XUnitTestProject.UnitTest1.Test1() in C:\Users\MilleB.SYVE\source\repos\XUnitTestProject\XUnitTestProject\UnitTest1.cs:line 13</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7363d27a-40cc-4df2-a0a9-a8480a894172" testId="6ee766df-7287-8119-1394-64b94c186811" testName="XUnitTestProject.UnitTest1.Test2" computerName="SYVE-20190118MB" duration="00:00:00.0057416" startTime="2020-04-21T22:43:10.8940538+02:00" endTime="2020-04-21T22:43:10.8941452+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7363d27a-40cc-4df2-a0a9-a8480a894172" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="XUnitTestProject.UnitTest1.Test1" storage="c:\users\milleb.syve\desktop\testura.mutation\tests\testura.mutation.tests\testrunner\samples\xunit\failingtests\xunittestproject.dll" id="51726c4d-172d-7d8b-abde-8696baa37e09">
+      <Execution id="410a5be2-819d-4269-b331-08b9da3466a8" />
+      <TestMethod codeBase="C:\Users\MilleB.SYVE\Desktop\Testura.Mutation\tests\Testura.Mutation.Tests\TestRunner\Samples\Xunit\FailingTests\XUnitTestProject.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="XUnitTestProject.UnitTest1" name="Test1" />
+    </UnitTest>
+    <UnitTest name="XUnitTestProject.UnitTest1.Test2" storage="c:\users\milleb.syve\desktop\testura.mutation\tests\testura.mutation.tests\testrunner\samples\xunit\failingtests\xunittestproject.dll" id="6ee766df-7287-8119-1394-64b94c186811">
+      <Execution id="7363d27a-40cc-4df2-a0a9-a8480a894172" />
+      <TestMethod codeBase="C:\Users\MilleB.SYVE\Desktop\Testura.Mutation\tests\Testura.Mutation.Tests\TestRunner\Samples\Xunit\FailingTests\XUnitTestProject.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="XUnitTestProject.UnitTest1" name="Test2" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="51726c4d-172d-7d8b-abde-8696baa37e09" executionId="410a5be2-819d-4269-b331-08b9da3466a8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6ee766df-7287-8119-1394-64b94c186811" executionId="7363d27a-40cc-4df2-a0a9-a8480a894172" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="1" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.0 (64-bit .NET Core 3.1.3)&#xD;
+[xUnit.net 00:00:00.53]   Discovering: XUnitTestProject&#xD;
+[xUnit.net 00:00:00.57]   Discovered:  XUnitTestProject&#xD;
+[xUnit.net 00:00:00.57]   Starting:    XUnitTestProject&#xD;
+[xUnit.net 00:00:00.68]       Assert.Equal() Failure&#xD;
+[xUnit.net 00:00:00.68]       Expected: 2&#xD;
+[xUnit.net 00:00:00.68]       Actual:   1&#xD;
+[xUnit.net 00:00:00.68]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.68]         C:\Users\MilleB.SYVE\source\repos\XUnitTestProject\XUnitTestProject\UnitTest1.cs(13,0): at XUnitTestProject.UnitTest1.Test1()&#xD;
+[xUnit.net 00:00:00.68]   Finished:    XUnitTestProject&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="SYVE-20190118MB" outcome="Error" timestamp="2020-04-21T22:43:10.9201515+02:00">
+        <Text>[xUnit.net 00:00:00.68]     XUnitTestProject.UnitTest1.Test1 [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

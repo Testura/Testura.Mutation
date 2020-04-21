@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f31e5ace-6cf5-4c0e-a51d-ebe155d8da3a" name="MilleB@SYVE-20190118MB 2020-04-21 22:46:17" runUser="SYVE\MilleB" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2020-04-21T22:46:17.1171498+02:00" queuing="2020-04-21T22:46:17.1171519+02:00" start="2020-04-21T22:46:15.6733443+02:00" finish="2020-04-21T22:46:17.1358508+02:00" />
+  <TestSettings name="default" id="e79ec51f-2ad1-4d6a-8d5c-b0bbe3524b94">
+    <Deployment runDeploymentRoot="MilleB_SYVE-20190118MB_2020-04-21_22_46_17" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c141cc29-309f-4139-be8c-71216b60152d" testId="6ee766df-7287-8119-1394-64b94c186811" testName="XUnitTestProject.UnitTest1.Test2" computerName="SYVE-20190118MB" duration="00:00:00.0050201" startTime="2020-04-21T22:46:16.9346808+02:00" endTime="2020-04-21T22:46:16.9347765+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c141cc29-309f-4139-be8c-71216b60152d" />
+    <UnitTestResult executionId="8915cfa9-a56d-469f-96db-34bbc3e26992" testId="51726c4d-172d-7d8b-abde-8696baa37e09" testName="XUnitTestProject.UnitTest1.Test1" computerName="SYVE-20190118MB" duration="00:00:00.0001330" startTime="2020-04-21T22:46:16.9393479+02:00" endTime="2020-04-21T22:46:16.9393488+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8915cfa9-a56d-469f-96db-34bbc3e26992" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="XUnitTestProject.UnitTest1.Test1" storage="c:\users\milleb.syve\desktop\testura.mutation\tests\testura.mutation.tests\testrunner\samples\xunit\passingtests\xunittestproject.dll" id="51726c4d-172d-7d8b-abde-8696baa37e09">
+      <Execution id="8915cfa9-a56d-469f-96db-34bbc3e26992" />
+      <TestMethod codeBase="C:\Users\MilleB.SYVE\Desktop\Testura.Mutation\tests\Testura.Mutation.Tests\TestRunner\Samples\Xunit\PassingTests\XUnitTestProject.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="XUnitTestProject.UnitTest1" name="Test1" />
+    </UnitTest>
+    <UnitTest name="XUnitTestProject.UnitTest1.Test2" storage="c:\users\milleb.syve\desktop\testura.mutation\tests\testura.mutation.tests\testrunner\samples\xunit\passingtests\xunittestproject.dll" id="6ee766df-7287-8119-1394-64b94c186811">
+      <Execution id="c141cc29-309f-4139-be8c-71216b60152d" />
+      <TestMethod codeBase="C:\Users\MilleB.SYVE\Desktop\Testura.Mutation\tests\Testura.Mutation.Tests\TestRunner\Samples\Xunit\PassingTests\XUnitTestProject.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="XUnitTestProject.UnitTest1" name="Test2" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="6ee766df-7287-8119-1394-64b94c186811" executionId="c141cc29-309f-4139-be8c-71216b60152d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="51726c4d-172d-7d8b-abde-8696baa37e09" executionId="8915cfa9-a56d-469f-96db-34bbc3e26992" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.0 (64-bit .NET Core 3.1.3)&#xD;
+[xUnit.net 00:00:00.45]   Discovering: XUnitTestProject&#xD;
+[xUnit.net 00:00:00.49]   Discovered:  XUnitTestProject&#xD;
+[xUnit.net 00:00:00.50]   Starting:    XUnitTestProject&#xD;
+[xUnit.net 00:00:00.59]   Finished:    XUnitTestProject&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
