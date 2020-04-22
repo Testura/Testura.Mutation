@@ -24,7 +24,7 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
         {
             _dotNetPath = dotNetPath;
             _maxTime = maxTime;
-            _resultId = Guid.NewGuid().ToString();
+            _resultId = $"{Guid.NewGuid().ToString()}.trx";
         }
 
         public Task<TestSuiteResult> RunTestsAsync(string dllPath)
@@ -58,8 +58,8 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
                 {
                     command.Wait();
 
-                    ReadToEnd(command.StandardError, cancellationToken, out var error);
-                    ReadToEnd(command.StandardOutput, cancellationToken, out var message);
+                    var error = ReadToEnd(command.StandardError, cancellationToken);
+                    var message = ReadToEnd(command.StandardOutput, cancellationToken);
 
                     var resultFile = GetResultFile(directoryPath);
 
@@ -166,7 +166,7 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
             return message[0].Value ?? string.Empty;
         }
 
-        private bool ReadToEnd(ProcessStreamReader processStream, CancellationToken cancellationToken, out string message)
+        private string ReadToEnd(ProcessStreamReader processStream, CancellationToken cancellationToken)
         {
             var readStreamTask = Task.Run(
                 () =>
@@ -182,9 +182,7 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
                 });
 
             var successful = readStreamTask.Wait((int)_maxTime.TotalMilliseconds, cancellationToken);
-
-            message = successful ? readStreamTask.Result : "Stuck when reading from stream!";
-            return successful;
+            return successful ? readStreamTask.Result : "Stuck when reading from stream!";
         }
 
         private string GetDotNetExe()
