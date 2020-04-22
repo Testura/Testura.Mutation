@@ -24,7 +24,7 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
         {
             _dotNetPath = dotNetPath;
             _maxTime = maxTime;
-            _resultId = Guid.NewGuid().ToString();
+            _resultId = $"{Guid.NewGuid().ToString()}.trx";
         }
 
         public Task<TestSuiteResult> RunTestsAsync(string dllPath)
@@ -58,13 +58,12 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
                 {
                     command.Wait();
 
-                    ReadToEnd(command.StandardError, cancellationToken, out var error);
-                    ReadToEnd(command.StandardOutput, cancellationToken, out var message);
+                    var error = ReadToEnd(command.StandardError, cancellationToken);
+                    var message = ReadToEnd(command.StandardOutput, cancellationToken);
 
                     var resultFile = GetResultFile(directoryPath);
-                    var success = !string.IsNullOrEmpty(resultFile) && (string.IsNullOrEmpty(error) || error.Contains("Test Run Failed"));
 
-                    if (!success)
+                    if (string.IsNullOrEmpty(resultFile))
                     {
                         command.Kill();
 
@@ -99,17 +98,17 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
                 var testRun = (TestRunType)serializer.Deserialize(fileStream);
                 var time = (TestRunTypeTimes)testRun.Items[0];
 
-                var results = testRun.Items[2] as ResultsType;
+                var results = GetItem<ResultsType>(testRun.Items);
+                var summary = GetItem<TestRunTypeResultSummary>(testRun.Items);
 
-                // If the path something probably have gone bad and we got it on standard output.
                 if (results == null)
                 {
-                    return TestSuiteResult.Error(message, TimeSpan.Zero);
+                    return ReturnError(message, summary);
                 }
 
                 var tests = results.Items.Select(i => i as UnitTestResultType);
 
-                var testDefinitions = testRun.Items[3] as TestDefinitionType;
+                var testDefinitions = GetItem<TestDefinitionType>(testRun.Items);
                 var testDefinitionItems = testDefinitions.Items.Select(i => i as UnitTestType);
 
                 var testResults = new List<TestResult>();
@@ -134,6 +133,21 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
             }
         }
 
+        private TestSuiteResult ReturnError(string message, TestRunTypeResultSummary summary)
+        {
+            if (summary != null)
+            {
+                var summaryItem = GetItem<TestRunTypeResultSummaryRunInfos>(summary.Items);
+
+                if (summaryItem.RunInfo[0].Text is XmlNode[] error)
+                {
+                    return TestSuiteResult.Error(error[0].InnerText, TimeSpan.Zero);
+                }
+            }
+
+            return TestSuiteResult.Error(message, TimeSpan.Zero);
+        }
+
         private string TryGetMessage(UnitTestResultType unitTestResultType)
         {
             if (unitTestResultType.Items == null || !unitTestResultType.Items.Any())
@@ -152,7 +166,7 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
             return message[0].Value ?? string.Empty;
         }
 
-        private bool ReadToEnd(ProcessStreamReader processStream, CancellationToken cancellationToken, out string message)
+        private string ReadToEnd(ProcessStreamReader processStream, CancellationToken cancellationToken)
         {
             var readStreamTask = Task.Run(
                 () =>
@@ -168,9 +182,7 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
                 });
 
             var successful = readStreamTask.Wait((int)_maxTime.TotalMilliseconds, cancellationToken);
-
-            message = successful ? readStreamTask.Result : "Stuck when reading from stream!";
-            return successful;
+            return successful ? readStreamTask.Result : "Stuck when reading from stream!";
         }
 
         private string GetDotNetExe()
@@ -181,6 +193,20 @@ namespace Testura.Mutation.TestRunner.Console.DotNet
         private string GetResultFile(string directoryPath)
         {
             return Directory.GetFiles(directoryPath).FirstOrDefault(f => f.Contains(_resultId));
+        }
+
+        private T GetItem<T>(object[] items)
+            where T : class
+        {
+            foreach (var item in items)
+            {
+                if (item is T convertedItem)
+                {
+                    return convertedItem;
+                }
+            }
+
+            return null;
         }
     }
 }

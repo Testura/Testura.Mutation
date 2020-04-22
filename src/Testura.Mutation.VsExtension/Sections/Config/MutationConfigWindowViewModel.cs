@@ -39,7 +39,7 @@ namespace Testura.Mutation.VsExtension.Sections.Config
             _environmentService = environmentService;
             _solutionInfoService = solutionInfoService;
 
-            TestRunnerTypes = new List<string> { "DotNet", "xUnit", "NUnit" };
+            TestRunnerTypes = new List<string> { "DotNet" };
 
             TestProjectChangedCommand = new DelegateCommand<string>(TestProjectChanged);
             AddFileCommand = new DelegateCommand(AddFileToFilter);

@@ -112,7 +112,7 @@ namespace Testura.Mutation.Core.Execution
 
                 if (final.TestResults.Count == 0)
                 {
-                    throw new MutationDocumentException("Unknown error when running, we should not have 0 tests. Also make sure that you don't have bad project mapping.");
+                    throw new MutationDocumentException($"Unknown error when running, we should not have 0 tests. Also make sure that you don't have bad project mapping. Error: \"{final.Name}\"");
                 }
 
                 Log.Info($"\"{mutationDocument.MutationName}\" done. Ran {final.TestResults.Count} tests and {final.TestResults.Count(t => !t.IsSuccess)} failed.");
@@ -162,7 +162,7 @@ namespace Testura.Mutation.Core.Execution
             TimeSpan testTimeout,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            Log.Info($"Starting to run tests in {testProject.Project.OutputFileName}");
+            Log.Info($"Starting to run tests in {testProject.Project.OutputFileName} ({testProject.Project.Name})");
             var testDllPath = _testRunnerDependencyFilesHandler.CreateTestDirectoryAndCopyDependencies(mutationDirectoryPath, testProject, mutationDllPath);
 
             return await _testRunnerClient.RunTestsAsync(testProject.TestRunner, testDllPath, dotNetPath, testTimeout, cancellationToken);

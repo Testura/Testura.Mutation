@@ -66,7 +66,7 @@ namespace Testura.Mutation.Core.Baseline.Handlers
             string baselineDirectoryPath,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            Log.Info($"Starting to run tests in {testProject.Project.OutputFileName}");
+            Log.Info($"Starting to run tests in {testProject.Project.OutputFileName} ({testProject.Project.Name})");
 
             var testDllPath = _testRunnerDependencyFilesHandler.CreateTestDirectoryAndCopyDependencies(baselineDirectoryPath, testProject, baselineDirectoryPath);
             return await _testRunnerClient.RunTestsAsync(testProject.TestRunner, testDllPath, dotNetPath, TimeSpan.FromMinutes(maxTestTimeMin), cancellationToken);
